@@ -49,16 +49,40 @@ strings on every render, so this animates; three rules follow from it:
 - **Never `sc-if` anything that animates.** It unmounts, and an unmounted element has
   no value to transition from. `sc-if` is for things that just appear, like the
   technical-detail table.
-- **Both states stay mounted.** The wide plan and the 240px spine are two absolutely
-  positioned layers in one pane, cross-fading.
-- **Give each layer a `min-width` at its own full size** so a pane that is mid-resize
-  clips it instead of rewrapping it. Text reflowing during a transition is the single
-  thing that makes one look cheap.
+- **One element per thing, never two that cross-fade.** The wide plan and the 240px
+  spine are the *same* five rows changing type size, dot size and padding. Two layers
+  dissolving into each other was the first attempt and it read as broken: you saw the
+  wide plan clipped mid-sentence while a differently-shaped rail ghosted in under it.
+  If the two states share a thing, it must be one element.
+- **Collapse with `grid-template-rows: 1fr → 0fr`** (and `-columns` horizontally) on a
+  wrapper whose child is `overflow: hidden; min-height: 0`. The closed size is then
+  exactly the content's own height, with no magic number to keep in sync as copy
+  changes — which `max-height` needs.
+- **Fade before you close, fade after you open.** A column closing on live text leaves
+  a one-character sliver, and that single frame is what makes a move look cheap. The
+  `exOp*` values run shorter than the `ex*` ones for exactly this.
 
-Easing is the FlowX `cubic-bezier(0.2, 0, 0.2, 1)` at 420ms for panes and 160ms for
-hovers. Chrome's `--virtual-time-budget` advances layout transitions but **not**
-compositor opacity, so mid-flight frames captured that way lie; to check a transition,
-render a static frame with hand-solved intermediate values instead.
+The move is three beats, and the order is the whole trick: the detail collapses at full
+width, *then* the panes resize, *then* the labels only the spine carries fade in. Doing
+it in one pass means five descriptions and a diagram all reflowing while the column
+shrinks under them.
+
+Anything that genuinely has no counterpart in the other state — the Agreed / You are
+here / Next headings, the per-step counts — arrives last and leaves first, because it
+cannot morph from anything.
+
+Easing is the FlowX `cubic-bezier(0.2, 0, 0.2, 1)` at 360ms for panes and 160ms for
+hovers. The step pane still clips rather than reflows: its content holds a
+`min-width: 838px` so an opening pane uncovers it instead of squeezing it.
+
+Chrome's `--virtual-time-budget` advances layout transitions but **not** compositor
+opacity, so mid-flight frames captured that way lie — they showed an empty middle that
+was actually a 47%-opacity spine. To check a transition, render a static frame with
+hand-solved intermediate values. And when patching the logic to force a state for such
+a frame, replace the *whole* initialiser expression: swapping only `get('step') === '3'`
+leaves `location.search).true`, which is legal JS evaluating to `undefined`, so the page
+quietly renders the state you were trying to leave and the test passes for the wrong
+reason.
 
 Design size is 1440×900. Standalone pages fill the viewport but hold a
 `min-width` / `min-height` at that size — below it the panes and table columns
