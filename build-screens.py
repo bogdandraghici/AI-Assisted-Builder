@@ -37,7 +37,7 @@ PREFIX_EDITS = [
     (
         "page background and scroll",
         "html, body { margin: 0; padding: 0; background: #000000; }",
-        "html, body { margin: 0; padding: 0; background: #1d232c; }",
+        "html, body { margin: 0; padding: 0; background: #0b1218; }",
     ),
     (
         "canvas padding and gap",
@@ -55,7 +55,7 @@ SCREEN_EDITS = [
         "width: 1440px; height: 900px;",
         "width: 100%; height: 100vh; min-width: 1440px; min-height: 900px;",
     ),
-    ("card border", "border: 1px solid #475263; border-radius: 12px; ", ""),
+    ("card border", "border: 1px solid #26313d; border-radius: 12px; ", ""),
     ("flex none", "flex: none; ", ""),
 ]
 

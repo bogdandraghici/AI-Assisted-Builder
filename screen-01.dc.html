@@ -17,126 +17,126 @@
   @font-face { font-family: 'Open Sans'; font-style: normal; font-weight: 600; font-display: swap; src: url('fonts/OpenSans-SemiBold.ttf') format('truetype'); }
   @font-face { font-family: 'Open Sans'; font-style: normal; font-weight: 700; font-display: swap; src: url('fonts/OpenSans-Bold.ttf') format('truetype'); }
   *, *::before, *::after { box-sizing: border-box; }
-  html, body { margin: 0; padding: 0; background: #1d232c; }
-  ::selection { background: rgba(51, 137, 224, 0.32); }
-  a { color: #3389e0; text-decoration: none; }
-  a:hover { color: #549ce5; text-decoration: underline; }
+  html, body { margin: 0; padding: 0; background: #0b1218; }
+  ::selection { background: rgba(43, 127, 228, 0.32); }
+  a { color: #4d97ea; text-decoration: none; }
+  a:hover { color: #7db3f2; text-decoration: underline; }
 </style>
 </helmet>
 
 <div style="background: #000000; padding: 0; display: flex; flex-direction: column; font-family: 'Open Sans', -apple-system, sans-serif; -webkit-font-smoothing: antialiased;">
 
-  <div data-screen-label="01" style="width: 100%; height: 100vh; min-width: 1440px; min-height: 900px; background: #1d232c; overflow: hidden; display: flex; flex-direction: column; color: #f7f8f9;">
+  <div data-screen-label="01" style="width: 100%; height: 100vh; min-width: 1440px; min-height: 900px; background: #0b1218; overflow: hidden; display: flex; flex-direction: column; color: #f5f9fc;">
 
     <div style="flex: none;">
-      <div style="height: 48px; background: #2a313a; display: flex; align-items: center; gap: 16px; padding: 0 16px;">
+      <div style="height: 48px; background: #101820; display: flex; align-items: center; gap: 16px; padding: 0 16px;">
         <img src="assets/flowx-mark-white.svg" alt="FlowX" style="height: 22px; width: auto; flex: none;" />
         <div style="display: inline-flex; align-items: center; gap: 8px; font: 400 12px/16px 'Open Sans', sans-serif;">
-          <i class="ph ph-cube" style="font-size: 14px; color: #8a95a8;"></i>
-          <span style="color: #8a95a8;">[Project]</span>
+          <i class="ph ph-cube" style="font-size: 14px; color: #7b8896;"></i>
+          <span style="color: #7b8896;">[Project]</span>
           <span style="color: #ffffff; font-weight: 600;">Card disputes</span>
         </div>
-        <div style="margin-left: 16px; display: inline-flex; align-items: center; gap: 8px; height: 28px; padding: 0 10px; background: #0f1114; border-radius: 8px;">
-          <span style="display: inline-flex; align-items: center; height: 18px; padding: 0 6px; border-radius: 4px; background: rgba(254, 185, 19, 0.20); color: #feb913; font: 700 10px/12px 'Open Sans', sans-serif; text-transform: uppercase; letter-spacing: 0.08em;">main</span>
-          <span style="display: inline-flex; align-items: center; height: 18px; padding: 0 6px; border-radius: 4px; background: rgba(255, 90, 60, 0.20); color: #ff6a55; font: 700 10px/12px 'Open Sans', sans-serif; text-transform: uppercase; letter-spacing: 0.08em;">draft</span>
-          <span style="font: 400 12px/16px 'Open Sans', sans-serif; color: #e3e8ed;">First version</span>
-          <i class="ph ph-git-branch" style="font-size: 14px; color: #8a95a8; margin-left: 2px;"></i>
+        <div style="margin-left: 16px; display: inline-flex; align-items: center; gap: 8px; height: 28px; padding: 0 10px; background: #0d151c; border-radius: 8px;">
+          <span style="display: inline-flex; align-items: center; height: 18px; padding: 0 6px; border-radius: 4px; background: rgba(217, 165, 33, 0.10); color: #d9a521; font: 400 10px/12px ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; text-transform: uppercase; letter-spacing: 0.14em;">main</span>
+          <span style="display: inline-flex; align-items: center; height: 18px; padding: 0 6px; border-radius: 4px; background: rgba(226, 96, 74, 0.10); color: #e2604a; font: 400 10px/12px ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; text-transform: uppercase; letter-spacing: 0.14em;">draft</span>
+          <span style="font: 400 12px/16px 'Open Sans', sans-serif; color: #dbe3ea;">First version</span>
+          <i class="ph ph-git-branch" style="font-size: 14px; color: #7b8896; margin-left: 2px;"></i>
         </div>
-        <div tabindex="0" style="display: inline-flex; align-items: center; gap: 8px; height: 28px; padding: 0 12px; border-radius: 8px; background: #0f1114; color: #ffffff; font: 600 12px/16px 'Open Sans', sans-serif; cursor: pointer; outline: none; transition: background 160ms cubic-bezier(0.2, 0, 0.2, 1);" style-hover="background: #1d232c;" style-focus="box-shadow: 0 0 0 3px rgba(51, 137, 224, 0.32);">
+        <div tabindex="0" style="display: inline-flex; align-items: center; gap: 8px; height: 28px; padding: 0 12px; border-radius: 8px; background: #0d151c; color: #ffffff; font: 600 12px/16px 'Open Sans', sans-serif; cursor: pointer; outline: none; transition: background 160ms cubic-bezier(0.2, 0, 0.2, 1);" style-hover="background: #0b1218;" style-focus="box-shadow: 0 0 0 3px rgba(43, 127, 228, 0.32);">
           <i class="ph ph-upload-simple" style="font-size: 14px;"></i>Submit changes to version
         </div>
         <div style="margin-left: auto; display: flex; align-items: center; gap: 12px;">
-          <i class="ph ph-bell" style="font-size: 16px; color: #8a95a8; cursor: pointer;"></i>
-          <i class="ph ph-question" style="font-size: 16px; color: #8a95a8; cursor: pointer;"></i>
-          <div style="width: 26px; height: 26px; border-radius: 99px; background: #006bd8; color: #ffffff; display: grid; place-items: center; font: 700 10px/12px 'Open Sans', sans-serif;">LC</div>
+          <i class="ph ph-bell" style="font-size: 16px; color: #7b8896; cursor: pointer;"></i>
+          <i class="ph ph-question" style="font-size: 16px; color: #7b8896; cursor: pointer;"></i>
+          <div style="width: 26px; height: 26px; border-radius: 99px; background: #2b7fe4; color: #ffffff; display: grid; place-items: center; font: 700 10px/12px 'Open Sans', sans-serif;">LC</div>
         </div>
       </div>
-      <div style="height: 40px; background: #475263; border-bottom: 1px solid #3a4352; display: flex; align-items: center; gap: 16px; padding: 0 16px;">
-        <div style="width: 26px; height: 26px; border-radius: 6px; border: 1px solid #8390a2; background: rgba(255, 255, 255, 0.05); display: inline-flex; align-items: center; justify-content: center; color: #cbd1db; cursor: pointer; flex: none; transition: background 160ms cubic-bezier(0.2, 0, 0.2, 1);" style-hover="background: rgba(255, 255, 255, 0.15);">
+      <div style="height: 40px; background: #0c141b; border-bottom: 1px solid #18212a; display: flex; align-items: center; gap: 16px; padding: 0 16px;">
+        <div style="width: 26px; height: 26px; border-radius: 6px; border: 1px solid #26313d; background: #161f28; display: inline-flex; align-items: center; justify-content: center; color: #c3cdd7; cursor: pointer; flex: none; transition: background 160ms cubic-bezier(0.2, 0, 0.2, 1);" style-hover="background: #1c2632;">
           <i class="ph ph-arrow-left" style="font-size: 14px;"></i>
         </div>
         <div style="display: flex; align-items: center; gap: 8px; font: 400 12px/16px 'Open Sans', sans-serif; min-width: 0;">
-          <span style="color: #cbd1db;">Journeys</span>
-          <span style="color: #8a95a8;">/</span>
-          <span style="color: #cbd1db;">Card payment dispute</span>
-          <span style="color: #8a95a8;">/</span>
+          <span style="color: #c3cdd7;">Journeys</span>
+          <span style="color: #7b8896;">/</span>
+          <span style="color: #c3cdd7;">Card payment dispute</span>
+          <span style="color: #7b8896;">/</span>
           <span style="color: #ffffff; font-weight: 600;">The plan</span>
         </div>
         <div style="margin-left: auto; display: flex; align-items: center; gap: 12px;">
-          <div style="font: 400 12px/16px 'Open Sans', sans-serif; color: #cbd1db;">build 2 · 09:37 · 7 resources exist</div>
-          <div style="display: inline-flex; align-items: center; gap: 6px;"><div style="width: 26px; height: 26px; border-radius: 99px; border: 1px solid #8390a2; background: rgba(255, 255, 255, 0.05); display: inline-flex; align-items: center; justify-content: center; color: #cbd1db; cursor: pointer; flex: none; transition: background 160ms cubic-bezier(0.2, 0, 0.2, 1);" style-hover="background: rgba(255, 255, 255, 0.15);"><i class="ph ph-arrow-counter-clockwise" style="font-size: 12px;"></i></div><div style="width: 26px; height: 26px; border-radius: 99px; border: 1px solid #8390a2; background: rgba(255, 255, 255, 0.05); display: inline-flex; align-items: center; justify-content: center; color: #cbd1db; cursor: pointer; flex: none; transition: background 160ms cubic-bezier(0.2, 0, 0.2, 1);" style-hover="background: rgba(255, 255, 255, 0.15);"><i class="ph ph-arrow-clockwise" style="font-size: 12px;"></i></div></div>
-          <div tabindex="0" style="display: inline-flex; align-items: center; gap: 6px; height: 28px; padding: 0 8px; border-radius: 8px; background: #007a4d; color: #ffffff; font: 600 12px/16px 'Open Sans', sans-serif; cursor: pointer; outline: none; transition: background 160ms cubic-bezier(0.2, 0, 0.2, 1);" style-hover="background: #008060;" style-focus="box-shadow: 0 0 0 3px rgba(0, 128, 96, 0.32);">
+          <div style="font: 400 12px/16px 'Open Sans', sans-serif; color: #c3cdd7;">build 2 · 09:37 · 7 resources exist</div>
+          <div style="display: inline-flex; align-items: center; gap: 6px;"><div style="width: 26px; height: 26px; border-radius: 99px; border: 1px solid #26313d; background: #161f28; display: inline-flex; align-items: center; justify-content: center; color: #c3cdd7; cursor: pointer; flex: none; transition: background 160ms cubic-bezier(0.2, 0, 0.2, 1);" style-hover="background: #1c2632;"><i class="ph ph-arrow-counter-clockwise" style="font-size: 12px;"></i></div><div style="width: 26px; height: 26px; border-radius: 99px; border: 1px solid #26313d; background: #161f28; display: inline-flex; align-items: center; justify-content: center; color: #c3cdd7; cursor: pointer; flex: none; transition: background 160ms cubic-bezier(0.2, 0, 0.2, 1);" style-hover="background: #1c2632;"><i class="ph ph-arrow-clockwise" style="font-size: 12px;"></i></div></div>
+          <div tabindex="0" style="display: inline-flex; align-items: center; gap: 6px; height: 28px; padding: 0 8px; border-radius: 8px; background: #1d9a5c; color: #062012; font: 600 12px/16px 'Open Sans', sans-serif; cursor: pointer; outline: none; transition: background 160ms cubic-bezier(0.2, 0, 0.2, 1);" style-hover="background: #2ea86a;" style-focus="box-shadow: 0 0 0 3px rgba(46, 168, 106, 0.32);">
             <i class="ph ph-play" style="font-size: 12px;"></i>Test what exists
           </div>
-          <div style="width: 26px; height: 26px; border-radius: 99px; border: 1px solid #8390a2; background: rgba(255, 255, 255, 0.05); display: inline-flex; align-items: center; justify-content: center; color: #cbd1db; cursor: pointer; flex: none; transition: background 160ms cubic-bezier(0.2, 0, 0.2, 1);" style-hover="background: rgba(255, 255, 255, 0.15);"><i class="ph ph-dots-three-vertical" style="font-size: 12px;"></i></div>
+          <div style="width: 26px; height: 26px; border-radius: 99px; border: 1px solid #26313d; background: #161f28; display: inline-flex; align-items: center; justify-content: center; color: #c3cdd7; cursor: pointer; flex: none; transition: background 160ms cubic-bezier(0.2, 0, 0.2, 1);" style-hover="background: #1c2632;"><i class="ph ph-dots-three-vertical" style="font-size: 12px;"></i></div>
         </div>
       </div>
     </div>
 
     <div style="flex: 1; display: flex; min-height: 0;">
 
-      <div style="width: 440px; flex: none; background: #1d232c; border-right: 1px solid #2a313a; display: flex; flex-direction: column; min-height: 0;">
+      <div style="width: 440px; flex: none; background: #0b1218; border-right: 1px solid #18212a; display: flex; flex-direction: column; min-height: 0;">
 
         <div style="flex: 1; padding: 24px 24px 0; display: flex; flex-direction: column; gap: 24px; overflow: hidden; min-height: 0;">
 
           <div style="display: flex; gap: 12px;">
-            <div style="width: 22px; height: 22px; flex: none; border-radius: 99px; background: #006bd8; color: #ffffff; display: grid; place-items: center; font: 700 10px/12px 'Open Sans', sans-serif;">LC</div>
+            <div style="width: 22px; height: 22px; flex: none; border-radius: 99px; background: #2b7fe4; color: #ffffff; display: grid; place-items: center; font: 700 10px/12px 'Open Sans', sans-serif;">LC</div>
             <div style="flex: 1; min-width: 0; display: flex; flex-direction: column; gap: 4px;">
-              <div style="font: 600 12px/16px 'Open Sans', sans-serif; color: #8390a2;">You <span style="font-weight: 400;">· 09:29</span></div>
-              <div style="font: 400 14px/24px 'Open Sans', sans-serif; color: #cbd1db; text-wrap: pretty;">People should be able to dispute a card payment from the app. Anything big gets looked at by a person.</div>
+              <div style="font: 600 12px/16px 'Open Sans', sans-serif; color: #8b98a5;">You <span style="font-weight: 400;">· 09:29</span></div>
+              <div style="font: 400 14px/24px 'Open Sans', sans-serif; color: #c3cdd7; text-wrap: pretty;">People should be able to dispute a card payment from the app. Anything big gets looked at by a person.</div>
             </div>
           </div>
 
           <div style="display: flex; gap: 12px;">
-            <div style="width: 22px; flex: none; display: flex; justify-content: center; padding-top: 3px;"><i class="ph ph-sparkle" style="font-size: 14px; color: #3389e0;"></i></div>
+            <div style="width: 22px; flex: none; display: flex; justify-content: center; padding-top: 3px;"><i class="ph ph-sparkle" style="font-size: 14px; color: #4d97ea;"></i></div>
             <div style="flex: 1; min-width: 0; display: flex; flex-direction: column; gap: 4px;">
-              <div style="font: 600 12px/16px 'Open Sans', sans-serif; color: #8390a2;">Agent <span style="font-weight: 400;">· 09:31</span></div>
-              <div style="font: 400 14px/24px 'Open Sans', sans-serif; color: #f7f8f9; text-wrap: pretty;">Five steps, on the right. Two of them have only one sensible shape, so I built those. The rest I would rather agree with you first.</div>
+              <div style="font: 600 12px/16px 'Open Sans', sans-serif; color: #8b98a5;">Agent <span style="font-weight: 400;">· 09:31</span></div>
+              <div style="font: 400 14px/24px 'Open Sans', sans-serif; color: #f5f9fc; text-wrap: pretty;">Five steps, on the right. Two of them have only one sensible shape, so I built those. The rest I would rather agree with you first.</div>
             </div>
           </div>
 
-          <div style="display: flex; align-items: center; gap: 12px; color: #8390a2; padding-left: 34px;">
-            <div style="font: 400 12px/16px 'Open Sans', sans-serif; cursor: pointer; flex: none; transition: color 160ms cubic-bezier(0.2, 0, 0.2, 1);" style-hover="color: #cbd1db;">4 turns about wording</div>
-            <div style="flex: 1; height: 1px; background: #2a313a;"></div>
+          <div style="display: flex; align-items: center; gap: 12px; color: #8b98a5; padding-left: 34px;">
+            <div style="font: 400 12px/16px 'Open Sans', sans-serif; cursor: pointer; flex: none; transition: color 160ms cubic-bezier(0.2, 0, 0.2, 1);" style-hover="color: #c3cdd7;">4 turns about wording</div>
+            <div style="flex: 1; height: 1px; background: #18212a;"></div>
           </div>
 
           <div style="display: flex; gap: 12px;">
-            <div style="width: 22px; height: 22px; flex: none; border-radius: 99px; background: #006bd8; color: #ffffff; display: grid; place-items: center; font: 700 10px/12px 'Open Sans', sans-serif;">LC</div>
+            <div style="width: 22px; height: 22px; flex: none; border-radius: 99px; background: #2b7fe4; color: #ffffff; display: grid; place-items: center; font: 700 10px/12px 'Open Sans', sans-serif;">LC</div>
             <div style="flex: 1; min-width: 0; display: flex; flex-direction: column; gap: 4px;">
-              <div style="font: 600 12px/16px 'Open Sans', sans-serif; color: #8390a2;">You <span style="font-weight: 400;">· 09:39</span></div>
-              <div style="font: 400 14px/24px 'Open Sans', sans-serif; color: #cbd1db; text-wrap: pretty;">Drop the merchant check. It slows the customer down and we already have the transaction.</div>
+              <div style="font: 600 12px/16px 'Open Sans', sans-serif; color: #8b98a5;">You <span style="font-weight: 400;">· 09:39</span></div>
+              <div style="font: 400 14px/24px 'Open Sans', sans-serif; color: #c3cdd7; text-wrap: pretty;">Drop the merchant check. It slows the customer down and we already have the transaction.</div>
             </div>
           </div>
 
           <div style="display: flex; gap: 12px;">
-            <div style="width: 22px; flex: none; display: flex; justify-content: center; padding-top: 3px;"><i class="ph ph-sparkle" style="font-size: 14px; color: #fd6b1c;"></i></div>
+            <div style="width: 22px; flex: none; display: flex; justify-content: center; padding-top: 3px;"><i class="ph ph-sparkle" style="font-size: 14px; color: #f2762b;"></i></div>
             <div style="flex: 1; min-width: 0; display: flex; flex-direction: column; gap: 8px;">
-              <div style="font: 600 12px/16px 'Open Sans', sans-serif; color: #8390a2;">Agent <span style="font-weight: 400;">· 09:41</span></div>
-              <div style="font: 400 14px/24px 'Open Sans', sans-serif; color: #f7f8f9; text-wrap: pretty;">No. The scheme requires an attempt to resolve with the merchant before you ask the customer for evidence. Without it the chargeback is out of scope when we submit it.</div>
-              <div style="font: 400 14px/24px 'Open Sans', sans-serif; color: #a6b0be; text-wrap: pretty;">It does not have to be in their way, though. I have drawn what I would do instead on step 3.</div>
-              <div style="display: inline-flex; align-self: flex-start; align-items: center; gap: 8px; cursor: pointer; color: #8390a2; transition: color 160ms cubic-bezier(0.2, 0, 0.2, 1);" style-hover="color: #3389e0;">
-                <i class="ph ph-book-open-text" style="font-size: 14px; color: #fd6b1c;"></i>
+              <div style="font: 600 12px/16px 'Open Sans', sans-serif; color: #8b98a5;">Agent <span style="font-weight: 400;">· 09:41</span></div>
+              <div style="font: 400 14px/24px 'Open Sans', sans-serif; color: #f5f9fc; text-wrap: pretty;">No. The scheme requires an attempt to resolve with the merchant before you ask the customer for evidence. Without it the chargeback is out of scope when we submit it.</div>
+              <div style="font: 400 14px/24px 'Open Sans', sans-serif; color: #a9b6c3; text-wrap: pretty;">It does not have to be in their way, though. I have drawn what I would do instead on step 3.</div>
+              <div style="display: inline-flex; align-self: flex-start; align-items: center; gap: 8px; cursor: pointer; color: #8b98a5; transition: color 160ms cubic-bezier(0.2, 0, 0.2, 1);" style-hover="color: #4d97ea;">
+                <i class="ph ph-book-open-text" style="font-size: 14px; color: #f2762b;"></i>
                 <div style="font: 400 12px/16px ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;">Scheme rules §4.2</div>
               </div>
             </div>
           </div>
 
           <div style="display: flex; gap: 12px;">
-            <div style="width: 22px; height: 22px; flex: none; border-radius: 99px; background: #006bd8; color: #ffffff; display: grid; place-items: center; font: 700 10px/12px 'Open Sans', sans-serif;">LC</div>
+            <div style="width: 22px; height: 22px; flex: none; border-radius: 99px; background: #2b7fe4; color: #ffffff; display: grid; place-items: center; font: 700 10px/12px 'Open Sans', sans-serif;">LC</div>
             <div style="flex: 1; min-width: 0; display: flex; flex-direction: column; gap: 4px;">
-              <div style="font: 600 12px/16px 'Open Sans', sans-serif; color: #8390a2;">You <span style="font-weight: 400;">· 09:44</span></div>
-              <div style="font: 400 14px/24px 'Open Sans', sans-serif; color: #cbd1db; text-wrap: pretty;">Fine. Keep it, but the customer never waits on it.</div>
+              <div style="font: 600 12px/16px 'Open Sans', sans-serif; color: #8b98a5;">You <span style="font-weight: 400;">· 09:44</span></div>
+              <div style="font: 400 14px/24px 'Open Sans', sans-serif; color: #c3cdd7; text-wrap: pretty;">Fine. Keep it, but the customer never waits on it.</div>
             </div>
           </div>
 
         </div>
 
         <div style="flex: none; padding: 16px 24px 24px; display: flex; flex-direction: column; gap: 8px;">
-          <div style="display: flex; align-items: center; gap: 12px; padding-bottom: 8px; border-bottom: 1px solid #3389e0;">
-            <div style="flex: 1; font: 400 14px/24px 'Open Sans', sans-serif; color: #f7f8f9;">Only send it to a person above {{ threshold }}<i style="display: inline-block; width: 1px; height: 16px; background: #3389e0; margin-left: 2px; vertical-align: -3px;"></i></div>
-            <div tabindex="0" style="font: 600 12px/16px 'Open Sans', sans-serif; color: #3389e0; cursor: pointer; outline: none; flex: none;">Send</div>
+          <div style="display: flex; align-items: center; gap: 12px; padding-bottom: 8px; border-bottom: 1px solid #4d97ea;">
+            <div style="flex: 1; font: 400 14px/24px 'Open Sans', sans-serif; color: #f5f9fc;">Only send it to a person above {{ threshold }}<i style="display: inline-block; width: 1px; height: 16px; background: #4d97ea; margin-left: 2px; vertical-align: -3px;"></i></div>
+            <div tabindex="0" style="font: 600 12px/16px 'Open Sans', sans-serif; color: #4d97ea; cursor: pointer; outline: none; flex: none;">Send</div>
           </div>
-          <div style="font: 400 12px/16px 'Open Sans', sans-serif; color: #8390a2;">Answers the one thing step 5 is waiting for.</div>
+          <div style="font: 400 12px/16px 'Open Sans', sans-serif; color: #8b98a5;">Answers the one thing step 5 is waiting for.</div>
         </div>
       </div>
 
@@ -144,19 +144,19 @@
 
         <div style="flex: none; display: flex; align-items: flex-start; justify-content: space-between; gap: 24px; padding-bottom: 16px;">
           <div style="display: flex; flex-direction: column; gap: 6px;">
-            <div style="font: 700 24px/38px 'Open Sans', sans-serif; color: #f7f8f9;">The plan</div>
+            <div style="font: 700 24px/38px 'Open Sans', sans-serif; color: #f5f9fc;">The plan</div>
             <div style="display: flex; align-items: center; gap: 12px;">
               <div style="display: flex; align-items: center; gap: 3px; flex: none;">
-                <div style="width: 18px; height: 3px; border-radius: 2px; background: #008060;"></div>
-                <div style="width: 18px; height: 3px; border-radius: 2px; background: #008060;"></div>
-                <div style="width: 18px; height: 3px; border-radius: 2px; background: #fd6b1c;"></div>
-                <div style="width: 18px; height: 3px; border-radius: 2px; background: #475263;"></div>
-                <div style="width: 18px; height: 3px; border-radius: 2px; background: #475263;"></div>
+                <div style="width: 18px; height: 3px; border-radius: 2px; background: #2ea86a;"></div>
+                <div style="width: 18px; height: 3px; border-radius: 2px; background: #2ea86a;"></div>
+                <div style="width: 18px; height: 3px; border-radius: 2px; background: #f2762b;"></div>
+                <div style="width: 18px; height: 3px; border-radius: 2px; background: #33404d;"></div>
+                <div style="width: 18px; height: 3px; border-radius: 2px; background: #33404d;"></div>
               </div>
-              <div style="font: 400 12px/16px 'Open Sans', sans-serif; color: #8390a2;">Two of five built · one being argued about · two waiting on you</div>
+              <div style="font: 400 12px/16px 'Open Sans', sans-serif; color: #8b98a5;">Two of five built · one being argued about · two waiting on you</div>
             </div>
           </div>
-          <div style="display: flex; align-items: center; gap: 6px; cursor: pointer; color: #8390a2; flex: none; padding-top: 8px; transition: color 160ms cubic-bezier(0.2, 0, 0.2, 1);" style-hover="color: #3389e0;">
+          <div style="display: flex; align-items: center; gap: 6px; cursor: pointer; color: #8b98a5; flex: none; padding-top: 8px; transition: color 160ms cubic-bezier(0.2, 0, 0.2, 1);" style-hover="color: #4d97ea;">
             <div style="font: 400 12px/16px 'Open Sans', sans-serif;">Every version</div>
             <i class="ph ph-caret-right" style="font-size: 12px;"></i>
           </div>
@@ -166,90 +166,90 @@
 
           <div style="display: flex; gap: 16px; align-items: stretch;">
             <div style="width: 20px; flex: none; display: flex; flex-direction: column; align-items: center;">
-              <div style="width: 20px; height: 20px; flex: none; border-radius: 99px; background: #008060; display: grid; place-items: center;"><i class="ph ph-check" style="font-size: 11px; color: #ffffff;"></i></div>
-              <div style="flex: 1; width: 2px; background: #475263; margin-top: 4px;"></div>
+              <div style="width: 20px; height: 20px; flex: none; border-radius: 99px; background: #2ea86a; display: grid; place-items: center;"><i class="ph ph-check" style="font-size: 11px; color: #ffffff;"></i></div>
+              <div style="flex: 1; width: 2px; background: #26313d; margin-top: 4px;"></div>
             </div>
             <div style="flex: 1; min-width: 0; padding-bottom: 24px; display: flex; gap: 24px; align-items: flex-start;">
               <div style="flex: 1; min-width: 0; display: flex; flex-direction: column; gap: 2px;">
-                <div style="font: 600 14px/22px 'Open Sans', sans-serif; color: #f7f8f9;">The customer picks the transaction they do not recognise</div>
-                <div style="font: 400 12px/18px 'Open Sans', sans-serif; color: #8390a2;">Last ninety days. Card and account already known, so nothing is typed twice.</div>
+                <div style="font: 600 14px/22px 'Open Sans', sans-serif; color: #f5f9fc;">The customer picks the transaction they do not recognise</div>
+                <div style="font: 400 12px/18px 'Open Sans', sans-serif; color: #8b98a5;">Last ninety days. Card and account already known, so nothing is typed twice.</div>
               </div>
-              <div style="flex: none; display: flex; align-items: center; gap: 4px; color: #8390a2; padding-top: 3px; cursor: pointer; transition: color 160ms cubic-bezier(0.2, 0, 0.2, 1);" style-hover="color: #cbd1db;"><div style="font: 400 12px/16px 'Open Sans', sans-serif;">3 resources</div><i class="ph ph-caret-right" style="font-size: 10px;"></i></div>
+              <div style="flex: none; display: flex; align-items: center; gap: 4px; color: #8b98a5; padding-top: 3px; cursor: pointer; transition: color 160ms cubic-bezier(0.2, 0, 0.2, 1);" style-hover="color: #c3cdd7;"><div style="font: 400 12px/16px 'Open Sans', sans-serif;">3 resources</div><i class="ph ph-caret-right" style="font-size: 10px;"></i></div>
             </div>
           </div>
 
           <div style="display: flex; gap: 16px; align-items: stretch;">
             <div style="width: 20px; flex: none; display: flex; flex-direction: column; align-items: center;">
-              <div style="width: 20px; height: 20px; flex: none; border-radius: 99px; background: #008060; display: grid; place-items: center;"><i class="ph ph-check" style="font-size: 11px; color: #ffffff;"></i></div>
-              <div style="flex: 1; width: 2px; background: #475263; margin-top: 4px;"></div>
+              <div style="width: 20px; height: 20px; flex: none; border-radius: 99px; background: #2ea86a; display: grid; place-items: center;"><i class="ph ph-check" style="font-size: 11px; color: #ffffff;"></i></div>
+              <div style="flex: 1; width: 2px; background: #26313d; margin-top: 4px;"></div>
             </div>
             <div style="flex: 1; min-width: 0; padding-bottom: 24px; display: flex; gap: 24px; align-items: flex-start;">
               <div style="flex: 1; min-width: 0; display: flex; flex-direction: column; gap: 2px;">
-                <div style="font: 600 14px/22px 'Open Sans', sans-serif; color: #f7f8f9;">We ask what happened, in their words</div>
-                <div style="font: 400 12px/18px 'Open Sans', sans-serif; color: #8390a2;">Free text, then we sort it into one of the nine reasons the scheme accepts.</div>
+                <div style="font: 600 14px/22px 'Open Sans', sans-serif; color: #f5f9fc;">We ask what happened, in their words</div>
+                <div style="font: 400 12px/18px 'Open Sans', sans-serif; color: #8b98a5;">Free text, then we sort it into one of the nine reasons the scheme accepts.</div>
               </div>
-              <div style="flex: none; display: flex; align-items: center; gap: 4px; color: #8390a2; padding-top: 3px; cursor: pointer; transition: color 160ms cubic-bezier(0.2, 0, 0.2, 1);" style-hover="color: #cbd1db;"><div style="font: 400 12px/16px 'Open Sans', sans-serif;">4 resources</div><i class="ph ph-caret-right" style="font-size: 10px;"></i></div>
+              <div style="flex: none; display: flex; align-items: center; gap: 4px; color: #8b98a5; padding-top: 3px; cursor: pointer; transition: color 160ms cubic-bezier(0.2, 0, 0.2, 1);" style-hover="color: #c3cdd7;"><div style="font: 400 12px/16px 'Open Sans', sans-serif;">4 resources</div><i class="ph ph-caret-right" style="font-size: 10px;"></i></div>
             </div>
           </div>
 
           <div style="display: flex; gap: 16px; align-items: stretch;">
             <div style="width: 20px; flex: none; display: flex; flex-direction: column; align-items: center;">
-              <div style="width: 20px; height: 20px; flex: none; border-radius: 99px; background: #fd6b1c; display: grid; place-items: center;"><i class="ph ph-warning" style="font-size: 11px; color: #ffffff;"></i></div>
-              <div style="flex: 1; width: 0; border-left: 2px dashed #475263; margin-top: 4px;"></div>
+              <div style="width: 20px; height: 20px; flex: none; border-radius: 99px; background: #f2762b; display: grid; place-items: center;"><i class="ph ph-warning" style="font-size: 11px; color: #ffffff;"></i></div>
+              <div style="flex: 1; width: 0; border-left: 2px dashed #26313d; margin-top: 4px;"></div>
             </div>
             <div style="flex: 1; min-width: 0; padding-bottom: 24px;">
-              <div style="background: #2a313a; border-radius: 12px; box-shadow: 0 8px 24px rgba(0, 0, 0, 0.40); padding: 16px; display: flex; flex-direction: column; gap: 12px;">
+              <div style="background: linear-gradient(180deg, rgba(242, 118, 43, 0.12), rgba(242, 118, 43, 0) 60%, rgba(11, 18, 24, 0)); border: 1px solid rgba(242, 118, 43, 0.30); border-radius: 12px; padding: 16px; display: flex; flex-direction: column; gap: 12px;">
 
                 <div style="display: flex; gap: 24px; align-items: flex-start;">
                   <div style="flex: 1; min-width: 0; display: flex; flex-direction: column; gap: 2px;">
-                    <div style="font: 600 14px/22px 'Open Sans', sans-serif; color: #f7f8f9;">We check with the merchant before asking for evidence</div>
-                    <div style="font: 400 12px/18px 'Open Sans', sans-serif; color: #8390a2;">Runs while the customer is still describing the problem.</div>
+                    <div style="font: 600 14px/22px 'Open Sans', sans-serif; color: #f5f9fc;">We check with the merchant before asking for evidence</div>
+                    <div style="font: 400 12px/18px 'Open Sans', sans-serif; color: #8b98a5;">Runs while the customer is still describing the problem.</div>
                   </div>
-                  <div style="display: inline-flex; align-items: center; height: 18px; padding: 0 6px; border-radius: 4px; background: rgba(253, 107, 28, 0.20); color: #fd6b1c; font: 700 10px/12px 'Open Sans', sans-serif; text-transform: uppercase; letter-spacing: 0.08em; flex: none; margin-top: 2px;">Not agreed</div>
+                  <div style="display: inline-flex; align-items: center; height: 18px; padding: 0 6px; border-radius: 4px; background: rgba(242, 118, 43, 0.14); color: #f2762b; font: 400 10px/12px ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; text-transform: uppercase; letter-spacing: 0.14em; flex: none; margin-top: 2px;">Not agreed</div>
                 </div>
 
                 <div style="display: flex; flex-direction: column; gap: 12px;">
                   <div style="display: flex; align-items: baseline; justify-content: space-between; gap: 24px;">
-                    <div style="font: 700 10px/12px 'Open Sans', sans-serif; text-transform: uppercase; letter-spacing: 0.08em; color: #8390a2;">What I would do instead</div>
-                    <div style="font: 400 12px/16px 'Open Sans', sans-serif; color: #8390a2;">A drawing, not the process definition</div>
+                    <div style="font: 400 10px/12px ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; text-transform: uppercase; letter-spacing: 0.14em; color: #8b98a5;">What I would do instead</div>
+                    <div style="font: 400 12px/16px 'Open Sans', sans-serif; color: #8b98a5;">A drawing, not the process definition</div>
                   </div>
 
                   <div style="display: flex; align-items: center; gap: 0;">
-                    <div style="width: 88px; flex: none; font: 700 10px/12px 'Open Sans', sans-serif; text-transform: uppercase; letter-spacing: 0.08em; color: #8390a2;">The customer</div>
+                    <div style="width: 88px; flex: none; font: 400 10px/12px ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; text-transform: uppercase; letter-spacing: 0.14em; color: #8b98a5;">The customer</div>
                     <div style="flex: 1; display: flex; align-items: center;">
-                      <div style="width: 150px; flex: none; background: #1d232c; border-radius: 8px; padding: 8px 10px; display: flex; flex-direction: column; gap: 2px;">
-                        <div style="font: 600 12px/16px 'Open Sans', sans-serif; color: #f7f8f9;">Pick the payment</div>
+                      <div style="width: 150px; flex: none; background: #0b1218; border-radius: 8px; padding: 8px 10px; display: flex; flex-direction: column; gap: 2px;">
+                        <div style="font: 600 12px/16px 'Open Sans', sans-serif; color: #f5f9fc;">Pick the payment</div>
                         <div style="display: flex; align-items: center; gap: 6px;">
-                          <i class="ph ph-check-circle" style="font-size: 12px; color: #54aa94; flex: none;"></i>
-                          <div style="font: 400 12px/16px 'Open Sans', sans-serif; color: #8390a2;">Built</div>
+                          <i class="ph ph-check-circle" style="font-size: 12px; color: #8ad3ab; flex: none;"></i>
+                          <div style="font: 400 12px/16px 'Open Sans', sans-serif; color: #8b98a5;">Built</div>
                         </div>
                       </div>
                       <div style="width: 34px; flex: none; display: flex; align-items: center;">
-                        <div style="flex: 1; height: 1.5px; background: #475263;"></div>
-                        <div style="width: 0; height: 0; border-left: 5px solid #475263; border-top: 3.5px solid transparent; border-bottom: 3.5px solid transparent;"></div>
+                        <div style="flex: 1; height: 1.5px; background: #26313d;"></div>
+                        <div style="width: 0; height: 0; border-left: 5px solid #26313d; border-top: 3.5px solid transparent; border-bottom: 3.5px solid transparent;"></div>
                       </div>
-                      <div style="width: 150px; flex: none; background: #1d232c; border-radius: 8px; padding: 8px 10px; display: flex; flex-direction: column; gap: 2px;">
-                        <div style="font: 600 12px/16px 'Open Sans', sans-serif; color: #f7f8f9;">Say what happened</div>
+                      <div style="width: 150px; flex: none; background: #0b1218; border-radius: 8px; padding: 8px 10px; display: flex; flex-direction: column; gap: 2px;">
+                        <div style="font: 600 12px/16px 'Open Sans', sans-serif; color: #f5f9fc;">Say what happened</div>
                         <div style="display: flex; align-items: center; gap: 6px;">
-                          <i class="ph ph-check-circle" style="font-size: 12px; color: #54aa94; flex: none;"></i>
-                          <div style="font: 400 12px/16px 'Open Sans', sans-serif; color: #8390a2;">Built</div>
+                          <i class="ph ph-check-circle" style="font-size: 12px; color: #8ad3ab; flex: none;"></i>
+                          <div style="font: 400 12px/16px 'Open Sans', sans-serif; color: #8b98a5;">Built</div>
                         </div>
                       </div>
                       <div style="width: 34px; flex: none; display: flex; align-items: center;">
-                        <div style="flex: 1; height: 1.5px; background: #475263;"></div>
-                        <div style="width: 0; height: 0; border-left: 5px solid #475263; border-top: 3.5px solid transparent; border-bottom: 3.5px solid transparent;"></div>
+                        <div style="flex: 1; height: 1.5px; background: #26313d;"></div>
+                        <div style="width: 0; height: 0; border-left: 5px solid #26313d; border-top: 3.5px solid transparent; border-bottom: 3.5px solid transparent;"></div>
                       </div>
-                      <div style="width: 150px; flex: none; border: 1px dashed #475263; border-radius: 8px; padding: 8px 10px; display: flex; flex-direction: column; gap: 2px;">
-                        <div style="font: 400 12px/16px 'Open Sans', sans-serif; color: #8390a2; text-decoration: line-through;">Wait for merchant</div>
-                        <div style="display: flex; align-items: center; gap: 6px;"><i class="ph ph-x-circle" style="font-size: 12px; color: #8390a2; flex: none;"></i><div style="font: 400 12px/16px 'Open Sans', sans-serif; color: #8390a2;">Where it sits today</div></div>
+                      <div style="width: 150px; flex: none; border: 1px dashed #26313d; border-radius: 8px; padding: 8px 10px; display: flex; flex-direction: column; gap: 2px;">
+                        <div style="font: 400 12px/16px 'Open Sans', sans-serif; color: #8b98a5; text-decoration: line-through;">Wait for merchant</div>
+                        <div style="display: flex; align-items: center; gap: 6px;"><i class="ph ph-x-circle" style="font-size: 12px; color: #8b98a5; flex: none;"></i><div style="font: 400 12px/16px 'Open Sans', sans-serif; color: #8b98a5;">Where it sits today</div></div>
                       </div>
                       <div style="width: 34px; flex: none; display: flex; align-items: center;">
-                        <div style="flex: 1; height: 1.5px; background: #475263;"></div>
-                        <div style="width: 0; height: 0; border-left: 5px solid #475263; border-top: 3.5px solid transparent; border-bottom: 3.5px solid transparent;"></div>
+                        <div style="flex: 1; height: 1.5px; background: #26313d;"></div>
+                        <div style="width: 0; height: 0; border-left: 5px solid #26313d; border-top: 3.5px solid transparent; border-bottom: 3.5px solid transparent;"></div>
                       </div>
-                      <div style="width: 150px; flex: none; background: #1d232c; border-radius: 8px; padding: 8px 10px; display: flex; flex-direction: column; gap: 2px;">
-                        <div style="font: 600 12px/16px 'Open Sans', sans-serif; color: #cbd1db;">Send a receipt</div>
-                        <div style="display: flex; align-items: center; gap: 6px;"><i class="ph ph-circle-dashed" style="font-size: 12px; color: #8390a2; flex: none;"></i><div style="font: 400 12px/16px 'Open Sans', sans-serif; color: #8390a2;">Not built yet</div></div>
+                      <div style="width: 150px; flex: none; background: #0b1218; border-radius: 8px; padding: 8px 10px; display: flex; flex-direction: column; gap: 2px;">
+                        <div style="font: 600 12px/16px 'Open Sans', sans-serif; color: #c3cdd7;">Send a receipt</div>
+                        <div style="display: flex; align-items: center; gap: 6px;"><i class="ph ph-circle-dashed" style="font-size: 12px; color: #8b98a5; flex: none;"></i><div style="font: 400 12px/16px 'Open Sans', sans-serif; color: #8b98a5;">Not built yet</div></div>
                       </div>
                     </div>
                   </div>
@@ -257,36 +257,36 @@
                   <div style="display: flex; align-items: stretch; height: 24px;">
                     <div style="width: 88px; flex: none;"></div>
                     <div style="flex: 1; position: relative;">
-                      <div style="position: absolute; left: 442px; top: 0; bottom: 0; width: 1.5px; background: #3389e0;"></div>
-                      <div style="position: absolute; left: 438px; bottom: 0; width: 0; height: 0; border-top: 5px solid #3389e0; border-left: 4.5px solid transparent; border-right: 4.5px solid transparent;"></div>
-                      <div style="position: absolute; left: 456px; top: 4px; font: 600 12px/16px 'Open Sans', sans-serif; color: #3389e0;">moves here</div>
+                      <div style="position: absolute; left: 442px; top: 0; bottom: 0; width: 1.5px; background: #4d97ea;"></div>
+                      <div style="position: absolute; left: 438px; bottom: 0; width: 0; height: 0; border-top: 5px solid #4d97ea; border-left: 4.5px solid transparent; border-right: 4.5px solid transparent;"></div>
+                      <div style="position: absolute; left: 456px; top: 4px; font: 600 12px/16px 'Open Sans', sans-serif; color: #4d97ea;">moves here</div>
                     </div>
                   </div>
 
                   <div style="display: flex; align-items: center; gap: 0;">
-                    <div style="width: 88px; flex: none; font: 700 10px/12px 'Open Sans', sans-serif; text-transform: uppercase; letter-spacing: 0.08em; color: #8390a2;">Unseen</div>
+                    <div style="width: 88px; flex: none; font: 400 10px/12px ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; text-transform: uppercase; letter-spacing: 0.14em; color: #8b98a5;">Unseen</div>
                     <div style="flex: 1; display: flex; align-items: center;">
                       <div style="width: 348px; flex: none;"></div>
-                      <div style="width: 190px; flex: none; background: #1d232c; border: 1px solid #3389e0; border-radius: 8px; padding: 8px 10px; display: flex; flex-direction: column; gap: 2px;">
-                        <div style="font: 600 12px/16px 'Open Sans', sans-serif; color: #f7f8f9;">Ask the merchant</div>
+                      <div style="width: 190px; flex: none; background: #0b1218; border: 1px solid #4d97ea; border-radius: 8px; padding: 8px 10px; display: flex; flex-direction: column; gap: 2px;">
+                        <div style="font: 600 12px/16px 'Open Sans', sans-serif; color: #f5f9fc;">Ask the merchant</div>
                         <div style="display: flex; align-items: center; gap: 6px;">
-                          <i class="ph ph-check-circle" style="font-size: 12px; color: #54aa94; flex: none;"></i>
-                          <div style="font: 400 12px/16px 'Open Sans', sans-serif; color: #8390a2;">While they are typing</div>
+                          <i class="ph ph-check-circle" style="font-size: 12px; color: #8ad3ab; flex: none;"></i>
+                          <div style="font: 400 12px/16px 'Open Sans', sans-serif; color: #8b98a5;">While they are typing</div>
                         </div>
                       </div>
                       <div style="width: 16px; flex: none;"></div>
-                      <div style="font: 400 12px/16px ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; color: #8390a2; flex: none;">3s typical</div>
+                      <div style="font: 400 12px/16px ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; color: #8b98a5; flex: none;">3s typical</div>
                     </div>
                   </div>
                 </div>
 
-                <div style="font: 400 14px/24px 'Open Sans', sans-serif; color: #f7f8f9; text-wrap: pretty;">The customer never waits for it. The only time they hear about it is the one case where the merchant has already refunded them — then we stop and say so, instead of asking for a receipt.</div>
+                <div style="font: 400 14px/24px 'Open Sans', sans-serif; color: #f5f9fc; text-wrap: pretty;">The customer never waits for it. The only time they hear about it is the one case where the merchant has already refunded them — then we stop and say so, instead of asking for a receipt.</div>
 
                 <div style="display: flex; align-items: center; gap: 12px;">
-                  <div tabindex="0" style="display: inline-flex; align-items: center; gap: 6px; height: 36px; padding: 0 12px; font: 600 14px/24px 'Open Sans', sans-serif; color: #ffffff; background: #006bd8; border-radius: 8px; cursor: pointer; outline: none; transition: background 160ms cubic-bezier(0.2, 0, 0.2, 1);" style-hover="background: #3389e0;" style-active="background: #005fc0;" style-focus="box-shadow: 0 0 0 3px rgba(51, 137, 224, 0.32);"><i class="ph ph-check" style="font-size: 14px;"></i>Agree to this</div>
-                  <div tabindex="0" style="display: inline-flex; align-items: center; height: 36px; padding: 0 12px; font: 600 14px/24px 'Open Sans', sans-serif; color: #cbd1db; background: transparent; border-radius: 8px; cursor: pointer; outline: none; transition: all 160ms cubic-bezier(0.2, 0, 0.2, 1);" style-hover="background: #1d232c; color: #f7f8f9;" style-focus="box-shadow: 0 0 0 3px rgba(51, 137, 224, 0.32);">Say what is wrong with it</div>
+                  <div tabindex="0" style="display: inline-flex; align-items: center; gap: 6px; height: 36px; padding: 0 12px; font: 600 14px/24px 'Open Sans', sans-serif; color: #ffffff; background: #2b7fe4; border-radius: 8px; cursor: pointer; outline: none; transition: background 160ms cubic-bezier(0.2, 0, 0.2, 1);" style-hover="background: #4d97ea;" style-active="background: #2b5f9e;" style-focus="box-shadow: 0 0 0 3px rgba(43, 127, 228, 0.32);"><i class="ph ph-check" style="font-size: 14px;"></i>Agree to this</div>
+                  <div tabindex="0" style="display: inline-flex; align-items: center; height: 36px; padding: 0 12px; font: 600 14px/24px 'Open Sans', sans-serif; color: #c3cdd7; background: transparent; border-radius: 8px; cursor: pointer; outline: none; transition: all 160ms cubic-bezier(0.2, 0, 0.2, 1);" style-hover="background: #0b1218; color: #f5f9fc;" style-focus="box-shadow: 0 0 0 3px rgba(43, 127, 228, 0.32);">Say what is wrong with it</div>
                   <div style="flex: 1;"></div>
-                  <div style="font: 400 12px/16px 'Open Sans', sans-serif; color: #8390a2;">Agreeing builds two things. About forty seconds.</div>
+                  <div style="font: 400 12px/16px 'Open Sans', sans-serif; color: #8b98a5;">Agreeing builds two things. About forty seconds.</div>
                 </div>
               </div>
             </div>
@@ -294,37 +294,37 @@
 
           <div style="display: flex; gap: 16px; align-items: stretch;">
             <div style="width: 20px; flex: none; display: flex; flex-direction: column; align-items: center;">
-              <div style="width: 20px; height: 20px; flex: none; border-radius: 99px; background: #1d232c; border: 1px dashed #8390a2;"></div>
-              <div style="flex: 1; width: 0; border-left: 2px dashed #475263; margin-top: 4px;"></div>
+              <div style="width: 20px; height: 20px; flex: none; border-radius: 99px; background: #0b1218; border: 1px dashed #8b98a5;"></div>
+              <div style="flex: 1; width: 0; border-left: 2px dashed #26313d; margin-top: 4px;"></div>
             </div>
             <div style="flex: 1; min-width: 0; padding-bottom: 24px; display: flex; gap: 24px; align-items: flex-start;">
               <div style="flex: 1; min-width: 0; display: flex; flex-direction: column; gap: 2px;">
-                <div style="font: 600 14px/22px 'Open Sans', sans-serif; color: #cbd1db;">We ask for evidence, only what the reason needs</div>
-                <div style="font: 400 12px/18px 'Open Sans', sans-serif; color: #8390a2;">A receipt for goods never delivered. Nothing at all for a duplicate charge.</div>
+                <div style="font: 600 14px/22px 'Open Sans', sans-serif; color: #c3cdd7;">We ask for evidence, only what the reason needs</div>
+                <div style="font: 400 12px/18px 'Open Sans', sans-serif; color: #8b98a5;">A receipt for goods never delivered. Nothing at all for a duplicate charge.</div>
               </div>
-              <div style="flex: none; display: flex; align-items: center; gap: 4px; color: #8390a2; padding-top: 3px; cursor: pointer; transition: color 160ms cubic-bezier(0.2, 0, 0.2, 1);" style-hover="color: #cbd1db;"><div style="font: 400 12px/16px 'Open Sans', sans-serif;">Nothing built yet</div><i class="ph ph-caret-right" style="font-size: 10px;"></i></div>
+              <div style="flex: none; display: flex; align-items: center; gap: 4px; color: #8b98a5; padding-top: 3px; cursor: pointer; transition: color 160ms cubic-bezier(0.2, 0, 0.2, 1);" style-hover="color: #c3cdd7;"><div style="font: 400 12px/16px 'Open Sans', sans-serif;">Nothing built yet</div><i class="ph ph-caret-right" style="font-size: 10px;"></i></div>
             </div>
           </div>
 
           <div style="display: flex; gap: 16px; align-items: stretch;">
             <div style="width: 20px; flex: none; display: flex; flex-direction: column; align-items: center;">
-              <div style="width: 20px; height: 20px; flex: none; border-radius: 99px; background: #1d232c; border: 1px solid #8390a2; display: grid; place-items: center;"><i class="ph ph-user" style="font-size: 10px; color: #cbd1db;"></i></div>
-              <div style="flex: 1; width: 0; border-left: 2px dashed #475263; margin-top: 4px;"></div>
+              <div style="width: 20px; height: 20px; flex: none; border-radius: 99px; background: #0b1218; border: 1px solid #8b98a5; display: grid; place-items: center;"><i class="ph ph-user" style="font-size: 10px; color: #c3cdd7;"></i></div>
+              <div style="flex: 1; width: 0; border-left: 2px dashed #26313d; margin-top: 4px;"></div>
             </div>
             <div style="flex: 1; min-width: 0; padding-bottom: 24px; display: flex; gap: 24px; align-items: flex-start;">
               <div style="flex: 1; min-width: 0; display: flex; flex-direction: column; gap: 2px;">
-                <div style="font: 600 14px/22px 'Open Sans', sans-serif; color: #f7f8f9;">Disputes over {{ threshold }} go to a person</div>
-                <div style="font: 400 12px/18px 'Open Sans', sans-serif; color: #cbd1db;">{{ threshold }} is my guess. I need the real number before I build this.</div>
+                <div style="font: 600 14px/22px 'Open Sans', sans-serif; color: #f5f9fc;">Disputes over {{ threshold }} go to a person</div>
+                <div style="font: 400 12px/18px 'Open Sans', sans-serif; color: #c3cdd7;">{{ threshold }} is my guess. I need the real number before I build this.</div>
               </div>
-              <div style="flex: none; display: flex; align-items: center; gap: 4px; color: #8390a2; padding-top: 3px; cursor: pointer; transition: color 160ms cubic-bezier(0.2, 0, 0.2, 1);" style-hover="color: #cbd1db;"><div style="font: 400 12px/16px 'Open Sans', sans-serif;">1 of 2 exists</div><i class="ph ph-caret-right" style="font-size: 10px;"></i></div>
+              <div style="flex: none; display: flex; align-items: center; gap: 4px; color: #8b98a5; padding-top: 3px; cursor: pointer; transition: color 160ms cubic-bezier(0.2, 0, 0.2, 1);" style-hover="color: #c3cdd7;"><div style="font: 400 12px/16px 'Open Sans', sans-serif;">1 of 2 exists</div><i class="ph ph-caret-right" style="font-size: 10px;"></i></div>
             </div>
           </div>
 
           <div style="display: flex; gap: 16px; align-items: flex-start;">
             <div style="width: 20px; flex: none; display: flex; justify-content: center; padding-top: 5px;">
-              <div style="width: 8px; height: 8px; border-radius: 99px; border: 1px dashed #8390a2;"></div>
+              <div style="width: 8px; height: 8px; border-radius: 99px; border: 1px dashed #8b98a5;"></div>
             </div>
-            <div style="font: 400 12px/18px 'Open Sans', sans-serif; color: #8390a2;">Two more steps will be needed — how the reviewer decides, and what the customer is told. I have not written them yet.</div>
+            <div style="font: 400 12px/18px 'Open Sans', sans-serif; color: #8b98a5;">Two more steps will be needed — how the reviewer decides, and what the customer is told. I have not written them yet.</div>
           </div>
 
           <div style="flex: 1;"></div>

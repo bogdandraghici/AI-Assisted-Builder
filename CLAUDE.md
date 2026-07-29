@@ -46,8 +46,18 @@ Spacing is the FlowX scale (4 · 6 · 8 · 12 · 16 · 24 · 56); an off-scale n
 allowed when it is derived optical alignment, not spacing — e.g. `padding-left: 28px`
 to sit under a 12px number gutter plus its 16px gap.
 
-Two families, and the distinction is load-bearing: Open Sans is plan language, mono is
-resource identifiers. Uppercase 10px is a panel or column header and nothing else.
+Two families, and the distinction is load-bearing: Open Sans is plan language; mono is
+everything the product says *about* the plan — identifiers, counts, timestamps, and
+every uppercase micro-label and state chip. A micro-label is `10/12 · 400 mono` at
+`+.14em`, and it labels a panel or a column and nothing else. Prose inside the elastic
+column is capped at 800px so a line stays readable.
+
+Palette is §01 and §03 — ground `#0b1218`, side pane `#0e161d`, lifted card `#131c24`,
+outlined card `#101820` behind `#1c2530`, hairline `#18212a`. **There are no elevation
+shadows.** The one exception per screen is carried by a wash of the disagreement orange
+plus a tinted edge — 135° across a compact panel, 180° dying out down a tall one — and
+settled things take a 3px left status stripe instead. `box-shadow` is only ever the 3px
+focus ring.
 
 ## Preview
 
