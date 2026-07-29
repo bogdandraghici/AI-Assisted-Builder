@@ -54,7 +54,7 @@ Three of its rules are easy to break without opening it:
 
 - **Never `sc-if` anything that animates** — an unmounted element has no value to
   transition from. `sc-if` is for things that just appear.
-- **One element per thing, never two that cross-fade.** The wide plan and the 240px spine
+- **One element per thing, never two that cross-fade.** The wide plan and the 300px spine
   are the same five rows changing size, not two layers dissolving.
 - **The pinned numbers are measured, not derived, and they all move together.** Change the
   width of any pane and every `min-width` in the plan pane is wrong until re-measured.

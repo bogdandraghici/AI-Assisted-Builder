@@ -1,6 +1,6 @@
 # The one-beat move
 
-How the plan pane collapses into its 240px spine while the step pane opens beside it.
+How the plan pane collapses into its 300px spine while the step pane opens beside it.
 Read this before changing any duration, easing, `min-width`, `min-height` or collapse in
 `Conversational Builder v2.dc.html` — every number in it was measured, and several of
 them are only correct relative to each other.
@@ -14,7 +14,7 @@ strings on every render, so this animates. Four rules follow from it:
 - **Never `sc-if` anything that animates.** It unmounts, and an unmounted element has
   no value to transition from. `sc-if` is for things that just appear, like the
   technical-detail table.
-- **One element per thing, never two that cross-fade.** The wide plan and the 240px
+- **One element per thing, never two that cross-fade.** The wide plan and the 300px
   spine are the *same* five rows changing type size, dot size and padding. Two layers
   dissolving into each other was the first attempt and it read as broken: you saw the
   wide plan clipped mid-sentence while a differently-shaped rail ghosted in under it.
@@ -72,17 +72,21 @@ broken layout.
 
 ### Let the measure outrun the pane and the pane never touches the wrapping
 
-Both start together, but a title's `max-width` travels 800 → 164 while the space available
-to it travels 879 → 164, so on the same curve the max-width is *always* the smaller of the
+Both start together, but a title's `max-width` travels 800 → 224 while the space available
+to it travels 879 → 224, so on the same curve the max-width is *always* the smaller of the
 two and it alone decides where lines break. That is what makes a simultaneous move legal
 at all.
 
 It must equal the true final width, gaps included — a collapsed sibling still occupies its
 flex `gap`, so the first attempt was 24px too generous and bought one last rewrap on the
-final frame. Derive it: row `240 - 32 pad - 8 dot - 12 gap - 24 gap = 164`;
-card `164 - 20 pad - 2 border - 12 gap - 8 gap = 146`. It applies to anything that wraps,
-not just titles: the pair of chips in the card broke onto a second line 20ms before the
-dock landed and threw the two rows below it down 26px in one frame.
+final frame. Derive it, from the spine width in and the gaps out:
+row `300 - 32 pad - 8 dot - 12 gap - 24 gap = 224`, and the card from the 248 the row
+leaves it: `248 - 2 border - 20 pad - 12 gap - 8 gap = 206`. It applies to anything that
+wraps, not just titles: the pair of chips in the card broke onto a second line 20ms before
+the dock landed and threw the two rows below it down 26px in one frame. At 206 they fit
+side by side and no longer wrap at all — but the pin stays, because what it prevents is the
+wrap happening *during* the move, and an unpinned pair would still cross their own break
+point on the way in.
 
 ### Whatever has no counterpart in the other state still has a SIZE, and the size is not late
 
@@ -104,16 +108,23 @@ two things that lead or lag it — the measure and the reserved line box — use
 `cubic-bezier(0, 0, 0.4, 0.8)` to get ahead early.
 
 The chat pane is a fixed 360px in both states and takes no part in the move. The step pane
-clips rather than reflows: its content holds a `min-width: 838px` so an opening pane
+clips rather than reflows: its content holds a `min-width: 780px` so an opening pane
 uncovers it instead of squeezing it — the same trick as the pinned collapsing blocks, and
 it was there first.
 
 ## Where it stands
 
-At 16.7ms per frame: the two rows that travel 190px peak at 24px a frame opening and 31px
-closing, monotonic apart from a single sub-3px settle; the interior rows never step more
-than 4px in either direction. The three-beat version peaked at 89px a frame with 5–7
+At 16.7ms per frame: the two rows that travel 214 and 218px peak at 27px a frame opening
+and 35px closing, monotonic apart from a single sub-2px settle; the interior rows never step
+more than 4px in either direction. The three-beat version peaked at 89px a frame with 5–7
 reversals per row and was still moving at 700ms. It is 340ms now.
+
+Those peaks were 24 and 31 at the 240px spine, over a 190px travel. Widening the spine to
+300 unstacked the card's two chips onto one line, which took 24px out of the collapsed
+plan's height and gave the rows below it that much further to go in the same 340ms. The
+peaks grew with the distance and nothing else did: the sign changes did not increase and
+the worst backward step is still under 2px, which is the number that decides whether a move
+reads as judder.
 
 ## How to measure it
 

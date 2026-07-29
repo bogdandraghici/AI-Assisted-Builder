@@ -298,7 +298,7 @@
                          broke onto a second line 20ms before the dock landed,
                          which threw the two rows below it down 26px in one
                          frame. Same rule as the titles, same number. -->
-                    <div style="max-width: 146px; padding-top: 8px; display: flex; flex-wrap: wrap; gap: 6px;">
+                    <div style="max-width: 206px; padding-top: 8px; display: flex; flex-wrap: wrap; gap: 6px;">
                       <div style="display: inline-flex; align-items: center; height: 18px; padding: 0 6px; border-radius: 4px; background: rgba(242, 118, 43, 0.14); border: 1px solid rgba(242, 118, 43, 0.26); color: #f2985c; font: 400 10px/12px ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;">1 to settle</div>
                       <div style="display: inline-flex; align-items: center; height: 18px; padding: 0 6px; border-radius: 4px; background: #131c24; border: 1px solid #26313d; color: #8b98a5; font: 400 10px/12px ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;">2 not built</div>
                     </div>
@@ -463,7 +463,7 @@
              column, so nothing scrolls underneath it. It also puts the heading
              and the cards on the same right edge, which they were not when the ×
              was a flex child of the heading and only the heading paid for it. -->
-        <div style="position: absolute; top: 0; left: 0; bottom: 0; width: 100%; min-width: 838px; display: flex; flex-direction: column; overflow-y: auto; padding: 24px 74px 16px 32px;">
+        <div style="position: absolute; top: 0; left: 0; bottom: 0; width: 100%; min-width: 780px; display: flex; flex-direction: column; overflow-y: auto; padding: 24px 74px 16px 32px;">
 
           <div style="flex: none; max-width: 800px; display: flex; flex-direction: column; gap: 8px; padding-bottom: 12px; opacity: {{ dOp }}; transform: {{ dTr }}; transition: opacity {{ dDur }} cubic-bezier(0.2, 0, 0.2, 1) {{ dDl }}, transform {{ dDur }} cubic-bezier(0.2, 0, 0.2, 1) {{ dDl }};">
             <div style="display: inline-flex; align-self: flex-start; align-items: center; gap: 6px; color: #f2762b;">
@@ -768,16 +768,16 @@ class Component extends DCLogic {
       // ── What a title is wrapped to ───────────────────────────────────────
       // These must equal the width the title ACTUALLY ends up with. Both
       // collapsed siblings leave their flex gap behind, which is what the first
-      // pass got wrong:  row  240 - 32 pad - 8 dot - 12 gap - 24 gap = 164
-      //                  card 164 - 10 pad x2 - 2 border - 12 gap - 8 gap = 146
-      titleMax: on ? '164px' : '800px',
-      cardTitleMax: on ? '146px' : '800px',
+      // pass got wrong:  row  300 - 32 pad - 8 dot - 12 gap - 24 gap = 224
+      //                  card 248 row - 2 border - 20 pad - 12 gap - 8 gap = 206
+      titleMax: on ? '224px' : '800px',
+      cardTitleMax: on ? '206px' : '800px',
       // The measure animates FASTER than the pane, and that is what keeps the
       // pane out of the wrapping: at every instant the max-width is below the
       // width actually available, so it is the max-width that decides where the
       // lines break, on a curve, and not the pane arriving at some width. (Both
       // start at the same instant, so this only needs the measure to travel a
-      // shorter road: 800 -> 164 against 879 -> 164.) Closing it takes the full
+      // shorter road: 800 -> 224 against 879 -> 224.) Closing it takes the full
       // duration on the shared curve, which satisfies the same inequality.
       wrDur: on ? '260ms' : '340ms',
       wrEase: on ? 'cubic-bezier(0, 0, 0.4, 0.8)' : 'cubic-bezier(0.2, 0, 0.2, 1)',
@@ -808,11 +808,11 @@ class Component extends DCLogic {
 
       // ── The panes, and the plan tightening with them ─────────────────────
       // The chat is a fixed 360 in both states and takes no part in the move.
-      // The plan and the step trade flex-grow, so they land on 240 and 838 at
+      // The plan and the step trade flex-grow, so they land on 300 and 780 at
       // 1440 and the step takes any extra room on a wider viewport rather than
       // leaving a gap.
       planGrow: on ? '0' : '1',
-      planBasis: on ? '240px' : '0px',
+      planBasis: on ? '300px' : '0px',
       detGrow: on ? '1' : '0',
       detVis: on ? 'visible' : 'hidden',
       detVisDl: on ? '0ms' : '120ms',   // == dDur out, so it hides after the fade
