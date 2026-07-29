@@ -71,7 +71,17 @@ in the logic, not left to look enabled:
   withdrawn by taking the pointer off the element — which removes the cursor and the click
   with it. One flag, whole affordance.
 - **Withdraw the tabindex too** (`tabindex="{{ … }}"` → `-1`), or the keyboard keeps
-  reaching a control the mouse no longer can.
+  reaching a control the mouse no longer can. A whole clipped pane goes out of the tab
+  order with `visibility` on the pane — it inherits, so it does not need a tabindex on
+  every control inside, and being discrete it cannot judder. Delay the hide by the
+  content's fade-out so it does not pop.
+- **Two glyphs, two meanings.** `caret-right` is a disclosure that opens in the pane you
+  are already in; `arrow-right` changes what you are looking at. A control and its row
+  carry the same one.
+- This is about affordances that are **wrong for the current state**, not about
+  unimplemented chrome. The bell, the kebab and the undo pair hover and do nothing, and
+  that is the fidelity of a design doc — leave them. What may not happen is a control that
+  looks live in a state where it cannot act.
 - **The three ways out of a step — ×, Esc, breadcrumb — plus the back arrow are one
   control at four sizes.** They share `exitTab` / `upPE` and they arrive and leave
   together. Up from the plan is a journey list this prototype does not have, so in the
