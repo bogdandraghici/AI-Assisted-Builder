@@ -55,7 +55,8 @@ column is capped at 800px so a line stays readable.
 Palette is §01 and §03 — ground `#0b1218`, side pane `#0e161d`, lifted card `#131c24`,
 outlined card `#101820` behind `#1c2530`, hairline `#18212a`. **There are no elevation
 shadows.** The one exception per screen is carried by a wash of the disagreement orange
-plus a tinted edge — always 180°, strongest at the top edge and gone by 70% down — and
+plus a tinted edge — always 180°, strongest at the top edge and thinning, but never all
+the way out, by the bottom — and
 settled things take a 3px left status stripe instead. `box-shadow` is only ever the 3px
 focus ring.
 
