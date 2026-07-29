@@ -123,7 +123,7 @@
 
         <div style="flex: none; padding: 16px 24px 24px; display: flex; flex-direction: column; gap: 8px;">
           <div style="display: flex; align-items: center; gap: 12px; padding: 8px 12px; background: #101820; border: 1px solid #4d97ea; border-radius: 8px; box-shadow: 0 0 0 3px rgba(43, 127, 228, 0.32);">
-            <div style="flex: 1; font: 400 14px/24px 'Open Sans', sans-serif; color: #f5f9fc;">Only send it to a person above {{ threshold }}<i style="display: inline-block; width: 1px; height: 16px; background: #4d97ea; margin-left: 2px; vertical-align: -3px;"></i></div>
+            <div style="flex: 1; min-width: 0; font: 400 14px/24px 'Open Sans', sans-serif; color: #f5f9fc;">Only send it to a person above {{ threshold }}<i style="display: inline-block; width: 1px; height: 16px; background: #4d97ea; margin-left: 2px; vertical-align: -3px;"></i></div>
             <div tabindex="0" style="font: 600 12px/16px 'Open Sans', sans-serif; color: #4d97ea; cursor: pointer; outline: none; flex: none;">Send</div>
           </div>
           <div style="font: 400 12px/16px 'Open Sans', sans-serif; color: #8b98a5;">Answers the one thing step 5 is waiting for.</div>
@@ -326,7 +326,7 @@
 
       <div style="width: 360px; flex: none; background: #0b1218; border-right: 1px solid #18212a; display: flex; flex-direction: column; min-height: 0;">
 
-        <div style="flex: 1; padding: 24px 16px 0; display: flex; flex-direction: column; justify-content: flex-end; gap: 24px; overflow: hidden; min-height: 0;">
+        <div style="flex: 1; padding: 24px 24px 0; display: flex; flex-direction: column; gap: 24px; overflow: hidden; min-height: 0;">
 
           <div style="display: flex; gap: 12px;">
             <div style="width: 22px; height: 22px; flex: none; border-radius: 99px; background: #2b7fe4; color: #ffffff; display: grid; place-items: center; font: 700 10px/12px 'Open Sans', sans-serif;">LC</div>
@@ -372,11 +372,12 @@
 
         </div>
 
-        <div style="flex: none; padding: 16px;">
+        <div style="flex: none; padding: 16px 24px 24px; display: flex; flex-direction: column; gap: 8px;">
           <div style="display: flex; align-items: center; gap: 12px; padding: 8px 12px; background: #101820; border: 1px solid #26313d; border-radius: 8px; cursor: text; transition: border-color 160ms cubic-bezier(0.2, 0, 0.2, 1);" style-hover="border-color: #3a4653;">
-            <div style="flex: 1; min-width: 0; font: 400 14px/24px 'Open Sans', sans-serif; color: #7b8896;">Say something about step 3</div>
+            <div style="flex: 1; min-width: 0; font: 400 14px/24px 'Open Sans', sans-serif; color: #7b8896;">Reply to the agent</div>
             <div style="font: 600 12px/16px 'Open Sans', sans-serif; color: #5c6975; flex: none;">Send</div>
           </div>
+          <div style="font: 400 12px/16px 'Open Sans', sans-serif; color: #8b98a5;">Anything you type here lands on step 3.</div>
         </div>
       </div>
 
