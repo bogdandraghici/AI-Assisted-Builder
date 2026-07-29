@@ -36,6 +36,19 @@ Design size is 1440×900. Standalone pages fill the viewport but hold a
 `min-width` / `min-height` at that size — below it the panes and table columns
 collide, so the page scrolls instead of breaking.
 
+## Type and spacing
+
+`Design System.dc.html` §04 holds the type ladder — nine named roles over five sizes
+(10 · 12 · 14 · 18 · 24) and only FlowX line-heights (12 · 16 · 18 · 22 · 24 · 28 · 38).
+Pick a role; never invent a size. **There is no 11px and no 13px** — both existed before
+and made the levels indistinguishable, which is the whole problem the ladder solves.
+Spacing is the FlowX scale (4 · 6 · 8 · 12 · 16 · 24 · 56); an off-scale number is only
+allowed when it is derived optical alignment, not spacing — e.g. `padding-left: 28px`
+to sit under a 12px number gutter plus its 16px gap.
+
+Two families, and the distinction is load-bearing: Open Sans is plan language, mono is
+resource identifiers. Uppercase 10px is a panel or column header and nothing else.
+
 ## Preview
 
 ```
