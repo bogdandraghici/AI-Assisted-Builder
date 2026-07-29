@@ -797,14 +797,28 @@ class Component extends DCLogic {
       // the box may only shrink once the text inside has un-wrapped, or the
       // content is what sets the height again and the jumps come back.
       //
+      // But it must lag the UN-WRAP, not the whole 340ms. Closing used to take
+      // the full duration on an ease that finished late, and the cost was the
+      // one thing the move is not allowed to do: the panes were done at ~300ms
+      // while 32px of reserved box per title was still collapsing, and rows that
+      // had travelled 218px DOWN drifted 19px back UP over the last 100ms. It
+      // read exactly as it measured — smooth opening, awkward closing.
+      // Closing at 240ms puts the shrink back inside the window where the pane
+      // is still moving, so it is absorbed instead of exposed: the backward
+      // drift goes 19.4px -> 1.4px and the peak forward step 35px -> 28px, which
+      // is the opening's own 27. The measure still wins the race that matters —
+      // the text un-wraps in the first ~80ms, long before the box needs to be
+      // smaller, and the check for that is the box-underrun trace in
+      // docs/motion.md, not the ratio of the two durations.
+      //
       // 3lh and 2lh are how many lines each title takes at the spine measure,
       // in line units so they follow the type ladder rather than pixels. If
       // copy ever makes one wrong, that title degrades to a jump — the layout
       // does not break.
       tlA: on ? '3lh' : '1lh',
       tlB: on ? '2lh' : '1lh',
-      ldDur: on ? '200ms' : '340ms',
-      ldEase: on ? 'cubic-bezier(0, 0, 0.4, 0.8)' : 'cubic-bezier(0.4, 0, 1, 1)',
+      ldDur: on ? '200ms' : '240ms',
+      ldEase: on ? 'cubic-bezier(0, 0, 0.4, 0.8)' : 'cubic-bezier(0.3, 0, 0.5, 1)',
 
       // ── The panes, and the plan tightening with them ─────────────────────
       // The chat is a fixed 360 in both states and takes no part in the move.

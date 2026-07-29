@@ -70,6 +70,24 @@ un-wrapped, or the content sets the height again and the jumps come back. The `l
 keeps it honest: if copy ever makes a count wrong, that title degrades to a jump, not to a
 broken layout.
 
+It has to lag the **un-wrap**, though, not the whole duration — and that distinction is the
+difference between a move that closes well and one that does not. Closing once took the full
+340ms on an ease that finished late, which put the panes at rest around 300ms while 32px of
+reserved box per title was still collapsing. Rows that had travelled 218px down then drifted
+**19px back up** over the last 100ms: a long, late reversal, which is the one thing this move
+is not allowed to do. It read the way it measured — smooth opening, awkward closing.
+
+Closing at 240ms fixes it by putting the shrink back inside the window where the pane is
+still moving, so it is absorbed rather than exposed. The backward drift goes 19.4px → 1.4px
+and the peak forward step 35px → 28px, which is the opening's own 27. Nothing about the rule
+is weakened: the text un-wraps inside the first ~80ms, because `max-width` opens on the fast
+part of its curve, so the box is never asked to be smaller than its content.
+
+Check that with the **box-underrun** trace, not by comparing the two durations: at every
+frame take `scrollHeight - min-height` over the five titles and keep the worst. It stays
+around 2px — sub-line, so no title ever gains a line mid-flight. If a retune ever pushes
+that past a line (18px), the jumps are back and the duration is too short.
+
 ### Let the measure outrun the pane and the pane never touches the wrapping
 
 Both start together, but a title's `max-width` travels 800 → 224 while the space available
@@ -115,16 +133,21 @@ it was there first.
 ## Where it stands
 
 At 16.7ms per frame: the two rows that travel 214 and 218px peak at 27px a frame opening
-and 35px closing, monotonic apart from a single sub-2px settle; the interior rows never step
+and 28px closing, and both directions are monotonic to rest — the worst step against the
+direction of travel is 1.8px opening and 0.6px closing, and the interior rows never step
 more than 4px in either direction. The three-beat version peaked at 89px a frame with 5–7
 reversals per row and was still moving at 700ms. It is 340ms now.
 
 Those peaks were 24 and 31 at the 240px spine, over a 190px travel. Widening the spine to
 300 unstacked the card's two chips onto one line, which took 24px out of the collapsed
-plan's height and gave the rows below it that much further to go in the same 340ms. The
-peaks grew with the distance and nothing else did: the sign changes did not increase and
-the worst backward step is still under 2px, which is the number that decides whether a move
-reads as judder.
+plan's height and gave the rows below it that much further to go in the same 340ms, so the
+peaks grew with the distance.
+
+The closing figure went to 35 with a 19px reversal behind it before `ldDur` was retuned —
+see *Rewrapping is not motion* above. Worth knowing how that hid: a per-row summary that
+records only the worst single backward STEP called it 5.3px and looked survivable, because
+the reversal was nineteen small frames rather than one big one. Sum the backward deltas per
+row, or a slow drift the whole length of the tail reads as noise.
 
 ## How to measure it
 
@@ -135,7 +158,9 @@ and step every animation's `currentTime` together in 16.7ms increments, reading
 `getBoundingClientRect().top` of each row into an attribute you can pull out with
 `--dump-dom`. That gives an exact per-frame trace with no dependence on wall time. Then
 diff consecutive frames: a **sign change is worse than a big step** — 60px in one frame is
-a fast collapse, 20px the wrong way is judder.
+a fast collapse, 20px the wrong way is judder. Total the backward deltas as well as taking
+the worst one: 19 frames of 1px the wrong way is the same 19px of judder as one frame of it,
+and only the total catches it.
 
 Two gates, or the trace lies:
 
