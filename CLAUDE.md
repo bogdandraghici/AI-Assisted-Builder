@@ -62,10 +62,28 @@ strings on every render, so this animates; three rules follow from it:
   a one-character sliver, and that single frame is what makes a move look cheap. The
   `exOp*` values run shorter than the `ex*` ones for exactly this.
 
-The move is three beats, and the order is the whole trick: the detail collapses at full
-width, *then* the panes resize, *then* the labels only the spine carries fade in. Doing
-it in one pass means five descriptions and a diagram all reflowing while the column
-shrinks under them.
+- **Nothing text-shaped may ride on the pane resize.** A title's `font-size` and its
+  `max-width` both settle in beat 1, pinned to the width it will actually end up with,
+  so beat 2 cannot rewrap anything. This is the difference between smooth and not, and
+  it is measurable: with the type riding the pane, rows drifted up ~58px as the padding
+  tightened and then jerked back down in +23/+25/+27px steps as five titles rewrapped in
+  four staggered waves over the last 40% of the dock — 24 jolts, net displacement ~0, so
+  every pixel of it was judder. Pinning the measure first: **zero** jolts, 7px maximum
+  step, every row monotonic.
+- **A pinned measure must equal the true final width, gaps included.** A collapsed
+  sibling still occupies its flex `gap`, so the first attempt was 24px too generous and
+  bought one last rewrap on the final frame. Derive it: row `240 - 32 pad - 8 dot -
+  12 gap - 24 gap = 164`; card `164 - 20 pad - 2 border - 12 gap - 8 gap = 146`.
+
+The move is three beats, and the order is the whole trick: the detail collapses **and the
+text settles its wrap** at full width, *then* the panes resize, *then* the labels only the
+spine carries fade in. Doing it in one pass means five descriptions and a diagram all
+reflowing while the column shrinks under them.
+
+To check smoothness, don't look — measure. Render ~10 static frames across a beat with a
+probe in `componentDidMount` that writes `getBoundingClientRect()` tops into
+`document.title`, read them with `--dump-dom`, and diff consecutive frames. Any step over
+~8px is a jolt the eye will catch, and a sign change means the content bounces.
 
 Anything that genuinely has no counterpart in the other state — the Agreed / You are
 here / Next headings, the per-step counts — arrives last and leaves first, because it
