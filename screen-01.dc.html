@@ -339,19 +339,15 @@
 </x-dc>
 <script type="text/x-dc" data-dc-script data-props="{&quot;threshold&quot;:{&quot;editor&quot;:&quot;text&quot;,&quot;default&quot;:&quot;£500&quot;,&quot;tsType&quot;:&quot;string&quot;,&quot;section&quot;:&quot;Content&quot;}}">
 class Component extends DCLogic {
-  state = { step: 0, open: true };
-  hover(n) { return () => this.setState({ step: n }); }
+  // `open` is screen 02's one disclosure — the technical detail under the
+  // decisions. Closed by default: the plan is the point, identifiers are not.
+  state = { open: false };
   renderVals() {
-    const s = this.state.step;
     return {
       threshold: this.props.threshold ?? '£500',
       open: this.state.open,
-      toggle: () => this.setState(p => ({ open: !p.open })),
-      colLeft: (340 + (Math.max(s, 1) - 1) * 10) + 'px',
-      colOn: s ? 1 : 0,
-      h1: this.hover(1), h2: this.hover(2), h3: this.hover(3),
-      h4: this.hover(4), h5: this.hover(5),
-      hOff: () => this.setState({ step: 0 })
+      closed: !this.state.open,
+      toggle: () => this.setState(p => ({ open: !p.open }))
     };
   }
 }
