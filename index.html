@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>AI Assisted Builder — conversational builder prototypes</title>
-<meta name="description" content="Design-doc prototypes for the FlowX AI-assisted builder, plus the system sheet documenting them.">
+<meta name="description" content="Design-doc prototypes for the FlowX AI-assisted builder, embedded in full, plus the system sheet documenting them.">
 <style>
   @font-face { font-family: 'Open Sans'; font-style: normal; font-weight: 400; font-display: swap; src: url('fonts/OpenSans-Regular.ttf') format('truetype'); }
   @font-face { font-family: 'Open Sans'; font-style: normal; font-weight: 600; font-display: swap; src: url('fonts/OpenSans-SemiBold.ttf') format('truetype'); }
@@ -12,77 +12,132 @@
 
   *, *::before, *::after { box-sizing: border-box; }
   html, body { margin: 0; padding: 0; background: #000; }
+  html { scroll-behavior: smooth; }
   ::selection { background: rgba(51, 137, 224, 0.32); }
 
   body {
     font-family: 'Open Sans', -apple-system, sans-serif;
     -webkit-font-smoothing: antialiased;
     color: #f7f8f9;
-    padding: 56px 24px 96px;
   }
-  .wrap { max-width: 940px; margin: 0 auto; display: flex; flex-direction: column; gap: 40px; }
 
-  .eyebrow {
-    font: 700 10px/12px 'Open Sans', sans-serif;
-    text-transform: uppercase; letter-spacing: 0.08em; color: #8390a2;
-  }
-  h1 { font: 700 24px/34px 'Open Sans', sans-serif; margin: 0; color: #f7f8f9; }
-  .lede { font: 400 14px/24px 'Open Sans', sans-serif; color: #a6b0be; max-width: 76ch; text-wrap: pretty; margin: 0; }
+  .wrap { max-width: 1280px; margin: 0 auto; padding: 0 24px; }
+
+  .eyebrow { font: 700 10px/12px 'Open Sans', sans-serif; text-transform: uppercase; letter-spacing: 0.08em; color: #8390a2; }
   .mono { font: 400 13px/20px ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; color: #cbd1db; }
 
-  header { display: flex; flex-direction: column; gap: 10px; padding-bottom: 22px; border-bottom: 1px solid #475263; }
+  header.masthead { padding: 56px 0 22px; display: flex; flex-direction: column; gap: 10px; border-bottom: 1px solid #475263; }
+  header.masthead h1 { font: 700 24px/34px 'Open Sans', sans-serif; margin: 0; }
+  header.masthead p { font: 400 14px/24px 'Open Sans', sans-serif; color: #a6b0be; max-width: 78ch; text-wrap: pretty; margin: 0; }
 
-  .rule { display: flex; align-items: baseline; gap: 16px; }
+  /* sticky jump bar */
+  nav.jump {
+    position: sticky; top: 0; z-index: 10;
+    background: rgba(0, 0, 0, 0.86);
+    -webkit-backdrop-filter: blur(8px); backdrop-filter: blur(8px);
+    border-bottom: 1px solid #2a313a;
+  }
+  nav.jump .inner { max-width: 1280px; margin: 0 auto; padding: 10px 24px; display: flex; align-items: center; gap: 8px; flex-wrap: wrap; }
+  nav.jump a {
+    font: 600 12px/1 'Open Sans', sans-serif; color: #cbd1db; text-decoration: none;
+    display: inline-flex; align-items: center; height: 28px; padding: 0 12px;
+    border: 1px solid #475263; border-radius: 6px;
+    transition: background 160ms cubic-bezier(0.2, 0, 0.2, 1), border-color 160ms cubic-bezier(0.2, 0, 0.2, 1), color 160ms cubic-bezier(0.2, 0, 0.2, 1);
+  }
+  nav.jump a:hover { background: #1d232c; border-color: #3389e0; color: #f7f8f9; }
+  nav.jump a:focus-visible { outline: none; box-shadow: 0 0 0 3px rgba(51, 137, 224, 0.32); }
+  nav.jump .spacer { flex: 1; }
+  nav.jump .count { font: 400 12px/16px ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; color: #8390a2; }
+
+  section.piece { padding: 48px 0 0; scroll-margin-top: 60px; }
+
+  .rule { display: flex; align-items: baseline; gap: 16px; margin-bottom: 12px; }
   .rule .line { flex: 1; height: 1px; background: #2a313a; }
 
-  .cards { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 12px; }
+  .piece h2 { font: 700 18px/28px 'Open Sans', sans-serif; margin: 0 0 6px; }
+  .piece .desc { font: 400 14px/24px 'Open Sans', sans-serif; color: #a6b0be; max-width: 88ch; text-wrap: pretty; margin: 0 0 16px; }
 
-  a.card {
-    display: flex; flex-direction: column; gap: 10px;
-    background: #1d232c; border: 1px solid #475263; border-radius: 12px;
-    padding: 20px 22px 22px; text-decoration: none;
-    transition: background 160ms cubic-bezier(0.2, 0, 0.2, 1), border-color 160ms cubic-bezier(0.2, 0, 0.2, 1);
-    outline: none;
+  a.standalone {
+    display: inline-flex; align-items: center; gap: 8px; flex: none;
+    height: 28px; padding: 0 12px; border-radius: 6px;
+    border: 1px solid #475263; background: transparent;
+    font: 600 12px/1 'Open Sans', sans-serif; color: #cbd1db; text-decoration: none;
+    transition: background 160ms cubic-bezier(0.2, 0, 0.2, 1), border-color 160ms cubic-bezier(0.2, 0, 0.2, 1), color 160ms cubic-bezier(0.2, 0, 0.2, 1);
   }
-  a.card:hover { background: #2a313a; border-color: #3389e0; }
-  a.card:focus-visible { box-shadow: 0 0 0 3px rgba(51, 137, 224, 0.32); }
+  a.standalone:hover { background: #1d232c; border-color: #3389e0; color: #f7f8f9; }
+  a.standalone:focus-visible { outline: none; box-shadow: 0 0 0 3px rgba(51, 137, 224, 0.32); }
+  a.standalone .arrow { font: 400 12px/1 ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; color: #8390a2; }
 
-  a.card .title { font: 600 14px/20px 'Open Sans', sans-serif; color: #f7f8f9; }
-  a.card .desc { font: 400 13px/20px 'Open Sans', sans-serif; color: #a6b0be; text-wrap: pretty; }
-  a.card .meta { font: 400 11px/15px ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; color: #8390a2; }
+  /* the embedded page itself */
+  .embed {
+    position: relative; width: 100%;
+    border: 1px solid #475263; border-radius: 12px;
+    background: #000; overflow: hidden;
+    height: 900px; /* replaced by script once measured */
+  }
+  .embed iframe { display: block; border: 0; transform-origin: top left; width: 1552px; height: 900px; }
+  .embed .fallback {
+    position: absolute; inset: 0; display: grid; place-items: center;
+    font: 400 13px/20px 'Open Sans', sans-serif; color: #8390a2; pointer-events: none;
+  }
+  .embed.ready .fallback { display: none; }
 
-  footer { display: flex; flex-direction: column; gap: 9px; }
-  footer p { font: 400 12px/18px 'Open Sans', sans-serif; color: #8390a2; margin: 0; max-width: 84ch; text-wrap: pretty; }
+  .scalenote { font: 400 11px/15px ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; color: #8390a2; margin-top: 8px; }
+
+  footer { margin-top: 56px; padding: 22px 0 96px; border-top: 1px solid #475263; display: flex; flex-direction: column; gap: 9px; }
+  footer p { font: 400 12px/18px 'Open Sans', sans-serif; color: #8390a2; margin: 0; max-width: 88ch; text-wrap: pretty; }
   footer a { color: #3389e0; text-decoration: none; }
   footer a:hover { color: #549ce5; text-decoration: underline; }
 </style>
 </head>
 <body>
-  <div class="wrap">
 
-    <header>
+  <div class="wrap">
+    <header class="masthead">
       <div class="eyebrow">FlowX · AI-assisted builder</div>
       <h1>The plan and the resources</h1>
-      <p class="lede">Design-doc prototypes for a conversational builder — the builder describes an outcome, the agent proposes a plan, builds what is obvious, and argues about the rest. Both pages render client-side from <span class="mono">support.js</span>; nothing here is a screenshot.</p>
+      <p>Design-doc prototypes for a conversational builder — the builder describes an outcome, the agent proposes a plan, builds what is obvious, and argues about the rest. Both pages are embedded below at full length and render live from <span class="mono">support.js</span>; nothing here is a screenshot. Each also opens standalone.</p>
     </header>
+  </div>
 
-    <div class="rule">
-      <div class="eyebrow">Prototypes</div>
-      <div class="line"></div>
+  <nav class="jump">
+    <div class="inner">
+      <a href="#builder">Conversational Builder v2</a>
+      <a href="#system">Design System</a>
+      <div class="spacer"></div>
+      <div class="count">2 pages · embedded live</div>
     </div>
+  </nav>
 
-    <div class="cards">
-      <a class="card" href="Conversational%20Builder%20v2.dc.html">
-        <div class="title">Conversational Builder v2</div>
-        <div class="desc">The plan takes shape and gets argued with. Three panes — conversation, plan, resources — with every resource showing which plan steps claim it.</div>
-        <div class="meta">1440 × 900 · canvas</div>
-      </a>
-      <a class="card" href="Design%20System.dc.html">
-        <div class="title">Design System</div>
-        <div class="desc">The system sheet for v2 — surfaces, text tiers, what each hue means, two type languages, the step rail, and the single motion token. Every value read out of the prototype.</div>
-        <div class="meta">8 sections · scrolling sheet</div>
-      </a>
-    </div>
+  <div class="wrap">
+
+    <section class="piece" id="builder">
+      <div class="rule">
+        <div class="eyebrow">01 — prototype</div>
+        <div class="line"></div>
+        <a class="standalone" href="Conversational%20Builder%20v2.dc.html">Open standalone <span class="arrow">↗</span></a>
+      </div>
+      <h2>Conversational Builder v2</h2>
+      <p class="desc">The plan takes shape and gets argued with. Three panes — conversation, plan, resources — where every resource shows which plan steps claim it, and the agent refuses a step with a citation rather than a shrug.</p>
+      <div class="embed" data-src="Conversational%20Builder%20v2.dc.html">
+        <div class="fallback">Loading the prototype…</div>
+      </div>
+      <div class="scalenote">Embedded at 1440 × 900 natural width, scaled to fit. Open standalone for 1:1.</div>
+    </section>
+
+    <section class="piece" id="system">
+      <div class="rule">
+        <div class="eyebrow">02 — system sheet</div>
+        <div class="line"></div>
+        <a class="standalone" href="Design%20System.dc.html">Open standalone <span class="arrow">↗</span></a>
+      </div>
+      <h2>Design System</h2>
+      <p class="desc">Eight sections covering surfaces, text tiers, what each hue means, the two type languages, space and radius, controls in every state, the step rail, and the single motion token. Every value is read out of the prototype above rather than authored separately.</p>
+      <div class="embed" data-src="Design%20System.dc.html">
+        <div class="fallback">Loading the system sheet…</div>
+      </div>
+      <div class="scalenote">Full sheet, scaled to fit. Open standalone for 1:1.</div>
+    </section>
 
     <footer>
       <p>Open Sans is shipped from <span class="mono">fonts/</span>; the prototypes pull Phosphor icons from a CDN, so icons need network access.</p>
@@ -90,5 +145,69 @@
     </footer>
 
   </div>
+
+<script>
+(function () {
+  // Both prototypes lay out at 1440 content + 56px page padding either side.
+  var NATURAL = 1552;
+  var FALLBACK_H = 1100;
+
+  var boxes = [].slice.call(document.querySelectorAll('.embed'));
+
+  boxes.forEach(function (box) {
+    var iframe = document.createElement('iframe');
+    iframe.setAttribute('title', box.parentNode.querySelector('h2').textContent);
+    iframe.setAttribute('scrolling', 'no');
+    iframe.src = box.getAttribute('data-src');
+    box.appendChild(iframe);
+    box._iframe = iframe;
+    iframe.addEventListener('load', function () {
+      box.classList.add('ready');
+      fit(box);
+      // support.js renders asynchronously, so re-measure as content settles.
+      [120, 400, 1000, 2200].forEach(function (t) { setTimeout(function () { fit(box); }, t); });
+      observe(box);
+    });
+  });
+
+  function contentHeight(box) {
+    try {
+      var d = box._iframe.contentDocument;
+      if (!d || !d.documentElement) return null;
+      return Math.max(
+        d.documentElement.scrollHeight,
+        d.body ? d.body.scrollHeight : 0,
+        d.documentElement.offsetHeight
+      );
+    } catch (e) {
+      return null; // cross-origin (e.g. opened over file://)
+    }
+  }
+
+  function fit(box) {
+    var scale = box.clientWidth / NATURAL;
+    var h = contentHeight(box) || FALLBACK_H;
+    box._iframe.style.height = h + 'px';
+    box._iframe.style.transform = 'scale(' + scale + ')';
+    box.style.height = Math.round(h * scale) + 'px';
+  }
+
+  function observe(box) {
+    // Keep the frame honest if the embedded page reflows (fonts, late render).
+    if (typeof ResizeObserver !== 'function') return;
+    try {
+      var d = box._iframe.contentDocument;
+      if (!d || !d.body) return;
+      new ResizeObserver(function () { fit(box); }).observe(d.body);
+    } catch (e) { /* cross-origin */ }
+  }
+
+  var raf;
+  window.addEventListener('resize', function () {
+    cancelAnimationFrame(raf);
+    raf = requestAnimationFrame(function () { boxes.forEach(fit); });
+  });
+})();
+</script>
 </body>
 </html>
