@@ -77,7 +77,12 @@
 
     <div style="flex: 1; display: flex; min-height: 0;">
 
-      <div style="width: {{ chatW }}; flex: none; background: #0b1218; border-right: 1px solid #18212a; display: flex; flex-direction: column; min-height: 0; transition: width {{ moveDur }} {{ moveEase }};">
+      <!-- One width in both states, so the chat is the one thing on this screen
+           that never moves. It was 440 with the plan wide and 360 with a step
+           open; the narrower of the two is enough for the conversation, and a
+           pane that resizes for no reason is one more thing travelling during
+           the move. -->
+      <div style="width: 360px; flex: none; background: #0b1218; border-right: 1px solid #18212a; display: flex; flex-direction: column; min-height: 0;">
 
         <div style="flex: 1; padding: 24px 24px 0; display: flex; flex-direction: column; gap: 24px; overflow: hidden; min-height: 0;">
 
@@ -198,12 +203,13 @@
                          to be shrinking. It clips instead, invisibly — it is at
                          zero opacity long before the pane reaches it. The number
                          is the width the block actually has when open at the
-                         1440 design size (800 / 800 / 865 / 800 / 800 / 935 —
+                         1440 design size (876 / 876 / 945 / 848 / 875 / 1015 —
                          they differ because the counts column beside each one
                          does), so at that size there is no reflow at all. This
                          is what lets the collapse and the resize be one move
-                         instead of two. -->
-                    <div style="min-width: 800px; font: 400 12px/18px 'Open Sans', sans-serif; color: #8b98a5;">Last ninety days. Card and account already known, so nothing is typed twice.</div>
+                         instead of two. Measure them, never derive them: they
+                         all moved when the chat went from 440 to a fixed 360. -->
+                    <div style="min-width: 876px; font: 400 12px/18px 'Open Sans', sans-serif; color: #8b98a5;">Last ninety days. Card and account already known, so nothing is typed twice.</div>
                   </div>
                 </div>
               </div>
@@ -223,7 +229,7 @@
                 <div style="min-height: {{ tlB }}; font-family: 'Open Sans', sans-serif; font-weight: 600; font-size: {{ titleSize }}; line-height: {{ titleLh }}; max-width: {{ titleMax }}; color: #f5f9fc; text-wrap: pretty; transition: min-height {{ ldDur }} {{ ldEase }}, font-size {{ wrDur }} {{ wrEase }}, line-height {{ wrDur }} {{ wrEase }}, max-width {{ wrDur }} {{ wrEase }};">We ask what happened, in their words</div>
                 <div style="display: grid; grid-template-rows: {{ exRows }}; transition: grid-template-rows {{ moveDur }} {{ moveEase }};">
                   <div style="overflow: hidden; min-height: 0; opacity: {{ exOp }}; transition: opacity {{ exOpDur }} {{ moveEase }} {{ exOpDl }};">
-                    <div style="min-width: 800px; font: 400 12px/18px 'Open Sans', sans-serif; color: #8b98a5;">Free text, then we sort it into one of the nine reasons the scheme accepts.</div>
+                    <div style="min-width: 876px; font: 400 12px/18px 'Open Sans', sans-serif; color: #8b98a5;">Free text, then we sort it into one of the nine reasons the scheme accepts.</div>
                   </div>
                 </div>
               </div>
@@ -276,7 +282,7 @@
 
                 <div style="display: grid; grid-template-rows: {{ exRows }}; transition: grid-template-rows {{ moveDur }} {{ moveEase }};">
                   <div style="overflow: hidden; min-height: 0; opacity: {{ exOp }}; transition: opacity {{ exOpDur }} {{ moveEase }} {{ exOpDl }};">
-                    <div style="min-width: 865px; padding-top: 12px; display: flex; flex-direction: column; gap: 12px;">
+                    <div style="min-width: 945px; padding-top: 12px; display: flex; flex-direction: column; gap: 12px;">
 
                       <div style="display: flex; flex-direction: column; gap: 8px;">
                         <div style="font: 400 12px/18px 'Open Sans', sans-serif; color: #c3cdd7; text-wrap: pretty;">You asked me to drop it. The scheme needs an attempt with the merchant before we ask for evidence — without one the chargeback is out of scope the moment we submit it.</div>
@@ -342,7 +348,7 @@
                 <div style="min-height: {{ tlB }}; font-family: 'Open Sans', sans-serif; font-weight: 600; font-size: {{ titleSize }}; line-height: {{ titleLh }}; max-width: {{ titleMax }}; color: #c3cdd7; text-wrap: pretty; transition: min-height {{ ldDur }} {{ ldEase }}, font-size {{ wrDur }} {{ wrEase }}, line-height {{ wrDur }} {{ wrEase }}, max-width {{ wrDur }} {{ wrEase }};">We ask for evidence, only what the reason needs</div>
                 <div style="display: grid; grid-template-rows: {{ exRows }}; transition: grid-template-rows {{ moveDur }} {{ moveEase }};">
                   <div style="overflow: hidden; min-height: 0; opacity: {{ exOp }}; transition: opacity {{ exOpDur }} {{ moveEase }} {{ exOpDl }};">
-                    <div style="min-width: 800px; font: 400 12px/18px 'Open Sans', sans-serif; color: #8b98a5;">A receipt for goods never delivered. Nothing at all for a duplicate charge.</div>
+                    <div style="min-width: 848px; font: 400 12px/18px 'Open Sans', sans-serif; color: #8b98a5;">A receipt for goods never delivered. Nothing at all for a duplicate charge.</div>
                   </div>
                 </div>
                 <div style="display: grid; grid-template-rows: {{ rmRows }}; transition: grid-template-rows {{ moveDur }} {{ moveEase }};">
@@ -367,7 +373,7 @@
                 <div style="min-height: {{ tlB }}; font-family: 'Open Sans', sans-serif; font-weight: 600; font-size: {{ titleSize }}; line-height: {{ titleLh }}; max-width: {{ titleMax }}; color: #f5f9fc; text-wrap: pretty; transition: min-height {{ ldDur }} {{ ldEase }}, font-size {{ wrDur }} {{ wrEase }}, line-height {{ wrDur }} {{ wrEase }}, max-width {{ wrDur }} {{ wrEase }};">Disputes over {{ threshold }} go to a person</div>
                 <div style="display: grid; grid-template-rows: {{ exRows }}; transition: grid-template-rows {{ moveDur }} {{ moveEase }};">
                   <div style="overflow: hidden; min-height: 0; opacity: {{ exOp }}; transition: opacity {{ exOpDur }} {{ moveEase }} {{ exOpDl }};">
-                    <div style="min-width: 800px; font: 400 12px/18px 'Open Sans', sans-serif; color: #c3cdd7;">{{ threshold }} is my guess. I need the real number before I build this.</div>
+                    <div style="min-width: 875px; font: 400 12px/18px 'Open Sans', sans-serif; color: #c3cdd7;">{{ threshold }} is my guess. I need the real number before I build this.</div>
                   </div>
                 </div>
                 <div style="display: grid; grid-template-rows: {{ rmRows }}; transition: grid-template-rows {{ moveDur }} {{ moveEase }};">
@@ -384,7 +390,7 @@
 
           <div style="display: grid; grid-template-rows: {{ exRows }}; transition: grid-template-rows {{ moveDur }} {{ moveEase }};">
             <div style="overflow: hidden; min-height: 0; opacity: {{ exOp }}; transition: opacity {{ exOpDur }} {{ moveEase }} {{ exOpDl }};">
-              <div style="min-width: 935px; display: flex; gap: 16px; align-items: flex-start;">
+              <div style="min-width: 1015px; display: flex; gap: 16px; align-items: flex-start;">
                 <div style="width: 20px; flex: none; display: flex; justify-content: center; padding-top: 5px;">
                   <div style="width: 8px; height: 8px; border-radius: 99px; border: 1px dashed #8b98a5;"></div>
                 </div>
@@ -643,7 +649,7 @@ class Component extends DCLogic {
       // width actually available, so it is the max-width that decides where the
       // lines break, on a curve, and not the pane arriving at some width. (Both
       // start at the same instant, so this only needs the measure to travel a
-      // shorter road: 800 -> 164 against 899 -> 164.) Closing it takes the full
+      // shorter road: 800 -> 164 against 879 -> 164.) Closing it takes the full
       // duration on the shared curve, which satisfies the same inequality.
       wrDur: on ? '260ms' : '340ms',
       wrEase: on ? 'cubic-bezier(0, 0, 0.4, 0.8)' : 'cubic-bezier(0.2, 0, 0.2, 1)',
@@ -673,10 +679,10 @@ class Component extends DCLogic {
       ldEase: on ? 'cubic-bezier(0, 0, 0.4, 0.8)' : 'cubic-bezier(0.4, 0, 1, 1)',
 
       // ── The panes, and the plan tightening with them ─────────────────────
-      // Only the chat is a fixed width; the plan and the step trade flex-grow,
-      // so they land on 240 and 838 at 1440 and the step takes any extra room
-      // on a wider viewport rather than leaving a gap.
-      chatW: on ? '360px' : '440px',
+      // The chat is a fixed 360 in both states and takes no part in the move.
+      // The plan and the step trade flex-grow, so they land on 240 and 838 at
+      // 1440 and the step takes any extra room on a wider viewport rather than
+      // leaving a gap.
       planGrow: on ? '0' : '1',
       planBasis: on ? '240px' : '0px',
       detGrow: on ? '1' : '0',

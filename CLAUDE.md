@@ -42,7 +42,7 @@ twice, the second time as `screen-01.dc.html?step=3`, which the `Component` read
 `location.search`. Two blocks would mean two copies of the same markup, and they
 drift — that is how the chat panes ended up misaligned once already.
 
-Motion is CSS transitions over state-driven inline styles — `style="width: {{ chatW }}"`,
+Motion is CSS transitions over state-driven inline styles — `style="flex-basis: {{ planBasis }}"`,
 with `renderVals()` returning the value for each state. `support.js` re-resolves style
 strings on every render, so this animates; three rules follow from it:
 
@@ -76,8 +76,12 @@ remove, and two specific things force one if you let them.
   to have to finish before the panes could start. Give each collapsing block a `min-width`
   equal to the width it has when open and it clips instead of reflowing — invisibly, since
   it is at zero opacity long before the pane reaches it. Measure the number, don't guess
-  it: they differ per row (800 / 800 / 865 / 800 / 800 / 935 at 1440) because the counts
-  column beside each one does.
+  it: they differ per row (876 / 876 / 945 / 848 / 875 / 1015 at 1440) because the counts
+  column beside each one does. They are a function of the chat's width, so anything that
+  moves that pane invalidates all six — they all shifted 80px when the chat settled on one
+  360 width. And measure with the webfonts *loaded*: gate the probe on `document.fonts.ready`
+  plus an explicit `fonts.load()` of the weights the plan uses, or a late-arriving face
+  shifts every counts column a few px and the numbers wobble run to run.
 - **Rewrapping is not motion, it is a stack of 18px jumps** — one per line a title gains —
   and no curve smooths a jump. The old answer was to hide them inside a collapse violent
   enough to cover them, which is *why* the collapse was violent: 60px in a frame. The real
@@ -91,7 +95,7 @@ remove, and two specific things force one if you let them.
   degrades to a jump, not to a broken layout.
 - **Let the measure outrun the pane and the pane never touches the wrapping.** Both start
   together, but a title's `max-width` travels 800 → 164 while the space available to it
-  travels 899 → 164, so on the same curve the max-width is *always* the smaller of the two
+  travels 879 → 164, so on the same curve the max-width is *always* the smaller of the two
   and it alone decides where lines break. That is what makes a simultaneous move legal at
   all. It must equal the true final width, gaps included — a collapsed sibling still
   occupies its flex `gap`, so the first attempt was 24px too generous and bought one last
