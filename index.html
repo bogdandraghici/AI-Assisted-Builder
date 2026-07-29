@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Conversational Builder v2 — FlowX AI-assisted builder</title>
-<meta name="description" content="Two screens from the FlowX conversational builder prototype, embedded live, each openable as a standalone page.">
+<meta name="description" content="One live screen from the FlowX conversational builder prototype, shown in both its states — the plan, and the plan with a step opened beside it.">
 <style>
   @font-face { font-family: 'Open Sans'; font-style: normal; font-weight: 400; font-display: swap; src: url('fonts/OpenSans-Regular.ttf') format('truetype'); }
   @font-face { font-family: 'Open Sans'; font-style: normal; font-weight: 600; font-display: swap; src: url('fonts/OpenSans-SemiBold.ttf') format('truetype'); }
@@ -86,26 +86,26 @@
         <span class="num">01</span>
         <a class="titlelink" href="screen-01.dc.html" target="_blank" rel="noopener">The plan takes shape, and gets argued with</a>
       </h2>
-      <p class="desc">Eight minutes into a new project. The agent proposed five steps, built the two that needed no discussion, and is now refusing to remove a third — its argument is a drawing, not a canvas. Plan language throughout, and no resource is named anywhere on this screen.</p>
+      <p class="desc">Eight minutes into a new project. The agent proposed five steps, built the two that needed no discussion, and is now refusing to remove a third — its argument is a drawing, not a canvas. Plan language throughout, and no resource is named until you ask. <strong>Click step 3</strong> — it opens in place.</p>
       <div class="embed" data-src="screen-01.dc.html">
-        <div class="fallback">Loading screen 01…</div>
+        <div class="fallback">Loading the plan…</div>
       </div>
     </section>
 
     <section class="piece" id="screen-02">
       <h2>
         <span class="num">02</span>
-        <a class="titlelink" href="screen-02.dc.html" target="_blank" rel="noopener">One step, and what it needs from you</a>
+        <a class="titlelink" href="screen-01.dc.html?step=3" target="_blank" rel="noopener">The same screen, with that step open</a>
       </h2>
-      <p class="desc">The same step, opened — not to inspect what it is made of, but to settle it. Clicking a step folds the plan into a spine, but the conversation holds its place on the left, so settling a step never costs you the argument that produced it. The right pane is the step: what the agent will build, then three decisions — one still open, one the builder answered, one they handed back — then the numbers the agent chose on its own. Every identifier is behind one disclosure at the bottom.</p>
-      <div class="embed" data-src="screen-02.dc.html">
-        <div class="fallback">Loading screen 02…</div>
+      <p class="desc">Not a second screen — the one above, already opened, so both states sit on this page at once. The plan has folded into a spine and the conversation has held its place, so settling a step never costs you the argument that produced it. On the right: what the agent will build, then three decisions — one still open, one the builder answered, one they handed back — then the numbers the agent chose on its own. Every identifier is behind one disclosure at the bottom. Close it with the ×, with Esc, or with the breadcrumb.</p>
+      <div class="embed" data-src="screen-01.dc.html?step=3">
+        <div class="fallback">Loading the step…</div>
       </div>
     </section>
 
     <footer>
       <p>
-        Screens render live at 1440 × 900, scaled to the column — click a title for 1:1.
+        Both frames are the same live page at 1440 × 900, scaled to the column, and clickable in place — click a title for 1:1.
         <span class="sep">·</span>
         <a href="Conversational%20Builder%20v2.dc.html" target="_blank" rel="noopener">Source doc</a>
         <span class="sep">·</span>

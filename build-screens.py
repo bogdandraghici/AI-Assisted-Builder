@@ -145,6 +145,19 @@ def main():
     for name, title in written:
         print(f"wrote {name}  ({title})")
 
+    # A screen removed from the source used to leave its generated page behind,
+    # still served and still linked. Sweep those, but only ones this script
+    # wrote — the banner is the proof, so a hand-written page is never deleted.
+    kept = {name for name, _ in written}
+    for stale in sorted(ROOT.glob("screen-*.dc.html")):
+        if stale.name in kept:
+            continue
+        if BANNER.format(SOURCE) not in stale.read_text(encoding="utf-8"):
+            print(f"left {stale.name}  (no generated banner — not mine to delete)")
+            continue
+        stale.unlink()
+        print(f"removed {stale.name}  (no longer in {SOURCE})")
+
 
 if __name__ == "__main__":
     main()

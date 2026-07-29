@@ -31,6 +31,34 @@ framing (caption, black canvas, padding, 1440×900 card with border and radius).
 - The script hard-fails with a clear message if the source is restyled such that it
   can no longer strip the framing, rather than emitting a broken page.
 - Add a screen to the source → re-run, then add its `index.html` section by hand.
+- Remove a screen from the source → re-run and its page is deleted. Only pages
+  carrying the banner are swept, so a hand-written `screen-*.dc.html` is safe.
+
+## States, not screens
+
+A screen with two states is **one** `data-screen-label` block, not two. The plan and
+the plan-with-a-step-open are the same page; `index.html` shows both by embedding it
+twice, the second time as `screen-01.dc.html?step=3`, which the `Component` reads off
+`location.search`. Two blocks would mean two copies of the same markup, and they
+drift — that is how the chat panes ended up misaligned once already.
+
+Motion is CSS transitions over state-driven inline styles — `style="width: {{ chatW }}"`,
+with `renderVals()` returning the value for each state. `support.js` re-resolves style
+strings on every render, so this animates; three rules follow from it:
+
+- **Never `sc-if` anything that animates.** It unmounts, and an unmounted element has
+  no value to transition from. `sc-if` is for things that just appear, like the
+  technical-detail table.
+- **Both states stay mounted.** The wide plan and the 240px spine are two absolutely
+  positioned layers in one pane, cross-fading.
+- **Give each layer a `min-width` at its own full size** so a pane that is mid-resize
+  clips it instead of rewrapping it. Text reflowing during a transition is the single
+  thing that makes one look cheap.
+
+Easing is the FlowX `cubic-bezier(0.2, 0, 0.2, 1)` at 420ms for panes and 160ms for
+hovers. Chrome's `--virtual-time-budget` advances layout transitions but **not**
+compositor opacity, so mid-flight frames captured that way lie; to check a transition,
+render a static frame with hand-solved intermediate values instead.
 
 Design size is 1440×900. Standalone pages fill the viewport but hold a
 `min-width` / `min-height` at that size — below it the panes and table columns
