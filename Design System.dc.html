@@ -54,7 +54,7 @@
         </div>
       </sc-for>
     </div>
-    <div style="font: 400 14px/24px 'Open Sans', sans-serif; color: #8390a2; max-width: 96ch; text-wrap: pretty;">Depth is one background step plus a 1px line — never a shadow, never a blur. <span style="font: 400 12px/16px ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; color: #cbd1db;">#475263</span> is both the raised surface and the structural border, which is why panel edges read as material rather than as outline.</div>
+    <div style="font: 400 14px/24px 'Open Sans', sans-serif; color: #8390a2; max-width: 96ch; text-wrap: pretty;">Almost nothing is raised. Panes, plan steps and table rows all sit flat on <span style="font: 400 12px/16px ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; color: #cbd1db;">#1d232c</span> and are separated by space, not by boxes — a screen where every row is a card has no hierarchy left to spend. Elevation is reserved for the one thing on a screen that is genuinely an exception: the step being argued about, the row you opened. That element gets <span style="font: 400 12px/16px ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; color: #cbd1db;">#2a313a</span> and a shadow, and no border at all — the lift does the containing, so an outline would only add a line to look at.</div>
   </div>
 
   <div style="display: flex; flex-direction: column; gap: 18px;">
@@ -270,6 +270,10 @@
         <div style="color: #8390a2; text-wrap: pretty;">So the non-1:1 relationship is readable standing still: two ticks means shared, an empty rail means the resource belongs to the project and no step, and a step with too many claims is visibly doing too much. Blue ticks are claims on something that exists; muted ticks are claims on something only spoken about.</div>
         <div style="font: 400 12px/16px ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; color: #8390a2;">48 × 12 · pitch 10 · tick 8 × 11 · baseline 1px dashed</div>
         <div style="color: #8390a2; text-wrap: pretty;">One gesture. No connector lines, no nesting, no lie.</div>
+        <div style="height: 1px; background: #2a313a;"></div>
+        <div style="text-wrap: pretty;">The plan itself carries the other one — a 2px spine down the left with a 20px node per step. The spine is solid where the plan is real and dashed the moment it stops being, so how far the build has actually got is visible without reading a word.</div>
+        <div style="color: #8390a2; text-wrap: pretty;">Four nodes, and status is never said twice: a green disc with a tick is built, an orange disc with a warning is being argued about, a dashed ring is not built, and a ring holding a person is waiting on you. Because the node carries it, a step needs no badge — the one chip left on a screen is the exception the node is already pointing at.</div>
+        <div style="font: 400 12px/16px ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; color: #8390a2;">node 20 · spine 2px · gutter 16 · step gap 24</div>
       </div>
       <div style="background: #1d232c; border: 1px solid #475263; border-radius: 12px; overflow: hidden;">
         <div style="display: flex; align-items: stretch; background: #2a313a; border-bottom: 1px solid #475263; font: 700 10px/12px 'Open Sans', sans-serif; text-transform: uppercase; letter-spacing: 0.08em; color: #8390a2;">
@@ -347,11 +351,11 @@ class Component extends DCLogic {
     const surfaces = [
       { value: '#000000', use: 'Canvas behind the shell', chip: this.swatch(T.black, T.raised) },
       { value: '#0f1114', use: 'Inset — top-bar controls', chip: this.swatch(T.inset) },
-      { value: '#1d232c', use: 'Shell, panel, card', chip: this.swatch(T.shell) },
-      { value: '#2a313a', use: 'Surface, top bar, row hover', chip: this.swatch(T.surface) },
-      { value: '#475263', use: 'Raised bar + structural line', chip: this.swatch(T.raised) },
+      { value: '#1d232c', use: 'The ground — every pane, every row', chip: this.swatch(T.shell) },
+      { value: '#2a313a', use: 'Lifted — the one exception per screen', chip: this.swatch(T.surface) },
+      { value: '#475263', use: 'Raised bar, spine, field border', chip: this.swatch(T.raised) },
       { value: '#3a4352', use: 'Line under a raised bar', chip: this.swatch(T.surface, T.line2) },
-      { value: '#2a313a as a line', use: 'Row divider inside a panel', chip: this.swatch(T.shell, T.surface) },
+      { value: '#2a313a as a line', use: 'Row divider, pane edge', chip: this.swatch(T.shell, T.surface) },
       { value: 'rgba(255,255,255,.06 / .14)', use: 'Icon button rest / hover', chip: this.swatch('rgba(255,255,255,0.06)', T.mute) }
     ];
     const tiers = [
