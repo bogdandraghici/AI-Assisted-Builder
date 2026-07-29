@@ -191,38 +191,42 @@
               <div style="background: linear-gradient(180deg, rgba(242, 118, 43, 0.14), rgba(242, 118, 43, 0.06) 45%, rgba(242, 118, 43, 0.025)); border: 1px solid rgba(242, 118, 43, 0.30); border-radius: 12px; padding: 16px; display: flex; flex-direction: column; gap: 12px;">
 
                 <div style="display: flex; gap: 24px; align-items: flex-start;">
-                  <div style="flex: 1; min-width: 0; display: flex; flex-direction: column; gap: 2px;">
-                    <div style="font: 600 14px/22px 'Open Sans', sans-serif; color: #f5f9fc;">We check with the merchant before asking for evidence</div>
-                    <div style="font: 400 14px/22px 'Open Sans', sans-serif; color: #c3cdd7;">You asked me to drop this. The scheme will not let me.</div>
-                  </div>
+                  <div style="flex: 1; min-width: 0; font: 600 14px/22px 'Open Sans', sans-serif; color: #f5f9fc;">We check with the merchant before asking for evidence</div>
                   <div style="display: inline-flex; align-items: center; height: 18px; padding: 0 6px; border-radius: 4px; background: rgba(242, 118, 43, 0.14); color: #f2762b; font: 400 10px/12px ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; text-transform: uppercase; letter-spacing: 0.14em; flex: none; margin-top: 2px;">Not agreed</div>
                 </div>
 
-                <div style="display: flex; flex-direction: column; gap: 16px;">
+                <div style="display: flex; flex-direction: column; gap: 8px; max-width: 660px;">
+                  <div style="font: 400 14px/24px 'Open Sans', sans-serif; color: #f5f9fc; text-wrap: pretty;">You asked me to drop it. The scheme needs an attempt with the merchant before we ask for evidence — without one the chargeback is out of scope the moment we submit it.</div>
+                  <div style="display: inline-flex; align-self: flex-start; align-items: center; gap: 8px; cursor: pointer; color: #f2985c; transition: color 160ms cubic-bezier(0.2, 0, 0.2, 1);" style-hover="color: #f5f9fc;">
+                    <i class="ph ph-book-open-text" style="font-size: 14px; color: #f2762b;"></i>
+                    <div style="font: 400 12px/16px ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;">Scheme rules §4.2</div>
+                  </div>
+                </div>
 
-                  <div style="display: flex; flex-direction: column; gap: 8px;">
-                    <div style="display: flex; align-items: baseline; justify-content: space-between; gap: 24px; max-width: 620px;">
-                      <div style="font: 400 10px/12px ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; text-transform: uppercase; letter-spacing: 0.14em; color: #8b98a5;">What you asked for</div>
-                      <div style="display: inline-flex; align-items: center; gap: 6px; cursor: pointer; flex: none; color: #f2985c; transition: color 160ms cubic-bezier(0.2, 0, 0.2, 1);" style-hover="color: #f5f9fc;">
-                        <i class="ph ph-book-open-text" style="font-size: 12px; color: #f2762b;"></i>
-                        <div style="font: 400 12px/16px ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;">breaks §4.2</div>
+                <div style="height: 1px; background: rgba(242, 118, 43, 0.16);"></div>
+
+                <div style="display: flex; flex-direction: column; gap: 12px;">
+                  <div style="font: 400 10px/12px ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; text-transform: uppercase; letter-spacing: 0.14em; color: #8b98a5;">So I would move it off their path</div>
+
+                  <div style="display: flex; flex-direction: column;">
+                    <div style="display: flex; align-items: flex-start;">
+                      <div style="width: 150px; flex: none; background: #0b1218; border: 1px solid #1c2530; border-radius: 8px; padding: 8px 10px; font: 600 12px/16px 'Open Sans', sans-serif; color: #f5f9fc;">Say what happened</div>
+                      <div style="width: 34px; height: 34px; flex: none; position: relative;">
+                        <div style="position: absolute; left: 0; top: 16px; width: 28px; height: 2px; background: #26313d;"></div>
+                        <div style="position: absolute; left: 28px; top: 13px; width: 0; height: 0; border-left: 6px solid #26313d; border-top: 4px solid transparent; border-bottom: 4px solid transparent;"></div>
+                        <div style="position: absolute; left: 16px; top: 17px; bottom: 0; width: 2px; background: #26313d;"></div>
                       </div>
+                      <div style="width: 150px; flex: none; background: #0b1218; border: 1px solid #1c2530; border-radius: 8px; padding: 8px 10px; font: 600 12px/16px 'Open Sans', sans-serif; color: #f5f9fc;">Send a receipt</div>
                     </div>
-                    <div style="display: flex; flex-direction: column;"><div style="display: flex; align-items: flex-start;"><div style="width: 150px; flex: none; background: #0b1218; border: 1px solid #1c2530; border-radius: 8px; padding: 8px 10px; font: 600 12px/16px 'Open Sans', sans-serif; color: #f5f9fc;">Say what happened</div><div style="width: 34px; height: 34px; flex: none; position: relative;"><div style="position: absolute; left: 0; top: 16px; width: 28px; height: 2px; background: #26313d;"></div><div style="position: absolute; left: 28px; top: 13px; width: 0; height: 0; border-left: 6px solid #26313d; border-top: 4px solid transparent; border-bottom: 4px solid transparent;"></div></div><div style="width: 150px; flex: none; background: #0b1218; border: 1px solid #1c2530; border-radius: 8px; padding: 8px 10px; font: 600 12px/16px 'Open Sans', sans-serif; color: #f5f9fc;">Send a receipt</div></div>
-                    <div style="display: flex; align-items: flex-start;"><div style="width: 166px; flex: none;"></div><div style="width: 20px; flex: none;"></div><div style="width: 190px; flex: none; border: 1px dashed #3a4653; border-radius: 8px; padding: 8px 10px; font: 400 12px/16px 'Open Sans', sans-serif; color: #8b98a5;">Nobody asks the merchant</div></div></div>
-                    <div style="display: flex; align-items: flex-start; gap: 8px; max-width: 620px;"><i class="ph ph-x-circle" style="font-size: 14px; color: #f2762b; flex: none; padding-top: 4px;"></i><div style="font: 400 14px/22px 'Open Sans', sans-serif; color: #c3cdd7; text-wrap: pretty;">Nothing was ever put to the merchant, so the chargeback is out of scope the moment we submit it.</div></div>
+                    <div style="display: flex; align-items: flex-start;">
+                      <div style="width: 166px; flex: none;"></div>
+                      <div style="width: 20px; height: 18px; flex: none; border-bottom-left-radius: 8px; border-left: 2px solid #26313d; border-bottom: 2px solid #26313d; margin-right: -1px;"></div>
+                      <div style="width: 190px; flex: none; background: #0b1218; border: 1px solid #4d97ea; border-radius: 8px; padding: 8px 10px; font: 600 12px/16px 'Open Sans', sans-serif; color: #f5f9fc;">Ask the merchant</div>
+                      <div style="font: 400 12px/16px ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; color: #8b98a5; flex: none; padding-top: 9px; margin-left: 12px;">unseen · 3s</div>
+                    </div>
                   </div>
 
-                  <div style="display: flex; flex-direction: column; gap: 8px;">
-                    <div style="display: flex; align-items: baseline; justify-content: space-between; gap: 24px; max-width: 620px;">
-                      <div style="font: 400 10px/12px ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; text-transform: uppercase; letter-spacing: 0.14em; color: #8b98a5;">What I would do instead</div>
-                      <div style="font: 400 12px/16px ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; color: #8b98a5; flex: none;">in scope</div>
-                    </div>
-                    <div style="display: flex; flex-direction: column;"><div style="display: flex; align-items: flex-start;"><div style="width: 150px; flex: none; background: #0b1218; border: 1px solid #1c2530; border-radius: 8px; padding: 8px 10px; font: 600 12px/16px 'Open Sans', sans-serif; color: #f5f9fc;">Say what happened</div><div style="width: 34px; height: 34px; flex: none; position: relative;"><div style="position: absolute; left: 0; top: 16px; width: 28px; height: 2px; background: #26313d;"></div><div style="position: absolute; left: 28px; top: 13px; width: 0; height: 0; border-left: 6px solid #26313d; border-top: 4px solid transparent; border-bottom: 4px solid transparent;"></div><div style="position: absolute; left: 16px; top: 17px; bottom: 0; width: 2px; background: #26313d;"></div></div><div style="width: 150px; flex: none; background: #0b1218; border: 1px solid #1c2530; border-radius: 8px; padding: 8px 10px; font: 600 12px/16px 'Open Sans', sans-serif; color: #f5f9fc;">Send a receipt</div></div>
-                    <div style="display: flex; align-items: flex-start;"><div style="width: 166px; flex: none;"></div><div style="width: 20px; height: 18px; flex: none; border-bottom-left-radius: 8px; border-left: 2px solid #26313d; border-bottom: 2px solid #26313d; margin-right: -1px;"></div><div style="width: 190px; flex: none; background: #0b1218; border: 1px solid #4d97ea; border-radius: 8px; padding: 8px 10px; font: 600 12px/16px 'Open Sans', sans-serif; color: #f5f9fc;">Ask the merchant</div><div style="font: 400 12px/16px ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; color: #8b98a5; flex: none; padding-top: 9px; margin-left: 12px;">unseen · 3s</div></div></div>
-                    <div style="display: flex; align-items: flex-start; gap: 8px; max-width: 620px;"><i class="ph ph-check-circle" style="font-size: 14px; color: #8ad3ab; flex: none; padding-top: 4px;"></i><div style="font: 400 14px/22px 'Open Sans', sans-serif; color: #f5f9fc; text-wrap: pretty;">Same path for the customer — they never wait for it. The only time they hear about it is the one case where the merchant has already refunded them.</div></div>
-                  </div>
-
+                  <div style="font: 400 14px/24px 'Open Sans', sans-serif; color: #c3cdd7; max-width: 660px; text-wrap: pretty;">The customer never waits for it. The one time they hear about it is when the merchant has already refunded them — then we stop and say so, instead of asking for a receipt.</div>
                 </div>
 
                 <div style="display: flex; align-items: center; gap: 12px;">
