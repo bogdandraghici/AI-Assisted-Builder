@@ -59,6 +59,29 @@ Three of its rules are easy to break without opening it:
 - **The pinned numbers are measured, not derived, and they all move together.** Change the
   width of any pane and every `min-width` in the plan pane is wrong until re-measured.
 
+## Nothing offers what it cannot do
+
+Both states are always mounted, so every control is always in the DOM whether or not it
+means anything yet. An affordance that is wrong for the current state has to be withdrawn
+in the logic, not left to look enabled:
+
+- **Gate with `pointer-events`, in the interpolated `style` attribute.** `style-hover` /
+  `style-active` / `style-focus` are passed to `pseudoClass()` verbatim
+  (`support.js:428`) and take **no** `{{ }}` placeholders, so a hover can only be
+  withdrawn by taking the pointer off the element — which removes the cursor and the click
+  with it. One flag, whole affordance.
+- **Withdraw the tabindex too** (`tabindex="{{ … }}"` → `-1`), or the keyboard keeps
+  reaching a control the mouse no longer can.
+- **The three ways out of a step — ×, Esc, breadcrumb — plus the back arrow are one
+  control at four sizes.** They share `exitTab` / `upPE` and they arrive and leave
+  together. Up from the plan is a journey list this prototype does not have, so in the
+  plan state all of them go quiet rather than promise it.
+- **One status word per state, across both views.** A step is `Not agreed` in the plan
+  chip, in the spine label, in the plan subtitle and in the step badge; open decisions are
+  counted as *to settle* in both panes. Two views of one object that name it differently
+  read as a change of subject, which is exactly what the one-beat transition is built to
+  avoid.
+
 ## Type and spacing
 
 **[docs/type-and-palette.md](docs/type-and-palette.md)** — the type ladder, the spacing
