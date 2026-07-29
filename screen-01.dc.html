@@ -312,7 +312,7 @@
                       <div style="height: 1px; background: rgba(242, 118, 43, 0.16);"></div>
 
                       <div style="display: flex; flex-direction: column; gap: 12px;">
-                        <div style="font: 400 10px/12px ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; text-transform: uppercase; letter-spacing: 0.14em; color: #8b98a5;">So I would move it off their path</div>
+                        <div style="font: 400 10px/12px ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; text-transform: uppercase; letter-spacing: 0.14em; color: #8b98a5;">What I would do instead</div>
 
                         <div style="display: flex; flex-direction: column;">
                           <div style="display: flex; align-items: flex-start;">
@@ -332,7 +332,15 @@
                           </div>
                         </div>
 
-                        <div style="font: 400 12px/18px 'Open Sans', sans-serif; color: #c3cdd7; text-wrap: pretty;">The customer never waits for it. The one time they hear about it is when the merchant has already refunded them — then we stop and say so, instead of asking for a receipt.</div>
+                        <!-- Only the part the drawing cannot draw. "The customer
+                             never waits for it" was this sentence's first clause
+                             and it is what `unseen · 3s` on the branch already
+                             says; the step's own subtitle said the whole thing
+                             over again in different words, which is one fact in
+                             three places. What is left is the outcome that ends
+                             the dispute early, and there is nowhere else to read
+                             it. -->
+                        <div style="font: 400 12px/18px 'Open Sans', sans-serif; color: #c3cdd7; text-wrap: pretty;">If the merchant has already refunded them we stop there and say so, instead of asking for a receipt.</div>
                       </div>
 
                       <!-- The step is blocked on one unanswered question, and
@@ -469,22 +477,32 @@
             </div>
             <div style="font: 700 24px/38px 'Open Sans', sans-serif; color: #f5f9fc;">We check with the merchant before asking for evidence</div>
             <div style="font: 400 14px/24px 'Open Sans', sans-serif; color: #a9b6c3; text-wrap: pretty;">We ask the merchant about the payment while the customer is still describing it. They never wait for it and never see it — unless the merchant has already refunded them, in which case we stop and say so.</div>
-          </div>
-
-          <!-- The argument, brought through the transition. The plan card holds
-               the reason, the citation and the drawing; opening the step used to
-               replace all three with a questionnaire, so the click that means
-               "show me more about this" lost the thing it was about. -->
-          <div style="flex: none; max-width: 800px; display: flex; flex-direction: column; gap: 12px; padding-bottom: 12px; opacity: {{ dOp }}; transform: {{ dTr }}; transition: opacity {{ dDur }} cubic-bezier(0.2, 0, 0.2, 1) {{ dDl }}, transform {{ dDur }} cubic-bezier(0.2, 0, 0.2, 1) {{ dDl }};">
-            <div style="font: 400 10px/12px ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; text-transform: uppercase; letter-spacing: 0.14em; color: #8b98a5;">Why it is here</div>
-            <div style="background: #101820; border: 1px solid #1c2530; border-radius: 8px; padding: 16px; display: flex; flex-direction: column; gap: 12px;">
-              <div style="font: 400 14px/24px 'Open Sans', sans-serif; color: #c3cdd7; text-wrap: pretty;">You asked me to drop it. The scheme needs an attempt with the merchant before we ask for evidence — without one the chargeback is out of scope the moment we submit it.</div>
-              <div style="display: inline-flex; align-self: flex-start; align-items: center; gap: 8px; cursor: pointer; color: #f2985c; transition: color 160ms cubic-bezier(0.2, 0, 0.2, 1);" style-hover="color: #f5f9fc;">
+            <!-- The whole of the reason, here: one sentence and the rule it
+                 rests on. The plan card argues the case — it names what you
+                 asked for and what breaks — because that is where the refusal
+                 happens, next to the instruction. By the time you are in the
+                 step the case is made; what you still need is the claim it turns
+                 on, so a deep link to `?step=3` stands on its own. -->
+            <div style="display: flex; align-items: center; gap: 8px; flex-wrap: wrap;">
+              <div style="font: 400 14px/24px 'Open Sans', sans-serif; color: #c3cdd7; text-wrap: pretty;">The scheme needs an attempt with the merchant before we ask for evidence.</div>
+              <div style="display: inline-flex; align-items: center; gap: 8px; cursor: pointer; color: #f2985c; transition: color 160ms cubic-bezier(0.2, 0, 0.2, 1);" style-hover="color: #f5f9fc;">
                 <i class="ph ph-book-open-text" style="font-size: 14px; color: #f2762b;"></i>
                 <div style="font: 400 12px/16px ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;">Scheme rules §4.2</div>
               </div>
-              <div style="height: 1px; background: #1c2530;"></div>
-              <div style="font: 400 10px/12px ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; text-transform: uppercase; letter-spacing: 0.14em; color: #8b98a5;">So I would move it off their path</div>
+            </div>
+          </div>
+
+          <!-- The drawing, and nothing that came with it. The reason and the
+               citation are in the header now: they used to be repeated here word
+               for word from the plan card, so the click that means "show me more
+               about this" gave you the same two paragraphs again and a second
+               copy of the same picture. The picture is the one thing worth
+               carrying twice — in the plan it is the argument, here it is what
+               the open question below is about — so it keeps the label it has
+               there. One drawing, one name for it. -->
+          <div style="flex: none; max-width: 800px; display: flex; flex-direction: column; gap: 12px; padding-bottom: 12px; opacity: {{ dOp }}; transform: {{ dTr }}; transition: opacity {{ dDur }} cubic-bezier(0.2, 0, 0.2, 1) {{ dDl }}, transform {{ dDur }} cubic-bezier(0.2, 0, 0.2, 1) {{ dDl }};">
+            <div style="font: 400 10px/12px ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; text-transform: uppercase; letter-spacing: 0.14em; color: #8b98a5;">What I would do instead</div>
+            <div style="background: #101820; border: 1px solid #1c2530; border-radius: 8px; padding: 16px; display: flex; flex-direction: column;">
               <div style="display: flex; flex-direction: column;">
                 <div style="display: flex; align-items: flex-start;">
                   <div style="width: 150px; flex: none; background: #0b1218; border: 1px solid #1c2530; border-radius: 8px; padding: 8px 10px; font: 600 12px/16px 'Open Sans', sans-serif; color: #f5f9fc;">Say what happened</div>
@@ -512,16 +530,25 @@
               <div style="font: 400 12px/16px 'Open Sans', sans-serif; color: #8b98a5;">1 of 3 still to settle</div>
             </div>
 
-            <div style="background: linear-gradient(180deg, rgba(242, 118, 43, 0.14), rgba(242, 118, 43, 0.06) 45%, rgba(242, 118, 43, 0.025)); border: 1px solid rgba(242, 118, 43, 0.30); border-radius: 12px; padding: 16px; display: flex; flex-direction: column; gap: 8px;">
+            <!-- Three things in one list, so three cards of one species: the
+                 left stripe says who has settled it — orange nobody yet, green
+                 you, blue me, grey me alone. This one is taller because it has a
+                 question in it, not because it is a different kind of object.
+                 It used to carry the orange wash, which is the one exception per
+                 screen and already spent: the plan's step-3 card keeps it, and
+                 keeps it in the spine too, so with a step open there were two
+                 washes on screen arguing about which of them was the thing that
+                 is not agreed. The wash is the step. The stripe is the question. -->
+            <div style="background: #101820; border: 1px solid #1c2530; border-left: 3px solid #f2762b; border-radius: 8px; padding: 16px; display: flex; flex-direction: column; gap: 8px;">
               <div style="display: flex; align-items: center; gap: 8px;">
                 <div style="width: 20px; height: 20px; flex: none; border-radius: 6px; background: rgba(242, 118, 43, 0.16); display: grid; place-items: center;"><i class="ph ph-warning" style="font-size: 12px; color: #f2762b;"></i></div>
                 <div style="font: 400 10px/12px ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; text-transform: uppercase; letter-spacing: 0.14em; color: #f2985c; flex: none;">Not answered</div>
-                <div style="flex: 1; height: 1px; background: rgba(242, 118, 43, 0.18);"></div>
-                <div style="font: 400 12px/16px ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; color: #a1794f; flex: none;">affects the evidence step</div>
+                <div style="flex: 1; height: 1px; background: #1c2530;"></div>
+                <div style="font: 400 12px/16px ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; color: #8b98a5; flex: none;">affects the evidence step</div>
               </div>
               <div style="display: flex; flex-direction: column; gap: 12px;">
               <div style="display: flex; flex-direction: column; gap: 6px;">
-                <div style="font: 700 18px/28px 'Open Sans', sans-serif; color: #fbe3cf; text-wrap: pretty;">If the merchant does not answer, what happens?</div>
+                <div style="font: 700 18px/28px 'Open Sans', sans-serif; color: #f5f9fc; text-wrap: pretty;">If the merchant does not answer, what happens?</div>
                 <div style="font: 400 14px/24px 'Open Sans', sans-serif; color: #a9b6c3; text-wrap: pretty;">You told me the customer never waits on the merchant. These two answers disagree about what we do when it simply goes quiet.</div>
               </div>
 

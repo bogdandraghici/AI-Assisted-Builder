@@ -132,11 +132,18 @@ it was there first.
 
 ## Where it stands
 
-At 16.7ms per frame: the two rows that travel 214 and 218px peak at 27px a frame opening
-and 28px closing, and both directions are monotonic to rest — the worst step against the
-direction of travel is 1.8px opening and 0.6px closing, and the interior rows never step
-more than 4px in either direction. The three-beat version peaked at 89px a frame with 5–7
-reversals per row and was still moving at 700ms. It is 340ms now.
+At 16.7ms per frame: the two rows that travel 196 and 200px peak at 24px a frame opening
+and 26px closing, and both directions are monotonic to rest — against the direction of
+travel the worst single step is 2.1px opening and 0.0px closing, totalling 2.2px and 0.0px
+across the whole move, and the interior rows never step more than 4.2px in either
+direction. Box-underrun holds at 1.4px opening and 2.0px closing. The three-beat version
+peaked at 89px a frame with 5–7 reversals per row and was still moving at 700ms. It is
+340ms now.
+
+Those were 214 and 218px at 27 and 28px a frame until the plan card's closing paragraph
+came down from two lines to one. The card is what the rows below it fall past, so a line of
+its copy is 18px of their journey and the peaks come down with the distance — the same
+relation as the spine widening below, running the other way.
 
 Those peaks were 24 and 31 at the 240px spine, over a 190px travel. Widening the spine to
 300 unstacked the card's two chips onto one line, which took 24px out of the collapsed
