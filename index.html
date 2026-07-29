@@ -89,7 +89,7 @@
     background: #000; overflow: hidden;
     height: 900px; /* replaced by script once measured */
   }
-  .embed iframe { display: block; border: 0; transform-origin: top left; width: 1552px; height: 900px; }
+  .embed iframe { display: block; border: 0; transform-origin: top left; width: 1440px; height: 900px; }
   .embed .fallback {
     position: absolute; inset: 0; display: grid; place-items: center;
     font: 400 13px/20px 'Open Sans', sans-serif; color: #8390a2; pointer-events: none;
@@ -164,9 +164,10 @@
 
 <script>
 (function () {
-  // Every screen lays out at 1440 content + 56px page padding either side.
-  var NATURAL = 1552;
-  var FALLBACK_H = 1100;
+  // Each screen page fills its viewport, so the frame IS the design size:
+  // give the iframe a 1440x900 viewport and scale it down to the column.
+  var W = 1440;
+  var H = 900;
 
   var boxes = [].slice.call(document.querySelectorAll('.embed'));
 
@@ -177,45 +178,14 @@
     iframe.src = box.getAttribute('data-src');
     box.appendChild(iframe);
     box._iframe = iframe;
-    iframe.addEventListener('load', function () {
-      box.classList.add('ready');
-      fit(box);
-      // support.js renders asynchronously, so re-measure as content settles.
-      [120, 400, 1000, 2200].forEach(function (t) { setTimeout(function () { fit(box); }, t); });
-      observe(box);
-    });
+    fit(box);
+    iframe.addEventListener('load', function () { box.classList.add('ready'); });
   });
 
-  function contentHeight(box) {
-    try {
-      var d = box._iframe.contentDocument;
-      if (!d || !d.documentElement) return null;
-      return Math.max(
-        d.documentElement.scrollHeight,
-        d.body ? d.body.scrollHeight : 0,
-        d.documentElement.offsetHeight
-      );
-    } catch (e) {
-      return null; // cross-origin (e.g. opened over file://)
-    }
-  }
-
   function fit(box) {
-    var scale = box.clientWidth / NATURAL;
-    var h = contentHeight(box) || FALLBACK_H;
-    box._iframe.style.height = h + 'px';
+    var scale = box.clientWidth / W;
     box._iframe.style.transform = 'scale(' + scale + ')';
-    box.style.height = Math.round(h * scale) + 'px';
-  }
-
-  function observe(box) {
-    // Keep the frame honest if the embedded page reflows (fonts, late render).
-    if (typeof ResizeObserver !== 'function') return;
-    try {
-      var d = box._iframe.contentDocument;
-      if (!d || !d.body) return;
-      new ResizeObserver(function () { fit(box); }).observe(d.body);
-    } catch (e) { /* cross-origin */ }
+    box.style.height = Math.round(H * scale) + 'px';
   }
 
   var raf;
