@@ -73,25 +73,61 @@ strings on every render, so this animates; three rules follow from it:
 - **A pinned measure must equal the true final width, gaps included.** A collapsed
   sibling still occupies its flex `gap`, so the first attempt was 24px too generous and
   bought one last rewrap on the final frame. Derive it: row `240 - 32 pad - 8 dot -
-  12 gap - 24 gap = 164`; card `164 - 20 pad - 2 border - 12 gap - 8 gap = 146`.
+  12 gap - 24 gap = 164`; card `164 - 20 pad - 2 border - 12 gap - 8 gap = 146`. This
+  applies to anything that wraps, not just titles: the pair of chips in the card broke
+  onto a second line 20ms before the dock landed and threw the two rows below it down
+  26px in one frame.
 
-The move is three beats, and the order is the whole trick: the detail collapses **and the
-text settles its wrap** at full width, *then* the panes resize, *then* the labels only the
-spine carries fade in. Doing it in one pass means five descriptions and a diagram all
-reflowing while the column shrinks under them.
+The move is **two** beats: the detail collapses **and the text settles its wrap** at full
+width (120ms), then the panes resize (320ms). Doing it in one pass means five descriptions
+and a diagram all reflowing while the column shrinks under them. It was three beats once,
+with the spine's own labels arriving after the dock had landed, and that read exactly as
+"it happens in two steps" — see below.
 
-To check smoothness, don't look — measure. Render ~10 static frames across a beat with a
-probe in `componentDidMount` that writes `getBoundingClientRect()` tops into
-`document.title`, read them with `--dump-dom`, and diff consecutive frames. Any step over
-~8px is a jolt the eye will catch, and a sign change means the content bounces.
+- **A seam is a gap in velocity, not a gap in time.** Two FlowX beats back to back are
+  not continuous: the first eases out to a full stop and the second eases in from one.
+  Which half of the ease each beat gets is arithmetic, not taste — beat 1 carries two
+  thirds of the vertical distance in a quarter of the time, so it is ~4x faster whatever
+  you do, and accelerating into the seam means arriving at 33px a frame and handing over
+  to 8. So the faster beat spends its speed first and decays into the slower one's
+  opening velocity: `cubic-bezier(0, 0, 0.4, 0.8)` for the collapse, the FlowX
+  `cubic-bezier(0, 0, 0.2, 1)` for the dock. Closing swaps them — the pane leads there,
+  so it takes the accelerating `cubic-bezier(0.4, 0, 1, 1)` half.
+- **Whatever has no counterpart in the other state still has a SIZE, and the size is not
+  late.** The Agreed / You are here / Next headings and the per-step counts can only
+  fade, but the 76px they occupy belongs to the shape the plan is collapsing into, so
+  that space opens on beat 1 with everything else and only the opacity is late. Opening
+  it afterwards made five rows fly up past where they belonged and slide back down —
+  a 100px reversal, and nothing says "two moves" louder than a reversal. Nothing in that
+  group may reflow, which is what makes this safe: every label is `nowrap`, and the one
+  wrapping thing in it — a pair of chips — is pinned to the card's final measure.
+- **Rewrapping is not motion, it is a stack of 18px jumps**, one per line a title gains,
+  and a jump only shows if it outruns what the row is already doing. So the measure gets
+  the collapse's curve in **half** its time (60ms against 120ms): the jumps all land in
+  the opening frames where rows travel 60px and are over long before the seam. Give the
+  measure the whole beat and the last breaks land in the last two frames before the
+  handoff — five rows lurching 8–25px back the way they came, which is the single frame
+  that gives the whole move away. Closing, the measure waits 20ms *behind* the detail:
+  in step, un-wrapping beat the expansion and row 3 jumped 50px in one frame.
 
-Anything that genuinely has no counterpart in the other state — the Agreed / You are
-here / Next headings, the per-step counts — arrives last and leaves first, because it
-cannot morph from anything.
+To check smoothness, don't look — measure. Click the toggle in a probe script, then
+`document.getAnimations()`, `pause()` them all, and step every animation's `currentTime`
+together in 16.7ms increments, reading `getBoundingClientRect().top` of each row into an
+attribute you can pull out with `--dump-dom`. That gives an exact per-frame trace with no
+dependence on wall time. Then diff consecutive frames: a **sign change is worse than a
+big step** — 60px in one frame is a fast collapse, 20px the wrong way is judder. Gate on
+the probe having actually rendered (`.sc-placeholder` gone, `sc-dc-streaming` off, tops
+non-zero), or you will click a hydrating page, get zeros, and read them as real.
 
-Easing is the FlowX `cubic-bezier(0.2, 0, 0.2, 1)` at 360ms for panes and 160ms for
-hovers. The step pane still clips rather than reflows: its content holds a
-`min-width: 838px` so an opening pane uncovers it instead of squeezing it.
+Where it stands, at 16.7ms per frame, both directions: no reversal over ~6px on any row
+opening, one row with a 32px un-wrap closing, and the two bottom rows — which travel
+190px — monotonic. The three-beat version peaked at 89px a frame with 5–7 reversals per
+row and was still moving at 700ms.
+
+Easing is the FlowX `cubic-bezier(0.2, 0, 0.2, 1)` at 320ms for panes and 160ms for
+hovers, split into halves only across a seam as above. The step pane still clips rather
+than reflows: its content holds a `min-width: 838px` so an opening pane uncovers it
+instead of squeezing it.
 
 Chrome's `--virtual-time-budget` advances layout transitions but **not** compositor
 opacity, so mid-flight frames captured that way lie — they showed an empty middle that

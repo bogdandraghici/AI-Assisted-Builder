@@ -45,8 +45,8 @@
           <span style="color: #c3cdd7;">Card payment dispute</span>
           <span style="color: #7b8896;">/</span>
           <span onClick="{{ closeStep }}" style="color: {{ planCrumbColor }}; font-weight: 600; cursor: pointer; transition: color 260ms cubic-bezier(0.2, 0, 0.2, 1);" style-hover="color: #ffffff;">The plan</span>
-          <span style="display: inline-grid; grid-template-columns: {{ crumbCols }}; transition: grid-template-columns 340ms cubic-bezier(0.2, 0, 0.2, 1) {{ paneDl }};">
-            <span style="overflow: hidden; min-width: 0; white-space: nowrap; display: flex; align-items: center; gap: 8px; opacity: {{ crumbOp }}; transition: opacity 240ms cubic-bezier(0.2, 0, 0.2, 1) {{ paneDl }};">
+          <span style="display: inline-grid; grid-template-columns: {{ crumbCols }}; transition: grid-template-columns {{ paneDur }} {{ paneEase }} {{ paneDl }};">
+            <span style="overflow: hidden; min-width: 0; white-space: nowrap; display: flex; align-items: center; gap: 8px; opacity: {{ crumbOp }}; transition: opacity {{ crumbOpDur }} {{ paneEase }} {{ crumbOpDl }};">
               <span style="color: #7b8896;">/</span>
               <span style="color: #ffffff; font-weight: 600;">Step 3</span>
             </span>
@@ -69,7 +69,7 @@
 
     <div style="flex: 1; display: flex; min-height: 0;">
 
-      <div style="width: {{ chatW }}; flex: none; background: #0b1218; border-right: 1px solid #18212a; display: flex; flex-direction: column; min-height: 0; transition: width 340ms cubic-bezier(0.2, 0, 0.2, 1) {{ paneDl }};">
+      <div style="width: {{ chatW }}; flex: none; background: #0b1218; border-right: 1px solid #18212a; display: flex; flex-direction: column; min-height: 0; transition: width {{ paneDur }} {{ paneEase }} {{ paneDl }};">
 
         <div style="flex: 1; padding: 24px 24px 0; display: flex; flex-direction: column; gap: 24px; overflow: hidden; min-height: 0;">
 
@@ -134,31 +134,31 @@
         </div>
       </div>
 
-      <div style="flex-grow: {{ planGrow }}; flex-shrink: 0; flex-basis: {{ planBasis }}; background: {{ planBg }}; border-right: 1px solid #18212a; overflow: hidden; min-height: 0; display: flex; flex-direction: column; padding: {{ planPad }}; transition: flex-grow 340ms cubic-bezier(0.2, 0, 0.2, 1) {{ paneDl }}, flex-basis 340ms cubic-bezier(0.2, 0, 0.2, 1) {{ paneDl }}, padding 340ms cubic-bezier(0.2, 0, 0.2, 1) {{ paneDl }}, background 340ms cubic-bezier(0.2, 0, 0.2, 1) {{ paneDl }};">
+      <div style="flex-grow: {{ planGrow }}; flex-shrink: 0; flex-basis: {{ planBasis }}; background: {{ planBg }}; border-right: 1px solid #18212a; overflow: hidden; min-height: 0; display: flex; flex-direction: column; padding: {{ planPad }}; transition: flex-grow {{ paneDur }} {{ paneEase }} {{ paneDl }}, flex-basis {{ paneDur }} {{ paneEase }} {{ paneDl }}, padding {{ paneDur }} {{ paneEase }} {{ paneDl }}, background {{ paneDur }} {{ paneEase }} {{ paneDl }};">
 
-        <div style="flex: none; display: flex; align-items: flex-start; justify-content: space-between; gap: 24px; padding-bottom: {{ headPb }}; transition: padding-bottom 340ms cubic-bezier(0.2, 0, 0.2, 1) {{ paneDl }};">
+        <div style="flex: none; display: flex; align-items: flex-start; justify-content: space-between; gap: 24px; padding-bottom: {{ headPb }}; transition: padding-bottom {{ paneDur }} {{ paneEase }} {{ paneDl }};">
           <div style="min-width: 0; display: flex; flex-direction: column; gap: 6px;">
-            <div style="font-family: 'Open Sans', sans-serif; font-weight: 700; font-size: {{ headSize }}; line-height: {{ headLh }}; color: #f5f9fc; transition: font-size {{ exDur }} cubic-bezier(0.2, 0, 0.2, 1) {{ exDl }}, line-height {{ exDur }} cubic-bezier(0.2, 0, 0.2, 1) {{ exDl }};">The plan</div>
+            <div style="font-family: 'Open Sans', sans-serif; font-weight: 700; font-size: {{ headSize }}; line-height: {{ headLh }}; color: #f5f9fc; transition: font-size {{ wrDur }} {{ wrEase }} {{ wrDl }}, line-height {{ wrDur }} {{ wrEase }} {{ wrDl }};">The plan</div>
             <div style="display: flex; align-items: center; gap: 12px;">
               <div style="display: flex; align-items: center; gap: 3px; flex: none;">
-                <div style="width: {{ dashW }}; height: 3px; border-radius: 2px; background: #2ea86a; transition: width 340ms cubic-bezier(0.2, 0, 0.2, 1) {{ paneDl }};"></div>
-                <div style="width: {{ dashW }}; height: 3px; border-radius: 2px; background: #2ea86a; transition: width 340ms cubic-bezier(0.2, 0, 0.2, 1) {{ paneDl }};"></div>
-                <div style="width: {{ dashW }}; height: 3px; border-radius: 2px; background: #f2762b; transition: width 340ms cubic-bezier(0.2, 0, 0.2, 1) {{ paneDl }};"></div>
-                <div style="width: {{ dashW }}; height: 3px; border-radius: 2px; background: #33404d; transition: width 340ms cubic-bezier(0.2, 0, 0.2, 1) {{ paneDl }};"></div>
-                <div style="width: {{ dashW }}; height: 3px; border-radius: 2px; background: #33404d; transition: width 340ms cubic-bezier(0.2, 0, 0.2, 1) {{ paneDl }};"></div>
+                <div style="width: {{ dashW }}; height: 3px; border-radius: 2px; background: #2ea86a; transition: width {{ paneDur }} {{ paneEase }} {{ paneDl }};"></div>
+                <div style="width: {{ dashW }}; height: 3px; border-radius: 2px; background: #2ea86a; transition: width {{ paneDur }} {{ paneEase }} {{ paneDl }};"></div>
+                <div style="width: {{ dashW }}; height: 3px; border-radius: 2px; background: #f2762b; transition: width {{ paneDur }} {{ paneEase }} {{ paneDl }};"></div>
+                <div style="width: {{ dashW }}; height: 3px; border-radius: 2px; background: #33404d; transition: width {{ paneDur }} {{ paneEase }} {{ paneDl }};"></div>
+                <div style="width: {{ dashW }}; height: 3px; border-radius: 2px; background: #33404d; transition: width {{ paneDur }} {{ paneEase }} {{ paneDl }};"></div>
               </div>
-              <div style="display: grid; grid-template-columns: {{ exCols }}; min-width: 0; transition: grid-template-columns {{ exDur }} cubic-bezier(0.2, 0, 0.2, 1) {{ exDl }};">
-                <div style="overflow: hidden; min-width: 0; white-space: nowrap; font: 400 12px/16px 'Open Sans', sans-serif; color: #8b98a5; opacity: {{ exOp }}; transition: opacity {{ exOpDur }} cubic-bezier(0.2, 0, 0.2, 1) {{ exOpDl }};">Two of five built · one being argued about · two waiting on you</div>
+              <div style="display: grid; grid-template-columns: {{ exCols }}; min-width: 0; transition: grid-template-columns {{ exDur }} {{ exEase }} {{ exDl }};">
+                <div style="overflow: hidden; min-width: 0; white-space: nowrap; font: 400 12px/16px 'Open Sans', sans-serif; color: #8b98a5; opacity: {{ exOp }}; transition: opacity {{ exOpDur }} {{ exEase }} {{ exOpDl }};">Two of five built · one being argued about · two waiting on you</div>
               </div>
             </div>
-            <div style="display: grid; grid-template-rows: {{ rmRows }}; transition: grid-template-rows {{ rmDur }} cubic-bezier(0.2, 0, 0.2, 1) {{ rmDl }};">
-              <div style="overflow: hidden; min-height: 0; opacity: {{ rmOp }}; transition: opacity {{ rmDur }} cubic-bezier(0.2, 0, 0.2, 1) {{ rmOpDl }};">
+            <div style="display: grid; grid-template-rows: {{ rmRows }}; transition: grid-template-rows {{ exDur }} {{ exEase }} {{ exDl }};">
+              <div style="overflow: hidden; min-height: 0; opacity: {{ rmOp }}; transition: opacity {{ rmOpDur }} {{ paneEase }} {{ rmOpDl }};">
                 <div style="font: 400 12px/16px ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; color: #4a5764; white-space: nowrap;">5 steps · 2 agreed</div>
               </div>
             </div>
           </div>
-          <div style="display: grid; grid-template-columns: {{ exCols }}; flex: none; transition: grid-template-columns {{ exDur }} cubic-bezier(0.2, 0, 0.2, 1) {{ exDl }};">
-            <div style="overflow: hidden; min-width: 0; white-space: nowrap; padding-top: 8px; display: flex; align-items: center; gap: 6px; cursor: pointer; color: #8b98a5; opacity: {{ exOp }}; transition: opacity {{ exOpDur }} cubic-bezier(0.2, 0, 0.2, 1) {{ exOpDl }}, color 160ms cubic-bezier(0.2, 0, 0.2, 1);" style-hover="color: #4d97ea;">
+          <div style="display: grid; grid-template-columns: {{ exCols }}; flex: none; transition: grid-template-columns {{ exDur }} {{ exEase }} {{ exDl }};">
+            <div style="overflow: hidden; min-width: 0; white-space: nowrap; padding-top: 8px; display: flex; align-items: center; gap: 6px; cursor: pointer; color: #8b98a5; opacity: {{ exOp }}; transition: opacity {{ exOpDur }} {{ exEase }} {{ exOpDl }}, color 160ms cubic-bezier(0.2, 0, 0.2, 1);" style-hover="color: #4d97ea;">
               <div style="font: 400 12px/16px 'Open Sans', sans-serif;">Every version</div>
               <i class="ph ph-caret-right" style="font-size: 12px;"></i>
             </div>
@@ -167,89 +167,95 @@
 
         <div style="flex: 1; display: flex; flex-direction: column; min-height: 0;">
 
-          <div style="display: grid; grid-template-rows: {{ rmRows }}; transition: grid-template-rows {{ rmDur }} cubic-bezier(0.2, 0, 0.2, 1) {{ rmDl }};">
-            <div style="overflow: hidden; min-height: 0; opacity: {{ rmOp }}; transition: opacity {{ rmDur }} cubic-bezier(0.2, 0, 0.2, 1) {{ rmOpDl }};">
+          <div style="display: grid; grid-template-rows: {{ rmRows }}; transition: grid-template-rows {{ exDur }} {{ exEase }} {{ exDl }};">
+            <div style="overflow: hidden; min-height: 0; opacity: {{ rmOp }}; transition: opacity {{ rmOpDur }} {{ paneEase }} {{ rmOpDl }};">
               <div style="padding-bottom: 8px; font: 400 10px/12px ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; text-transform: uppercase; letter-spacing: 0.14em; color: #2ea86a; white-space: nowrap;">Agreed</div>
             </div>
           </div>
 
-          <div style="display: flex; gap: {{ rowGap }}; align-items: stretch; transition: gap 340ms cubic-bezier(0.2, 0, 0.2, 1) {{ paneDl }};">
-            <div style="width: {{ gutterW }}; flex: none; display: flex; flex-direction: column; align-items: center; transition: width 340ms cubic-bezier(0.2, 0, 0.2, 1) {{ paneDl }};">
-              <div style="width: {{ dotSize }}; height: {{ dotSize }}; flex: none; border-radius: 99px; background: #2ea86a; display: grid; place-items: center; transition: width 340ms cubic-bezier(0.2, 0, 0.2, 1) {{ paneDl }}, height 340ms cubic-bezier(0.2, 0, 0.2, 1) {{ paneDl }};"><i class="ph ph-check" style="font-size: {{ iconSize }}; color: #ffffff; opacity: {{ exOp }}; transition: font-size {{ exDur }} cubic-bezier(0.2, 0, 0.2, 1) {{ exDl }}, opacity {{ exOpDur }} cubic-bezier(0.2, 0, 0.2, 1) {{ exOpDl }};"></i></div>
+          <div style="display: flex; gap: {{ rowGap }}; align-items: stretch; transition: gap {{ paneDur }} {{ paneEase }} {{ paneDl }};">
+            <div style="width: {{ gutterW }}; flex: none; display: flex; flex-direction: column; align-items: center; transition: width {{ paneDur }} {{ paneEase }} {{ paneDl }};">
+              <div style="width: {{ dotSize }}; height: {{ dotSize }}; flex: none; border-radius: 99px; background: #2ea86a; display: grid; place-items: center; transition: width {{ paneDur }} {{ paneEase }} {{ paneDl }}, height {{ paneDur }} {{ paneEase }} {{ paneDl }};"><i class="ph ph-check" style="font-size: {{ iconSize }}; color: #ffffff; opacity: {{ exOp }}; transition: font-size {{ wrDur }} {{ wrEase }} {{ wrDl }}, opacity {{ exOpDur }} {{ exEase }} {{ exOpDl }};"></i></div>
               <div style="flex: 1; width: 2px; background: #26313d; margin-top: 4px;"></div>
             </div>
-            <div style="flex: 1; min-width: 0; padding-bottom: {{ rowPb }}; display: flex; gap: 24px; align-items: flex-start; transition: padding-bottom 340ms cubic-bezier(0.2, 0, 0.2, 1) {{ paneDl }};">
+            <div style="flex: 1; min-width: 0; padding-bottom: {{ rowPb }}; display: flex; gap: 24px; align-items: flex-start; transition: padding-bottom {{ paneDur }} {{ paneEase }} {{ paneDl }};">
               <div style="flex: 1; min-width: 0; display: flex; flex-direction: column; gap: 2px;">
-                <div style="font-family: 'Open Sans', sans-serif; font-weight: 600; font-size: {{ titleSize }}; line-height: {{ titleLh }}; max-width: {{ titleMax }}; color: #f5f9fc; text-wrap: pretty; transition: font-size {{ exDur }} cubic-bezier(0.2, 0, 0.2, 1) {{ exDl }}, line-height {{ exDur }} cubic-bezier(0.2, 0, 0.2, 1) {{ exDl }}, max-width {{ exDur }} cubic-bezier(0.2, 0, 0.2, 1) {{ exDl }};">The customer picks the transaction they do not recognise</div>
-                <div style="display: grid; grid-template-rows: {{ exRows }}; transition: grid-template-rows {{ exDur }} cubic-bezier(0.2, 0, 0.2, 1) {{ exDl }};">
-                  <div style="overflow: hidden; min-height: 0; opacity: {{ exOp }}; transition: opacity {{ exOpDur }} cubic-bezier(0.2, 0, 0.2, 1) {{ exOpDl }};">
+                <div style="font-family: 'Open Sans', sans-serif; font-weight: 600; font-size: {{ titleSize }}; line-height: {{ titleLh }}; max-width: {{ titleMax }}; color: #f5f9fc; text-wrap: pretty; transition: font-size {{ wrDur }} {{ wrEase }} {{ wrDl }}, line-height {{ wrDur }} {{ wrEase }} {{ wrDl }}, max-width {{ wrDur }} {{ wrEase }} {{ wrDl }};">The customer picks the transaction they do not recognise</div>
+                <div style="display: grid; grid-template-rows: {{ exRows }}; transition: grid-template-rows {{ exDur }} {{ exEase }} {{ exDl }};">
+                  <div style="overflow: hidden; min-height: 0; opacity: {{ exOp }}; transition: opacity {{ exOpDur }} {{ exEase }} {{ exOpDl }};">
                     <div style="font: 400 12px/18px 'Open Sans', sans-serif; color: #8b98a5;">Last ninety days. Card and account already known, so nothing is typed twice.</div>
                   </div>
                 </div>
               </div>
-              <div style="display: grid; grid-template-columns: {{ exCols }}; flex: none; transition: grid-template-columns {{ exDur }} cubic-bezier(0.2, 0, 0.2, 1) {{ exDl }};">
-                <div style="overflow: hidden; min-width: 0; white-space: nowrap; display: flex; align-items: center; gap: 4px; color: #8b98a5; padding-top: 3px; cursor: pointer; opacity: {{ exOp }}; transition: opacity {{ exOpDur }} cubic-bezier(0.2, 0, 0.2, 1) {{ exOpDl }}, color 160ms cubic-bezier(0.2, 0, 0.2, 1);" style-hover="color: #c3cdd7;"><div style="font: 400 12px/16px 'Open Sans', sans-serif;">3 resources</div><i class="ph ph-caret-right" style="font-size: 10px;"></i></div>
+              <div style="display: grid; grid-template-columns: {{ exCols }}; flex: none; transition: grid-template-columns {{ exDur }} {{ exEase }} {{ exDl }};">
+                <div style="overflow: hidden; min-width: 0; white-space: nowrap; display: flex; align-items: center; gap: 4px; color: #8b98a5; padding-top: 3px; cursor: pointer; opacity: {{ exOp }}; transition: opacity {{ exOpDur }} {{ exEase }} {{ exOpDl }}, color 160ms cubic-bezier(0.2, 0, 0.2, 1);" style-hover="color: #c3cdd7;"><div style="font: 400 12px/16px 'Open Sans', sans-serif;">3 resources</div><i class="ph ph-caret-right" style="font-size: 10px;"></i></div>
               </div>
             </div>
           </div>
 
-          <div style="display: flex; gap: {{ rowGap }}; align-items: stretch; transition: gap 340ms cubic-bezier(0.2, 0, 0.2, 1) {{ paneDl }};">
-            <div style="width: {{ gutterW }}; flex: none; display: flex; flex-direction: column; align-items: center; transition: width 340ms cubic-bezier(0.2, 0, 0.2, 1) {{ paneDl }};">
-              <div style="width: {{ dotSize }}; height: {{ dotSize }}; flex: none; border-radius: 99px; background: #2ea86a; display: grid; place-items: center; transition: width 340ms cubic-bezier(0.2, 0, 0.2, 1) {{ paneDl }}, height 340ms cubic-bezier(0.2, 0, 0.2, 1) {{ paneDl }};"><i class="ph ph-check" style="font-size: {{ iconSize }}; color: #ffffff; opacity: {{ exOp }}; transition: font-size {{ exDur }} cubic-bezier(0.2, 0, 0.2, 1) {{ exDl }}, opacity {{ exOpDur }} cubic-bezier(0.2, 0, 0.2, 1) {{ exOpDl }};"></i></div>
+          <div style="display: flex; gap: {{ rowGap }}; align-items: stretch; transition: gap {{ paneDur }} {{ paneEase }} {{ paneDl }};">
+            <div style="width: {{ gutterW }}; flex: none; display: flex; flex-direction: column; align-items: center; transition: width {{ paneDur }} {{ paneEase }} {{ paneDl }};">
+              <div style="width: {{ dotSize }}; height: {{ dotSize }}; flex: none; border-radius: 99px; background: #2ea86a; display: grid; place-items: center; transition: width {{ paneDur }} {{ paneEase }} {{ paneDl }}, height {{ paneDur }} {{ paneEase }} {{ paneDl }};"><i class="ph ph-check" style="font-size: {{ iconSize }}; color: #ffffff; opacity: {{ exOp }}; transition: font-size {{ wrDur }} {{ wrEase }} {{ wrDl }}, opacity {{ exOpDur }} {{ exEase }} {{ exOpDl }};"></i></div>
               <div style="flex: 1; width: 2px; background: #26313d; margin-top: 4px;"></div>
             </div>
-            <div style="flex: 1; min-width: 0; padding-bottom: {{ rowPb }}; display: flex; gap: 24px; align-items: flex-start; transition: padding-bottom 340ms cubic-bezier(0.2, 0, 0.2, 1) {{ paneDl }};">
+            <div style="flex: 1; min-width: 0; padding-bottom: {{ rowPb }}; display: flex; gap: 24px; align-items: flex-start; transition: padding-bottom {{ paneDur }} {{ paneEase }} {{ paneDl }};">
               <div style="flex: 1; min-width: 0; display: flex; flex-direction: column; gap: 2px;">
-                <div style="font-family: 'Open Sans', sans-serif; font-weight: 600; font-size: {{ titleSize }}; line-height: {{ titleLh }}; max-width: {{ titleMax }}; color: #f5f9fc; text-wrap: pretty; transition: font-size {{ exDur }} cubic-bezier(0.2, 0, 0.2, 1) {{ exDl }}, line-height {{ exDur }} cubic-bezier(0.2, 0, 0.2, 1) {{ exDl }}, max-width {{ exDur }} cubic-bezier(0.2, 0, 0.2, 1) {{ exDl }};">We ask what happened, in their words</div>
-                <div style="display: grid; grid-template-rows: {{ exRows }}; transition: grid-template-rows {{ exDur }} cubic-bezier(0.2, 0, 0.2, 1) {{ exDl }};">
-                  <div style="overflow: hidden; min-height: 0; opacity: {{ exOp }}; transition: opacity {{ exOpDur }} cubic-bezier(0.2, 0, 0.2, 1) {{ exOpDl }};">
+                <div style="font-family: 'Open Sans', sans-serif; font-weight: 600; font-size: {{ titleSize }}; line-height: {{ titleLh }}; max-width: {{ titleMax }}; color: #f5f9fc; text-wrap: pretty; transition: font-size {{ wrDur }} {{ wrEase }} {{ wrDl }}, line-height {{ wrDur }} {{ wrEase }} {{ wrDl }}, max-width {{ wrDur }} {{ wrEase }} {{ wrDl }};">We ask what happened, in their words</div>
+                <div style="display: grid; grid-template-rows: {{ exRows }}; transition: grid-template-rows {{ exDur }} {{ exEase }} {{ exDl }};">
+                  <div style="overflow: hidden; min-height: 0; opacity: {{ exOp }}; transition: opacity {{ exOpDur }} {{ exEase }} {{ exOpDl }};">
                     <div style="font: 400 12px/18px 'Open Sans', sans-serif; color: #8b98a5;">Free text, then we sort it into one of the nine reasons the scheme accepts.</div>
                   </div>
                 </div>
               </div>
-              <div style="display: grid; grid-template-columns: {{ exCols }}; flex: none; transition: grid-template-columns {{ exDur }} cubic-bezier(0.2, 0, 0.2, 1) {{ exDl }};">
-                <div style="overflow: hidden; min-width: 0; white-space: nowrap; display: flex; align-items: center; gap: 4px; color: #8b98a5; padding-top: 3px; cursor: pointer; opacity: {{ exOp }}; transition: opacity {{ exOpDur }} cubic-bezier(0.2, 0, 0.2, 1) {{ exOpDl }}, color 160ms cubic-bezier(0.2, 0, 0.2, 1);" style-hover="color: #c3cdd7;"><div style="font: 400 12px/16px 'Open Sans', sans-serif;">4 resources</div><i class="ph ph-caret-right" style="font-size: 10px;"></i></div>
+              <div style="display: grid; grid-template-columns: {{ exCols }}; flex: none; transition: grid-template-columns {{ exDur }} {{ exEase }} {{ exDl }};">
+                <div style="overflow: hidden; min-width: 0; white-space: nowrap; display: flex; align-items: center; gap: 4px; color: #8b98a5; padding-top: 3px; cursor: pointer; opacity: {{ exOp }}; transition: opacity {{ exOpDur }} {{ exEase }} {{ exOpDl }}, color 160ms cubic-bezier(0.2, 0, 0.2, 1);" style-hover="color: #c3cdd7;"><div style="font: 400 12px/16px 'Open Sans', sans-serif;">4 resources</div><i class="ph ph-caret-right" style="font-size: 10px;"></i></div>
               </div>
             </div>
           </div>
 
-          <div style="display: grid; grid-template-rows: {{ rmRows }}; transition: grid-template-rows {{ rmDur }} cubic-bezier(0.2, 0, 0.2, 1) {{ rmDl }};">
-            <div style="overflow: hidden; min-height: 0; opacity: {{ rmOp }}; transition: opacity {{ rmDur }} cubic-bezier(0.2, 0, 0.2, 1) {{ rmOpDl }};">
+          <div style="display: grid; grid-template-rows: {{ rmRows }}; transition: grid-template-rows {{ exDur }} {{ exEase }} {{ exDl }};">
+            <div style="overflow: hidden; min-height: 0; opacity: {{ rmOp }}; transition: opacity {{ rmOpDur }} {{ paneEase }} {{ rmOpDl }};">
               <div style="padding-bottom: 8px; font: 400 10px/12px ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; text-transform: uppercase; letter-spacing: 0.14em; color: #f2762b; white-space: nowrap;">You are here</div>
             </div>
           </div>
 
-          <div style="display: flex; gap: {{ rowGap }}; align-items: stretch; transition: gap 340ms cubic-bezier(0.2, 0, 0.2, 1) {{ paneDl }};">
-            <div style="width: {{ gutterW }}; flex: none; display: flex; flex-direction: column; align-items: center; transition: width 340ms cubic-bezier(0.2, 0, 0.2, 1) {{ paneDl }};">
-              <div style="width: {{ dotSize }}; height: {{ dotSize }}; flex: none; border-radius: 99px; background: #f2762b; display: grid; place-items: center; transition: width 340ms cubic-bezier(0.2, 0, 0.2, 1) {{ paneDl }}, height 340ms cubic-bezier(0.2, 0, 0.2, 1) {{ paneDl }};"><i class="ph ph-warning" style="font-size: {{ iconSize }}; color: #ffffff; opacity: {{ exOp }}; transition: font-size {{ exDur }} cubic-bezier(0.2, 0, 0.2, 1) {{ exDl }}, opacity {{ exOpDur }} cubic-bezier(0.2, 0, 0.2, 1) {{ exOpDl }};"></i></div>
+          <div style="display: flex; gap: {{ rowGap }}; align-items: stretch; transition: gap {{ paneDur }} {{ paneEase }} {{ paneDl }};">
+            <div style="width: {{ gutterW }}; flex: none; display: flex; flex-direction: column; align-items: center; transition: width {{ paneDur }} {{ paneEase }} {{ paneDl }};">
+              <div style="width: {{ dotSize }}; height: {{ dotSize }}; flex: none; border-radius: 99px; background: #f2762b; display: grid; place-items: center; transition: width {{ paneDur }} {{ paneEase }} {{ paneDl }}, height {{ paneDur }} {{ paneEase }} {{ paneDl }};"><i class="ph ph-warning" style="font-size: {{ iconSize }}; color: #ffffff; opacity: {{ exOp }}; transition: font-size {{ wrDur }} {{ wrEase }} {{ wrDl }}, opacity {{ exOpDur }} {{ exEase }} {{ exOpDl }};"></i></div>
               <div style="flex: 1; width: 0; border-left: 2px dashed #26313d; margin-top: 4px;"></div>
             </div>
-            <div style="flex: 1; min-width: 0; padding-bottom: {{ rowPb }}; transition: padding-bottom 340ms cubic-bezier(0.2, 0, 0.2, 1) {{ paneDl }};">
-              <div style="background: linear-gradient(180deg, rgba(242, 118, 43, 0.14), rgba(242, 118, 43, 0.06) 45%, rgba(242, 118, 43, 0.025)); border: 1px solid rgba(242, 118, 43, 0.30); border-radius: 12px; padding: {{ cardPad }}; display: flex; flex-direction: column; transition: padding 340ms cubic-bezier(0.2, 0, 0.2, 1) {{ paneDl }};">
+            <div style="flex: 1; min-width: 0; padding-bottom: {{ rowPb }}; transition: padding-bottom {{ paneDur }} {{ paneEase }} {{ paneDl }};">
+              <div style="background: linear-gradient(180deg, rgba(242, 118, 43, 0.14), rgba(242, 118, 43, 0.06) 45%, rgba(242, 118, 43, 0.025)); border: 1px solid rgba(242, 118, 43, 0.30); border-radius: 12px; padding: {{ cardPad }}; display: flex; flex-direction: column; transition: padding {{ paneDur }} {{ paneEase }} {{ paneDl }};">
 
                 <div onClick="{{ stepToggle }}" style="display: flex; gap: 12px; align-items: flex-start; cursor: pointer; margin: -6px -8px 0; padding: 6px 8px 0; border-radius: 8px; transition: background 160ms cubic-bezier(0.2, 0, 0.2, 1);" style-hover="background: rgba(242, 118, 43, 0.10);">
                   <div style="flex: 1; min-width: 0; display: flex; align-items: baseline; gap: 8px;">
-                    <div style="font-family: 'Open Sans', sans-serif; font-weight: 600; font-size: {{ titleSize }}; line-height: {{ titleLh }}; max-width: {{ cardTitleMax }}; color: #f5f9fc; text-wrap: pretty; transition: font-size {{ exDur }} cubic-bezier(0.2, 0, 0.2, 1) {{ exDl }}, line-height {{ exDur }} cubic-bezier(0.2, 0, 0.2, 1) {{ exDl }}, max-width {{ exDur }} cubic-bezier(0.2, 0, 0.2, 1) {{ exDl }};">We check with the merchant before asking for evidence</div>
-                    <i class="ph ph-caret-right" style="font-size: {{ caretSize }}; color: #f2985c; flex: none; opacity: {{ exOp }}; transition: font-size {{ exDur }} cubic-bezier(0.2, 0, 0.2, 1) {{ exDl }}, opacity {{ exOpDur }} cubic-bezier(0.2, 0, 0.2, 1) {{ exOpDl }};"></i>
+                    <div style="font-family: 'Open Sans', sans-serif; font-weight: 600; font-size: {{ titleSize }}; line-height: {{ titleLh }}; max-width: {{ cardTitleMax }}; color: #f5f9fc; text-wrap: pretty; transition: font-size {{ wrDur }} {{ wrEase }} {{ wrDl }}, line-height {{ wrDur }} {{ wrEase }} {{ wrDl }}, max-width {{ wrDur }} {{ wrEase }} {{ wrDl }};">We check with the merchant before asking for evidence</div>
+                    <i class="ph ph-caret-right" style="font-size: {{ caretSize }}; color: #f2985c; flex: none; opacity: {{ exOp }}; transition: font-size {{ wrDur }} {{ wrEase }} {{ wrDl }}, opacity {{ exOpDur }} {{ exEase }} {{ exOpDl }};"></i>
                   </div>
-                  <div style="display: grid; grid-template-columns: {{ exCols }}; flex: none; margin-top: 2px; transition: grid-template-columns {{ exDur }} cubic-bezier(0.2, 0, 0.2, 1) {{ exDl }};">
-                    <div style="overflow: hidden; min-width: 0; white-space: nowrap; opacity: {{ exOp }}; transition: opacity {{ exOpDur }} cubic-bezier(0.2, 0, 0.2, 1) {{ exOpDl }};">
+                  <div style="display: grid; grid-template-columns: {{ exCols }}; flex: none; margin-top: 2px; transition: grid-template-columns {{ exDur }} {{ exEase }} {{ exDl }};">
+                    <div style="overflow: hidden; min-width: 0; white-space: nowrap; opacity: {{ exOp }}; transition: opacity {{ exOpDur }} {{ exEase }} {{ exOpDl }};">
                       <div style="display: inline-flex; align-items: center; height: 18px; padding: 0 6px; border-radius: 4px; background: rgba(242, 118, 43, 0.14); color: #f2762b; font: 400 10px/12px ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; text-transform: uppercase; letter-spacing: 0.14em;">Not agreed</div>
                     </div>
                   </div>
                 </div>
 
-                <div style="display: grid; grid-template-rows: {{ rmRows }}; transition: grid-template-rows {{ rmDur }} cubic-bezier(0.2, 0, 0.2, 1) {{ rmDl }};">
-                  <div style="overflow: hidden; min-height: 0; opacity: {{ rmOp }}; transition: opacity {{ rmDur }} cubic-bezier(0.2, 0, 0.2, 1) {{ rmOpDl }};">
-                    <div style="padding-top: 8px; display: flex; flex-wrap: wrap; gap: 6px;">
+                <div style="display: grid; grid-template-rows: {{ rmRows }}; transition: grid-template-rows {{ exDur }} {{ exEase }} {{ exDl }};">
+                  <div style="overflow: hidden; min-height: 0; opacity: {{ rmOp }}; transition: opacity {{ rmOpDur }} {{ paneEase }} {{ rmOpDl }};">
+                    <!-- The one wrapping thing the spine carries. Pinned to the
+                         card's final inner measure so the two chips are already
+                         stacked when they arrive: left to the live width they
+                         broke onto a second line 20ms before the dock landed,
+                         which threw the two rows below it down 26px in one
+                         frame. Same rule as the titles, same number. -->
+                    <div style="max-width: 146px; padding-top: 8px; display: flex; flex-wrap: wrap; gap: 6px;">
                       <div style="display: inline-flex; align-items: center; height: 18px; padding: 0 6px; border-radius: 4px; background: rgba(242, 118, 43, 0.14); border: 1px solid rgba(242, 118, 43, 0.26); color: #f2985c; font: 400 10px/12px ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;">1 to settle</div>
                       <div style="display: inline-flex; align-items: center; height: 18px; padding: 0 6px; border-radius: 4px; background: #131c24; border: 1px solid #26313d; color: #8b98a5; font: 400 10px/12px ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;">2 not built</div>
                     </div>
                   </div>
                 </div>
 
-                <div style="display: grid; grid-template-rows: {{ exRows }}; transition: grid-template-rows {{ exDur }} cubic-bezier(0.2, 0, 0.2, 1) {{ exDl }};">
-                  <div style="overflow: hidden; min-height: 0; opacity: {{ exOp }}; transition: opacity {{ exOpDur }} cubic-bezier(0.2, 0, 0.2, 1) {{ exOpDl }};">
+                <div style="display: grid; grid-template-rows: {{ exRows }}; transition: grid-template-rows {{ exDur }} {{ exEase }} {{ exDl }};">
+                  <div style="overflow: hidden; min-height: 0; opacity: {{ exOp }}; transition: opacity {{ exOpDur }} {{ exEase }} {{ exOpDl }};">
                     <div style="padding-top: 12px; display: flex; flex-direction: column; gap: 12px;">
 
                       <div style="display: flex; flex-direction: column; gap: 8px;">
@@ -300,64 +306,64 @@
             </div>
           </div>
 
-          <div style="display: grid; grid-template-rows: {{ rmRows }}; transition: grid-template-rows {{ rmDur }} cubic-bezier(0.2, 0, 0.2, 1) {{ rmDl }};">
-            <div style="overflow: hidden; min-height: 0; opacity: {{ rmOp }}; transition: opacity {{ rmDur }} cubic-bezier(0.2, 0, 0.2, 1) {{ rmOpDl }};">
+          <div style="display: grid; grid-template-rows: {{ rmRows }}; transition: grid-template-rows {{ exDur }} {{ exEase }} {{ exDl }};">
+            <div style="overflow: hidden; min-height: 0; opacity: {{ rmOp }}; transition: opacity {{ rmOpDur }} {{ paneEase }} {{ rmOpDl }};">
               <div style="padding-bottom: 8px; font: 400 10px/12px ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; text-transform: uppercase; letter-spacing: 0.14em; color: #5c6975; white-space: nowrap;">Next</div>
             </div>
           </div>
 
-          <div style="display: flex; gap: {{ rowGap }}; align-items: stretch; transition: gap 340ms cubic-bezier(0.2, 0, 0.2, 1) {{ paneDl }};">
-            <div style="width: {{ gutterW }}; flex: none; display: flex; flex-direction: column; align-items: center; transition: width 340ms cubic-bezier(0.2, 0, 0.2, 1) {{ paneDl }};">
-              <div style="width: {{ dotSize }}; height: {{ dotSize }}; flex: none; border-radius: 99px; background: #0b1218; border: 1px dashed #8b98a5; transition: width 340ms cubic-bezier(0.2, 0, 0.2, 1) {{ paneDl }}, height 340ms cubic-bezier(0.2, 0, 0.2, 1) {{ paneDl }};"></div>
+          <div style="display: flex; gap: {{ rowGap }}; align-items: stretch; transition: gap {{ paneDur }} {{ paneEase }} {{ paneDl }};">
+            <div style="width: {{ gutterW }}; flex: none; display: flex; flex-direction: column; align-items: center; transition: width {{ paneDur }} {{ paneEase }} {{ paneDl }};">
+              <div style="width: {{ dotSize }}; height: {{ dotSize }}; flex: none; border-radius: 99px; background: #0b1218; border: 1px dashed #8b98a5; transition: width {{ paneDur }} {{ paneEase }} {{ paneDl }}, height {{ paneDur }} {{ paneEase }} {{ paneDl }};"></div>
               <div style="flex: 1; width: 0; border-left: 2px dashed #26313d; margin-top: 4px;"></div>
             </div>
-            <div style="flex: 1; min-width: 0; padding-bottom: {{ rowPb }}; display: flex; gap: 24px; align-items: flex-start; transition: padding-bottom 340ms cubic-bezier(0.2, 0, 0.2, 1) {{ paneDl }};">
+            <div style="flex: 1; min-width: 0; padding-bottom: {{ rowPb }}; display: flex; gap: 24px; align-items: flex-start; transition: padding-bottom {{ paneDur }} {{ paneEase }} {{ paneDl }};">
               <div style="flex: 1; min-width: 0; display: flex; flex-direction: column; gap: 2px;">
-                <div style="font-family: 'Open Sans', sans-serif; font-weight: 600; font-size: {{ titleSize }}; line-height: {{ titleLh }}; max-width: {{ titleMax }}; color: #c3cdd7; text-wrap: pretty; transition: font-size {{ exDur }} cubic-bezier(0.2, 0, 0.2, 1) {{ exDl }}, line-height {{ exDur }} cubic-bezier(0.2, 0, 0.2, 1) {{ exDl }}, max-width {{ exDur }} cubic-bezier(0.2, 0, 0.2, 1) {{ exDl }};">We ask for evidence, only what the reason needs</div>
-                <div style="display: grid; grid-template-rows: {{ exRows }}; transition: grid-template-rows {{ exDur }} cubic-bezier(0.2, 0, 0.2, 1) {{ exDl }};">
-                  <div style="overflow: hidden; min-height: 0; opacity: {{ exOp }}; transition: opacity {{ exOpDur }} cubic-bezier(0.2, 0, 0.2, 1) {{ exOpDl }};">
+                <div style="font-family: 'Open Sans', sans-serif; font-weight: 600; font-size: {{ titleSize }}; line-height: {{ titleLh }}; max-width: {{ titleMax }}; color: #c3cdd7; text-wrap: pretty; transition: font-size {{ wrDur }} {{ wrEase }} {{ wrDl }}, line-height {{ wrDur }} {{ wrEase }} {{ wrDl }}, max-width {{ wrDur }} {{ wrEase }} {{ wrDl }};">We ask for evidence, only what the reason needs</div>
+                <div style="display: grid; grid-template-rows: {{ exRows }}; transition: grid-template-rows {{ exDur }} {{ exEase }} {{ exDl }};">
+                  <div style="overflow: hidden; min-height: 0; opacity: {{ exOp }}; transition: opacity {{ exOpDur }} {{ exEase }} {{ exOpDl }};">
                     <div style="font: 400 12px/18px 'Open Sans', sans-serif; color: #8b98a5;">A receipt for goods never delivered. Nothing at all for a duplicate charge.</div>
                   </div>
                 </div>
-                <div style="display: grid; grid-template-rows: {{ rmRows }}; transition: grid-template-rows {{ rmDur }} cubic-bezier(0.2, 0, 0.2, 1) {{ rmDl }};">
-                  <div style="overflow: hidden; min-height: 0; opacity: {{ rmOp }}; transition: opacity {{ rmDur }} cubic-bezier(0.2, 0, 0.2, 1) {{ rmOpDl }};">
+                <div style="display: grid; grid-template-rows: {{ rmRows }}; transition: grid-template-rows {{ exDur }} {{ exEase }} {{ exDl }};">
+                  <div style="overflow: hidden; min-height: 0; opacity: {{ rmOp }}; transition: opacity {{ rmOpDur }} {{ paneEase }} {{ rmOpDl }};">
                     <div style="padding-top: 2px; font: 400 10px/12px ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; color: #5c6975; white-space: nowrap;">2 to settle</div>
                   </div>
                 </div>
               </div>
-              <div style="display: grid; grid-template-columns: {{ exCols }}; flex: none; transition: grid-template-columns {{ exDur }} cubic-bezier(0.2, 0, 0.2, 1) {{ exDl }};">
-                <div style="overflow: hidden; min-width: 0; white-space: nowrap; display: flex; align-items: center; gap: 4px; color: #8b98a5; padding-top: 3px; cursor: pointer; opacity: {{ exOp }}; transition: opacity {{ exOpDur }} cubic-bezier(0.2, 0, 0.2, 1) {{ exOpDl }}, color 160ms cubic-bezier(0.2, 0, 0.2, 1);" style-hover="color: #c3cdd7;"><div style="font: 400 12px/16px 'Open Sans', sans-serif;">Nothing built yet</div><i class="ph ph-caret-right" style="font-size: 10px;"></i></div>
+              <div style="display: grid; grid-template-columns: {{ exCols }}; flex: none; transition: grid-template-columns {{ exDur }} {{ exEase }} {{ exDl }};">
+                <div style="overflow: hidden; min-width: 0; white-space: nowrap; display: flex; align-items: center; gap: 4px; color: #8b98a5; padding-top: 3px; cursor: pointer; opacity: {{ exOp }}; transition: opacity {{ exOpDur }} {{ exEase }} {{ exOpDl }}, color 160ms cubic-bezier(0.2, 0, 0.2, 1);" style-hover="color: #c3cdd7;"><div style="font: 400 12px/16px 'Open Sans', sans-serif;">Nothing built yet</div><i class="ph ph-caret-right" style="font-size: 10px;"></i></div>
               </div>
             </div>
           </div>
 
-          <div style="display: flex; gap: {{ rowGap }}; align-items: stretch; transition: gap 340ms cubic-bezier(0.2, 0, 0.2, 1) {{ paneDl }};">
-            <div style="width: {{ gutterW }}; flex: none; display: flex; flex-direction: column; align-items: center; transition: width 340ms cubic-bezier(0.2, 0, 0.2, 1) {{ paneDl }};">
-              <div style="width: {{ dotSize }}; height: {{ dotSize }}; flex: none; border-radius: 99px; background: #0b1218; border: 1px solid #8b98a5; display: grid; place-items: center; transition: width 340ms cubic-bezier(0.2, 0, 0.2, 1) {{ paneDl }}, height 340ms cubic-bezier(0.2, 0, 0.2, 1) {{ paneDl }};"><i class="ph ph-user" style="font-size: {{ iconSize }}; color: #c3cdd7; opacity: {{ exOp }}; transition: font-size {{ exDur }} cubic-bezier(0.2, 0, 0.2, 1) {{ exDl }}, opacity {{ exOpDur }} cubic-bezier(0.2, 0, 0.2, 1) {{ exOpDl }};"></i></div>
+          <div style="display: flex; gap: {{ rowGap }}; align-items: stretch; transition: gap {{ paneDur }} {{ paneEase }} {{ paneDl }};">
+            <div style="width: {{ gutterW }}; flex: none; display: flex; flex-direction: column; align-items: center; transition: width {{ paneDur }} {{ paneEase }} {{ paneDl }};">
+              <div style="width: {{ dotSize }}; height: {{ dotSize }}; flex: none; border-radius: 99px; background: #0b1218; border: 1px solid #8b98a5; display: grid; place-items: center; transition: width {{ paneDur }} {{ paneEase }} {{ paneDl }}, height {{ paneDur }} {{ paneEase }} {{ paneDl }};"><i class="ph ph-user" style="font-size: {{ iconSize }}; color: #c3cdd7; opacity: {{ exOp }}; transition: font-size {{ wrDur }} {{ wrEase }} {{ wrDl }}, opacity {{ exOpDur }} {{ exEase }} {{ exOpDl }};"></i></div>
               <div style="flex: 1; width: 0; border-left: 2px dashed #26313d; margin-top: 4px;"></div>
             </div>
-            <div style="flex: 1; min-width: 0; padding-bottom: {{ rowPb }}; display: flex; gap: 24px; align-items: flex-start; transition: padding-bottom 340ms cubic-bezier(0.2, 0, 0.2, 1) {{ paneDl }};">
+            <div style="flex: 1; min-width: 0; padding-bottom: {{ rowPb }}; display: flex; gap: 24px; align-items: flex-start; transition: padding-bottom {{ paneDur }} {{ paneEase }} {{ paneDl }};">
               <div style="flex: 1; min-width: 0; display: flex; flex-direction: column; gap: 2px;">
-                <div style="font-family: 'Open Sans', sans-serif; font-weight: 600; font-size: {{ titleSize }}; line-height: {{ titleLh }}; max-width: {{ titleMax }}; color: #f5f9fc; text-wrap: pretty; transition: font-size {{ exDur }} cubic-bezier(0.2, 0, 0.2, 1) {{ exDl }}, line-height {{ exDur }} cubic-bezier(0.2, 0, 0.2, 1) {{ exDl }}, max-width {{ exDur }} cubic-bezier(0.2, 0, 0.2, 1) {{ exDl }};">Disputes over {{ threshold }} go to a person</div>
-                <div style="display: grid; grid-template-rows: {{ exRows }}; transition: grid-template-rows {{ exDur }} cubic-bezier(0.2, 0, 0.2, 1) {{ exDl }};">
-                  <div style="overflow: hidden; min-height: 0; opacity: {{ exOp }}; transition: opacity {{ exOpDur }} cubic-bezier(0.2, 0, 0.2, 1) {{ exOpDl }};">
+                <div style="font-family: 'Open Sans', sans-serif; font-weight: 600; font-size: {{ titleSize }}; line-height: {{ titleLh }}; max-width: {{ titleMax }}; color: #f5f9fc; text-wrap: pretty; transition: font-size {{ wrDur }} {{ wrEase }} {{ wrDl }}, line-height {{ wrDur }} {{ wrEase }} {{ wrDl }}, max-width {{ wrDur }} {{ wrEase }} {{ wrDl }};">Disputes over {{ threshold }} go to a person</div>
+                <div style="display: grid; grid-template-rows: {{ exRows }}; transition: grid-template-rows {{ exDur }} {{ exEase }} {{ exDl }};">
+                  <div style="overflow: hidden; min-height: 0; opacity: {{ exOp }}; transition: opacity {{ exOpDur }} {{ exEase }} {{ exOpDl }};">
                     <div style="font: 400 12px/18px 'Open Sans', sans-serif; color: #c3cdd7;">{{ threshold }} is my guess. I need the real number before I build this.</div>
                   </div>
                 </div>
-                <div style="display: grid; grid-template-rows: {{ rmRows }}; transition: grid-template-rows {{ rmDur }} cubic-bezier(0.2, 0, 0.2, 1) {{ rmDl }};">
-                  <div style="overflow: hidden; min-height: 0; opacity: {{ rmOp }}; transition: opacity {{ rmDur }} cubic-bezier(0.2, 0, 0.2, 1) {{ rmOpDl }};">
+                <div style="display: grid; grid-template-rows: {{ rmRows }}; transition: grid-template-rows {{ exDur }} {{ exEase }} {{ exDl }};">
+                  <div style="overflow: hidden; min-height: 0; opacity: {{ rmOp }}; transition: opacity {{ rmOpDur }} {{ paneEase }} {{ rmOpDl }};">
                     <div style="padding-top: 2px; font: 400 10px/12px ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; color: #5c6975; white-space: nowrap;">1 to settle</div>
                   </div>
                 </div>
               </div>
-              <div style="display: grid; grid-template-columns: {{ exCols }}; flex: none; transition: grid-template-columns {{ exDur }} cubic-bezier(0.2, 0, 0.2, 1) {{ exDl }};">
-                <div style="overflow: hidden; min-width: 0; white-space: nowrap; display: flex; align-items: center; gap: 4px; color: #8b98a5; padding-top: 3px; cursor: pointer; opacity: {{ exOp }}; transition: opacity {{ exOpDur }} cubic-bezier(0.2, 0, 0.2, 1) {{ exOpDl }}, color 160ms cubic-bezier(0.2, 0, 0.2, 1);" style-hover="color: #c3cdd7;"><div style="font: 400 12px/16px 'Open Sans', sans-serif;">1 of 2 exists</div><i class="ph ph-caret-right" style="font-size: 10px;"></i></div>
+              <div style="display: grid; grid-template-columns: {{ exCols }}; flex: none; transition: grid-template-columns {{ exDur }} {{ exEase }} {{ exDl }};">
+                <div style="overflow: hidden; min-width: 0; white-space: nowrap; display: flex; align-items: center; gap: 4px; color: #8b98a5; padding-top: 3px; cursor: pointer; opacity: {{ exOp }}; transition: opacity {{ exOpDur }} {{ exEase }} {{ exOpDl }}, color 160ms cubic-bezier(0.2, 0, 0.2, 1);" style-hover="color: #c3cdd7;"><div style="font: 400 12px/16px 'Open Sans', sans-serif;">1 of 2 exists</div><i class="ph ph-caret-right" style="font-size: 10px;"></i></div>
               </div>
             </div>
           </div>
 
-          <div style="display: grid; grid-template-rows: {{ exRows }}; transition: grid-template-rows {{ exDur }} cubic-bezier(0.2, 0, 0.2, 1) {{ exDl }};">
-            <div style="overflow: hidden; min-height: 0; opacity: {{ exOp }}; transition: opacity {{ exOpDur }} cubic-bezier(0.2, 0, 0.2, 1) {{ exOpDl }};">
+          <div style="display: grid; grid-template-rows: {{ exRows }}; transition: grid-template-rows {{ exDur }} {{ exEase }} {{ exDl }};">
+            <div style="overflow: hidden; min-height: 0; opacity: {{ exOp }}; transition: opacity {{ exOpDur }} {{ exEase }} {{ exOpDl }};">
               <div style="display: flex; gap: 16px; align-items: flex-start;">
                 <div style="width: 20px; flex: none; display: flex; justify-content: center; padding-top: 5px;">
                   <div style="width: 8px; height: 8px; border-radius: 99px; border: 1px dashed #8b98a5;"></div>
@@ -371,7 +377,7 @@
         </div>
       </div>
 
-      <div style="flex-grow: {{ detGrow }}; flex-shrink: 0; flex-basis: 0px; position: relative; overflow: hidden; min-height: 0; transition: flex-grow 340ms cubic-bezier(0.2, 0, 0.2, 1) {{ paneDl }};">
+      <div style="flex-grow: {{ detGrow }}; flex-shrink: 0; flex-basis: 0px; position: relative; overflow: hidden; min-height: 0; transition: flex-grow {{ paneDur }} {{ paneEase }} {{ paneDl }};">
 
         <div style="position: absolute; top: 0; left: 0; bottom: 0; width: 100%; min-width: 838px; display: flex; flex-direction: column; overflow-y: auto; padding: 24px 32px 16px;">
 
@@ -570,14 +576,37 @@ class Component extends DCLogic {
       closeStep: () => this.setState({ step: false }),
       stepToggle: () => this.setState(p => ({ step: !p.step })),
 
+      // ── The velocity chain ───────────────────────────────────────────────
+      // The beats are sequential because they have to be — a title may not
+      // rewrap while the pane is moving — but a sequence only reads as ONE
+      // move if the handoff is continuous in VELOCITY, not merely in time.
+      // Two FlowX (0.2, 0, 0.2, 1) beats back to back are not: the first eases
+      // out to a full stop and the second eases in from one, and that stop in
+      // the middle is what "it happens in two steps" actually is.
+      //
+      // Which beat accelerates and which decelerates is not a choice, it is
+      // arithmetic. Beat 1 carries two thirds of the vertical distance in a
+      // quarter of the time, so it is ~4x faster than beat 2 no matter what;
+      // if it accelerated into the seam it would arrive at 33px a frame and
+      // hand over to 8, and every row visibly hits a wall. So beat 1 spends
+      // its speed at the very start and decays — (0, 0, 0.4, 0.8) exits at
+      // about a third of its own average, which is where the pane's opening
+      // frames already are — and the pane then decelerates to rest.
+      //
+      // Closing runs the other way: the pane goes first and must end fast, so
+      // it takes the accelerating half and the detail expanding decelerates
+      // into place.
+      exEase: on ? 'cubic-bezier(0, 0, 0.4, 0.8)' : 'cubic-bezier(0, 0, 0.2, 1)',
+      paneEase: on ? 'cubic-bezier(0, 0, 0.2, 1)' : 'cubic-bezier(0.4, 0, 1, 1)',
+
       // ── Beat 1 · the detail goes, at full width ──────────────────────────
       // Descriptions, the drawing, the resource counts. Doing this first means
       // beat 2 only has five short titles to reflow instead of everything.
       exRows: on ? '0fr' : '1fr',
       exCols: on ? '0fr' : '1fr',
       exOp: on ? '0' : '1',
-      exDur: '160ms',
-      exDl: on ? '0ms' : '460ms',
+      exDur: '120ms',
+      exDl: on ? '0ms' : '320ms',
       // The measure a title is wrapped to, and its size, both settle HERE —
       // while the panes are still still, so every rewrap the move contains
       // happens in this beat and beat 2 has none at all.
@@ -589,11 +618,32 @@ class Component extends DCLogic {
       //         card 164 - 10 pad x2 - 2 border - 12 gap - 8 gap = 146
       titleMax: on ? '164px' : '800px',
       cardTitleMax: on ? '146px' : '800px',
+      // It settles on the collapse's own curve but in HALF its time, and that
+      // ratio is the whole of it. Rewrapping is not motion, it is a stack of
+      // 18px jumps — one per line a title gains — and a jump is only visible
+      // if it outruns whatever else the row is doing. So the jumps have to
+      // land inside the collapse's opening frames, where rows are already
+      // travelling 60px, and be over before it decays: 60 against 120 puts
+      // every one of them there and leaves the seam clean. The measure taking
+      // the whole beat instead lands the last breaks in the last two frames
+      // before the handoff, which measured as five rows lurching 8 to 25px
+      // back down the way they came, and that single frame is the one that
+      // says "that was two moves". Stretching it further, or giving it a
+      // gentler curve, only walks the jumps out into the slow part where
+      // nothing can cover them.
+      //
+      // Closing it waits 20ms behind the detail rather than starting with it:
+      // un-wrapping pulls rows UP while the descriptions push them down, and
+      // in step the un-wrap won — row 3 jumped 50px in one frame. Twenty
+      // milliseconds late and the expansion is at full speed underneath it.
+      wrDur: '60ms',
+      wrEase: 'cubic-bezier(0, 0, 0.4, 0.8)',
+      wrDl: on ? '0ms' : '340ms',
       // Opacity leads the collapse and lags the expand: a column closing on
       // live text leaves a one-character sliver, which is the single most
       // "wacky"-looking frame in the whole move.
-      exOpDur: on ? '100ms' : '120ms',
-      exOpDl: on ? '0ms' : '500ms',
+      exOpDur: on ? '70ms' : '110ms',
+      exOpDl: on ? '0ms' : '360ms',
       iconSize: on ? '0px' : '11px',
       caretSize: on ? '0px' : '12px',
 
@@ -606,7 +656,10 @@ class Component extends DCLogic {
       planGrow: on ? '0' : '1',
       planBasis: on ? '240px' : '0px',
       detGrow: on ? '1' : '0',
-      paneDl: on ? '160ms' : '120ms',
+      // Picks up the instant beat 1 lands, with no gap; on the way back it
+      // leads, and nothing waits for anything else to finish first.
+      paneDur: '320ms',
+      paneDl: on ? '120ms' : '0ms',
       planBg: on ? '#0e161d' : '#0b1218',
       planPad: on ? '24px 16px 16px' : '20px 32px 16px',
       headPb: on ? '16px' : '16px',
@@ -621,30 +674,46 @@ class Component extends DCLogic {
       titleLh: on ? '18px' : '22px',
       cardPad: on ? '10px' : '16px',
 
-      // ── Beat 3 · the labels the spine alone carries ──────────────────────
+      // ── The labels the spine alone carries ───────────────────────────────
       // Agreed / You are here / Next, the step counts, and "5 steps · 2 agreed"
       // have no counterpart in the wide plan, so they cannot morph from
-      // anything. They arrive once the dock has landed, and leave first.
+      // anything — but the SPACE they need is not theirs alone, it is part of
+      // the shape the plan is collapsing into, so it opens WITH the collapse,
+      // on beat 1, and only the fade is late. This is what keeps the bottom
+      // rows monotonic: the collapse alone overshoots their final tops by the
+      // 76px of label the spine has yet to grow, so opening that space later —
+      // on the pane's curve, or worse in a beat of its own — makes five rows
+      // fly up past where they belong and come back down. Nothing says "two
+      // moves" louder than a reversal. Opened here, beat 1 takes them most of
+      // the way up and the padding tightening in beat 2 finishes the trip in
+      // the same direction.
+      //
+      // Nothing in here reflows: every label is nowrap and the one wrapping
+      // thing, the pair of chips, is pinned to the card's final measure. So it
+      // is safe on beat 1, where the pane is still, AND across beat 2's resize.
       rmRows: on ? '1fr' : '0fr',
       rmOp: on ? '1' : '0',
-      rmDur: on ? '160ms' : '120ms',
-      rmDl: on ? '500ms' : '0ms',
-      rmOpDl: on ? '540ms' : '0ms',
+      rmOpDur: on ? '200ms' : '100ms',
+      rmOpDl: on ? '240ms' : '0ms',
 
       // The step itself, arriving behind its opening pane. Laid out at full
       // width and clipped, so it is uncovered rather than squeezed. Leaving is
       // one fast fade — a staggered exit reads as hesitation.
       dOp: on ? '1' : '0',
       dTr: on ? 'translateY(0)' : 'translateY(10px)',
-      dDur: on ? '260ms' : '120ms',
-      d1: on ? '220ms' : '0ms',
-      d2: on ? '260ms' : '0ms',
-      d3: on ? '300ms' : '0ms',
-      d4: on ? '340ms' : '0ms',
-      d5: on ? '380ms' : '0ms',
+      dDur: on ? '200ms' : '120ms',
+      d1: on ? '140ms' : '0ms',
+      d2: on ? '170ms' : '0ms',
+      d3: on ? '200ms' : '0ms',
+      d4: on ? '230ms' : '0ms',
+      d5: on ? '260ms' : '0ms',
 
       crumbCols: on ? '1fr' : '0fr',
       crumbOp: on ? '1' : '0',
+      // Same rule as the plan's columns: fade after it opens, fade before it
+      // closes, so the crumb never spends a frame as a clipped sliver.
+      crumbOpDur: on ? '200ms' : '110ms',
+      crumbOpDl: on ? '200ms' : '0ms',
       planCrumbColor: on ? '#c3cdd7' : '#ffffff'
     };
   }
