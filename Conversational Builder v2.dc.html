@@ -160,7 +160,7 @@
         </div>
       </div>
 
-      <div style="flex-grow: {{ planGrow }}; flex-shrink: 0; flex-basis: {{ planBasis }}; background: {{ planBg }}; border-right: 1px solid #18212a; overflow: hidden; min-height: 0; display: flex; flex-direction: column; padding: {{ planPad }}; transition: flex-grow {{ moveDur }} {{ moveEase }}, flex-basis {{ moveDur }} {{ moveEase }}, padding {{ moveDur }} {{ moveEase }}, background {{ moveDur }} {{ moveEase }};">
+      <div style="flex-grow: {{ planGrow }}; flex-shrink: 0; flex-basis: {{ planBasis }}; background: #0b1218; border-right: 1px solid #18212a; overflow: hidden; min-height: 0; display: flex; flex-direction: column; padding: {{ planPad }}; transition: flex-grow {{ moveDur }} {{ moveEase }}, flex-basis {{ moveDur }} {{ moveEase }}, padding {{ moveDur }} {{ moveEase }};">
 
         <div style="flex: none; display: flex; align-items: flex-start; justify-content: space-between; gap: 24px; padding-bottom: {{ headPb }}; transition: padding-bottom {{ moveDur }} {{ moveEase }};">
           <div style="min-width: 0; display: flex; flex-direction: column; gap: 6px;">
@@ -830,7 +830,6 @@ class Component extends DCLogic {
       detGrow: on ? '1' : '0',
       detVis: on ? 'visible' : 'hidden',
       detVisDl: on ? '0ms' : '120ms',   // == dDur out, so it hides after the fade
-      planBg: on ? '#0e161d' : '#0b1218',
       planPad: on ? '24px 16px 16px' : '20px 32px 16px',
       headPb: on ? '16px' : '16px',
       headSize: on ? '12px' : '24px',
