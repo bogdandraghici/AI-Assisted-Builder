@@ -277,7 +277,15 @@
               <div style="flex: 1; width: 0; border-left: 2px dashed #26313d; margin-top: 4px;"></div>
             </div>
             <div style="flex: 1; min-width: 0; padding-bottom: {{ rowPb }}; transition: padding-bottom {{ moveDur }} {{ moveEase }};">
-              <div style="background: linear-gradient(180deg, rgba(242, 118, 43, 0.14), rgba(242, 118, 43, 0.06) 45%, rgba(242, 118, 43, 0.025)); border: 1px solid rgba(242, 118, 43, 0.30); border-radius: 12px; padding: {{ cardPad }}; display: flex; flex-direction: column; transition: padding {{ moveDur }} {{ moveEase }};">
+              <!-- Selection, not status: the blue ring means "this is the step
+                   open beside you" and nothing else. An outline, not a border,
+                   so it is pure paint and no pinned measurement moves; the wash
+                   keeps its own orange edge underneath, because selection and
+                   "your move" are orthogonal and may stack. Same #4d97ea the
+                   drawing's focal node wears. It arrives and leaves on the
+                   spine labels' schedule, so the wide plan never flashes blue
+                   and nothing new travels during the beat. -->
+              <div style="background: linear-gradient(180deg, rgba(242, 118, 43, 0.14), rgba(242, 118, 43, 0.06) 45%, rgba(242, 118, 43, 0.025)); border: 1px solid rgba(242, 118, 43, 0.30); border-radius: 12px; padding: {{ cardPad }}; outline: 1px solid {{ selOutline }}; outline-offset: 3px; display: flex; flex-direction: column; transition: padding {{ moveDur }} {{ moveEase }}, outline-color {{ selDur }} {{ moveEase }} {{ selDl }};">
 
                 <!-- Opens the step; it does not close it. Once the plan is a
                      spine the caret and the chip are gone, so there is nothing
@@ -1075,6 +1083,16 @@ class Component extends DCLogic {
       rmOp: on ? '1' : '0',
       rmOpDur: on ? '200ms' : '100ms',
       rmOpDl: on ? '200ms' : '0ms',
+
+      // ── Selection: blue means "you are here" ─────────────────────────────
+      // The open step's spine card wears a 1px #4d97ea outline. Selection is
+      // structural, not a call to action, so it never spends orange — and it
+      // only exists in the spine, where something IS open. Paint-only
+      // (outline-color), on the spine labels' own schedule, for the same
+      // reason theirs is: late in so the beat carries nothing new, fast out.
+      selOutline: on ? 'rgba(77, 151, 234, 1)' : 'rgba(77, 151, 234, 0)',
+      selDur: on ? '200ms' : '100ms',
+      selDl: on ? '200ms' : '0ms',
 
       // The step itself, arriving behind its opening pane. Laid out at full
       // width and clipped, so it is uncovered rather than squeezed. Leaving is
