@@ -899,9 +899,15 @@ class Component extends DCLogic {
   //
   // `?step=3` starts opened, which is how index.html shows the second state
   // without a second copy of this markup.
+  // Screen 01 is two states of one screen; screen 02 is three states of
+  // another, and they share this class because every screen in the source doc
+  // does. The keys stay disjoint: `step`/`tech` are screen 01's, `at` is screen
+  // 02's. `?at=` is read exactly the way `?step=` is, so index.html can show a
+  // second state of screen 02 without a second copy of its markup.
   state = {
     step: new URLSearchParams(location.search).get('step') === '3',
-    tech: false
+    tech: false,
+    at: Math.min(3, Math.max(1, parseInt(new URLSearchParams(location.search).get('at'), 10) || 3))
   };
 
   componentDidMount() {
@@ -1114,7 +1120,51 @@ class Component extends DCLogic {
       // closes, so the crumb never spends a frame as a clipped sliver.
       crumbOpDur: on ? '200ms' : '110ms',
       crumbOpDl: on ? '160ms' : '0ms',
-      planCrumbColor: on ? '#c3cdd7' : '#ffffff'
+      planCrumbColor: on ? '#c3cdd7' : '#ffffff',
+
+      // ── Screen 02: the run, and where it stops ───────────────────────────
+      // Three stage states, chosen with sc-if. That is legal here and only
+      // here: nothing on screen 02 animates, and the three phone screens are
+      // genuinely different content rather than one thing changing shape, so
+      // the "one element per thing" rule does not apply. An instant swap is
+      // also the honest reading — it is a different screen, not a transform.
+      at1: this.state.at === 1,
+      at2: this.state.at === 2,
+      at3: this.state.at === 3,
+      goTo1: () => this.setState({ at: 1 }),
+      goTo2: () => this.setState({ at: 2 }),
+      goTo3: () => this.setState({ at: 3 }),
+
+      // Blue is "you are here": the rail row whose screen the stage is
+      // showing. On row 3 at rest it stacks with the wash, which is the
+      // orthogonality the rule already allows — selection and "your move" are
+      // different questions about the same card.
+      selRow1: this.state.at === 1 ? '#4d97ea' : 'transparent',
+      selRow2: this.state.at === 2 ? '#4d97ea' : 'transparent',
+      selRow3: this.state.at === 3 ? '#4d97ea' : 'transparent',
+
+      // Rows 4 and 5 are not steps you can look at — nothing of them exists to
+      // show. One flag, whole affordance: the pointer takes the hover and the
+      // cursor with it, and the tabindex keeps the keyboard from reaching what
+      // the mouse cannot.
+      rowPE4: 'none',
+      rowTab4: '-1',
+
+      // Up from a run IS the plan, and unlike the journey list it exists — so
+      // unlike screen 01's plan state, these are live. They are constants
+      // rather than expressions because screen 02 has one answer in all three
+      // of its states; they exist as keys so the markup reads the same as
+      // screen 01's and the reason lives here.
+      runUpPE: 'auto',
+      runExitTab: '0',
+
+      // What the phone cannot say about itself. Mono, because it is the product
+      // talking about the run rather than the plan talking.
+      stageCap: this.state.at === 1
+        ? 'step 1 · they picked one of twelve'
+        : this.state.at === 2
+          ? 'step 2 · twenty-two words, then Continue'
+          : 'step 3 · the check ran behind this screen · unseen · 3s'
     };
   }
 }
