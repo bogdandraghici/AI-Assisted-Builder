@@ -97,9 +97,10 @@ The wash: `linear-gradient(180deg, rgba(242,118,43,.14), rgba(242,118,43,.06) 45
 rgba(242,118,43,.025))` behind `1px solid rgba(242,118,43,.30)`. The settle tag is a flat tint at
 the same values — `.14` on `.30` when owed, `#131c24` on `#26313d` when not.
 
-Inside the wash the cool ladder is mirrored warm — ground `#18120b`, lifted `#241c13`, outlined
-`#201810` on `#30251c`, hairline `#2a2118`, line-strong `#3d3126`. Wireframe insets sink to
-`#120d08` and draw at `#4a3b2c`. Blue stays cool and means taken, so hover lifts the ground and
+Inside the wash the cool ladder goes warm-neutral, saturation ≤10% — ground `#161413`, lifted
+`#1f1c1b`, outlined `#1a1817` on `#2d2a28`, hairline `#262322`, line-strong `#3b3735`. Wireframe
+insets sink to `#0e0d0c` and draw at `#4c4745`. Past ~20% saturation these go mustard; the hue is
+not the problem, the chroma is. Blue stays cool and means taken, so hover lifts the ground and
 never takes the border.
 
 Ladder: 10 · 12 · 14 · 18 · 24 over line-heights 12 · 16 · 18 · 22 · 24 · 28 · 38. No 11px, no
