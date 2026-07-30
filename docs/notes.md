@@ -54,6 +54,8 @@ increments, read `getBoundingClientRect().top` out with `--dump-dom`.
 - To sweep a reservation without animating: rebuild the curves in JS, set the real element's
   `max-width`/`font-size`/`line-height` to each sampled instant, lift `min-height` to 0, count line
   boxes. Both directions — shortfalls live at the start of the close.
+- `probe-scroll.html?at=1` parks the step pane's scroller at the bottom — a still cannot reach it,
+  and the pane is the only scroller on the screen.
 - Gate on hydration with all three signals: `.sc-placeholder` gone, `sc-dc-streaming` off, tops
   non-zero. Fail loudly on zero geometry — PASS over zero rects is worse than no check.
 - Measure with webfonts loaded. Give a click a turn to render. Check the target's own `style` for
