@@ -577,10 +577,10 @@
                 </div>
               </div>
 
-              <div style="display: flex; gap: {{ rowGap }}; align-items: stretch; transition: gap {{ moveDur }} {{ moveEase }};">
+              <div style="position: relative; display: flex; gap: {{ rowGap }}; align-items: stretch; transition: gap {{ moveDur }} {{ moveEase }};">
                 <div style="width: {{ gutterW }}; flex: none; display: flex; flex-direction: column; align-items: center; transition: width {{ moveDur }} {{ moveEase }};">
-                  <div style="width: {{ dotSize }}; height: {{ dotSize }}; flex: none; border-radius: 99px; background: #2ea86a; display: grid; place-items: center; transition: width {{ moveDur }} {{ moveEase }}, height {{ moveDur }} {{ moveEase }};"><i class="ph ph-check" style="font-size: {{ iconSize }}; color: #ffffff; opacity: {{ exOp }}; transition: font-size {{ wrDur }} {{ wrEase }}, opacity {{ exOpDur }} {{ moveEase }} {{ exOpDl }};"></i></div>
-                  <div style="flex: 1; width: 2px; background: #26313d; margin-top: 4px;"></div>
+                  <div style="position: absolute; left: 0; top: 0; width: {{ dotSize }}; height: {{ dotSize }}; border-radius: 99px; background: #2ea86a; display: grid; place-items: center; transition: width {{ moveDur }} {{ moveEase }}, height {{ moveDur }} {{ moveEase }};"><i class="ph ph-check" style="font-size: {{ iconSize }}; color: #ffffff; opacity: {{ exOp }}; transition: font-size {{ wrDur }} {{ wrEase }}, opacity {{ exOpDur }} {{ moveEase }} {{ exOpDl }};"></i></div>
+                  <div style="position: absolute; left: {{ connL }}; top: {{ connT }}; right: {{ connR }}; bottom: {{ connB }}; background: #26313d; transition: left {{ moveDur }} {{ moveEase }}, top {{ moveDur }} {{ moveEase }}, right {{ moveDur }} {{ moveEase }}, bottom {{ moveDur }} {{ moveEase }};"></div>
                 </div>
                 <div style="flex: 1; min-width: 0; padding-bottom: {{ rowPb }}; display: flex; gap: 24px; align-items: flex-start; transition: padding-bottom {{ moveDur }} {{ moveEase }};">
                   <div style="flex: 1; min-width: 0; display: flex; flex-direction: column; gap: 2px;">
@@ -613,10 +613,10 @@
                 </div>
               </div>
 
-              <div style="display: flex; gap: {{ rowGap }}; align-items: stretch; transition: gap {{ moveDur }} {{ moveEase }};">
+              <div style="position: relative; display: flex; gap: {{ rowGap }}; align-items: stretch; transition: gap {{ moveDur }} {{ moveEase }};">
                 <div style="width: {{ gutterW }}; flex: none; display: flex; flex-direction: column; align-items: center; transition: width {{ moveDur }} {{ moveEase }};">
-                  <div style="width: {{ dotSize }}; height: {{ dotSize }}; flex: none; border-radius: 99px; background: #2ea86a; display: grid; place-items: center; transition: width {{ moveDur }} {{ moveEase }}, height {{ moveDur }} {{ moveEase }};"><i class="ph ph-check" style="font-size: {{ iconSize }}; color: #ffffff; opacity: {{ exOp }}; transition: font-size {{ wrDur }} {{ wrEase }}, opacity {{ exOpDur }} {{ moveEase }} {{ exOpDl }};"></i></div>
-                  <div style="flex: 1; width: 2px; background: #26313d; margin-top: 4px;"></div>
+                  <div style="position: absolute; left: 0; top: 0; width: {{ dotSize }}; height: {{ dotSize }}; border-radius: 99px; background: #2ea86a; display: grid; place-items: center; transition: width {{ moveDur }} {{ moveEase }}, height {{ moveDur }} {{ moveEase }};"><i class="ph ph-check" style="font-size: {{ iconSize }}; color: #ffffff; opacity: {{ exOp }}; transition: font-size {{ wrDur }} {{ wrEase }}, opacity {{ exOpDur }} {{ moveEase }} {{ exOpDl }};"></i></div>
+                  <div style="position: absolute; left: {{ connL }}; top: {{ connT }}; right: {{ connR }}; bottom: {{ connB }}; background: #26313d; transition: left {{ moveDur }} {{ moveEase }}, top {{ moveDur }} {{ moveEase }}, right {{ moveDur }} {{ moveEase }}, bottom {{ moveDur }} {{ moveEase }};"></div>
                 </div>
                 <div style="flex: 1; min-width: 0; padding-bottom: {{ rowPb }}; display: flex; gap: 24px; align-items: flex-start; transition: padding-bottom {{ moveDur }} {{ moveEase }};">
                   <div style="flex: 1; min-width: 0; display: flex; flex-direction: column; gap: 2px;">
@@ -639,10 +639,10 @@
                 </div>
               </div>
 
-              <div style="display: flex; gap: {{ rowGap }}; align-items: stretch; transition: gap {{ moveDur }} {{ moveEase }};">
+              <div style="position: relative; display: flex; gap: {{ rowGap }}; align-items: stretch; transition: gap {{ moveDur }} {{ moveEase }};">
                 <div style="width: {{ gutterW }}; flex: none; display: flex; flex-direction: column; align-items: center; transition: width {{ moveDur }} {{ moveEase }};">
-                  <div style="width: {{ dotSize }}; height: {{ dotSize }}; flex: none; border-radius: 99px; background: #f2762b; display: grid; place-items: center; transition: width {{ moveDur }} {{ moveEase }}, height {{ moveDur }} {{ moveEase }};"><i class="ph ph-warning" style="font-size: {{ iconSize }}; color: #ffffff; opacity: {{ exOp }}; transition: font-size {{ wrDur }} {{ wrEase }}, opacity {{ exOpDur }} {{ moveEase }} {{ exOpDl }};"></i></div>
-                  <div style="flex: 1; width: 0; border-left: 2px dashed #26313d; margin-top: 4px;"></div>
+                  <div style="position: absolute; left: 0; top: 0; width: {{ dotSize }}; height: {{ dotSize }}; border-radius: 99px; background: #f2762b; display: grid; place-items: center; transition: width {{ moveDur }} {{ moveEase }}, height {{ moveDur }} {{ moveEase }};"><i class="ph ph-warning" style="font-size: {{ iconSize }}; color: #ffffff; opacity: {{ exOp }}; transition: font-size {{ wrDur }} {{ wrEase }}, opacity {{ exOpDur }} {{ moveEase }} {{ exOpDl }};"></i></div>
+                  <div style="position: absolute; left: {{ connL }}; top: {{ connT }}; right: {{ connR }}; bottom: {{ connB }}; background: {{ c3Bg }}; border: 0 dashed #26313d; border-left-width: {{ c3VW }}; transition: left {{ moveDur }} {{ moveEase }}, top {{ moveDur }} {{ moveEase }}, right {{ moveDur }} {{ moveEase }}, bottom {{ moveDur }} {{ moveEase }}, background-color {{ moveDur }} {{ moveEase }}, border-left-width {{ moveDur }} {{ moveEase }};"></div>
                 </div>
                 <div style="flex: 1; min-width: 0; padding-bottom: {{ rowPb }}; transition: padding-bottom {{ moveDur }} {{ moveEase }};">
                   <!-- Selection, not status: the blue ring means "this is the step
@@ -812,10 +812,10 @@
                 </div>
               </div>
 
-              <div style="display: flex; gap: {{ rowGap }}; align-items: stretch; transition: gap {{ moveDur }} {{ moveEase }};">
+              <div style="position: relative; display: flex; gap: {{ rowGap }}; align-items: stretch; transition: gap {{ moveDur }} {{ moveEase }};">
                 <div style="width: {{ gutterW }}; flex: none; display: flex; flex-direction: column; align-items: center; transition: width {{ moveDur }} {{ moveEase }};">
-                  <div style="width: {{ dotSize }}; height: {{ dotSize }}; flex: none; border-radius: 99px; background: #0b1218; border: 1px dashed #8b98a5; transition: width {{ moveDur }} {{ moveEase }}, height {{ moveDur }} {{ moveEase }};"></div>
-                  <div style="flex: 1; width: 0; border-left: 2px dashed #26313d; margin-top: 4px;"></div>
+                  <div style="position: absolute; left: 0; top: 0; width: {{ dotSize }}; height: {{ dotSize }}; border-radius: 99px; background: #0b1218; border: 1px dashed #8b98a5; transition: width {{ moveDur }} {{ moveEase }}, height {{ moveDur }} {{ moveEase }};"></div>
+                  <div style="position: absolute; left: {{ connL }}; top: {{ connT }}; right: {{ connR }}; bottom: {{ connB }}; border: 0 dashed #26313d; border-left-width: {{ cVW }}; border-top-width: {{ cHW }}; transition: left {{ moveDur }} {{ moveEase }}, top {{ moveDur }} {{ moveEase }}, right {{ moveDur }} {{ moveEase }}, bottom {{ moveDur }} {{ moveEase }}, border-left-width {{ moveDur }} {{ moveEase }}, border-top-width {{ moveDur }} {{ moveEase }};"></div>
                 </div>
                 <div style="flex: 1; min-width: 0; padding-bottom: {{ rowPb }}; display: flex; gap: 24px; align-items: flex-start; transition: padding-bottom {{ moveDur }} {{ moveEase }};">
                   <div style="flex: 1; min-width: 0; display: flex; flex-direction: column; gap: 2px;">
@@ -854,10 +854,10 @@
                 </div>
               </div>
 
-              <div style="display: flex; gap: {{ rowGap }}; align-items: stretch; transition: gap {{ moveDur }} {{ moveEase }};">
+              <div style="position: relative; display: flex; gap: {{ rowGap }}; align-items: stretch; transition: gap {{ moveDur }} {{ moveEase }};">
                 <div style="width: {{ gutterW }}; flex: none; display: flex; flex-direction: column; align-items: center; transition: width {{ moveDur }} {{ moveEase }};">
-                  <div style="width: {{ dotSize }}; height: {{ dotSize }}; flex: none; border-radius: 99px; background: #0b1218; border: 1px solid #8b98a5; display: grid; place-items: center; transition: width {{ moveDur }} {{ moveEase }}, height {{ moveDur }} {{ moveEase }};"><i class="ph ph-user" style="font-size: {{ iconSize }}; color: #c3cdd7; opacity: {{ exOp }}; transition: font-size {{ wrDur }} {{ wrEase }}, opacity {{ exOpDur }} {{ moveEase }} {{ exOpDl }};"></i></div>
-                  <div style="flex: 1; width: 0; border-left: 2px dashed #26313d; margin-top: 4px;"></div>
+                  <div style="position: absolute; left: 0; top: 0; width: {{ dotSize }}; height: {{ dotSize }}; border-radius: 99px; background: #0b1218; border: 1px solid #8b98a5; display: grid; place-items: center; transition: width {{ moveDur }} {{ moveEase }}, height {{ moveDur }} {{ moveEase }};"><i class="ph ph-user" style="font-size: {{ iconSize }}; color: #c3cdd7; opacity: {{ exOp }}; transition: font-size {{ wrDur }} {{ wrEase }}, opacity {{ exOpDur }} {{ moveEase }} {{ exOpDl }};"></i></div>
+                  <div style="position: absolute; left: {{ connL }}; top: {{ connT }}; right: {{ connR }}; bottom: {{ connB }}; border: 0 dashed #26313d; border-left-width: {{ cVW }}; border-top-width: {{ cHW }}; transition: left {{ moveDur }} {{ moveEase }}, top {{ moveDur }} {{ moveEase }}, right {{ moveDur }} {{ moveEase }}, bottom {{ moveDur }} {{ moveEase }}, border-left-width {{ moveDur }} {{ moveEase }}, border-top-width {{ moveDur }} {{ moveEase }};"></div>
                 </div>
                 <div style="flex: 1; min-width: 0; padding-bottom: {{ rowPb }}; display: flex; gap: 24px; align-items: flex-start; transition: padding-bottom {{ moveDur }} {{ moveEase }};">
                   <div style="flex: 1; min-width: 0; display: flex; flex-direction: column; gap: 2px;">
@@ -1520,6 +1520,43 @@ class Component extends DCLogic {
       // it clips instead of reflowing. Then it can collapse whenever it likes.
       exRows: on ? '0fr' : '1fr',
       exCols: on ? '0fr' : '1fr',
+
+      // ── The dot and the connector, out of flow ───────────────────────────
+      // A dot that is a flex child of a left gutter cannot travel to above a
+      // title, and a 2px line whose length is `flex: 1` cannot become a 2px line
+      // on the other axis. So both are absolute against the row.
+      //
+      // The dot needs no offsets: it is left 0, top 0 in all three states,
+      // because the plan's dot exactly fills its gutter's width and the strip's
+      // sits at its node's top-left. Only its size travels. (Absolute offsets
+      // resolve against the PADDING box, so this stays true when the row takes
+      // the 28px of top padding the run needs for the dot to sit above the card.)
+      //
+      // The connector carries its length in `calc(100% - Npx)` insets rather than
+      // a height, so it still auto-sizes to its row in the plan and to its node
+      // in the run and there is no measured length to keep in sync with copy.
+      // Both ends are set in both states — never `auto`, which would not
+      // interpolate. The arithmetic, and it must stay 2px wide at every step:
+      //   plan   left 9  right calc(100% - 11px)  ->  100% - 9 - 100% + 11 = 2
+      //   spine  left 3  right calc(100% -  5px)  ->  100% - 3 - 100% +  5 = 2
+      //   run    top  9  bottom calc(100% - 11px) ->  the same, on the other axis
+      // 9 and 3 are (gutterW - 2) / 2, and 24 and 12 are dotSize + the 4px gap.
+      connL: run ? '20px' : (on ? '3px' : '9px'),
+      connT: run ? '9px' : (on ? '12px' : '24px'),
+      connR: run ? '0px' : (on ? 'calc(100% - 5px)' : 'calc(100% - 11px)'),
+      connB: run ? 'calc(100% - 11px)' : '0px',
+
+      // Rows 4 and 5 are dashed in both states but on different axes, so both
+      // border widths interpolate rather than a border SIDE being swapped, which
+      // could not animate.
+      cVW: run ? '0px' : '2px',
+      cHW: run ? '2px' : '0px',
+      // Row 3 is the one the two states disagree about: dashed down the plan,
+      // solid across the run, because the run says "it stops here" with the wall
+      // instead of with a dash. So it crosses from a dashed border to a solid
+      // ground, which is a border-width and a background-color — both animatable.
+      c3Bg: run ? '#26313d' : 'transparent',
+      c3VW: run ? '0px' : '2px',
       exOp: on ? '0' : '1',
       // Out fast, in late. A column closing on live text leaves a
       // one-character sliver, and coming back it must not appear before the
