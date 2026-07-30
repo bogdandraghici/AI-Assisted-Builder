@@ -55,6 +55,14 @@ explicit `fonts.load()` of the weights the plan uses, or a late-arriving face sh
 counts column a few px and the numbers wobble run to run. The tell is that rows with no
 counts column beside them stay stable while the others move.
 
+### Adding a count to a plan row is not free
+
+It widens the counts column, which narrows the title beside it at every instant of the move,
+and a title whose real width drops below its own animating `max-width` hands the wrapping
+back to the pane — which is the one thing the pin above exists to prevent. **Stack the count
+under the build phrase rather than beside it**, so the column stays as wide as its widest
+line and every `min-width` pin holds.
+
 ### Rewrapping is not motion, it is a stack of 18px jumps
 
 One jump per line a title gains, and no curve smooths a jump. The old answer was to hide
