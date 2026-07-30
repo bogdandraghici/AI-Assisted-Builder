@@ -119,6 +119,12 @@ Three rules follow, and each of them was once broken here:
 - **Never spend orange on a detail.** Orange is the disagreement. A grey count in the row
   and an orange wash on the one blocking step keeps the screen's single alarm meaningful;
   escalating four routine questions to orange flattens it.
+- **The act is pinned, never scrolled.** The step pane's `Agree` / `Comment further` row sat
+  38px below the fold at 1440×900 with 143px of overflow above it, so the panel asked you to
+  decide and put the decision off-screen — which reads as the call not being there at all.
+  It is now outside the scroller, for the same reason the × is. Both panes are then one
+  shape: a scrolling body with the act pinned beneath it. If that row grows, the scroller's
+  `bottom` is the number to change with it.
 
 Adding a count to a plan row is not free — see [docs/motion.md](docs/motion.md). It widens
 the counts column, which narrows the title beside it at every instant of the move, and a
