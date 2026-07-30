@@ -40,7 +40,7 @@ CSS transitions over interpolated inline styles (`style="flex-basis: {{ planBasi
 | Title `max-width` final (card) | `248 − 2 border − 20 pad − 24 gap − 8 gap = 194` |
 | `tlA` / `tlB` reservations | 3 / 2 / 3 / 2 / 2 |
 | Spine's real title line counts | 2 / 1 / 2 / 2 / 2 (under the reservation, deliberately) |
-| `planPinH` | 816 / 812 |
+| `planPinH` | 816 / 812 — *available* height, viewport less `planPad`; not a content measurement |
 | Box-underrun at rest | 1.4px opening, 2.0px closing |
 | Full-screen frame | 1032 × 491 → 1392 × 804, chat and strip collapsing together |
 | Full-screen pins | chat blocks 360, strip titles `3lh` (54px), boundary `2lh` (36px), underrun 0.0 |
@@ -89,6 +89,10 @@ together in 16.7ms increments, read `getBoundingClientRect().top` out with `--du
   rows with no counts column staying stable while the others move.
 - **To read a pin, lift every `min-width` to 0 at once** — a pin can only report itself — and take
   the **floor**: a pin above the real width overflows its clipping parent.
+- **`planPinH` is not a content height, so no content change re-measures it.** The pinned block is
+  stretched by its flex parent, so `min-height: 0` does not shrink it and `scrollHeight` reports the
+  box back to you. The tell that it is viewport-derived: 816 and 812 differ by exactly `planPad`'s
+  4px. Take a content change's height cost off the *rows below*, not off this.
 - **A reserved line box hides its line count** (`scrollHeight` can't go below the element's own
   height). Count line boxes: `createRange()`, `selectNodeContents`, collapse `getClientRects()` by
   `top`. A clone with the floor lifted lands on the wrong side of a borderline wrap at 206/224px.
@@ -120,13 +124,19 @@ CLAUDE.md states the principles. These are the specifics that are easy to get wr
 - **An argument's two acts are agree and comment further** — *build* is the agent's move and
   belongs in no button here. The act row lives outside the scroller with the ×; if it grows, the
   scroller's `bottom` changes with it.
-- **Two objects may carry the wash:** the argument about the contested step, and the one open
-  question in the step pane. Two washes on screen is right. A run may carry it for the step it is
-  evidence about — wash it where the reply is given.
-- **The wash is on the argument, not the step.** Wide plan: ordinary row, washed card *under* it.
-  Spine: that card clips to nothing, so the wash falls back onto the step's block and carries its
-  own `Not agreed` eyebrow (`rmRows`/`rmOp`), wrapped with the title in a `gap: 0` box — a 0fr grid
-  still pays its column's 2px gap and would drop that one title 2px below its dot.
+- **Wash it where the reply is given, and nowhere the act is withdrawn.** Wide plan: step 3 is an
+  ordinary row and the washed card *under* it holds the argument and both its acts. Spine: that card
+  clips to nothing and the wash goes with it — the acts are inside the clip and `cardPE` withdraws
+  them, so a wash left on the step block is the same lie as a hover on a row with no affordance.
+  It used to fall back there as an `rmOp` layer, and in a 248px box already carrying the selection
+  ring it engulfed the title.
+- **What crosses instead is the word.** The `Not agreed` eyebrow (`rmRows`/`rmOp`) is the spine's
+  whole account of the second axis, wrapped with the title in a `gap: 0` box — a 0fr grid still pays
+  its column's 2px gap and would drop that one title 2px below its dot. Dropping the eyebrow too is
+  the tempting next step and it is wrong: the dot is rows 4–5's dashed grey, the chip counts answers
+  like theirs, and blue means *you are here*, so the spine would name no contested step at all.
+- **So the spine state shows one wash, not two** — the open question in the step pane. The wide plan
+  shows one, the argument's card. A run may carry it for the step it is evidence about.
 - **`Built` / `Not built yet`, no third heading**; the run strip says `Ran` instead, the one
   deliberate difference between views, because a run can only claim what *exists*.
 - **The gutter answers its heading's question only.** Step 3's dot is row 4's dashed grey dot; in
@@ -134,8 +144,10 @@ CLAUDE.md states the principles. These are the specifics that are easy to get wr
   eyebrow alone.
 - **One settle tag per plan row**, the whole right-hand column, all five rows.
 - **Orange is rationed to** the settle tags, the wash, and step 3's eyebrow — not the group
-  headings, not the gutter. The contested step's chips stay grey in the spine, where its block is
-  already washed; in the wide plan that row has no wash, so its tag is orange like the rest.
+  headings, not the gutter. **Every count is grey in the spine, all five rows**, in bare 10/12 mono
+  under its own title with `padding-top: 2px` against the column's 2px gap: with no right-hand
+  column to sit in, a count that has moved under its title is reporting rather than asking, and the
+  one orange thing on step 3's block is its eyebrow. In the wide plan all five are orange pills.
 - **The header's clauses do not partition the five steps** — build, argument, questions are three
   axes and step 3 sits on all three.
 

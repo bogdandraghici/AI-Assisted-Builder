@@ -724,35 +724,41 @@
                        the same left edge as the other four — and the wash belongs
                        to the card BELOW it, which holds the whole of what is owed.
                        Collapsed, the card is inside the same exRows block as every
-                       other description and clips to nothing, so the spine is left
-                       with the one washed card it has always had. That is why the
-                       wash is a layer here rather than a background: the step block
-                       is one element in both states and only its paint crosses,
-                       and a gradient cannot interpolate to `transparent` — it would
-                       snap on frame one. It rides rmOp outright, the same schedule
-                       as the spine's own labels and the selection ring, because it
-                       is the same kind of thing: paint the spine has and the wide
-                       plan does not.
+                       other description and clips to nothing, and the wash goes
+                       with it: the spine has no wash on the plan side at all.
+                       It used to fall back onto this block as a layer riding rmOp,
+                       and that engulfed the title in a 248px box already carrying
+                       the selection ring and a chip. The rule that settles it is
+                       the wash's own — wash it where the reply is given. Both of
+                       the argument's acts are inside the collapsed card and
+                       `cardPE` withdraws them, so this block cannot be answered
+                       here; a wash on it is the same lie as a hover on a row with
+                       no affordance. What crosses instead is the WORD, in the
+                       eyebrow below, which is what was ever doing the work.
                        Selection, not status: the blue ring means "this is the step
-                       open beside you" and nothing else. An outline, not a border,
-                       so it is pure paint and no pinned measurement moves; it stays
-                       on this block rather than the card, because what is selected
-                       is the step. Same #4d97ea the drawing's focal node wears. -->
+                       open beside you" and nothing else — and with the wash gone it
+                       is the only box on the block, so the padding it sits outside
+                       of reads as selection too. An outline, not a border, so it is
+                       pure paint and no pinned measurement moves. Same #4d97ea the
+                       drawing's focal node wears. -->
                   <div style="position: relative; border-radius: 12px; padding: {{ stepPad }}; outline: 1px solid {{ selOutline }}; outline-offset: 3px; display: flex; gap: 24px; align-items: flex-start; transition: padding {{ moveDur }} {{ moveEase }}, outline-color {{ rmOpDur }} {{ moveEase }} {{ rmOpDl }};">
-                    <div style="position: absolute; inset: 0; border-radius: 12px; background: linear-gradient(180deg, rgba(242, 118, 43, 0.14), rgba(242, 118, 43, 0.06) 45%, rgba(242, 118, 43, 0.025)); border: 1px solid rgba(242, 118, 43, 0.30); opacity: {{ rmOp }}; pointer-events: none; transition: opacity {{ rmOpDur }} {{ moveEase }} {{ rmOpDl }};"></div>
-
                     <div style="position: relative; flex: 1; min-width: 0; display: flex; flex-direction: column; gap: 2px;">
-                      <!-- The word the spine's wash needs. In the wide plan the
-                           argument is a card below the row and the card carries
-                           this heading; in the spine the card clips to nothing and
-                           the wash falls back onto this block, so it used to take
-                           its word from the `Not agreed` group heading above it.
-                           With the grouping on the build axis that heading is
-                           gone, and a wash with no word beside it leaves the
-                           colour saying which kind of waiting this is — which it
-                           is never allowed to do. Same word as the card's heading
-                           and the step pane's eyebrow: one status word per state,
-                           in all three views.
+                      <!-- The whole of what the spine says about the argument. In
+                           the wide plan the argument is a card below the row and
+                           the card carries this heading; in the spine the card
+                           clips to nothing, and since the wash goes with it this
+                           word is the only thing left naming the second axis. That
+                           is the right way round: the colour was never allowed to
+                           say which kind of waiting this is, so a state that can
+                           survive on the word alone should. Same word as the card's
+                           heading and the step pane's eyebrow: one status word per
+                           state, in all three views.
+                           It is also why dropping step 3's spine treatment
+                           altogether is wrong. Its dot is rows 4 and 5's dashed
+                           grey, its chip counts answers like theirs, and blue means
+                           "you are here" — without this word the spine could not
+                           tell you which step is contested, and the plan pane stays
+                           mounted precisely so it can.
                            Wrapped with the title in a gap-0 box rather than
                            dropped into the column beside it, because a 0fr grid
                            still pays that column's 2px gap — which in the wide
@@ -820,17 +826,28 @@
                                answer it. Same rule as the wash: the glyph says
                                which kind, the colour only ever says "your move". It
                                takes the count's own colour, never one of its own.
-                               Neutral, and the spine is the one view where that
-                               still holds. The settle tag beside this title is
-                               orange in the wide plan like every other row's,
-                               because the wide plan's row carries no wash of its
-                               own. Here it does, under this block's own `Not
-                               agreed`, so a third orange thing meaning something
-                               else entirely would be the two kinds of waiting
-                               wearing one colour on one card. -->
-                          <div style="padding-top: 8px; display: flex; gap: 6px;">
-                            <div style="display: inline-flex; align-items: center; gap: 4px; height: 18px; padding: 0 6px; border-radius: 4px; background: #131c24; border: 1px solid #26313d; color: #8b98a5; font: 400 10px/12px ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;"><i class="ph ph-question-mark" style="font-size: 10px;"></i>1 to settle</div>
-                          </div>
+                               Neutral, like every other count in the spine: rows 4
+                               and 5 say `2 to settle` and `1 to settle` in the same
+                               grey a line below their own titles. In the wide plan
+                               all five of these are orange tags in the right-hand
+                               column; the spine has no column to put them in, and a
+                               count that has moved under the title it belongs to is
+                               reporting, not asking. The one orange thing on this
+                               block is `Not agreed` above, which is the axis that
+                               IS asking.
+                               Bare text and not the wide plan's pill, for the same
+                               reason and to the same shape as rows 4 and 5, down to
+                               their `padding-top: 2px` against the column's own 2px
+                               gap — the pill and its 8px were carried over from when
+                               this block was a washed card and the chip needed an
+                               edge to sit against. Twelve pixels came out of this
+                               block with them, which rows 4 and 5 now have that much
+                               further to travel in the same 340ms — the safe
+                               direction. planPinH is untouched: it is the plan
+                               content's AVAILABLE height, viewport less planPad
+                               (hence 816/812 differing by exactly the 4px of pad),
+                               so no amount of content changes it. -->
+                          <div style="padding-top: 2px; display: flex; align-items: center; gap: 4px; font: 400 10px/12px ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; color: #5c6975; white-space: nowrap;"><i class="ph ph-question-mark" style="font-size: 10px;"></i>1 to settle</div>
                         </div>
                       </div>
                     </div>
@@ -1867,12 +1884,14 @@ class Component extends DCLogic {
       rowPb: on ? '10px' : '24px',
       titleSize: on ? '12px' : '14px',
       titleLh: on ? '18px' : '22px',
-      // The contested step's own block. It is a padded, washed card in the
-      // spine and an ordinary row in the wide plan, so the padding goes to zero
-      // rather than to the 16 the card used to have — that zero is what puts
-      // this title on the same left edge as the other four. The wash itself
-      // rides rmOp as a layer inside it; see the markup for why it cannot be a
-      // background.
+      // The contested step's own block. It is padded in the spine and an
+      // ordinary row in the wide plan, so the padding goes to zero rather than
+      // to the 16 the card used to have — that zero is what puts this title on
+      // the same left edge as the other four. What the 10 is for changed when
+      // the wash came off it: the only box left is the selection ring, so the
+      // padding is now what gives "you are here" a region instead of hugging
+      // two lines of title. Kept at 10 and not lifted to the ring's own
+      // breathing room, because it is inside cardTitleMax's derivation.
       stepPad: on ? '10px' : '0px',
 
       // ── The labels the spine alone carries ───────────────────────────────
