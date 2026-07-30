@@ -601,15 +601,17 @@
                    Agreed / Not agreed / Next — which grouped the plan by whether
                    the plan itself was settled and gave the contested step a bucket
                    of its own, so a heading was spent on a state that step already
-                   says three other ways: an orange dot, a washed card, two acts.
+                   says two other ways: a washed card, two acts.
                    The argument is left to the object it belongs to now, and the
                    grouping answers the one question the plan is read for.
                    Only two rows are under here. `Built` is the strict word —
                    finished, agreed, standing — see the boundary below for why the
                    step that ran at 09:37 is not one of them. Orange leaves the
                    group headings entirely, which is stricter rationing than
-                   before, not looser: it is now the settle tags, step 3's dot, the
-                   wash, and step 3's own `Not agreed`. -->
+                   before, not looser: it is now the settle tags, the wash, and
+                   step 3's own `Not agreed`. The gutter has left it too: step 3's
+                   dot is dashed grey like row 4's, because the gutter answers the
+                   heading's question and nothing else. -->
               <div style="display: grid; grid-template-rows: {{ rmRows }}; transition: grid-template-rows {{ moveDur }} {{ moveEase }};">
                 <div style="overflow: hidden; min-height: 0; opacity: {{ rmOp }}; transition: opacity {{ rmOpDur }} {{ moveEase }} {{ rmOpDl }};">
                   <div style="padding-bottom: 8px; font: 400 10px/12px ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; text-transform: uppercase; letter-spacing: 0.14em; color: #2ea86a; white-space: nowrap;">Built</div>
@@ -714,12 +716,15 @@
 
               <div style="position: relative; display: flex; gap: {{ rowGap }}; align-items: stretch; transition: gap {{ moveDur }} {{ moveEase }};">
                 <div style="width: {{ gutterW }}; flex: none; display: flex; flex-direction: column; align-items: center; transition: width {{ moveDur }} {{ moveEase }};">
-                  <!-- Orange and a ph-warning under a grey `Not built yet`
-                       heading: the heading says this is not standing yet, the dot
-                       says why you are being asked about it. Rows 4 and 5 sit
-                       under the same heading with dashed and outlined dots,
-                       because nothing about them is contested. -->
-                  <div style="position: absolute; left: 0; top: 0; width: {{ dotSize }}; height: {{ dotSize }}; border-radius: 99px; background: #f2762b; display: grid; place-items: center; transition: width {{ moveDur }} {{ moveEase }}, height {{ moveDur }} {{ moveEase }};"><i class="ph ph-warning" style="font-size: {{ iconSize }}; color: #ffffff; opacity: {{ exOp }}; transition: font-size {{ wrDur }} {{ wrEase }}, opacity {{ exOpDur }} {{ moveEase }} {{ exOpDl }};"></i></div>
+                  <!-- Row 4's dot, exactly: the gutter answers one question, the
+                       heading's question, and the answer here is the same as rows
+                       4 and 5 — not built. It was orange with a ph-warning, which
+                       made the argument a third thing the gutter could say and
+                       made this step look like the only one with something owing
+                       on it; rows 4 and 5 owe three answers between them. What is
+                       contested about it is said by the washed card under the row,
+                       its `Not agreed`, and its two acts. -->
+                  <div style="position: absolute; left: 0; top: 0; width: {{ dotSize }}; height: {{ dotSize }}; border-radius: 99px; background: #0b1218; border: 1px dashed #8b98a5; transition: width {{ moveDur }} {{ moveEase }}, height {{ moveDur }} {{ moveEase }};"></div>
                   <div style="position: absolute; left: {{ connL }}; top: {{ connT }}; right: {{ connR }}; bottom: {{ connB }}; background: {{ c3Bg }}; border: 0 dashed #26313d; border-left-width: {{ c3VW }}; transition: left {{ moveDur }} {{ moveEase }}, top {{ moveDur }} {{ moveEase }}, right {{ moveDur }} {{ moveEase }}, bottom {{ moveDur }} {{ moveEase }}, background-color {{ moveDur }} {{ moveEase }}, border-left-width {{ moveDur }} {{ moveEase }};"></div>
                 </div>
                 <div style="flex: 1; min-width: 0; padding-bottom: {{ rowPb }}; transition: padding-bottom {{ moveDur }} {{ moveEase }};">
@@ -860,10 +865,13 @@
                            narrow is the box with the border on it. -->
                       <div style="min-width: 979px; margin-top: 12px; background: linear-gradient(180deg, rgba(242, 118, 43, 0.14), rgba(242, 118, 43, 0.06) 45%, rgba(242, 118, 43, 0.025)); border: 1px solid rgba(242, 118, 43, 0.30); border-radius: 12px; padding: 16px; display: flex; flex-direction: column; gap: 12px;">
 
-                        <!-- No glyph. The row's dot beside it is already a
-                             ph-warning and says which kind of waiting this is;
-                             a second one on the same row would be the word
-                             said twice. -->
+                        <!-- No glyph, and the word is now the only thing naming
+                             this kind of waiting in the plan: the row's dot used
+                             to be a ph-warning and is a plain dashed dot now. The
+                             word is enough — the rule is that the colour may not
+                             say which kind, and `Not agreed` over `Agree` /
+                             `Comment further` says it in words twice. The
+                             ph-warning lives on the step pane's eyebrow. -->
                         <div style="font: 400 10px/12px ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; text-transform: uppercase; letter-spacing: 0.14em; color: #f2762b;">Not agreed</div>
 
                         <div style="display: flex; flex-direction: column; gap: 8px;">
@@ -1055,7 +1063,7 @@
                  is true of.
                  Three headings used to sit here — 2 + 1 + 2 — spending one on the
                  middle column's argument, which that column already carries below
-                 as an orange dot, a washed card and two acts. Merging into 3 + 2
+                 as a washed card and two acts. Merging into 3 + 2
                  leaves every column boundary where it was, spacer included, so
                  the wall at 0.6 still lands on the seam it names. -->
             <div style="flex: none; display: flex; align-items: flex-end; padding-bottom: 8px;">
@@ -1087,7 +1095,13 @@
               </div>
               <div style="flex: 1 1 0px; min-width: 0; display: flex; flex-direction: column;">
                 <div style="display: flex; align-items: center; height: 20px;">
-                  <div style="width: 20px; height: 20px; flex: none; border-radius: 99px; background: #f2762b; display: grid; place-items: center;"><i class="ph ph-warning" style="font-size: 11px; color: #ffffff;"></i></div>
+                  <!-- A check, like the two before it. Left of the wall the dots
+                       answer the run's own question — did this exist and run —
+                       and this one ran at 09:37, which its caption says. It wore
+                       an orange ph-warning, the argument answering a question the
+                       run was not asking; the washed card and the acts below it
+                       carry that. -->
+                  <div style="width: 20px; height: 20px; flex: none; border-radius: 99px; background: #2ea86a; display: grid; place-items: center;"><i class="ph ph-check" style="font-size: 11px; color: #ffffff;"></i></div>
                   <div style="flex: 1; height: 2px; background: #26313d;"></div>
                 </div>
                 <div onClick="{{ goTo3 }}" tabindex="0" style="margin: 8px 8px 0 0; padding: 12px; border-radius: 12px; border: 1px solid rgba(242, 118, 43, 0.30); background: linear-gradient(180deg, rgba(242, 118, 43, 0.14), rgba(242, 118, 43, 0.06) 45%, rgba(242, 118, 43, 0.025)); outline: 1px solid {{ selRow3 }}; outline-offset: 3px; display: flex; flex-direction: column; gap: 4px; outline-offset: 3px; cursor: pointer; transition: background 160ms cubic-bezier(0.2, 0, 0.2, 1), outline-color 160ms cubic-bezier(0.2, 0, 0.2, 1);" style-focus="box-shadow: 0 0 0 3px rgba(43, 127, 228, 0.32);">

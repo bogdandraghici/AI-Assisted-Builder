@@ -209,8 +209,15 @@ Orange when something is owed, grey when nothing is.
 **The header's clauses do not partition the five steps.** `Two of five built · one not agreed ·
 four to settle` is three axes; step 3 sits on all three at once. No bucket can say that.
 
-**Orange is rationed to:** the settle tags, step 3's dot, the wash, and step 3's own eyebrow. Not
-the group headings. **The contested step's chips stay grey in the spine** — there its block is
+**The gutter answers its heading's question and nothing else.** Step 3's dot is row 4's dashed
+grey dot — built / not built, five rows, one axis. It was an orange `ph-warning`, which made the
+argument a third thing the gutter could say and made step 3 look like the only row with anything
+owing on it. The run strip's dot for the same step is a green check like steps 1–2: left of the
+wall the axis is existence, and step 3 ran at 09:37. The argument is the washed card, its
+`Not agreed`, and its two acts — the `ph-warning` survives only on the step pane's eyebrow.
+
+**Orange is rationed to:** the settle tags, the wash, and step 3's own eyebrow. Not the group
+headings, not the gutter. **The contested step's chips stay grey in the spine** — there its block is
 already washed under its own `Not agreed`, so a third orange thing is the two kinds of waiting
 wearing one colour. In the wide plan the row carries no wash, so its tag is orange like the rest.
 
