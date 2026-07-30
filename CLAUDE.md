@@ -125,6 +125,13 @@ Three rules follow, and each of them was once broken here:
 - **Both kinds are counted in both views, in their own units** — the argument in steps, the
   questions in questions. Any partition of the five steps into one bucket each cannot say
   that a contested step also owes an answer, so the questions end up counted nowhere.
+- **A run of what exists may carry the wash for the step it is evidence about.** Screen 02
+  washes step 3 in its rail and carries `Agree` / `Comment further` there, because the run
+  has just demonstrated the claim under dispute: the check went out unseen in 3s, which is
+  the whole of *"it slows the customer down"*, answered. It was built at 09:37, two minutes
+  before you asked to drop it at 09:39 — that timeline is what earns the screen its subject.
+  Wash it where the reply is given, and the reply is best given here. Still one wash on that
+  screen, still the same object the plan washes, still the same words in all three views.
 - **Never spend orange on a mention of a question — only on the question itself.** The four
   routine questions are grey counts in their plan rows; the one you can answer where it
   stands is washed. Orange every mention of them and it stops meaning *your move* and starts
