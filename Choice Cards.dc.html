@@ -31,8 +31,8 @@
       <div style="font: 400 14px/24px 'Open Sans', sans-serif; color: #a9b6c3; max-width: 96ch; text-wrap: pretty;">Two grounds and nothing between them: the wash means this is waiting on your reply, the quiet outlined card means it is settled. Which reply is owed comes from the glyph and the word, never the colour.</div>
     </div>
     <div style="display: flex; flex-direction: column; gap: 6px; text-align: right; font: 400 12px/16px ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; color: #8b98a5; flex: none;">
+      <div>2 grounds</div>
       <div>3 words in use</div>
-      <div>3 proposed</div>
       <div>1 verb — Change</div>
     </div>
   </div>
@@ -190,38 +190,7 @@
 
   <div style="display: flex; flex-direction: column; gap: 18px;">
     <div style="display: flex; align-items: baseline; gap: 16px;">
-      <div style="font: 400 10px/12px ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; text-transform: uppercase; letter-spacing: 0.14em; color: #8b98a5; flex: none;">03 — Every state</div>
-      <div style="flex: 1; height: 1px; background: #18212a;"></div>
-    </div>
-    <div style="display: flex; flex-direction: column;">
-      <div style="display: flex; align-items: baseline; gap: 20px; padding-bottom: 8px; border-bottom: 1px solid #26313d; font: 400 10px/12px ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; text-transform: uppercase; letter-spacing: 0.14em; color: #8b98a5;">
-        <div style="width: 190px; flex: none;">Word</div>
-        <div style="width: 30px; flex: none;">Glyph</div>
-        <div style="width: 150px; flex: none;">Ground</div>
-        <div style="width: 130px; flex: none;">Waiting on</div>
-        <div style="flex: 1; min-width: 0;">Acts</div>
-        <div style="width: 84px; flex: none; text-align: right;">Status</div>
-      </div>
-      <sc-for list="{{ states }}" as="s" hint-placeholder-count="9">
-        <div style="display: flex; align-items: baseline; gap: 20px; padding: 11px 0; border-bottom: 1px solid #18212a;">
-          <div style="width: 190px; flex: none; font: 400 10px/12px ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; text-transform: uppercase; letter-spacing: 0.14em; color: {{ s.wordColor }};">{{ s.word }}</div>
-          <div style="width: 30px; flex: none; color: #f2762b;">{{ s.glyph }}</div>
-          <div style="width: 150px; flex: none; display: flex; align-items: center; gap: 8px;">
-            <div style="width: 18px; height: 14px; flex: none; border-radius: 4px; background: {{ s.bg }}; border: 1px solid {{ s.bd }};"></div>
-            <div style="font: 400 12px/16px 'Open Sans', sans-serif; color: #8b98a5;">{{ s.ground }}</div>
-          </div>
-          <div style="width: 130px; flex: none; font: 400 12px/16px 'Open Sans', sans-serif; color: {{ s.waitColor }};">{{ s.waits }}</div>
-          <div style="flex: 1; min-width: 0; font: 400 12px/16px 'Open Sans', sans-serif; color: #a9b6c3;">{{ s.acts }}</div>
-          <div style="width: 84px; flex: none; display: flex; justify-content: flex-end;">{{ s.tag }}</div>
-        </div>
-      </sc-for>
-    </div>
-    <div style="font: 400 12px/18px 'Open Sans', sans-serif; color: #8b98a5;">Nothing that waits on the agent wears the wash. A conflict between two settled answers gets no word of its own — it arrives as the agent arguing.</div>
-  </div>
-
-  <div style="display: flex; flex-direction: column; gap: 18px;">
-    <div style="display: flex; align-items: baseline; gap: 16px;">
-      <div style="font: 400 10px/12px ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; text-transform: uppercase; letter-spacing: 0.14em; color: #8b98a5; flex: none;">04 — Controls, every state</div>
+      <div style="font: 400 10px/12px ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; text-transform: uppercase; letter-spacing: 0.14em; color: #8b98a5; flex: none;">03 — Controls, every state</div>
       <div style="flex: 1; height: 1px; background: #18212a;"></div>
     </div>
     <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 12px;">
@@ -286,55 +255,8 @@
 </div>
 </x-dc>
 <script type="text/x-dc" data-dc-script>
-const MONO = 'ui-monospace, SFMono-Regular, Menlo, Consolas, monospace';
-const WASH = 'linear-gradient(180deg, rgba(242,118,43,.14), rgba(242,118,43,.06) 45%, rgba(242,118,43,.025))';
-const h = React.createElement;
-
 class Component extends DCLogic {
-  glyph(name) {
-    if (!name) return h('span', { style: { font: '400 12px/16px ' + MONO, color: '#33404d' } }, '—');
-    return h('i', { className: 'ph ' + name, style: { fontSize: '12px' } });
-  }
-  tag(kind) {
-    const now = kind === 'now';
-    return h('div', {
-      style: {
-        display: 'inline-flex', alignItems: 'center', height: '18px', padding: '0 6px', borderRadius: '4px',
-        background: '#131c24', border: '1px solid #26313d', color: now ? '#c3cdd7' : '#8b98a5',
-        font: '400 10px/12px ' + MONO, textTransform: 'uppercase', letterSpacing: '0.14em', flex: 'none'
-      }
-    }, now ? 'in v2' : 'proposed');
-  }
-  owed(word, glyph, acts, kind) {
-    return {
-      word: word, glyph: this.glyph(glyph), wordColor: '#f2985c', bg: WASH, bd: 'rgba(242,118,43,.30)',
-      ground: 'wash', waits: 'you', waitColor: '#f2985c', acts: acts, tag: this.tag(kind)
-    };
-  }
-  settled(word, acts, kind, waits, wordColor) {
-    return {
-      word: word, glyph: this.glyph(null), wordColor: wordColor || '#8b98a5', bg: '#101820', bd: '#1c2530',
-      ground: 'quiet · outlined', waits: waits || 'nobody', waitColor: '#8b98a5', acts: acts, tag: this.tag(kind)
-    };
-  }
-  renderVals() {
-    const states = [
-      this.owed('Not agreed', 'ph-warning', 'Pick an option, comment, or hand it back', 'now'),
-      this.owed('Not answered', 'ph-question-mark', 'The same three, and neither gates the other', 'now'),
-      this.settled('Answered by you', 'Change', 'now'),
-      this.settled('— no eyebrow', 'Change — chosen for you, said by the section label', 'now', null, '#5c6975'),
-      this.settled('Agreed', 'Change', 'proposed'),
-      this.settled('You left this to me', 'Change', 'proposed'),
-      this.settled('Changed since built', 'Change, or leave it to be rebuilt', 'proposed', 'the agent'),
-      this.owed('Not agreed', 'ph-warning', 'A conflict, arriving as the agent arguing', 'proposed'),
-      {
-        word: 'Withdrawn', glyph: this.glyph('ph-warning'), wordColor: '#5c6975', bg: WASH, bd: 'rgba(242,118,43,.30)',
-        ground: 'wash · in the plan', waits: 'you, in the pane', waitColor: '#8b98a5',
-        acts: 'Nothing — pointer and tabindex both off', tag: this.tag('now')
-      }
-    ];
-    return { states };
-  }
+  renderVals() { return {}; }
 }
 </script>
 </body>
