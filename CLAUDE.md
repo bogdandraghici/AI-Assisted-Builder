@@ -129,6 +129,13 @@ Three rules follow, and each of them was once broken here:
   routine questions are grey counts in their plan rows; the one you can answer where it
   stands is washed. Orange every mention of them and it stops meaning *your move* and starts
   meaning *questions exist*, which is a fact about the plan, not a call on you.
+- **A mention still gets the question's glyph — in grey.** Every "N to settle" count and
+  caption carries a `ph-question-mark` in the count's own grey, so the question kind of
+  waiting is recognisable on the plan without spending orange. The orange glyph appears
+  only on the answerable card in the step pane.
+- **Selection never spends orange.** The step open beside the spine wears a 1px `#4d97ea`
+  outline — blue is "you are here", orange is "your move", and they may stack. See
+  [docs/type-and-palette.md](docs/type-and-palette.md).
 - **The act is pinned, never scrolled.** The step pane's `Agree` / `Comment further` row sat
   38px below the fold at 1440×900 with 143px of overflow above it, so the panel asked you to
   decide and put the decision off-screen — which reads as the call not being there at all.

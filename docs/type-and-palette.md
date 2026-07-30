@@ -47,3 +47,17 @@ green, blue, grey for who had settled a card — which asks the reader to learn 
 be told what a word says plainly, and so reads as decoration, because that is all an
 unlearnable key can be. Status is a mono micro-label now (`Answered by you`), and what was
 open takes the wash.
+
+**Blue is "you are here"; it never means status.** The step open beside the spine wears a
+1px solid `#4d97ea` outline at `outline-offset: 3px` — the same edge the drawing's focal
+node wears. An outline, not a border, so it is pure paint and no pinned measurement
+moves; and not a box-shadow, which stays reserved for the focus ring. The wash keeps its
+own orange edge underneath, because selection and "your move" are orthogonal and may
+stack. Selection exists only in the spine state — the wide plan never shows it, because
+nothing is open there.
+
+**Two question marks, one rule.** A grey `ph-question-mark` marks a *mention* of a
+question — the "N to settle" counts, the chip, the captions — and takes the colour of
+the count it precedes (`#8b98a5` or `#5c6975`), never one of its own. The orange one
+marks the question itself, on the one card where you answer it, and nowhere else. Same
+rule as the wash: the glyph says which kind, the colour only ever says "your move".
