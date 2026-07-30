@@ -282,10 +282,12 @@
                    so it is pure paint and no pinned measurement moves; the wash
                    keeps its own orange edge underneath, because selection and
                    "your move" are orthogonal and may stack. Same #4d97ea the
-                   drawing's focal node wears. It arrives and leaves on the
-                   spine labels' schedule, so the wide plan never flashes blue
-                   and nothing new travels during the beat. -->
-              <div style="background: linear-gradient(180deg, rgba(242, 118, 43, 0.14), rgba(242, 118, 43, 0.06) 45%, rgba(242, 118, 43, 0.025)); border: 1px solid rgba(242, 118, 43, 0.30); border-radius: 12px; padding: {{ cardPad }}; outline: 1px solid {{ selOutline }}; outline-offset: 3px; display: flex; flex-direction: column; transition: padding {{ moveDur }} {{ moveEase }}, outline-color {{ selDur }} {{ moveEase }} {{ selDl }};">
+                   drawing's focal node wears. It shares rmOpDur/rmOpDl outright
+                   — the same schedule as the spine labels, not a copy of it —
+                   so the wide plan never flashes blue, nothing new travels
+                   during the beat, and retuning the labels can't drift the ring
+                   out of step with them. -->
+              <div style="background: linear-gradient(180deg, rgba(242, 118, 43, 0.14), rgba(242, 118, 43, 0.06) 45%, rgba(242, 118, 43, 0.025)); border: 1px solid rgba(242, 118, 43, 0.30); border-radius: 12px; padding: {{ cardPad }}; outline: 1px solid {{ selOutline }}; outline-offset: 3px; display: flex; flex-direction: column; transition: padding {{ moveDur }} {{ moveEase }}, outline-color {{ rmOpDur }} {{ moveEase }} {{ rmOpDl }};">
 
                 <!-- Opens the step; it does not close it. Once the plan is a
                      spine the caret and the chip are gone, so there is nothing
@@ -1093,11 +1095,10 @@ class Component extends DCLogic {
       // The open step's spine card wears a 1px #4d97ea outline. Selection is
       // structural, not a call to action, so it never spends orange — and it
       // only exists in the spine, where something IS open. Paint-only
-      // (outline-color), on the spine labels' own schedule, for the same
-      // reason theirs is: late in so the beat carries nothing new, fast out.
+      // (outline-color), on rmOpDur/rmOpDl — the spine labels' own schedule,
+      // reused rather than copied, so retuning the labels can't leave the
+      // ring on old timing.
       selOutline: on ? 'rgba(77, 151, 234, 1)' : 'rgba(77, 151, 234, 0)',
-      selDur: on ? '200ms' : '100ms',
-      selDl: on ? '200ms' : '0ms',
 
       // The step itself, arriving behind its opening pane. Laid out at full
       // width and clipped, so it is uncovered rather than squeezed. Leaving is
