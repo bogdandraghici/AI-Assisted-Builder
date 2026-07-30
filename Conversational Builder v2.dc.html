@@ -1088,14 +1088,13 @@
               </div>
             </div>
 
-            <!-- The status word takes a line of its own because it will not fit beside
-                 the sentence: 688px across in a 642px card. A line costs 22px of height
-                 and no width. `Change` rides the sentence, not the label, because the
-                 sentence is what it changes — which leaves this row the same shape as
-                 the settled rows below. -->
-            <div style="background: #101820; border: 1px solid #1c2530; border-radius: 8px; padding: 12px 16px; display: flex; flex-direction: column; gap: 6px;">
+            <!-- Whose answer it is is a label over the list, the way `What I chose for
+                 you` is — not an eyebrow inside the object. 24px above it and 8 below,
+                 so it belongs to the row under it and not to the question above.
+                 `Change` rides the sentence, because the sentence is what it changes. -->
+            <div style="display: flex; flex-direction: column; gap: 8px; padding-top: 12px;">
               <div style="font: 400 10px/12px ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; text-transform: uppercase; letter-spacing: 0.14em; color: #8b98a5;">Answered by you</div>
-              <div style="display: flex; align-items: baseline; gap: 12px;">
+              <div style="background: #101820; border: 1px solid #1c2530; border-radius: 8px; padding: 12px 16px; display: flex; align-items: baseline; gap: 12px;">
                 <div style="flex: 1; min-width: 0; font: 400 14px/22px 'Open Sans', sans-serif; color: #c3cdd7; text-wrap: pretty;"><span style="font-weight: 600;">Which disputes we check</span> — only the four reasons where a merchant can help</div>
                 <div tabindex="0" style="font: 600 12px/16px 'Open Sans', sans-serif; color: #8b98a5; cursor: pointer; outline: none; flex: none; transition: color 160ms cubic-bezier(0.2, 0, 0.2, 1);" style-hover="color: #4d97ea;">Change</div>
               </div>
