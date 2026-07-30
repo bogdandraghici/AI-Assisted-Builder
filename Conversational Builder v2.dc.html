@@ -593,7 +593,7 @@
                 </div>
                 <div style="flex: 1; min-width: 0; padding-bottom: {{ rowPb }}; display: flex; gap: 24px; align-items: flex-start; transition: padding-bottom {{ moveDur }} {{ moveEase }};">
                   <div style="flex: 1; min-width: 0; display: flex; flex-direction: column; gap: 2px;">
-                    <div style="min-height: {{ tlA }}; font-family: 'Open Sans', sans-serif; font-weight: 600; font-size: {{ titleSize }}; line-height: {{ titleLh }}; max-width: {{ titleMax }}; color: #f5f9fc; text-wrap: pretty; transition: min-height {{ ldDur }} {{ ldEase }}, font-size {{ wrDur }} {{ wrEase }}, line-height {{ wrDur }} {{ wrEase }}, max-width {{ wrDur }} {{ wrEase }};">The customer picks the transaction they do not recognise</div>
+                    <div style="min-height: {{ tlA }}; font-family: 'Open Sans', sans-serif; font-weight: 600; font-size: {{ titleSize }}; line-height: {{ titleLh }}; max-width: {{ titleMax }}; color: #f5f9fc; text-wrap: pretty; transition: min-height {{ ldDur }} {{ ldEase }}, font-size {{ wrDur }} {{ wrEase }}, line-height {{ wrDur }} {{ wrEase }}, max-width {{ wrDur }} {{ wrEase }};">We show the payments they could dispute</div>
                     <div style="display: grid; grid-template-rows: {{ exRows }}; transition: grid-template-rows {{ moveDur }} {{ moveEase }};">
                       <div style="overflow: hidden; min-height: 0; opacity: {{ exOp }}; transition: opacity {{ exOpDur }} {{ moveEase }} {{ exOpDl }};">
                         <!-- Pinned so the pane can narrow over it without changing
@@ -612,7 +612,7 @@
                              and rows 4 and 5 would have moved 78px again had their
                              counts column taken "N to settle" side by side instead
                              of stacking it. -->
-                        <div style="min-width: 876px; font: 400 12px/18px 'Open Sans', sans-serif; color: #8b98a5;">Last ninety days. Card and account already known, so nothing is typed twice.</div>
+                        <div style="min-width: 876px; font: 400 12px/18px 'Open Sans', sans-serif; color: #8b98a5;">The customer sees ninety days of their own payments and picks the disputed one in a single click.</div>
                       </div>
                     </div>
                   </div>
@@ -632,7 +632,7 @@
                     <div style="min-height: {{ tlB }}; font-family: 'Open Sans', sans-serif; font-weight: 600; font-size: {{ titleSize }}; line-height: {{ titleLh }}; max-width: {{ titleMax }}; color: #f5f9fc; text-wrap: pretty; transition: min-height {{ ldDur }} {{ ldEase }}, font-size {{ wrDur }} {{ wrEase }}, line-height {{ wrDur }} {{ wrEase }}, max-width {{ wrDur }} {{ wrEase }};">We ask what happened, in their words</div>
                     <div style="display: grid; grid-template-rows: {{ exRows }}; transition: grid-template-rows {{ moveDur }} {{ moveEase }};">
                       <div style="overflow: hidden; min-height: 0; opacity: {{ exOp }}; transition: opacity {{ exOpDur }} {{ moveEase }} {{ exOpDl }};">
-                        <div style="min-width: 876px; font: 400 12px/18px 'Open Sans', sans-serif; color: #8b98a5;">Free text, then we sort it into one of the nine reasons the scheme accepts.</div>
+                        <div style="min-width: 876px; font: 400 12px/18px 'Open Sans', sans-serif; color: #8b98a5;">The customer describes it however they like, and we file it under a reason the scheme accepts — they never pick one.</div>
                       </div>
                     </div>
                   </div>
@@ -831,7 +831,7 @@
                     <div style="min-height: {{ tlB }}; font-family: 'Open Sans', sans-serif; font-weight: 600; font-size: {{ titleSize }}; line-height: {{ titleLh }}; max-width: {{ titleMax }}; color: #c3cdd7; text-wrap: pretty; transition: min-height {{ ldDur }} {{ ldEase }}, font-size {{ wrDur }} {{ wrEase }}, line-height {{ wrDur }} {{ wrEase }}, max-width {{ wrDur }} {{ wrEase }};">We ask for evidence, only what the reason needs</div>
                     <div style="display: grid; grid-template-rows: {{ exRows }}; transition: grid-template-rows {{ moveDur }} {{ moveEase }};">
                       <div style="overflow: hidden; min-height: 0; opacity: {{ exOp }}; transition: opacity {{ exOpDur }} {{ moveEase }} {{ exOpDl }};">
-                        <div style="min-width: 848px; font: 400 12px/18px 'Open Sans', sans-serif; color: #8b98a5;">A receipt for goods never delivered. Nothing at all for a duplicate charge.</div>
+                        <div style="min-width: 848px; font: 400 12px/18px 'Open Sans', sans-serif; color: #8b98a5;">The customer sends the one document their reason needs, and nothing at all when the reason needs none.</div>
                       </div>
                     </div>
                     <div style="display: grid; grid-template-rows: {{ rmRows }}; transition: grid-template-rows {{ moveDur }} {{ moveEase }};">
@@ -870,10 +870,16 @@
                 </div>
                 <div style="flex: 1; min-width: 0; padding-bottom: {{ rowPb }}; display: flex; gap: 24px; align-items: flex-start; transition: padding-bottom {{ moveDur }} {{ moveEase }};">
                   <div style="flex: 1; min-width: 0; display: flex; flex-direction: column; gap: 2px;">
-                    <div style="min-height: {{ tlB }}; font-family: 'Open Sans', sans-serif; font-weight: 600; font-size: {{ titleSize }}; line-height: {{ titleLh }}; max-width: {{ titleMax }}; color: #f5f9fc; text-wrap: pretty; transition: min-height {{ ldDur }} {{ ldEase }}, font-size {{ wrDur }} {{ wrEase }}, line-height {{ wrDur }} {{ wrEase }}, max-width {{ wrDur }} {{ wrEase }};">Disputes over {{ threshold }} go to a person</div>
+                    <div style="min-height: {{ tlB }}; font-family: 'Open Sans', sans-serif; font-weight: 600; font-size: {{ titleSize }}; line-height: {{ titleLh }}; max-width: {{ titleMax }}; color: #f5f9fc; text-wrap: pretty; transition: min-height {{ ldDur }} {{ ldEase }}, font-size {{ wrDur }} {{ wrEase }}, line-height {{ wrDur }} {{ wrEase }}, max-width {{ wrDur }} {{ wrEase }};">We send the biggest disputes to a person</div>
                     <div style="display: grid; grid-template-rows: {{ exRows }}; transition: grid-template-rows {{ moveDur }} {{ moveEase }};">
                       <div style="overflow: hidden; min-height: 0; opacity: {{ exOp }}; transition: opacity {{ exOpDur }} {{ moveEase }} {{ exOpDl }};">
-                        <div style="min-width: 875px; font: 400 12px/18px 'Open Sans', sans-serif; color: #c3cdd7;">{{ threshold }} is my guess. I need the real number before I build this.</div>
+                        <!-- #8b98a5, the same grey as the other three descriptions. It
+                             was the brighter #c3cdd7 while it carried the open question
+                             — "{{ threshold }} is my guess" — because that was the agent
+                             asking for something. It states an outcome now, like rows 1
+                             and 2, and the open question is counted by the `1 to settle`
+                             chip beside it, which is how rows 3 and 4 already do it. -->
+                        <div style="min-width: 875px; font: 400 12px/18px 'Open Sans', sans-serif; color: #8b98a5;">Disputes above {{ threshold }} reach a person instead of an automatic decision, and the customer is told a reviewer has it.</div>
                       </div>
                     </div>
                     <div style="display: grid; grid-template-rows: {{ rmRows }}; transition: grid-template-rows {{ moveDur }} {{ moveEase }};">
@@ -932,7 +938,7 @@
                   <div style="flex: 1; height: 2px; background: #26313d;"></div>
                 </div>
                 <div onClick="{{ goTo1 }}" tabindex="0" style="margin: 8px 8px 0 0; padding: 12px; border-radius: 12px; border: 1px solid transparent; outline: 1px solid {{ selRow1 }}; outline-offset: 3px; display: flex; flex-direction: column; gap: 4px; outline-offset: 3px; cursor: pointer; transition: background 160ms cubic-bezier(0.2, 0, 0.2, 1), outline-color 160ms cubic-bezier(0.2, 0, 0.2, 1);" style-hover="background: #131c24;" style-focus="box-shadow: 0 0 0 3px rgba(43, 127, 228, 0.32);">
-                  <div style="min-height: 3lh; font: 600 12px/18px 'Open Sans', sans-serif; color: #f5f9fc; text-wrap: pretty;">The customer picks the transaction they do not recognise</div>
+                  <div style="min-height: 3lh; font: 600 12px/18px 'Open Sans', sans-serif; color: #f5f9fc; text-wrap: pretty;">We show the payments they could dispute</div>
                   <div style="display: flex; align-items: center; gap: 4px; font: 400 12px/16px ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; color: #8b98a5;">ran · picked 1 of 12</div>
                 </div>
               </div>
@@ -974,7 +980,7 @@
                   <div style="flex: 1; height: 0; border-top: 2px dashed #26313d;"></div>
                 </div>
                 <div tabindex="-1" style="margin: 8px 8px 0 0; padding: 12px; border-radius: 12px; border: 1px solid transparent; display: flex; flex-direction: column; gap: 4px; outline-offset: 3px; pointer-events: none;">
-                  <div style="min-height: 3lh; font: 600 12px/18px 'Open Sans', sans-serif; color: #f5f9fc; text-wrap: pretty;">Disputes over {{ threshold }} go to a person</div>
+                  <div style="min-height: 3lh; font: 600 12px/18px 'Open Sans', sans-serif; color: #f5f9fc; text-wrap: pretty;">We send the biggest disputes to a person</div>
                   <div style="display: flex; align-items: center; gap: 4px; font: 400 12px/16px ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; color: #5c6975;">not built</div>
                   <div style="display: flex; align-items: center; gap: 4px; font: 400 12px/16px ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; color: #5c6975;"><i class="ph ph-question-mark" style="font-size: 10px;"></i>1 to settle</div>
                 </div>

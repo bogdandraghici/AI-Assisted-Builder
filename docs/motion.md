@@ -202,8 +202,39 @@ Two gates, or the trace lies:
   synchronously after `.click()` and you get zero animations and a flat, lying trace —
   and the traces come out labelled one click behind.
 
+### A reserved line box hides its own line count
+
+`scrollHeight` can never fall below the element's own height, so any title under a
+`min-height: 3lh` reports three lines whether it needs three or one. That is the one
+number a copy change most needs to see, and the obvious probe cannot see it. A clone with
+the floor lifted is not the fix either — at 206 and 224px it lands on the wrong side of a
+borderline wrap and reports a line that the real box does not have.
+
+Count the line boxes the element **actually** has: `createRange()`, `selectNodeContents`,
+then collapse `getClientRects()` by `top`. It measures the thing on screen, needs nothing
+unpinned, and it is what caught both readings below.
+
+Two of the reservations are deliberately loose, and have been since before the plan copy
+was rewritten to talk about outcomes. At the spine measure the five titles take
+**2 / 1 / 2 / 2 / 2** lines against `tlA`/`tlB` of 3 / 2 / 3 / 2 / 2, and all five run-strip
+nodes take 2 against a flat `3lh`. Over-reserving is the safe direction — a box larger than
+its text can never gain a line mid-flight, which is the whole property the pins exist for —
+so this is not a bug to fix in passing. Tightening it would take 36px out of the collapsed
+plan's height and hand the rows below that much further to travel in the same 340ms, which
+is a motion change needing the stepped trace, not a copy change.
+
+### Copy changes get the same gate, and it is cheap
+
+A rewrite of the plan's titles and descriptions has to hold four things, all readable in one
+pass per resting state: every description still one line at its own `min-width`, every title
+still one line at 800px in the wide plan, no pinned box with a non-zero underrun, and
+`planPinH` unmoved at 816 / 812. If all four hold, the move is untouched and only the pixels
+inside the text lines differ.
+
 The resting states are the check that the machinery is invisible: screenshot both, diff
-against the previous build, and expect **zero** differing pixels. `min-height: 3lh` must
+against the previous build, and expect **zero** differing pixels — or, when copy is what
+changed, differing rows confined to bands one line-height tall. A band taller than a line,
+or one below the last thing you edited, is the layout shifting and not the text. `min-height: 3lh` must
 equal the spine's real line count and `min-width` the open width, so if either is wrong the
 diff says so immediately. A change that only touches one state — the chat width did — must
 leave the other state pixel-identical.
