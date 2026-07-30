@@ -26,9 +26,10 @@ clips to nothing, so the wash falls back onto the step's own block and the spine
 one washed card it has always had — one element in both states, only its paint crossing.
 
 **The spine's wash carries its own `Not agreed`, and it has to.** It used to take that word
-from the group heading above it, and the grouping is on the build axis now, so the heading is
-gone — see the section below. A wash with no word beside it leaves the colour saying which
-kind of waiting this is, which is the one thing colour is never allowed to do. So step 3's
+from the group heading above it, and the grouping is on the build axis now, so the heading
+above it says `Not built yet` — a true thing about the step, and not this one. A wash with no
+word beside it leaves the colour saying which kind of waiting this is, which is the one thing
+colour is never allowed to do. So step 3's
 spine block opens with a `Not agreed` eyebrow of its own on `rmRows` / `rmOp`, the same word
 the wide plan's card heading and the step pane's badge carry. It is wrapped with the title in
 a `gap: 0` box rather than dropped into the column beside it: a 0fr grid still pays its
@@ -46,29 +47,42 @@ and the wash's own values.
 
 **`Built` and `Not built yet`, and there is no third heading.** The spine and the run strip
 both used `Agreed` / `Not agreed` / `Next`, which grouped the five steps by whether the plan
-itself was settled and gave the contested step a bucket of its own. Two things were wrong
-with it. It spent a heading on a state the step already says three other ways — an orange
-dot, a washed card, two acts — and it drew a boundary the run strip draws somewhere else:
-the wall at 0.6 has always separated what exists from what does not, and it falls after step
-3, not before it.
+itself was settled and gave the contested step a bucket of its own. That spent a heading on a
+state the step already says three other ways — an orange dot, a washed card, two acts — while
+saying nothing about the question the plan is actually read for. `Next` was no better: it
+named where three rows sat in a queue, which is the one thing the order already shows.
 
-**Step 3 is built.** `merchantCheck.integrationWorkflow` exists as of build 2 at 09:37, the
-run goes straight through it — `ran · unseen · 3s` — and you can only ask to drop something
-that exists. The old count said `Two of five built` while the same state's own description
-said the check was built at 09:37, in the same paragraph. It is `Three of five built` now, in
-both views, and the spine's `5 steps · 3 built` repeats the wide header's first clause
-instead of introducing `2 agreed` as a second word for a partition that no longer exists.
+**`Built` is the strict word: finished, agreed, standing.** Two rows are under it. The
+contested step is not one of them, and its own act has said so all along, in three places:
+*one question still to settle **before I build it***. Its last two resources —
+`enquiryToContext.dataMapper`, `enquiryOutcome.enum` — are `no` in the resource table, and the
+shape being argued about is a revision that does not exist yet. So `Not built yet` opens with
+step 3.
 
-**The clauses of the header no longer partition anything, and that is the point.** `Three of
-five built · one not agreed · four to settle` is the build, the argument and the questions —
-three axes, and one step may sit on all three at once. Merging the run strip's first two
-headings into a `flex: 3` leaves every column boundary where it was, spacer included, so the
-wall still lands on the seam it names. The per-card `not built` caption on columns 4 and 5
-went with the change: under a `Not built yet` heading it was the word said twice on one card,
-and each card carries one caption either way.
+**The run strip's boundary is one column further right, and that is not a disagreement.** The
+wall marks what *exists*, which is the looser claim and the only one a run can make: three
+steps ran, two of them are built. Which is why the strip's left heading is `Ran` and not
+`Built` — it is the one place the two views use different words, and the cards underneath
+force it, because all three of them say `ran · …` and one of them is not built.
+`Not built yet` is the plan's word unchanged, over the two columns it is true of. Merging
+three headings into `flex: 3` + `flex: 2` left every column boundary where it was, spacer
+included, so the wall at 0.6 still lands on the seam it names. `Run what is built` was the
+run button's tooltip and is now `Run what exists`, for the same reason.
+
+**The header's clauses do not partition the five steps, and are not meant to.** `Two of five
+built · one not agreed · four to settle` is the build, the argument and the questions — three
+axes, and step 3 sits on all three at once: the one row under `Not built yet` that is also the
+one not agreed and also owes an answer. No bucket can say that; three counts in three units
+can. The spine's `5 steps · 2 built` repeats the first clause instead of introducing
+`2 agreed`, which landed on the same number for a different reason — the kind of agreement
+that hides a bug rather than showing there is none.
 
 **Orange leaves the group headings entirely,** which is stricter rationing than before rather
 than looser: it is now the settle tags, step 3's dot, the wash, and step 3's own eyebrow.
+
+The per-card `not built` caption on run columns 4 and 5 went with the change: under a
+`Not built yet` heading it was the word said twice on one card, and each card carries one
+caption either way — `ran · …` on the three that exist, what is owed on the two that do not.
 
 ## Rules that follow, each of them once broken here
 

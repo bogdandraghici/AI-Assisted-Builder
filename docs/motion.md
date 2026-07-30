@@ -144,14 +144,18 @@ the shape the plan is collapsing into, so that space opens with everything else 
 opacity waits. Given a beat of its own it made five rows fly up past where they belonged and
 slide a hundred pixels back down once the rest had settled.
 
-Regrouping the plan onto the build axis — three headings down to `Built` / `Not built yet`,
-with step 3's own `Not agreed` eyebrow taking over the word it used to get from the middle
-heading — cost that 76px nothing: the eyebrow is the same 12 + 8 in the same place as the
-heading it replaced. Both pins still read 816 / 812, every row top and left edge is unchanged
-to the pixel, and sampled across the move the pane's `scrollHeight` never exceeds its height
-and no title's real width ever exceeds its own animating cap. When a swap is size-for-size in
-position, nothing here needs re-measuring — but check it rather than assume it, because that
-is the whole failure mode this file exists for.
+Regrouping the plan onto the build axis cost that 76px nothing, and the reason is worth
+keeping: three headings became two, and step 3 gained a `Not agreed` eyebrow of its own for the
+word it used to take from the middle heading — the same 12 + 8, so the spine's total is what it
+was. Both pins still read 816 / 812. The one row that moves is step 3's, 20px down the spine,
+because `Not built yet` now opens above it rather than below it; rows 1, 2, 4 and 5 and every
+left edge are unchanged to the pixel.
+
+Sampled across the move at thirteen points: the pane's `scrollHeight` never exceeds its height,
+and no title's real width ever exceeds its own animating cap — row 3 runs closest, touching its
+cap exactly (238/238, then 195/195) and never passing it, which is the margin it had before. A
+swap that is size-for-size in position usually needs nothing re-measured; measure it anyway,
+because that is the whole failure mode this file exists for.
 
 ### Arrivals do not need a stagger to feel considered
 

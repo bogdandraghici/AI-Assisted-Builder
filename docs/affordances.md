@@ -61,6 +61,10 @@ have, so in the plan state all of them go quiet rather than promise it.
 A step is `Not agreed` on the wide plan's card heading, on its own eyebrow in the spine and in
 the step badge; open decisions are counted as *to settle* in every view. Two views of one
 object that name it differently read as a change of subject, which is exactly what the
-one-beat transition is built to avoid. The plan's *grouping* is a different axis and says a
-different word — `Built` / `Not built yet`, see [waiting.md](waiting.md) — which is what lets
-one step be built and not agreed and still owing an answer without any of the three lying.
+one-beat transition is built to avoid.
+
+The plan's *grouping* is a different axis and says a different word — `Built` /
+`Not built yet`, see [waiting.md](waiting.md) — which is what lets one step be not built, not
+agreed and still owing an answer without any of the three lying. The run strip's left heading
+is `Ran`, and that is the one place two views of one thing use different words on purpose: it
+names what exists rather than what is built, and the three cards under it all say `ran · …`.

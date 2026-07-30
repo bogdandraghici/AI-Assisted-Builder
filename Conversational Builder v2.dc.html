@@ -37,7 +37,7 @@
     </div>
     <div style="font: 400 14px/24px 'Open Sans', sans-serif; color: #a9b6c3; max-width: 104ch; text-wrap: pretty;">Eight minutes into a new project. The builder described an outcome in one sentence, the agent proposed five steps, built the two that needed no discussion, and is now refusing to remove a third. Its argument is a drawing, not a canvas — plan language throughout, and no resource is named until you ask.</div>
     <div style="font: 400 14px/24px 'Open Sans', sans-serif; color: #a9b6c3; max-width: 104ch; text-wrap: pretty;">This one is not a still. <strong style="font-weight: 600; color: #f5f9fc;">Click step 3</strong> and the plan does not dissolve into a sidebar — it shrinks into one. The same five rows lose their detail, then narrow and drop a type size, then take their grouping labels. The step arrives on the right. Close it with the ×, with Esc, with the breadcrumb or with the back arrow — and note that all four go quiet again once it is closed, because up from the plan is a journey list this prototype does not have.</div>
-    <div style="font: 400 14px/24px 'Open Sans', sans-serif; color: #a9b6c3; max-width: 104ch; text-wrap: pretty;">And it is not two screens either. <strong style="font-weight: 600; color: #f5f9fc;">Test what exists</strong> runs what is built, and the plan does not hand over to a second page — it lies down. The five rows become the five nodes of the run, the app opens above them, and the boundary becomes a wall across the run's path. Back with the arrow, the breadcrumb or Esc.</div>
+    <div style="font: 400 14px/24px 'Open Sans', sans-serif; color: #a9b6c3; max-width: 104ch; text-wrap: pretty;">And it is not two screens either. <strong style="font-weight: 600; color: #f5f9fc;">Test what exists</strong> runs what exists — which is one step more than what is built — and the plan does not hand over to a second page — it lies down. The five rows become the five nodes of the run, the app opens above them, and the boundary becomes a wall across the run's path. Back with the arrow, the breadcrumb or Esc.</div>
   </div>
 
   <div data-screen-label="01" style="width: 1440px; height: 900px; background: #0b1218; border: 1px solid #26313d; border-radius: 12px; overflow: hidden; display: flex; flex-direction: column; flex: none; color: #f5f9fc;">
@@ -570,16 +570,14 @@
                          argument won the tiebreak. So the four questions were
                          counted nowhere in the plan, and "waiting on you" was a
                          third word for what the step pane calls "to settle".
-                         Three, not two. The count used to agree with the grouping
-                         and disagree with everything else: step 3's own workflow
-                         exists as of build 2, the run goes straight through it,
-                         and the state's description said in one breath that two
-                         steps were built and that the check was built at 09:37.
-                         The clauses no longer partition anything — the first is
-                         the build, the second the argument, the third the
-                         questions — which is the point: they are three axes and
-                         one step can sit on all three. -->
-                    <div style="overflow: hidden; min-width: 0; white-space: nowrap; font: 400 12px/16px 'Open Sans', sans-serif; color: #8b98a5; opacity: {{ exOp }}; transition: opacity {{ exOpDur }} {{ moveEase }} {{ exOpDl }};">Three of five built · one not agreed · <i class="ph ph-question-mark" style="font-size: 10px;"></i> four to settle</div>
+                         The clauses do not partition the five steps and are not
+                         meant to: the first is the build, the second the argument,
+                         the third the questions — three axes, and step 3 sits on
+                         all three at once. It is the one row under `Not built yet`
+                         that is also the one not agreed and also owes an answer,
+                         and no bucket can say that; three counts in three units
+                         can. -->
+                    <div style="overflow: hidden; min-width: 0; white-space: nowrap; font: 400 12px/16px 'Open Sans', sans-serif; color: #8b98a5; opacity: {{ exOp }}; transition: opacity {{ exOpDur }} {{ moveEase }} {{ exOpDl }};">Two of five built · one not agreed · <i class="ph ph-question-mark" style="font-size: 10px;"></i> four to settle</div>
                   </div>
                 </div>
                 <div style="display: grid; grid-template-rows: {{ rmRows }}; transition: grid-template-rows {{ moveDur }} {{ moveEase }};">
@@ -588,8 +586,10 @@
                          introducing a second word for the same partition. `2
                          agreed` counted an axis the spine no longer groups by, so
                          the two states of one header disagreed about both the unit
-                         and the number. -->
-                    <div style="font: 400 12px/16px ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; color: #4a5764; white-space: nowrap;">5 steps · 3 built</div>
+                         and the number — and landed on the same number for two
+                         different reasons, which is the kind of agreement that
+                         hides a bug rather than proving there is none. -->
+                    <div style="font: 400 12px/16px ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; color: #4a5764; white-space: nowrap;">5 steps · 2 built</div>
                   </div>
                 </div>
               </div>
@@ -599,16 +599,17 @@
 
               <!-- Two headings, and the axis is the build. It used to be three —
                    Agreed / Not agreed / Next — which grouped the plan by whether
-                   the plan itself was settled, and put the contested step in a
-                   bucket of its own on a boundary the run strip draws somewhere
-                   else. Step 3 IS built: merchantCheck.integrationWorkflow
-                   exists as of build 2 at 09:37, the run goes straight through
-                   it, and you can only ask to drop something that exists. So it
-                   sits here with 1 and 2, the boundary below is exactly the run
-                   strip's wall, and the argument is left to the one object it
-                   belongs to — the card. Orange leaves the group headings
-                   entirely, which is stricter rationing than before, not looser:
-                   it is now the settle tags, step 3's dot and the wash. -->
+                   the plan itself was settled and gave the contested step a bucket
+                   of its own, so a heading was spent on a state that step already
+                   says three other ways: an orange dot, a washed card, two acts.
+                   The argument is left to the object it belongs to now, and the
+                   grouping answers the one question the plan is read for.
+                   Only two rows are under here. `Built` is the strict word —
+                   finished, agreed, standing — see the boundary below for why the
+                   step that ran at 09:37 is not one of them. Orange leaves the
+                   group headings entirely, which is stricter rationing than
+                   before, not looser: it is now the settle tags, step 3's dot, the
+                   wash, and step 3's own `Not agreed`. -->
               <div style="display: grid; grid-template-rows: {{ rmRows }}; transition: grid-template-rows {{ moveDur }} {{ moveEase }};">
                 <div style="overflow: hidden; min-height: 0; opacity: {{ rmOp }}; transition: opacity {{ rmOpDur }} {{ moveEase }} {{ rmOpDl }};">
                   <div style="padding-bottom: 8px; font: 400 10px/12px ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; text-transform: uppercase; letter-spacing: 0.14em; color: #2ea86a; white-space: nowrap;">Built</div>
@@ -692,16 +693,32 @@
                 </div>
               </div>
 
-              <!-- No heading here. This step is built, so it belongs under the one
-                   above; what it does not have is agreement, and that is the
-                   card's business, not the grouping's. -->
+              <!-- The boundary, and it opens with the contested step. `Built` is
+                   the strict word here — finished, agreed, standing — so a step
+                   whose shape is still being argued about and whose last two
+                   resources do not exist has not been built, whatever ran at
+                   09:37. That is what the act's own caption has said all along in
+                   three places: "one question still to settle BEFORE I BUILD IT".
+                   `Next` used to open here instead, which said where these three
+                   sat in a queue — the one thing the reader can already see from
+                   the order.
+                   The run strip draws its boundary one column further right,
+                   after step 3, and that is not a disagreement: the wall marks
+                   what EXISTS, which is the looser claim and the only one a run
+                   can make. Three cards ran; two of them are built. -->
+              <div style="display: grid; grid-template-rows: {{ rmRows }}; transition: grid-template-rows {{ moveDur }} {{ moveEase }};">
+                <div style="overflow: hidden; min-height: 0; opacity: {{ rmOp }}; transition: opacity {{ rmOpDur }} {{ moveEase }} {{ rmOpDl }};">
+                  <div style="padding-bottom: 8px; font: 400 10px/12px ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; text-transform: uppercase; letter-spacing: 0.14em; color: #5c6975; white-space: nowrap;">Not built yet</div>
+                </div>
+              </div>
+
               <div style="position: relative; display: flex; gap: {{ rowGap }}; align-items: stretch; transition: gap {{ moveDur }} {{ moveEase }};">
                 <div style="width: {{ gutterW }}; flex: none; display: flex; flex-direction: column; align-items: center; transition: width {{ moveDur }} {{ moveEase }};">
-                  <!-- Orange and a ph-warning under a green `Built` heading, and
-                       the two do not fight: the heading says what exists, the dot
-                       says there is an argument about this one. Rows 1 and 2 carry
-                       a green check because there is nothing to argue about, not
-                       because they are more built than this. -->
+                  <!-- Orange and a ph-warning under a grey `Not built yet`
+                       heading: the heading says this is not standing yet, the dot
+                       says why you are being asked about it. Rows 4 and 5 sit
+                       under the same heading with dashed and outlined dots,
+                       because nothing about them is contested. -->
                   <div style="position: absolute; left: 0; top: 0; width: {{ dotSize }}; height: {{ dotSize }}; border-radius: 99px; background: #f2762b; display: grid; place-items: center; transition: width {{ moveDur }} {{ moveEase }}, height {{ moveDur }} {{ moveEase }};"><i class="ph ph-warning" style="font-size: {{ iconSize }}; color: #ffffff; opacity: {{ exOp }}; transition: font-size {{ wrDur }} {{ wrEase }}, opacity {{ exOpDur }} {{ moveEase }} {{ exOpDl }};"></i></div>
                   <div style="position: absolute; left: {{ connL }}; top: {{ connT }}; right: {{ connR }}; bottom: {{ connB }}; background: {{ c3Bg }}; border: 0 dashed #26313d; border-left-width: {{ c3VW }}; transition: left {{ moveDur }} {{ moveEase }}, top {{ moveDur }} {{ moveEase }}, right {{ moveDur }} {{ moveEase }}, bottom {{ moveDur }} {{ moveEase }}, background-color {{ moveDur }} {{ moveEase }}, border-left-width {{ moveDur }} {{ moveEase }};"></div>
                 </div>
@@ -928,17 +945,8 @@
                 </div>
               </div>
 
-              <div style="display: grid; grid-template-rows: {{ rmRows }}; transition: grid-template-rows {{ moveDur }} {{ moveEase }};">
-                <div style="overflow: hidden; min-height: 0; opacity: {{ rmOp }}; transition: opacity {{ rmOpDur }} {{ moveEase }} {{ rmOpDl }};">
-                  <!-- `Next` said where these were in a queue, which is the one
-                       thing the reader can already see from the order. This says
-                       what they are, and it is the same boundary the run strip's
-                       wall draws — the dashed dots and connectors below were
-                       always saying it in paint. -->
-                  <div style="padding-bottom: 8px; font: 400 10px/12px ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; text-transform: uppercase; letter-spacing: 0.14em; color: #5c6975; white-space: nowrap;">Not built yet</div>
-                </div>
-              </div>
-
+              <!-- No heading here. The boundary moved up above step 3 — `Not built
+                   yet` opens with the contested step, not with this one. -->
               <div style="position: relative; display: flex; gap: {{ rowGap }}; align-items: stretch; transition: gap {{ moveDur }} {{ moveEase }};">
                 <div style="width: {{ gutterW }}; flex: none; display: flex; flex-direction: column; align-items: center; transition: width {{ moveDur }} {{ moveEase }};">
                   <div style="position: absolute; left: 0; top: 0; width: {{ dotSize }}; height: {{ dotSize }}; border-radius: 99px; background: #0b1218; border: 1px dashed #8b98a5; transition: width {{ moveDur }} {{ moveEase }}, height {{ moveDur }} {{ moveEase }};"></div>
@@ -1036,16 +1044,22 @@
                  act, which belongs to the run rather than to either side. -->
             <div style="position: absolute; left: calc((100% - 16px) * 0.6); top: 16px; bottom: 60px; width: 0; border-left: 2px solid #26313d;"></div>
 
-            <!-- The plan's own two headings, lying down. Three of them here — 2 +
-                 1 + 2 — spent a heading naming the middle column's argument, and
-                 that column already carries the whole of it below: an orange dot,
-                 a washed card and the two acts. Merging the first two into a
-                 flex 3 leaves every column boundary where it was, spacer
-                 included, so the wall at 0.6 still lands on the seam it names.
-                 Which is the reason to say it this way: the wall IS this
-                 boundary, and it always was. -->
+            <!-- Two headings, lying down, and the left one is `Ran` rather than
+                 the plan's `Built` — the one place the two views use different
+                 words, and the wall is the reason. This boundary is the run's
+                 own: it marks what EXISTS, which is the looser claim and the only
+                 one a run can make. All three cards left of it say `ran · …`, so
+                 `Built` over them would be contradicted by the captions directly
+                 underneath — step 3 ran at 09:37 and is still not built. `Not
+                 built yet` is the plan's word unchanged, over the two columns it
+                 is true of.
+                 Three headings used to sit here — 2 + 1 + 2 — spending one on the
+                 middle column's argument, which that column already carries below
+                 as an orange dot, a washed card and two acts. Merging into 3 + 2
+                 leaves every column boundary where it was, spacer included, so
+                 the wall at 0.6 still lands on the seam it names. -->
             <div style="flex: none; display: flex; align-items: flex-end; padding-bottom: 8px;">
-              <div style="flex: 3 1 0px; min-width: 0; font: 400 10px/12px ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; text-transform: uppercase; letter-spacing: 0.14em; color: #2ea86a;">Built</div>
+              <div style="flex: 3 1 0px; min-width: 0; font: 400 10px/12px ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; text-transform: uppercase; letter-spacing: 0.14em; color: #2ea86a;">Ran</div>
               <div style="width: 16px; flex: none;"></div>
               <div style="flex: 2 1 0px; min-width: 0; font: 400 10px/12px ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; text-transform: uppercase; letter-spacing: 0.14em; color: #5c6975;">Not built yet</div>
             </div>
@@ -1625,7 +1639,7 @@ class Component extends DCLogic {
       // exist. It stays live inside the run, where it means run it again.
       runPE: on ? 'none' : 'auto',
       runTab: on ? '-1' : '0',
-      runTitle: on ? '' : 'Run what is built',
+      runTitle: on ? '' : 'Run what exists',
       runBg: on ? '#14402a' : '#1d9a5c',
       runFg: on ? '#4a5764' : '#062012',
 
@@ -1858,7 +1872,7 @@ class Component extends DCLogic {
 
       // ── The labels the spine alone carries ───────────────────────────────
       // Built / Not built yet, step 3's own `Not agreed`, the step counts and
-      // "5 steps · 3 built" have no counterpart in the wide plan, so they can
+      // "5 steps · 2 built" have no counterpart in the wide plan, so they can
       // only fade — but the SPACE they need is part of the shape the plan is
       // collapsing into, so it opens with everything else and only the fade is
       // late. Given a beat of its own it made five rows fly up past where they
