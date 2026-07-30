@@ -30,5 +30,11 @@ nothing else. Prose inside the elastic column is capped at 800px so a line stays
 
 **There are no elevation shadows.** The one exception per screen is carried by a wash of the
 disagreement orange plus a tinted edge — always 180°, strongest at the top edge and
-thinning, but never all the way out, by the bottom — and settled things take a 3px left
-status stripe instead. `box-shadow` is only ever the 3px focus ring.
+thinning, but never all the way out, by the bottom. `box-shadow` is only ever the 3px focus
+ring.
+
+**A 3px left stripe marks the one open thing, and nothing else.** It used to be a key —
+orange, green, blue, grey for who had settled a card — which asks the reader to learn four
+colours in order to be told something a word says plainly, and reads as decoration, because
+that is all an unlearnable key can be. Status is a mono micro-label now (`Answered by you`),
+so the one stripe left on a screen is the orange one on whatever is still open.

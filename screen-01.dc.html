@@ -596,10 +596,19 @@
               <div style="font: 400 12px/16px 'Open Sans', sans-serif; color: #8b98a5;">1 of 3 still to settle</div>
             </div>
 
-            <!-- Three things in one list, so three cards of one species: the
-                 left stripe says who has settled it — orange nobody yet, green
-                 you, blue me, grey me alone. This one is taller because it has a
-                 question in it, not because it is a different kind of object.
+            <!-- Three things in one list, so three cards of one species: an
+                 eyebrow that names the state, then the thing itself. The state
+                 was a colour before — a 3px left stripe, orange nobody yet,
+                 green you, blue me — and the settled two repeated it a second
+                 time in the answerer's avatar. Two decorations for one word, and
+                 a four-colour key the screen never hands you: green and blue say
+                 nothing until you have compared the two rows and guessed. It is
+                 the word now, in the mono voice everything the product says
+                 about the plan is in — `Not answered` here, `Answered by you`
+                 and `Answered by me` below — and the stripe is left to mean the
+                 one thing it can carry alone.
+                 This card is taller because it has a question in it, not
+                 because it is a different kind of object.
                  It used to carry the orange wash, which is the one exception per
                  screen and already spent: the plan's step-3 card keeps it, and
                  keeps it in the spine too, so with a step open there were two
@@ -657,16 +666,28 @@
               </div>
             </div>
 
-            <div style="background: #101820; border: 1px solid #1c2530; border-left: 3px solid #2ea86a; border-radius: 8px; padding: 8px 16px; display: flex; align-items: center; gap: 12px;">
-              <div style="width: 20px; height: 20px; flex: none; border-radius: 99px; background: #2b7fe4; color: #ffffff; display: grid; place-items: center; font: 700 10px/12px 'Open Sans', sans-serif;">LC</div>
-              <div style="flex: 1; min-width: 0; font: 400 14px/22px 'Open Sans', sans-serif; color: #c3cdd7;"><span style="font-weight: 600;">Which disputes we check</span> — only the four reasons where a merchant can help</div>
-              <div tabindex="0" style="font: 600 12px/16px 'Open Sans', sans-serif; color: #8b98a5; cursor: pointer; outline: none; flex: none; transition: color 160ms cubic-bezier(0.2, 0, 0.2, 1);" style-hover="color: #4d97ea;">Change</div>
+            <!-- Stacked, not laid out across: the status word and the sentence
+                 want the same row and there is not 780px of pane for both. The
+                 avatar and its gap were 32px, a word is 110px, and the second of
+                 these sentences already ran to within 6px of the card at design
+                 size — so beside the sentence the word would have wrapped the
+                 sentence under itself and read as two lines of one thought. It
+                 costs 22px of height each and no width at all, which is the same
+                 trade the plan rows make with their counts. -->
+            <div style="background: #101820; border: 1px solid #1c2530; border-radius: 8px; padding: 8px 16px; display: flex; flex-direction: column; gap: 6px;">
+              <div style="display: flex; align-items: baseline; gap: 12px;">
+                <div style="flex: 1; min-width: 0; font: 400 10px/12px ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; text-transform: uppercase; letter-spacing: 0.14em; color: #8b98a5;">Answered by you</div>
+                <div tabindex="0" style="font: 600 12px/16px 'Open Sans', sans-serif; color: #8b98a5; cursor: pointer; outline: none; flex: none; transition: color 160ms cubic-bezier(0.2, 0, 0.2, 1);" style-hover="color: #4d97ea;">Change</div>
+              </div>
+              <div style="font: 400 14px/22px 'Open Sans', sans-serif; color: #c3cdd7; text-wrap: pretty;"><span style="font-weight: 600;">Which disputes we check</span> — only the four reasons where a merchant can help</div>
             </div>
 
-            <div style="background: #101820; border: 1px solid #1c2530; border-left: 3px solid #2b7fe4; border-radius: 8px; padding: 8px 16px; display: flex; align-items: center; gap: 12px;">
-              <div style="width: 20px; height: 20px; flex: none; border-radius: 99px; background: rgba(139, 152, 165, 0.16); display: grid; place-items: center;"><img src="assets/flowx-mark-white.svg" alt="Agent" style="height: 10px; width: auto; flex: none;" /></div>
-              <div style="flex: 1; min-width: 0; font: 400 14px/22px 'Open Sans', sans-serif; color: #c3cdd7;"><span style="font-weight: 600;">What we tell the merchant</span> — the payment only, never the customer's own words</div>
-              <div tabindex="0" style="font: 600 12px/16px 'Open Sans', sans-serif; color: #8b98a5; cursor: pointer; outline: none; flex: none; transition: color 160ms cubic-bezier(0.2, 0, 0.2, 1);" style-hover="color: #4d97ea;">Take it back</div>
+            <div style="background: #101820; border: 1px solid #1c2530; border-radius: 8px; padding: 8px 16px; display: flex; flex-direction: column; gap: 6px;">
+              <div style="display: flex; align-items: baseline; gap: 12px;">
+                <div style="flex: 1; min-width: 0; font: 400 10px/12px ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; text-transform: uppercase; letter-spacing: 0.14em; color: #8b98a5;">Answered by me</div>
+                <div tabindex="0" style="font: 600 12px/16px 'Open Sans', sans-serif; color: #8b98a5; cursor: pointer; outline: none; flex: none; transition: color 160ms cubic-bezier(0.2, 0, 0.2, 1);" style-hover="color: #4d97ea;">Take it back</div>
+              </div>
+              <div style="font: 400 14px/22px 'Open Sans', sans-serif; color: #c3cdd7; text-wrap: pretty;"><span style="font-weight: 600;">What we tell the merchant</span> — the payment only, never the customer's own words</div>
             </div>
           </div>
 
@@ -675,7 +696,11 @@
               <div style="font: 400 10px/12px ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; text-transform: uppercase; letter-spacing: 0.14em; color: #8b98a5;">What I chose for you</div>
               <div style="font: 400 12px/16px 'Open Sans', sans-serif; color: #8b98a5;">Nothing to settle</div>
             </div>
-            <div style="background: #101820; border: 1px solid #1c2530; border-left: 3px solid #3d4a57; border-radius: 8px; padding: 12px 16px; display: flex; flex-direction: column; font: 400 14px/24px 'Open Sans', sans-serif; color: #c3cdd7;">
+            <!-- No stripe here either. It was the fourth colour in the key
+                 above — grey for "me alone" — and with green and blue gone it
+                 would have been the last member of a system nobody can read,
+                 saying what the label two lines up already says outright. -->
+            <div style="background: #101820; border: 1px solid #1c2530; border-radius: 8px; padding: 12px 16px; display: flex; flex-direction: column; font: 400 14px/24px 'Open Sans', sans-serif; color: #c3cdd7;">
               <div>Give the merchant <span tabindex="0" style="font: 400 14px/22px ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; color: #f5f9fc; border-bottom: 1px dashed #8b98a5; cursor: pointer; outline: none; transition: border-color 160ms cubic-bezier(0.2, 0, 0.2, 1);" style-hover="border-color: #4d97ea;" style-focus="border-color: #4d97ea; box-shadow: 0 0 0 3px rgba(43, 127, 228, 0.32);">4 seconds</span> to answer, then try <span tabindex="0" style="font: 400 14px/22px ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; color: #f5f9fc; border-bottom: 1px dashed #8b98a5; cursor: pointer; outline: none; transition: border-color 160ms cubic-bezier(0.2, 0, 0.2, 1);" style-hover="border-color: #4d97ea;" style-focus="border-color: #4d97ea; box-shadow: 0 0 0 3px rgba(43, 127, 228, 0.32);">once</span> more.</div>
               <div>Skip the check on anything under <span tabindex="0" style="font: 400 14px/22px ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; color: #f5f9fc; border-bottom: 1px dashed #8b98a5; cursor: pointer; outline: none; transition: border-color 160ms cubic-bezier(0.2, 0, 0.2, 1);" style-hover="border-color: #4d97ea;" style-focus="border-color: #4d97ea; box-shadow: 0 0 0 3px rgba(43, 127, 228, 0.32);">£10</span>.</div>
               <div>Keep the merchant's answer for <span tabindex="0" style="font: 400 14px/22px ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; color: #f5f9fc; border-bottom: 1px dashed #8b98a5; cursor: pointer; outline: none; transition: border-color 160ms cubic-bezier(0.2, 0, 0.2, 1);" style-hover="border-color: #4d97ea;" style-focus="border-color: #4d97ea; box-shadow: 0 0 0 3px rgba(43, 127, 228, 0.32);">30 days</span>.</div>
