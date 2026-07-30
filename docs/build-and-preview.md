@@ -53,3 +53,13 @@ python3 -m http.server 8765 --bind 127.0.0.1
 
 Always over HTTP. Opening `file://` breaks `support.js` and the local fonts. Open Sans ships
 from `fonts/`; Phosphor icons come from a CDN, so icons need network.
+
+## Publishing
+
+- Repo: <https://github.com/bogdandraghici/AI-Assisted-Builder> — **public**, branch `main`.
+- Pages: served from `main` at the repo root →
+  <https://bogdandraghici.github.io/AI-Assisted-Builder/>, redeploying on every push (~20s).
+  `.nojekyll` keeps files served verbatim.
+
+A push therefore publishes to a public URL that gets indexed, which is why CLAUDE.md holds it
+behind an explicit ask.
