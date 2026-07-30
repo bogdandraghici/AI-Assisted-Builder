@@ -42,6 +42,13 @@ question in the step pane. *Which* reply is the glyph and the word, never the co
 `ph-warning` with `Not agreed`, `ph-question-mark` with `Not answered`. Wash it where the
 reply is given, so what is asked and where you answer it are the same object.
 
+The wash is the *gradient*, and that is what this rule protects. A flat tint at the same
+values is a different object: the plan row's settle tag is
+`rgba(242,118,43,.14)` behind `1px solid rgba(242,118,43,.30)`, flat, when the row owes
+something, and `#131c24` behind `#26313d` when it owes nothing. It is a count wearing a
+colour, not a thing you answer where it stands — see [waiting.md](waiting.md) for why that
+became worth an exception and why row 3's chips are still grey.
+
 **There are no left status stripes.** A 3px stripe used to be a four-colour key — orange,
 green, blue, grey for who had settled a card — which asks the reader to learn four colours to
 be told what a word says plainly, and so reads as decoration, because that is all an
@@ -74,9 +81,9 @@ where a phone would use 18/28 — because a narrow column stretched across 1030p
 layout in a bigger window, which tests a layout nobody designed. The reverse holds too. What
 the *run* is shown to have done stays identical either way; only the app changes.
 
-**Two question marks, one rule.** A grey `ph-question-mark` marks a *mention* of a
-question — the "N to settle" counts, the chip, the captions — and takes the colour of
-the count or caption it precedes (`#8b98a5` or `#5c6975`), never one of its own. The
-orange one marks the question itself, on the one card where you answer it, and nowhere
-else. Same rule as the wash: the glyph says which kind, the colour only ever says
-"your move".
+**One question mark, one rule.** `ph-question-mark` marks a question wherever it appears —
+the "N to settle" counts, the chips, the captions, the tag, and the one card where you
+answer it — and it never has a colour of its own. It takes the colour of whatever it
+precedes: `#8b98a5` or `#5c6975` for a grey count, `#f2762b` inside an owed settle tag or on
+the answerable card. The glyph says which kind of waiting; the colour is the tag's or the
+count's, and it is the wash that says "answer this here".

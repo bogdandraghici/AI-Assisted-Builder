@@ -16,10 +16,11 @@ step's card, in the plan and in the spine, and the one open question in the step
 washes on screen with a step open is right, and says you owe two replies. Which reply is the
 glyph and the word, never the colour; the colour only ever says *your move*.
 
-Everything else stays quiet: a count of open questions in a plan row is grey mono, because a
-count is not a question you can answer where it stands. There are no left status stripes —
-see [type-and-palette.md](type-and-palette.md) for what that key cost, why the wash replaced
-it, and the wash's own values.
+Nothing else takes the wash — the 180° gradient behind a tinted edge is those two objects and
+no others. Colour alone is a narrower claim than the wash, and exactly one count spends it:
+the plan row's settle tag, below. There are no left status stripes — see
+[type-and-palette.md](type-and-palette.md) for what that key cost, why the wash replaced it,
+and the wash's own values.
 
 ## Rules that follow, each of them once broken here
 
@@ -40,14 +41,29 @@ it, and the wash's own values.
   before you asked to drop it at 09:39 — that timeline is what earns the screen its subject.
   Wash it where the reply is given, and the reply is best given here. Still one wash on that
   screen, still the same object the plan washes, still the same words in all three views.
-- **Never spend orange on a mention of a question — only on the question itself.** The four
-  routine questions are grey counts in their plan rows; the one you can answer where it
-  stands is washed. Orange every mention of them and it stops meaning *your move* and starts
-  meaning *questions exist*, which is a fact about the plan, not a call on you.
-- **A mention still gets the question's glyph — in grey.** Every "N to settle" count and
-  caption carries a `ph-question-mark` in the count's own grey, so the question kind of
-  waiting is recognisable on the plan without spending orange. The orange glyph appears only
-  on the answerable card in the step pane.
+- **One tag per plan row, and it is the whole of the row's right-hand column.** `N to settle`
+  or `Nothing to settle`, and nothing else. It replaced `N resources ›`, which counted the
+  agent's own output in a unit the reader has no way to judge — three resources is neither
+  good nor bad — and spent the one column a row has on a disclosure rather than on the row's
+  state. The plan is read for what is still owed, so that is what the column says. The
+  header's `Every version` went with it: the plan's history is a different pane's job, and
+  the step pane already keeps a version list with a scope worth having.
+- **The settle tag is the one mention that wears orange, and it wears a flat tint, never the
+  wash.** Orange when something is owed, grey when nothing is; the same chip either way, so
+  the count and the `ph-question-mark` still say *which* kind of waiting it is and the colour
+  says only whether there is any. This overturns the earlier rule that no mention of a
+  question could be orange — the argument being that orange means *your move* and a count is
+  a fact about the plan. What changed is what the column is: it is now the list of what is
+  owed, read down in one pass, and a row owing nothing has to be distinguishable from a row
+  owing two without reading five numbers. The wash's own meaning is untouched: still a
+  gradient, still two objects, still the only thing that says *answer this here*.
+- **The contested step's chips stay grey, and it is the one exception.** Row 3 already spends
+  orange twice — the wash and the `Not agreed` heading — and a third orange thing meaning
+  something else on one card is the two kinds of waiting wearing one colour. It says its open
+  question in words, in the card's footer caption, instead.
+- **A mention still gets the question's glyph, in its own colour.** Every "N to settle" count
+  and caption carries a `ph-question-mark` taking the colour of whatever it precedes — the
+  tag's orange, the count's grey everywhere else. The glyph never has a colour of its own.
 - **Selection never spends orange.** The step open beside the spine wears a 1px `#4d97ea`
   outline — blue is "you are here", orange is "your move", and they may stack. See
   [type-and-palette.md](type-and-palette.md).

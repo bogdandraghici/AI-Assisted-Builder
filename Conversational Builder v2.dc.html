@@ -88,22 +88,27 @@
           </span>
         </div>
         <div style="margin-left: auto; display: flex; align-items: center; gap: 12px;">
-          <!-- The build's identity, with the run ADDED to it rather than
-               swapping it. A sentence that swaps mid-move pops, and it is the
-               truer reading anyway: it is still build 2, and the run is one more
-               fact about it.
-               What this costs is honest and small. The cluster is right-anchored
-               by `margin-left: auto`, so everything after this line holds still
-               while the cell opens; this line's own left edge slides, on the
-               shared curve, as one element. That is the only thing in the top
-               bar that moves, and it moves smoothly rather than popping. -->
-          <div style="display: flex; align-items: center; font: 400 12px/16px 'Open Sans', sans-serif; color: #c3cdd7; white-space: nowrap;">
-            <span>build 2 · 09:37 · 7 resources exist</span>
-            <span style="display: inline-grid; grid-template-columns: {{ runCols }}; transition: grid-template-columns {{ moveDur }} {{ moveEase }};">
-              <span style="overflow: hidden; min-width: 0; white-space: nowrap; opacity: {{ runCrumbOp }}; transition: opacity {{ crumbOpDur }} {{ moveEase }} {{ runCrumbOpDl }};"> · ran 09:46 · reached 3 of 5</span>
-            </span>
+          <!-- What the run did, and nothing about the build. This line used to
+               open with the build's identity — `build 2 · 09:37 · 7 resources
+               exist` — and that was chrome-level bookkeeping on a screen whose
+               whole subject is what is still owed. The resource count was the
+               worst of it: a number nothing on the page could be reconciled
+               against, since no row states its own resources any more either.
+               The run's half stays, on the same collapsing cell as the run
+               crumb, so it holds no width until there is a run. The cluster is
+               right-anchored by `margin-left: auto`, so everything after this
+               holds still while the cell opens and only this line's left edge
+               slides, on the shared curve, as one element.
+               Its 12px gap lives INSIDE this wrapper for the same reason the
+               full-screen button's does: the cluster's own `gap: 12px` would
+               otherwise be spent on a zero-width child, and the plan state has
+               to stay pixel-identical. -->
+          <div style="display: inline-flex; align-items: center; gap: {{ fullGap }}; transition: gap {{ moveDur }} {{ moveEase }};">
+            <div style="display: grid; grid-template-columns: {{ runCols }}; transition: grid-template-columns {{ moveDur }} {{ moveEase }};">
+              <div style="overflow: hidden; min-width: 0; white-space: nowrap; font: 400 12px/16px 'Open Sans', sans-serif; color: #c3cdd7; opacity: {{ runCrumbOp }}; transition: opacity {{ crumbOpDur }} {{ moveEase }} {{ runCrumbOpDl }};">ran 09:46 · reached 3 of 5</div>
+            </div>
+            <div style="display: inline-flex; align-items: center; gap: 6px;"><div style="width: 26px; height: 26px; border-radius: 99px; border: 1px solid #26313d; background: #161f28; display: inline-flex; align-items: center; justify-content: center; color: #c3cdd7; cursor: pointer; flex: none; transition: background 160ms cubic-bezier(0.2, 0, 0.2, 1);" style-hover="background: #1c2632;"><i class="ph ph-arrow-counter-clockwise" style="font-size: 12px;"></i></div><div style="width: 26px; height: 26px; border-radius: 99px; border: 1px solid #26313d; background: #161f28; display: inline-flex; align-items: center; justify-content: center; color: #c3cdd7; cursor: pointer; flex: none; transition: background 160ms cubic-bezier(0.2, 0, 0.2, 1);" style-hover="background: #1c2632;"><i class="ph ph-arrow-clockwise" style="font-size: 12px;"></i></div></div>
           </div>
-          <div style="display: inline-flex; align-items: center; gap: 6px;"><div style="width: 26px; height: 26px; border-radius: 99px; border: 1px solid #26313d; background: #161f28; display: inline-flex; align-items: center; justify-content: center; color: #c3cdd7; cursor: pointer; flex: none; transition: background 160ms cubic-bezier(0.2, 0, 0.2, 1);" style-hover="background: #1c2632;"><i class="ph ph-arrow-counter-clockwise" style="font-size: 12px;"></i></div><div style="width: 26px; height: 26px; border-radius: 99px; border: 1px solid #26313d; background: #161f28; display: inline-flex; align-items: center; justify-content: center; color: #c3cdd7; cursor: pointer; flex: none; transition: background 160ms cubic-bezier(0.2, 0, 0.2, 1);" style-hover="background: #1c2632;"><i class="ph ph-arrow-clockwise" style="font-size: 12px;"></i></div></div>
           <!-- The act and the way to see more of it, paired so that the second
                one costs nothing until there is a run to fill the screen. The
                cluster's own `gap: 12px` would be spent on a zero-width child, so
@@ -539,7 +544,11 @@
                moving the content box a pixel. -->
           <div style="flex-grow: {{ planGrow }}; flex-shrink: 0; flex-basis: 0px; margin: 0 -8px; padding: 0 8px; overflow: hidden; min-height: 0; display: flex; flex-direction: column; visibility: {{ planVis }}; opacity: {{ planOp }}; transition: flex-grow {{ moveDur }} {{ moveEase }}, opacity {{ planOpDur }} {{ moveEase }} {{ planOpDl }}, visibility 0s linear {{ planVisDl }};">
             <div style="min-height: {{ planPinH }}; display: flex; flex-direction: column; flex: 1;">
-            <div style="flex: none; display: flex; align-items: flex-start; justify-content: space-between; gap: 24px; padding-bottom: {{ headPb }}; transition: padding-bottom {{ moveDur }} {{ moveEase }};">
+            <!-- One child now. `Every version` used to sit at the far right of
+                 this row and it was the plan's history, which is not what this
+                 header is for — the header says what the plan is owed, and a way
+                 to browse builds is a different pane's job. -->
+            <div style="flex: none; display: flex; align-items: flex-start; padding-bottom: {{ headPb }}; transition: padding-bottom {{ moveDur }} {{ moveEase }};">
               <div style="min-width: 0; display: flex; flex-direction: column; gap: 6px;">
                 <div style="font-family: 'Open Sans', sans-serif; font-weight: 700; font-size: {{ headSize }}; line-height: {{ headLh }}; color: #f5f9fc; transition: font-size {{ wrDur }} {{ wrEase }}, line-height {{ wrDur }} {{ wrEase }};">The plan</div>
                 <div style="display: flex; align-items: center; gap: 12px;">
@@ -570,12 +579,6 @@
                   </div>
                 </div>
               </div>
-              <div style="display: grid; grid-template-columns: {{ exCols }}; flex: none; transition: grid-template-columns {{ moveDur }} {{ moveEase }};">
-                <div style="overflow: hidden; min-width: 0; white-space: nowrap; padding-top: 8px; display: flex; align-items: center; gap: 6px; cursor: pointer; color: #8b98a5; opacity: {{ exOp }}; transition: opacity {{ exOpDur }} {{ moveEase }} {{ exOpDl }}, color 160ms cubic-bezier(0.2, 0, 0.2, 1);" style-hover="color: #4d97ea;">
-                  <div style="font: 400 12px/16px 'Open Sans', sans-serif;">Every version</div>
-                  <i class="ph ph-caret-right" style="font-size: 12px;"></i>
-                </div>
-              </div>
             </div>
 
             <div style="flex: 1; display: flex; flex-direction: column; min-height: 0;">
@@ -603,21 +606,42 @@
                              to be shrinking. It clips instead, invisibly — it is at
                              zero opacity long before the pane reaches it. The number
                              is the width the block actually has when open at the
-                             1440 design size (876 / 876 / 945 / 848 / 875 / 1015 —
+                             1440 design size (838 / 838 / 945 / 860 / 860 / 1015 —
                              they differ because the counts column beside each one
                              does), so at that size there is no reflow at all. This
                              is what lets the collapse and the resize be one move
                              instead of two. Measure them, never derive them: they
                              all moved when the chat went from 440 to a fixed 360,
-                             and rows 4 and 5 would have moved 78px again had their
-                             counts column taken "N to settle" side by side instead
-                             of stacking it. -->
-                        <div style="min-width: 876px; font: 400 12px/18px 'Open Sans', sans-serif; color: #8b98a5;">The customer sees ninety days of their own payments and picks the disputed one in a single click.</div>
+                             and all four row pins moved again when the counts
+                             column became a single settle tag — rows 1 and 2 lost
+                             38px because `Nothing to settle` is wider than
+                             `N resources ›`, rows 4 and 5 gained 12 and lost 15
+                             because the tag is narrower than either line of the
+                             stack it replaced. Read them with the pins lifted —
+                             a pin can only ever report itself — and floor the
+                             fraction: a pin above the real width overflows its
+                             clipping parent, and the text has hundreds of pixels
+                             of slack either way. See docs/motion.md. -->
+                        <div style="min-width: 838px; font: 400 12px/18px 'Open Sans', sans-serif; color: #8b98a5;">The customer sees ninety days of their own payments and picks the disputed one in a single click.</div>
                       </div>
                     </div>
                   </div>
+                  <!-- One tag per row, and it answers the only question the plan
+                       is for: is anything still owed here. It replaced `N
+                       resources ›`, which counted the agent's own output in a
+                       unit the reader has no way to judge — three is neither good
+                       nor bad — and put a disclosure in the column where the
+                       row's state belongs.
+                       Two colours, one shape. Grey is settled, orange is owed;
+                       the number and the `ph-question-mark` say which kind of
+                       waiting it is, exactly as the spine's chips do. This is the
+                       one place a count wears orange, and it is a deliberate
+                       change to the old rule — see docs/waiting.md. It stays a
+                       flat tint behind a 1px edge, never the 180° gradient: the
+                       wash is still the only thing that means "answer this
+                       here", and it still belongs to two objects only. -->
                   <div style="display: grid; grid-template-columns: {{ exCols }}; flex: none; transition: grid-template-columns {{ moveDur }} {{ moveEase }};">
-                    <div style="overflow: hidden; min-width: 0; white-space: nowrap; display: flex; align-items: center; gap: 4px; color: #8b98a5; padding-top: 3px; cursor: pointer; opacity: {{ exOp }}; transition: opacity {{ exOpDur }} {{ moveEase }} {{ exOpDl }}, color 160ms cubic-bezier(0.2, 0, 0.2, 1);" style-hover="color: #c3cdd7;"><div style="font: 400 12px/16px 'Open Sans', sans-serif;">3 resources</div><i class="ph ph-caret-right" style="font-size: 10px;"></i></div>
+                    <div style="overflow: hidden; min-width: 0; white-space: nowrap; display: flex; padding-top: 2px; opacity: {{ exOp }}; transition: opacity {{ exOpDur }} {{ moveEase }} {{ exOpDl }};"><div style="display: inline-flex; align-items: center; height: 18px; padding: 0 6px; border-radius: 4px; background: #131c24; border: 1px solid #26313d; color: #8b98a5; font: 400 10px/12px ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;">Nothing to settle</div></div>
                   </div>
                 </div>
               </div>
@@ -632,12 +656,12 @@
                     <div style="min-height: {{ tlB }}; font-family: 'Open Sans', sans-serif; font-weight: 600; font-size: {{ titleSize }}; line-height: {{ titleLh }}; max-width: {{ titleMax }}; color: #f5f9fc; text-wrap: pretty; transition: min-height {{ ldDur }} {{ ldEase }}, font-size {{ wrDur }} {{ wrEase }}, line-height {{ wrDur }} {{ wrEase }}, max-width {{ wrDur }} {{ wrEase }};">We ask what happened, in their words</div>
                     <div style="display: grid; grid-template-rows: {{ exRows }}; transition: grid-template-rows {{ moveDur }} {{ moveEase }};">
                       <div style="overflow: hidden; min-height: 0; opacity: {{ exOp }}; transition: opacity {{ exOpDur }} {{ moveEase }} {{ exOpDl }};">
-                        <div style="min-width: 876px; font: 400 12px/18px 'Open Sans', sans-serif; color: #8b98a5;">The customer describes it however they like, and we file it under a reason the scheme accepts — they never pick one.</div>
+                        <div style="min-width: 838px; font: 400 12px/18px 'Open Sans', sans-serif; color: #8b98a5;">The customer describes it however they like, and we file it under a reason the scheme accepts — they never pick one.</div>
                       </div>
                     </div>
                   </div>
                   <div style="display: grid; grid-template-columns: {{ exCols }}; flex: none; transition: grid-template-columns {{ moveDur }} {{ moveEase }};">
-                    <div style="overflow: hidden; min-width: 0; white-space: nowrap; display: flex; align-items: center; gap: 4px; color: #8b98a5; padding-top: 3px; cursor: pointer; opacity: {{ exOp }}; transition: opacity {{ exOpDur }} {{ moveEase }} {{ exOpDl }}, color 160ms cubic-bezier(0.2, 0, 0.2, 1);" style-hover="color: #c3cdd7;"><div style="font: 400 12px/16px 'Open Sans', sans-serif;">4 resources</div><i class="ph ph-caret-right" style="font-size: 10px;"></i></div>
+                    <div style="overflow: hidden; min-width: 0; white-space: nowrap; display: flex; padding-top: 2px; opacity: {{ exOp }}; transition: opacity {{ exOpDur }} {{ moveEase }} {{ exOpDl }};"><div style="display: inline-flex; align-items: center; height: 18px; padding: 0 6px; border-radius: 4px; background: #131c24; border: 1px solid #26313d; color: #8b98a5; font: 400 10px/12px ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;">Nothing to settle</div></div>
                   </div>
                 </div>
               </div>
@@ -677,10 +701,11 @@
                         <div style="min-height: {{ tlA }}; font-family: 'Open Sans', sans-serif; font-weight: 600; font-size: {{ titleSize }}; line-height: {{ titleLh }}; max-width: {{ cardTitleMax }}; color: #f5f9fc; text-wrap: pretty; transition: min-height {{ ldDur }} {{ ldEase }}, font-size {{ wrDur }} {{ wrEase }}, line-height {{ wrDur }} {{ wrEase }}, max-width {{ wrDur }} {{ wrEase }};">We check with the merchant before asking for evidence</div>
                         <!-- An arrow, not a caret. Two glyphs, two meanings, no
                              overlap: caret-right is a disclosure that opens in the
-                             pane you are already in (resources, every version, the
-                             technical table), arrow-right changes what you are
-                             looking at. The title and the button below it do the
-                             same thing, so they carry the same glyph. -->
+                             pane you are already in (the step pane's technical
+                             table and its version list — the plan itself no longer
+                             holds one), arrow-right changes what you are looking
+                             at. The title and the button below it do the same
+                             thing, so they carry the same glyph. -->
                         <i class="ph ph-arrow-right" style="font-size: {{ caretSize }}; color: #f2985c; flex: none; opacity: {{ exOp }}; transition: font-size {{ wrDur }} {{ wrEase }}, opacity {{ exOpDur }} {{ moveEase }} {{ exOpDl }};"></i>
                       </div>
                       <!-- The chip and nothing else. The step's open question wanted
@@ -719,12 +744,14 @@
                              the colour only ever says "your move". It takes the
                              count's own colour, never one of its own. -->
                         <div style="max-width: 206px; padding-top: 8px; display: flex; flex-wrap: wrap; gap: 6px;">
-                          <!-- Neutral, not orange. Orange is the disagreement, and
-                               the spine already spends it twice on this step — the
-                               wash and the "Not agreed" heading above it. A third
-                               orange thing that means something else entirely was
-                               the two kinds of waiting wearing one colour. Same
-                               chip as "2 not built" beside it: both are counts. -->
+                          <!-- Neutral, and this is the one row where that still
+                               holds. The settle tag is orange everywhere else in
+                               the plan, but the spine already spends orange twice
+                               on this step — the wash and the "Not agreed"
+                               heading above it — and a third orange thing meaning
+                               something else entirely is the two kinds of waiting
+                               wearing one colour on one card. Same chip as "2 not
+                               built" beside it: both are counts. -->
                           <div style="display: inline-flex; align-items: center; gap: 4px; height: 18px; padding: 0 6px; border-radius: 4px; background: #131c24; border: 1px solid #26313d; color: #8b98a5; font: 400 10px/12px ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;"><i class="ph ph-question-mark" style="font-size: 10px;"></i>1 to settle</div>
                           <div style="display: inline-flex; align-items: center; height: 18px; padding: 0 6px; border-radius: 4px; background: #131c24; border: 1px solid #26313d; color: #8b98a5; font: 400 10px/12px ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;">2 not built</div>
                         </div>
@@ -831,7 +858,7 @@
                     <div style="min-height: {{ tlB }}; font-family: 'Open Sans', sans-serif; font-weight: 600; font-size: {{ titleSize }}; line-height: {{ titleLh }}; max-width: {{ titleMax }}; color: #c3cdd7; text-wrap: pretty; transition: min-height {{ ldDur }} {{ ldEase }}, font-size {{ wrDur }} {{ wrEase }}, line-height {{ wrDur }} {{ wrEase }}, max-width {{ wrDur }} {{ wrEase }};">We ask for evidence, only what the reason needs</div>
                     <div style="display: grid; grid-template-rows: {{ exRows }}; transition: grid-template-rows {{ moveDur }} {{ moveEase }};">
                       <div style="overflow: hidden; min-height: 0; opacity: {{ exOp }}; transition: opacity {{ exOpDur }} {{ moveEase }} {{ exOpDl }};">
-                        <div style="min-width: 848px; font: 400 12px/18px 'Open Sans', sans-serif; color: #8b98a5;">The customer sends the one document their reason needs, and nothing at all when the reason needs none.</div>
+                        <div style="min-width: 860px; font: 400 12px/18px 'Open Sans', sans-serif; color: #8b98a5;">The customer sends the one document their reason needs, and nothing at all when the reason needs none.</div>
                       </div>
                     </div>
                     <div style="display: grid; grid-template-rows: {{ rmRows }}; transition: grid-template-rows {{ moveDur }} {{ moveEase }};">
@@ -840,25 +867,19 @@
                       </div>
                     </div>
                   </div>
+                  <!-- One thing here now, where there were two stacked: `Nothing
+                       built yet ›` over the count. The stack existed to keep the
+                       column narrow — side by side it was 74px wider, and 74px is
+                       74px the title has to be narrower than at every instant of
+                       the move, which mid-flight put the title's real width
+                       (282px at t=167) BELOW its own animating max-width (332px)
+                       and handed the pane the decision about where the line
+                       broke. Dropping the build state removes the pressure
+                       entirely rather than arranging around it: the column is now
+                       one tag, narrower than either stack, and the description's
+                       pin beside it grew to match. -->
                   <div style="display: grid; grid-template-columns: {{ exCols }}; flex: none; transition: grid-template-columns {{ moveDur }} {{ moveEase }};">
-                    <!-- Stacked, not side by side, and the reason is the move rather
-                         than the layout. Beside each other the column is 74px wider,
-                         which is 74px the title has to be narrower than at every
-                         instant — and mid-flight that put the title's real width
-                         (282px at t=167) BELOW its own animating max-width (332px),
-                         so the pane took over deciding where the line broke. That is
-                         the one inequality the simultaneous move rests on. It never
-                         showed as a jump, because the overshoot stayed sub-line; it
-                         showed as box-underrun going 1.4px -> 3.0px. Stacked, the
-                         column is as wide as its widest line and nothing changes.
-                         It also lines up: the build state sits on the title's line,
-                         the open-question count on the description's, so each row's
-                         two lines each get their own fact at the right-hand end.
-                         Two things here and only one is a disclosure — the count has
-                         no caret and no cursor, because a step's open questions are
-                         not behind the resource caret and a hover reaching across
-                         both would say they were. -->
-                    <div style="overflow: hidden; min-width: 0; white-space: nowrap; display: flex; flex-direction: column; align-items: flex-end; gap: 6px; padding-top: 3px; opacity: {{ exOp }}; transition: opacity {{ exOpDur }} {{ moveEase }} {{ exOpDl }};"><div style="display: flex; align-items: center; gap: 4px; color: #8b98a5; cursor: pointer; transition: color 160ms cubic-bezier(0.2, 0, 0.2, 1);" style-hover="color: #c3cdd7;"><div style="font: 400 12px/16px 'Open Sans', sans-serif;">Nothing built yet</div><i class="ph ph-caret-right" style="font-size: 10px;"></i></div><div style="display: flex; align-items: center; gap: 4px; font: 400 10px/12px ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; color: #8b98a5;"><i class="ph ph-question-mark" style="font-size: 10px;"></i>2 to settle</div></div>
+                    <div style="overflow: hidden; min-width: 0; white-space: nowrap; display: flex; padding-top: 2px; opacity: {{ exOp }}; transition: opacity {{ exOpDur }} {{ moveEase }} {{ exOpDl }};"><div style="display: inline-flex; align-items: center; gap: 4px; height: 18px; padding: 0 6px; border-radius: 4px; background: rgba(242, 118, 43, 0.14); border: 1px solid rgba(242, 118, 43, 0.30); color: #f2762b; font: 400 10px/12px ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;"><i class="ph ph-question-mark" style="font-size: 10px;"></i>2 to settle</div></div>
                   </div>
                 </div>
               </div>
@@ -879,7 +900,7 @@
                              asking for something. It states an outcome now, like rows 1
                              and 2, and the open question is counted by the `1 to settle`
                              chip beside it, which is how rows 3 and 4 already do it. -->
-                        <div style="min-width: 875px; font: 400 12px/18px 'Open Sans', sans-serif; color: #8b98a5;">Disputes above {{ threshold }} reach a person instead of an automatic decision, and the customer is told a reviewer has it.</div>
+                        <div style="min-width: 860px; font: 400 12px/18px 'Open Sans', sans-serif; color: #8b98a5;">Disputes above {{ threshold }} reach a person instead of an automatic decision, and the customer is told a reviewer has it.</div>
                       </div>
                     </div>
                     <div style="display: grid; grid-template-rows: {{ rmRows }}; transition: grid-template-rows {{ moveDur }} {{ moveEase }};">
@@ -889,7 +910,7 @@
                     </div>
                   </div>
                   <div style="display: grid; grid-template-columns: {{ exCols }}; flex: none; transition: grid-template-columns {{ moveDur }} {{ moveEase }};">
-                    <div style="overflow: hidden; min-width: 0; white-space: nowrap; display: flex; flex-direction: column; align-items: flex-end; gap: 6px; padding-top: 3px; opacity: {{ exOp }}; transition: opacity {{ exOpDur }} {{ moveEase }} {{ exOpDl }};"><div style="display: flex; align-items: center; gap: 4px; color: #8b98a5; cursor: pointer; transition: color 160ms cubic-bezier(0.2, 0, 0.2, 1);" style-hover="color: #c3cdd7;"><div style="font: 400 12px/16px 'Open Sans', sans-serif;">1 of 2 exists</div><i class="ph ph-caret-right" style="font-size: 10px;"></i></div><div style="display: flex; align-items: center; gap: 4px; font: 400 10px/12px ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; color: #8b98a5;"><i class="ph ph-question-mark" style="font-size: 10px;"></i>1 to settle</div></div>
+                    <div style="overflow: hidden; min-width: 0; white-space: nowrap; display: flex; padding-top: 2px; opacity: {{ exOp }}; transition: opacity {{ exOpDur }} {{ moveEase }} {{ exOpDl }};"><div style="display: inline-flex; align-items: center; gap: 4px; height: 18px; padding: 0 6px; border-radius: 4px; background: rgba(242, 118, 43, 0.14); border: 1px solid rgba(242, 118, 43, 0.30); color: #f2762b; font: 400 10px/12px ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;"><i class="ph ph-question-mark" style="font-size: 10px;"></i>1 to settle</div></div>
                   </div>
                 </div>
               </div>
@@ -1283,10 +1304,12 @@
           <div style="flex: 1; min-height: 24px;"></div>
 
           <div style="flex: none; border-top: 1px solid #18212a; padding-top: 12px; display: flex; flex-direction: column; gap: 12px; opacity: {{ dOp }}; transform: {{ dTr }}; transition: opacity {{ dDur }} cubic-bezier(0.2, 0, 0.2, 1) {{ dDl }}, transform {{ dDur }} cubic-bezier(0.2, 0, 0.2, 1) {{ dDl }};">
-            <!-- "Every version" belongs to the plan header, which collapses
-                 into the spine, so the step state had no history at all. This one
-                 is the step's own, which is the more useful scope anyway: what
-                 did this step look like before we argued about it. -->
+            <!-- The only version history left, and the only place resources are
+                 counted. Both used to be duplicated in the plan — a header link
+                 and an `N resources ›` on every row — where they answered
+                 nothing the plan is read for. Here they have a scope worth
+                 having: what did THIS step look like before we argued about it,
+                 and what does it actually stand on. -->
             <div style="display: flex; align-items: center; gap: 24px;">
               <div onClick="{{ toggle }}" style="flex: 1; min-width: 0; display: flex; align-items: center; gap: 8px; cursor: pointer; color: #8b98a5; transition: color 160ms cubic-bezier(0.2, 0, 0.2, 1);" style-hover="color: #c3cdd7;">
 <sc-if value="{{ closed }}" hint-placeholder-val="{{ false }}">

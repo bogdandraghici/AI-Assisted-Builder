@@ -46,9 +46,18 @@ when open and it clips instead of reflowing — invisibly, since it is at zero o
 before the pane reaches it.
 
 Measure the number, don't guess it: they differ per row
-(**876 / 876 / 945 / 848 / 875 / 1015** at 1440) because the counts column beside each one
+(**838 / 838 / 945 / 860 / 860 / 1015** at 1440) because the counts column beside each one
 does. They are a function of the chat pane's width, so anything that moves that pane
-invalidates all six — they all shifted 80px when the chat settled on one 360 width.
+invalidates all six — they all shifted 80px when the chat settled on one 360 width — and of
+what the counts column holds, so all four row pins moved again when it became a single
+settle tag.
+
+A pin can only ever report itself, so the ordinary probe cannot read the number it should
+be. Lift every `min-width` to 0 at once, read what each box is then given, and put them
+back — the rows are independent, so lifting them together is safe. Take the **floor** of the
+fraction that comes back: a pin above the real width overflows its clipping parent and shows
+up as box-underrun, and the text has hundreds of pixels of slack either way. (Probes are
+gitignored; this one is four lines on top of the hydration gate below.)
 
 Measure with the webfonts *loaded*: gate the probe on `document.fonts.ready` plus an
 explicit `fonts.load()` of the weights the plan uses, or a late-arriving face shifts every
@@ -59,9 +68,12 @@ counts column beside them stay stable while the others move.
 
 It widens the counts column, which narrows the title beside it at every instant of the move,
 and a title whose real width drops below its own animating `max-width` hands the wrapping
-back to the pane — which is the one thing the pin above exists to prevent. **Stack the count
-under the build phrase rather than beside it**, so the column stays as wide as its widest
-line and every `min-width` pin holds.
+back to the pane — which is the one thing the pin above exists to prevent. Side by side, the
+count and the build phrase cost 74px of column and took the title's real width (282px at
+t=167) below its own animating `max-width` (332px). Stacking them was the first answer and
+it held the pins; the column holds **one settle tag** now, which is narrower than either
+line of that stack, so the pressure is gone rather than arranged around. Whatever goes back
+in there, keep the column as narrow as the row's state can be said in.
 
 ### Rewrapping is not motion, it is a stack of 18px jumps
 
