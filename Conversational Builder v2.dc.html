@@ -1761,7 +1761,12 @@ class Component extends DCLogic {
       // closes, so the crumb never spends a frame as a clipped sliver.
       crumbOpDur: on ? '200ms' : '110ms',
       crumbOpDl: on ? '160ms' : '0ms',
-      planCrumbColor: on ? '#c3cdd7' : '#ffffff',
+      // Three tiers, three meanings, and only ONE crumb may be white semibold:
+      // that tier says "you are here". With the run open, `Test run` is where you
+      // are, so `The plan` has to drop to the link tier — exactly as it does with
+      // a step open. Keyed on `on` alone it stayed white, and the bar read as two
+      // heres at once.
+      planCrumbColor: (on || run) ? '#c3cdd7' : '#ffffff',
 
       // ── Screen 02: the run, and where it stops ───────────────────────────
       // Three stage states, chosen with sc-if. That is legal here and only
