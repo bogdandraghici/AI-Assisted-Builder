@@ -29,139 +29,140 @@ drawing; now it is what happened.
 
 **The run stops after step 3, not at it.**
 
-## Geometry — 360 + 440 + 640 = 1440
+## Geometry — 360 + 1080 = 1440, and why the phone had to go
 
-Throughout, `⍰` stands for a grey `ph-question-mark` at 10px in the colour of the count or
-caption it precedes — never a colour of its own.
+The first build put a 360px phone in a 640px stage beside a 440px rail. That was not an
+aesthetic choice — 360 was the only viewport that fits there at **1:1**. A desktop viewport
+wants ≥1024, and no rail width buys it:
+
+| Rail | Stage | 1:1 desktop? |
+|---|---|---|
+| 440 | 640 | no |
+| 300 (the spine's width) | 780 | no |
+| 200 (too narrow for titles) | 880 | no |
+| 0 | 1080 | yes |
+
+**At 1440, a 1:1 desktop viewport and any vertical rail are mutually exclusive.** Scaling is
+not a way out — a 1280 window at 0.5 puts the app's 14px text at 7px, a test you cannot read
+— and neither is clipping, which hides the control you are meant to have used.
+
+So the rail lies down, and that is the better shape. A run reads left to right, so the
+boundary becomes a **wall across its path** rather than a rule beneath it.
 
 ### Chat, 360, and it does not move
 
-Same width, same composer, same messages as screen 01, plus one turn. The chat is the one
-thing on this prototype that never moves; screen 02 does not break that.
+Unchanged from the first build: same width, same composer, same messages, plus the agent's
+09:46 run report (~4 lines at the pane's 278px measure) and the composer caption
+**"Anything you type lands on the step you are looking at."** Measured to fit at 676 of 723
+usable, no scroller. If the agent's turn grows past ~5 lines, shorten the copy.
 
-- New agent turn at **09:46**, ~4 lines at the pane's 278px measure (≈170 chars):
-  *"I ran what exists. Both built steps, then the check — which went out while the customer
-  was still typing and came back in three seconds. It stops there."*
-- Composer caption changes from *"Anything you type lands on the step it is about."* to
-  **"Anything you type lands on the step you are looking at."** On the plan the agent
-  infers the step; here you are looking at one. This is the run's yield — what you noticed
-  becomes plan language on the right step — and it is the existing promise sharpened, not
-  a new mechanism.
-- **Measured to fit:** blocks total 676 of 723 usable (pane 852 − 105 composer − 24 top
-  padding, minus six 24px gaps). No clipping and no scroller. If the agent's turn grows
-  past ~5 lines this stops being true — shorten the copy, do not add a scroller.
+### Stage, 1080
 
-### Rail, 440
+`padding: 24px` → inner **1032**, a column with the browser frame at `flex: 1` and the run
+strip at `flex: none`. That ordering matters: a node title that wraps to a third line costs
+the app height rather than clipping the strip, so nothing needs a pinned measurement.
 
-Headed `The plan`, at 18/28 700. Subtitle is the plan's own, verbatim:
-`Two of five built · one not agreed · ⍰ four to settle`. It is the same object as the wide
-plan and the spine and must not acquire a third name. The five-segment dash bar comes
-across unchanged at 18px, for the same reason.
+**The frame** is `1032 × flex`, `1px solid #26313d`, radius **12** — the system's own, because
+a browser frame is chrome. The 32px "hardware geometry" exemption the phone bezel needed is
+gone, and the repo has no off-scale radius again. Still no shadow. Inside: a 36px chrome bar
+(`#f4f6f8`, three 8px `#dfe5ea` dots, a 420px URL pill in mono) then the app.
 
-Padding `20px 24px 16px` → inner 392. Row: 20px dot gutter + 16px gap → 356px title
-column. **Row titles at 14/22 600** — the plan's own title role, not the spine's
-compressed 12/18: on this screen the rail *is* the plan, not a companion to a wider one.
+### The run strip
 
-Dot vocabulary is the spine's, unchanged: green `ph-check`, orange `ph-warning`, dashed
-grey circle, solid-bordered circle with `ph-user`. All three group headings show
-(`Agreed` #2ea86a, `Not agreed` #f2762b, `Next` #5c6975), plus the trailing "two more steps
-will be needed" note.
+Five nodes at `flex: 1 1 0px` over 1016, with a 16px wall column after node 3. The group
+labels row (`2 : 1 : 2`) and the boundary row (`3 : 2`) share that denominator, so every row
+lands on the same column edges without a grid.
 
-Each row gains **one mono line stacked under the title, never beside it** — the counts-column
-rule from `docs/motion.md`, applied for the same reason (a wider column narrows the title):
+Each node: a 20px dot on the rail with its connector running right (solid for 1–3, dashed for
+4–5), then a 12px-padded title block at **12/18 600** and the run's mono line beneath it.
+Titles at 12/18 rather than the plan's 14/22 — 203px of column will not carry the larger role.
 
-| Row | Mono line |
-|-----|-----------|
+| Node | Mono |
+|---|---|
 | 1 | `ran · picked 1 of 12` |
 | 2 | `ran · 22 words` |
 | 3 | `ran · unseen · 3s` |
-| 4 | `not built` |
-| 5 | `not built` |
+| 4 | `not built` + `⍰ 2 to settle` |
+| 5 | `not built` + `⍰ 1 to settle` |
 
-`ran` lines in `#8b98a5`; `not built` in `#5c6975`. Grey `⍰ N to settle` stays exactly
-where the spine puts it, in the count's own colour.
+**The wall** is a 2px solid `#26313d` vertical rule at `left: calc((100% - 16px) * 0.6)`,
+running from the labels row to just above the act. Same colour as the connectors and
+unmistakable anyway: they run *with* the journey, it runs *across*.
 
-**Two channels, no conflation:** the dot says agreement state, the mono says what the run
-did. Neither is the other's colour.
+**The act is pinned under the strip** — buttons left, caption right — which is the step pane's
+own footer shape, adopted for the step pane's own reason. A 203px node cannot hold a 250px
+button pair, and the wash, the `⚠` and the caption are what tie the act to node 3, exactly as
+the step pane's pinned footer ties to its `Not agreed` badge 470px above it.
 
-**Measured to 811 of 852** — no scroller, so no act is below a fold and the pinned-act rule
-does not bite. If the rail ever overflows, the act pins beneath it the way the step pane's
-does.
+### The app's palette and layout are both its own
 
-### Stage, 640
+Palette confined inside the frame: ground `#ffffff`, surface `#f4f6f8`, text `#1a2129`,
+secondary `#5c6975`, hairline `#dfe5ea`, action `#2b7fe4`, radius 8. Same type ladder, same
+family.
 
-A phone, **360 × 760**, centred — 140px of ground each side, vertically centred with ~16px
-slack at 900 and more on a taller viewport. Bezel is `1px solid #26313d` at **32px radius**,
-`overflow: hidden`, and **no shadow**.
+**And the layout is a web app's, not the phone's stretched.** Two columns where the phone
+stacked, a table where it listed, 24/38 where it used 18/28 — because a narrow column
+stretched across 1030px is the mobile layout in a bigger window, which tests a layout nobody
+designed. What the *run* is shown to have done is identical either way; only the app changes.
 
-The 32px radius is **hardware geometry, not the UI radius scale** — the same exemption
-Phosphor's icon sizes get from the type ladder. It is the only off-scale radius on the
-screen and it exists because a 360px slab at 12px does not read as a phone.
-
-Below the phone, one mono 12/16 `#8b98a5` caption doing the job the phone cannot do for
-itself:
-
-- `at=1` → `step 1 · they picked one of twelve`
-- `at=2` → `step 2 · twenty-two words, then Continue`
-- `at=3` → `step 3 · the check ran behind this screen · unseen · 3s`
-
-### The phone's palette: light, and contained
-
-The app renders in its own light palette so it is unmistakably **not another pane of the
-tool**: ground `#ffffff`, surface `#f4f6f8`, text `#1a2129`, secondary `#5c6975`, hairline
-`#dfe5ea`, action `#2b7fe4` (the same FlowX blue), radius 8. Type is the same ladder and
-the same family — 18/28, 14/22, 12/18. Status bar reads `09:46`.
-
-The palette is confined to the inside of the bezel. It never touches the rail, the chat or
-the chrome.
+The app's own header is `Dispute a payment` / `Save and exit`, which invents no brand.
 
 ## The three stage states, and one way forward
 
-`?at=` on `location.search`, exactly the way screen 01 reads `?step=`. Default is **3**.
+`?at=` off `location.search`, default **3**. The URL in the chrome bar replaces the caption
+the bezel needed — and at the edge it still reads `what-happened`, which is the run never
+having advanced, said by the app rather than about it.
 
-1. **`at=1` — "Which payment?"** A transaction list. One row is live and tappable →
-   advances to 2.
-2. **`at=2` — "What happened?"** Typed text and a live `Continue` → advances to 3.
-3. **`at=3` (default) — the edge.** The same screen as 2, under an `rgba(11,18,24,.72)`
-   veil, with **the tool drawing over the app**: a `#101820` panel, `1px solid #26313d`,
-   radius 12, padding 16, ~296px wide, centred in the frame. Mono micro-label
-   `WHAT EXISTS ENDS HERE` (10/12, +.14em, `#8b98a5`), then 12/18 `#c3cdd7`: *"The customer
-   would go on to send a receipt. That step is not built."* **No forward affordance**,
-   because there is not one.
+1. **`at=1` — "Which payment?"** `bank.example/dispute/which-payment`. A table: merchant /
+   date / card / amount, six rows plus `Showing 12 payments from the last ninety days.` Six,
+   not seven — the footer is what makes `picked 1 of 12` checkable rather than trusted, and at
+   seven rows the frame clipped it. Row 1 is live (`#f4f6f8`, `ph-arrow-right` in `#2b7fe4`)
+   and advances to 2.
+2. **`at=2` — "What happened?"** `bank.example/dispute/what-happened`. Form left (max 620,
+   textarea + a 180px `Continue`), the payment's summary card right (300). `Continue` advances
+   to 3.
+3. **`at=3` (default) — the edge.** The same screen under an `rgba(11, 18, 24, 0.28)` veil
+   (measured: `#BBBDBF` over white — light enough that it still reads as a white app), with
+   the tool's plate at **bottom-left**, aligned to the app's own content column. A form leaves
+   its lower half empty, so the tool speaks into the app's own emptiness, which is the better
+   argument anyway. `#101820`, `1px solid #26313d`, radius 12, max-width 480:
+   `WHAT EXISTS ENDS HERE` then *"The customer would go on to send a receipt. That step is not
+   built."* No forward affordance, because there is not one.
 
-The panel is in the builder's dark palette on purpose: white is the thing you built, dark
-is the tool speaking. It carries **no wash** — it is a fact about the build, not your move.
+**Everything else in the app is a still** — no hover, no cursor, no tabindex. The two live
+controls carry `tabindex="0"` and a focus ring, because the mouse can reach them and the rule
+runs both ways: withdraw the tabindex with the pointer, but never leave a pointer target the
+keyboard cannot reach.
 
-**Everything else inside the phone is a still** — no hover, no `cursor: pointer`, no
-tabindex. The phone offers exactly what the run offers: one way on, or none. A hoverable
-`Continue` on a screen you cannot drive would be the phone lying, which is the same rule
-as the plan card's `pointer-events` gate.
-
-The stage swaps **instantly, via `sc-if`** — no cross-fade. Three genuinely different
-screens are not one thing changing shape, so the "one element per thing" rule does not
-apply and `sc-if` is what `docs/motion.md` reserves for exactly this.
+The stage swaps **instantly via `sc-if`** — three genuinely different screens are not one
+thing changing shape, so the "one element per thing" rule does not apply.
 
 ## The edge, and the act
 
-**Step 3's rail row wears the wash** and carries `Agree` / `Comment further` — the same
-pair, the same 36px, the same glyphs (`ph-check`, `ph-chat-teardrop-text`) as the plan
-card and the step pane's pinned footer — plus the same caption in the same words:
-`⍰ One question still to settle before I build it.`
+**Node 3 wears the wash**, and the act pinned beneath the strip carries `Agree` /
+`Comment further` — the same pair, the same 36px, the same glyphs (`ph-check`,
+`ph-chat-teardrop-text`) as the plan card and the step pane's pinned footer — plus the same
+caption in the same words: `⍰ One question still to settle before I build it.`
 
 It is the third view of one object and it says the same thing in the same words, per the
 one-status-word rule. It wears the wash because **this is where you now have the best
 reason to answer**: you have just watched the disputed step run without touching the
 customer. Wash it where the reply is given.
 
-The card: padding 16, radius 12, the wash gradient behind `rgba(242,118,43,.30)`. Title
-(max 324px), mono `ran · unseen · 3s`, an `rgba(242,118,43,.16)` hairline, the act row,
-then the caption beneath the buttons.
+Node 3's card: padding 12, radius 12, the wash gradient behind `rgba(242,118,43,.30)`, the
+title and `ran · unseen · 3s`. The other four nodes carry `1px solid transparent` so all five
+titles start on the same line.
 
-**Then the boundary**, between that card and the `NEXT` heading: a `#26313d` hairline with
-mono `WHAT EXISTS ENDS HERE` (10/12, +.14em, `#5c6975`) and one line of plan language,
+**Then the boundary**, under the region it describes and starting at the wall: mono
+`WHAT EXISTS ENDS HERE` (10/12, +.14em, `#5c6975`) stacked over one line of plan language,
 12/18 `#8b98a5`:
 
-> The merchant's answer has nowhere to go until the evidence step exists.
+> The merchant's answer has nowhere to go until the evidence step exists. Two more steps after
+> these are not written yet.
+
+The second sentence is the wide plan's trailing note, which had nowhere to go when the rail
+lay down — and this is the one region on the screen that is about what does not exist, so it
+belongs here rather than nowhere.
 
 Grey, never orange — it is a fact about the build, not your move. And it names **no
 resource**: `enquiryToContext.dataMapper` is behind a disclosure on screen 01 and stays
@@ -171,10 +172,10 @@ there.
 
 - **One wash on this screen**, and it is the same object the plan washes. Not the boundary,
   not the `not built` rows, not the overlay panel.
-- **Blue is "you are here":** a 1px `#4d97ea` outline at `outline-offset: 3px` on the rail
-  row whose screen the stage is showing. Stacks with the wash on row 3 at `at=3`, which is
-  the orthogonality the rule already permits.
-- Rows 4 and 5 are **inert**: `pointer-events: none`, `tabindex="-1"`, no hover. Nothing
+- **Blue is "you are here":** a 1px `#4d97ea` outline at `outline-offset: 3px` on the node
+  whose screen the stage is showing. Stacks with the wash on node 3 at `at=3`, which is the
+  orthogonality the rule already permits.
+- Nodes 4 and 5 are **inert**: `pointer-events: none`, `tabindex="-1"`, no hover. Nothing
   offers what it cannot do.
 - Every `N to settle` mention keeps its grey `ph-question-mark`. No orange question mark
   appears on this screen — there is no question you can answer here.
@@ -198,7 +199,7 @@ same fidelity the bell and the kebab already have:
 1. `Test what exists` on screen 01 stays inert, and so does `Run again` here. The screens
    are linked by `index.html`, the way `?step=3` already is. A real `location.href` link
    would work standalone but jump you out of the source doc.
-2. Nothing inside the phone except the one forward action does anything.
+2. Nothing inside the app except the one forward action does anything.
 
 ## Wiring
 
@@ -231,11 +232,12 @@ Two new sections, matching the existing two-embed pattern:
   byte-identical.
 - Screen 01 resting states are **pixel-identical** to the previous build in both states —
   screen 02 must not touch the shared `Component`'s existing keys or the one-beat move.
-- Screen 02 at 1440×900: no scrollbar in the rail, no scrollbar in the chat, all three
-  `at` states render, and the phone's bezel is not clipped.
-- Keyboard: tab reaches rail rows 1–3, `Agree`, `Comment further`, the live phone action,
-  the back arrow and the crumb — and reaches **nothing** in rows 4–5 or in the phone's
-  stills.
+- Screen 02 at 1440×900: no scrollbar in the chat, all three `at` states render, the browser
+  frame is not clipped, and no app content is cut off by the frame's `overflow: hidden` —
+  the table's footer is the one that goes first.
+- Keyboard: tab reaches strip nodes 1–3, `Agree`, `Comment further`, the app's one live
+  control, the back arrow and the crumb — and reaches **nothing** in nodes 4–5 or in the
+  app's stills.
 - `prefers-reduced-motion` needs no new handling: nothing on screen 02 animates but hovers
   and the discrete `sc-if` swap.
 
@@ -245,4 +247,5 @@ Two new sections, matching the existing two-embed pattern:
   kinds of waiting" (a run of what exists may carry the wash for the step it is evidence
   about).
 - `docs/type-and-palette.md` — the contained light palette for previewed customer screens,
-  and the hardware-geometry exemption for the bezel radius.
+  that the frame is chrome and takes the system's 12px radius, and that the previewed app's
+  layout is its own platform's rather than the tool's or another platform's.
