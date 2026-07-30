@@ -28,20 +28,18 @@
     <div style="display: flex; flex-direction: column; gap: 10px;">
       <div style="font: 400 10px/12px ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; text-transform: uppercase; letter-spacing: 0.14em; color: #8b98a5;">System sheet · conversational builder v2</div>
       <div style="font: 700 24px/38px 'Open Sans', sans-serif; color: #f5f9fc;">The choice cards</div>
-      <div style="font: 400 14px/24px 'Open Sans', sans-serif; color: #a9b6c3; max-width: 96ch; text-wrap: pretty;">Every decision in a plan arrives as one card. It has two grounds and nothing in between: the orange wash means <strong style="font-weight: 600; color: #f5f9fc;">this is waiting on your reply</strong>, and the quiet outlined card means it is settled. Which reply is owed comes from the glyph and the word — never from the colour, because a second orange would make the two kinds of waiting one mark. Cards drawn on this sheet carry the product's own values, read out of <span style="font: 400 12px/16px ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; color: #c3cdd7;">Conversational Builder v2</span>.</div>
+      <div style="font: 400 14px/24px 'Open Sans', sans-serif; color: #a9b6c3; max-width: 96ch; text-wrap: pretty;">Two grounds and nothing between them: the wash means this is waiting on your reply, the quiet outlined card means it is settled. Which reply is owed comes from the glyph and the word, never the colour.</div>
     </div>
     <div style="display: flex; flex-direction: column; gap: 6px; text-align: right; font: 400 12px/16px ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; color: #8b98a5; flex: none;">
-      <div>2 grounds</div>
       <div>3 words in use</div>
       <div>3 proposed</div>
       <div>1 verb — Change</div>
-      <div>0 stripes</div>
     </div>
   </div>
 
   <div style="display: flex; flex-direction: column; gap: 18px;">
     <div style="display: flex; align-items: baseline; gap: 16px;">
-      <div style="font: 400 10px/12px ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; text-transform: uppercase; letter-spacing: 0.14em; color: #8b98a5; flex: none;">01 — Anatomy, one card in parts</div>
+      <div style="font: 400 10px/12px ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; text-transform: uppercase; letter-spacing: 0.14em; color: #8b98a5; flex: none;">01 — Owed</div>
       <div style="flex: 1; height: 1px; background: #18212a;"></div>
     </div>
     <div style="display: grid; grid-template-columns: 800px 1fr; gap: 40px; align-items: start;">
@@ -103,46 +101,7 @@
         </div>
       </div>
 
-      <div style="display: flex; flex-direction: column;">
-        <sc-for list="{{ parts }}" as="p" hint-placeholder-count="6">
-          <div style="display: flex; flex-direction: column; gap: 3px; padding: 11px 0; border-bottom: 1px solid #18212a;">
-            <div style="display: flex; align-items: baseline; gap: 12px;">
-              <div style="font: 600 14px/22px 'Open Sans', sans-serif; color: #f5f9fc; flex: 1; min-width: 0;">{{ p.part }}</div>
-              <div style="font: 400 12px/16px ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; color: #8b98a5; flex: none;">{{ p.spec }}</div>
-            </div>
-            <div style="font: 400 12px/18px 'Open Sans', sans-serif; color: #8b98a5; text-wrap: pretty;">{{ p.does }}</div>
-          </div>
-        </sc-for>
-        <div style="padding-top: 14px; font: 400 12px/18px 'Open Sans', sans-serif; color: #8b98a5; text-wrap: pretty;">Every part is optional except the eyebrow, the title and the ways out. A question drops the drawing and the source; the drawing appears only where the agent has something to show instead of describe.</div>
-      </div>
-
-    </div>
-  </div>
-
-  <div style="display: flex; flex-direction: column; gap: 18px;">
-    <div style="display: flex; align-items: baseline; gap: 16px;">
-      <div style="font: 400 10px/12px ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; text-transform: uppercase; letter-spacing: 0.14em; color: #8b98a5; flex: none;">02 — The two things that can be owed</div>
-      <div style="flex: 1; height: 1px; background: #18212a;"></div>
-    </div>
-    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 12px; align-items: start;">
-
-      <div style="display: flex; flex-direction: column; gap: 10px;">
-        <div style="background: linear-gradient(180deg, rgba(242, 118, 43, 0.14), rgba(242, 118, 43, 0.06) 45%, rgba(242, 118, 43, 0.025)); border: 1px solid rgba(242, 118, 43, 0.30); border-radius: 8px; padding: 12px 16px; display: flex; flex-direction: column; gap: 12px;">
-          <div style="display: flex; align-items: center; gap: 8px;">
-            <i class="ph ph-warning" style="font-size: 12px; color: #f2762b; flex: none;"></i>
-            <div style="font: 400 10px/12px ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; text-transform: uppercase; letter-spacing: 0.14em; color: #f2985c; flex: none;">Not agreed</div>
-            <div style="flex: 1; height: 1px; background: rgba(242, 118, 43, 0.30);"></div>
-            <div style="font: 400 12px/16px ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; color: #8b98a5; flex: none;">affects steps 4–5</div>
-          </div>
-          <div style="display: flex; flex-direction: column; gap: 6px;">
-            <div style="font: 700 18px/28px 'Open Sans', sans-serif; color: #f5f9fc; text-wrap: pretty;">You asked me to drop the merchant check</div>
-            <div style="font: 400 14px/24px 'Open Sans', sans-serif; color: #a9b6c3; text-wrap: pretty;">The scheme needs an attempt with the merchant before we ask for evidence — without one the chargeback is out of scope.</div>
-          </div>
-        </div>
-        <div style="font: 400 12px/18px 'Open Sans', sans-serif; color: #8b98a5; text-wrap: pretty;"><span style="color: #c3cdd7;">The argument.</span> The agent will not do what you asked and says why, with a source you can open. It is one card in the list rather than a heading and a pinned footer, because it is a thing owed like any other — and it carries its own way out.</div>
-      </div>
-
-      <div style="display: flex; flex-direction: column; gap: 10px;">
+      <div style="display: flex; flex-direction: column; gap: 14px;">
         <div style="background: linear-gradient(180deg, rgba(242, 118, 43, 0.14), rgba(242, 118, 43, 0.06) 45%, rgba(242, 118, 43, 0.025)); border: 1px solid rgba(242, 118, 43, 0.30); border-radius: 8px; padding: 12px 16px; display: flex; flex-direction: column; gap: 12px;">
           <div style="display: flex; align-items: center; gap: 8px;">
             <i class="ph ph-question-mark" style="font-size: 12px; color: #f2762b; flex: none;"></i>
@@ -155,19 +114,20 @@
             <div style="font: 400 14px/24px 'Open Sans', sans-serif; color: #a9b6c3; text-wrap: pretty;">You told me the customer never waits on the merchant. These two answers disagree about what we do when it simply goes quiet.</div>
           </div>
         </div>
-        <div style="font: 400 12px/18px 'Open Sans', sans-serif; color: #8b98a5; text-wrap: pretty;"><span style="color: #c3cdd7;">The question.</span> A detail the agent cannot settle for you, in the same shape. Same wash, same ground, same acts — a different glyph and a different word, and that is the whole distinction.</div>
+        <div style="font: 400 12px/18px 'Open Sans', sans-serif; color: #8b98a5;">Same wash, same acts. A question drops the source and the drawing.</div>
+        <div style="height: 1px; background: #18212a;"></div>
+        <div style="font: 400 12px/16px ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; color: #8b98a5;">padding 12 / 16 · gap 12 · radius 8 (12 in the plan)</div>
+        <div style="font: 400 12px/16px ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; color: #8b98a5;">word 10/12 +.14em · title 18/28 · prose 14/24</div>
+        <div style="font: 400 12px/16px ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; color: #8b98a5;">choice row 22 · ring 14 · button 28 · radius 6</div>
+        <div style="font: 400 12px/16px ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; color: #8b98a5;">wash rgba(242,118,43,.14 → .025) on .30</div>
       </div>
 
-    </div>
-    <div style="display: flex; align-items: flex-start; gap: 12px; background: #0b1218; border: 1px solid #26313d; border-radius: 12px; padding: 14px 16px;">
-      <i class="ph ph-info" style="font-size: 14px; color: #8b98a5; flex: none; padding-top: 4px;"></i>
-      <div style="font: 400 14px/24px 'Open Sans', sans-serif; color: #a9b6c3; text-wrap: pretty; max-width: 110ch;">The two never gate each other. A plan being negotiated is not a step owing a detail: you can agree with a question still open, and you can answer every question while still refusing the shape. They are counted in their own units for the same reason — <span style="font: 400 12px/16px ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; color: #c3cdd7;">Not agreed</span> beside <span style="font: 400 12px/16px ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; color: #c3cdd7;">One question still to settle</span>, with no denominator over the two.</div>
     </div>
   </div>
 
   <div style="display: flex; flex-direction: column; gap: 18px;">
     <div style="display: flex; align-items: baseline; gap: 16px;">
-      <div style="font: 400 10px/12px ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; text-transform: uppercase; letter-spacing: 0.14em; color: #8b98a5; flex: none;">03 — Settled, three shapes</div>
+      <div style="font: 400 10px/12px ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; text-transform: uppercase; letter-spacing: 0.14em; color: #8b98a5; flex: none;">02 — Settled</div>
       <div style="flex: 1; height: 1px; background: #18212a;"></div>
     </div>
     <div style="display: grid; grid-template-columns: 800px 1fr; gap: 40px; align-items: start;">
@@ -198,56 +158,24 @@
         </div>
 
       </div>
-      <div style="display: flex; flex-direction: column; gap: 12px; font: 400 14px/24px 'Open Sans', sans-serif; color: #a9b6c3;">
-        <div style="text-wrap: pretty;">Settled is one register: <span style="font: 400 12px/16px ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; color: #c3cdd7;">#101820</span> on <span style="font: 400 12px/16px ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; color: #c3cdd7;">#1c2530</span>, no wash, no glyph, and the sentence in the plan's own voice — the bold lead-in is what was decided, the rest is what it came to.</div>
-        <div style="color: #8b98a5; text-wrap: pretty;">The eyebrow is there only when the card needs to say whose answer it is: <span style="font: 400 12px/16px ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; color: #c3cdd7;">Answered by you</span> sits in the list of things that were owed. Under <span style="font: 400 12px/16px ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; color: #c3cdd7;">What I chose for you</span> the section label already says it, so the card drops the eyebrow rather than repeat it.</div>
-        <div style="color: #8b98a5; text-wrap: pretty;">The third shape holds no decision at all — the settings a step runs on, as a sentence with the values dashed-underlined in mono. Editing in place is the whole affordance; there is nothing to agree to.</div>
+      <div style="display: flex; flex-direction: column; gap: 14px;">
+        <div style="font: 400 12px/18px 'Open Sans', sans-serif; color: #8b98a5;">The eyebrow only where the card must say whose answer it is. Under a section label that already says it, no eyebrow.</div>
+        <div style="font: 400 12px/18px 'Open Sans', sans-serif; color: #8b98a5;">Third shape holds no decision — the settings the step runs on, edited in place.</div>
         <div style="height: 1px; background: #18212a;"></div>
-        <div style="color: #8b98a5; text-wrap: pretty;">One verb for everything settled, and it is <span style="font: 400 12px/16px ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; color: #c3cdd7;">Change</span>. Not Edit, not Revisit, not Reopen — the builder is never asked to work out which of four words leads back to the same panel. It rides the sentence, not the eyebrow, because the sentence is what it changes.</div>
-        <div style="font: 400 12px/16px ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; color: #8b98a5;">padding 12 / 16 · gap 6 · radius 8 · sentence 14/22 · Change 600 12/16</div>
+        <div style="font: 400 12px/16px ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; color: #8b98a5;">#101820 on #1c2530 · padding 12 / 16 · gap 6</div>
+        <div style="font: 400 12px/16px ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; color: #8b98a5;">sentence 14/22 · Change 600 12/16 → #4d97ea</div>
       </div>
     </div>
   </div>
 
   <div style="display: flex; flex-direction: column; gap: 18px;">
     <div style="display: flex; align-items: baseline; gap: 16px;">
-      <div style="font: 400 10px/12px ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; text-transform: uppercase; letter-spacing: 0.14em; color: #8b98a5; flex: none;">04 — Every state the card can be in</div>
-      <div style="flex: 1; height: 1px; background: #18212a;"></div>
-    </div>
-    <div style="display: flex; flex-direction: column;">
-      <div style="display: flex; align-items: baseline; gap: 20px; padding-bottom: 8px; border-bottom: 1px solid #26313d; font: 400 10px/12px ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; text-transform: uppercase; letter-spacing: 0.14em; color: #8b98a5;">
-        <div style="width: 190px; flex: none;">The word on the card</div>
-        <div style="width: 30px; flex: none;">Glyph</div>
-        <div style="width: 150px; flex: none;">Ground</div>
-        <div style="width: 120px; flex: none;">Waiting on</div>
-        <div style="flex: 1; min-width: 0;">What you can do with it</div>
-        <div style="width: 84px; flex: none; text-align: right;">Status</div>
-      </div>
-      <sc-for list="{{ states }}" as="s" hint-placeholder-count="9">
-        <div style="display: flex; align-items: baseline; gap: 20px; padding: 12px 0; border-bottom: 1px solid #18212a;">
-          <div style="width: 190px; flex: none; font: 400 10px/12px ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; text-transform: uppercase; letter-spacing: 0.14em; color: {{ s.wordColor }};">{{ s.word }}</div>
-          <div style="width: 30px; flex: none; color: #f2762b;">{{ s.glyph }}</div>
-          <div style="width: 150px; flex: none; display: flex; align-items: center; gap: 8px;">
-            <div style="width: 18px; height: 14px; flex: none; border-radius: 4px; background: {{ s.bg }}; border: 1px solid {{ s.bd }};"></div>
-            <div style="font: 400 12px/16px 'Open Sans', sans-serif; color: #8b98a5;">{{ s.ground }}</div>
-          </div>
-          <div style="width: 120px; flex: none; font: 400 12px/16px 'Open Sans', sans-serif; color: {{ s.waitColor }};">{{ s.waits }}</div>
-          <div style="flex: 1; min-width: 0; font: 400 12px/18px 'Open Sans', sans-serif; color: #a9b6c3; text-wrap: pretty;">{{ s.acts }}</div>
-          <div style="width: 84px; flex: none; display: flex; justify-content: flex-end;">{{ s.tag }}</div>
-        </div>
-      </sc-for>
-    </div>
-    <div style="font: 400 14px/24px 'Open Sans', sans-serif; color: #8b98a5; max-width: 110ch; text-wrap: pretty;">A card is in exactly one of these, and the word is the same in the plan and in the step pane — one status word per state, across both views. Nothing that waits on the agent wears the wash, which is why <span style="font: 400 12px/16px ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; color: #c3cdd7;">Changed since built</span> is a quiet card with a note and not an orange one: the reply it needs is not yours.</div>
-  </div>
-
-  <div style="display: flex; flex-direction: column; gap: 18px;">
-    <div style="display: flex; align-items: baseline; gap: 16px;">
-      <div style="font: 400 10px/12px ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; text-transform: uppercase; letter-spacing: 0.14em; color: #8b98a5; flex: none;">05 — The states not drawn yet, proposed</div>
+      <div style="font: 400 10px/12px ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; text-transform: uppercase; letter-spacing: 0.14em; color: #8b98a5; flex: none;">03 — Proposed, not in v2</div>
       <div style="flex: 1; height: 1px; background: #18212a;"></div>
     </div>
     <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 12px; align-items: start;">
 
-      <div style="display: flex; flex-direction: column; gap: 10px;">
+      <div style="display: flex; flex-direction: column; gap: 8px;">
         <div style="background: #101820; border: 1px solid #1c2530; border-radius: 8px; padding: 12px 16px; display: flex; flex-direction: column; gap: 6px;">
           <div style="font: 400 10px/12px ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; text-transform: uppercase; letter-spacing: 0.14em; color: #8b98a5;">Agreed</div>
           <div style="display: flex; align-items: baseline; gap: 12px;">
@@ -255,13 +183,10 @@
             <div tabindex="0" style="font: 600 12px/16px 'Open Sans', sans-serif; color: #8b98a5; cursor: pointer; outline: none; flex: none; transition: color 160ms cubic-bezier(0.2, 0, 0.2, 1);" style-hover="color: #4d97ea;">Change</div>
           </div>
         </div>
-        <div style="display: flex; align-items: baseline; gap: 10px;">
-          <div style="display: inline-flex; align-items: center; height: 18px; padding: 0 6px; border-radius: 4px; background: #131c24; border: 1px solid #26313d; color: #8b98a5; font: 400 10px/12px ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; text-transform: uppercase; letter-spacing: 0.14em; flex: none;">proposed</div>
-          <div style="font: 400 12px/18px 'Open Sans', sans-serif; color: #8b98a5; text-wrap: pretty;">The argument, resolved. The card drops the wash, the glyph, the source and the drawing, and keeps the option you took as its sentence. Everything an argument was is now one line and one verb.</div>
-        </div>
+        <div style="font: 400 12px/18px 'Open Sans', sans-serif; color: #8b98a5;">The argument resolved — the option you took becomes the sentence.</div>
       </div>
 
-      <div style="display: flex; flex-direction: column; gap: 10px;">
+      <div style="display: flex; flex-direction: column; gap: 8px;">
         <div style="background: #101820; border: 1px solid #1c2530; border-radius: 8px; padding: 12px 16px; display: flex; flex-direction: column; gap: 6px;">
           <div style="font: 400 10px/12px ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; text-transform: uppercase; letter-spacing: 0.14em; color: #8b98a5;">You left this to me</div>
           <div style="display: flex; align-items: baseline; gap: 12px;">
@@ -269,13 +194,10 @@
             <div tabindex="0" style="font: 600 12px/16px 'Open Sans', sans-serif; color: #8b98a5; cursor: pointer; outline: none; flex: none; transition: color 160ms cubic-bezier(0.2, 0, 0.2, 1);" style-hover="color: #4d97ea;">Change</div>
           </div>
         </div>
-        <div style="display: flex; align-items: baseline; gap: 10px;">
-          <div style="display: inline-flex; align-items: center; height: 18px; padding: 0 6px; border-radius: 4px; background: #131c24; border: 1px solid #26313d; color: #8b98a5; font: 400 10px/12px ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; text-transform: uppercase; letter-spacing: 0.14em; flex: none;">proposed</div>
-          <div style="font: 400 12px/18px 'Open Sans', sans-serif; color: #8b98a5; text-wrap: pretty;">What <span style="font: 400 12px/16px ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; color: #c3cdd7;">You decide this one</span> leaves behind. It reads as settled because it is, and the eyebrow is honest about how: the agent chose, at your request, and you can still change it.</div>
-        </div>
+        <div style="font: 400 12px/18px 'Open Sans', sans-serif; color: #8b98a5;">What <span style="font: 400 12px/16px ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; color: #c3cdd7;">You decide this one</span> leaves behind.</div>
       </div>
 
-      <div style="display: flex; flex-direction: column; gap: 10px;">
+      <div style="display: flex; flex-direction: column; gap: 8px;">
         <div style="background: #101820; border: 1px solid #1c2530; border-radius: 8px; padding: 12px 16px; display: flex; flex-direction: column; gap: 6px;">
           <div style="display: flex; align-items: center; gap: 8px;">
             <div style="font: 400 10px/12px ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; text-transform: uppercase; letter-spacing: 0.14em; color: #8b98a5; flex: none;">Changed since built</div>
@@ -287,13 +209,10 @@
             <div tabindex="0" style="font: 600 12px/16px 'Open Sans', sans-serif; color: #8b98a5; cursor: pointer; outline: none; flex: none; transition: color 160ms cubic-bezier(0.2, 0, 0.2, 1);" style-hover="color: #4d97ea;">Change</div>
           </div>
         </div>
-        <div style="display: flex; align-items: baseline; gap: 10px;">
-          <div style="display: inline-flex; align-items: center; height: 18px; padding: 0 6px; border-radius: 4px; background: #131c24; border: 1px solid #26313d; color: #8b98a5; font: 400 10px/12px ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; text-transform: uppercase; letter-spacing: 0.14em; flex: none;">proposed</div>
-          <div style="font: 400 12px/18px 'Open Sans', sans-serif; color: #8b98a5; text-wrap: pretty;">Settled, and ahead of what was built. No wash — this one waits on the agent, not on you — so the reach line carries the debt instead, in the same slot an owed card names the steps it affects.</div>
-        </div>
+        <div style="font: 400 12px/18px 'Open Sans', sans-serif; color: #8b98a5;">Settled, ahead of the build. No wash — this one waits on the agent.</div>
       </div>
 
-      <div style="display: flex; flex-direction: column; gap: 10px;">
+      <div style="display: flex; flex-direction: column; gap: 8px;">
         <div style="background: linear-gradient(180deg, rgba(242, 118, 43, 0.14), rgba(242, 118, 43, 0.06) 45%, rgba(242, 118, 43, 0.025)); border: 1px solid rgba(242, 118, 43, 0.30); border-radius: 8px; padding: 12px 16px; display: flex; flex-direction: column; gap: 12px;">
           <div style="display: flex; align-items: center; gap: 8px;">
             <i class="ph ph-question-mark" style="font-size: 12px; color: #f2762b; flex: none;"></i>
@@ -301,10 +220,7 @@
             <div style="flex: 1; height: 1px; background: rgba(242, 118, 43, 0.30);"></div>
             <div style="font: 400 12px/16px ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; color: #8b98a5; flex: none;">affects the evidence step</div>
           </div>
-          <div style="display: flex; flex-direction: column; gap: 6px;">
-            <div style="font: 700 18px/28px 'Open Sans', sans-serif; color: #f5f9fc; text-wrap: pretty;">If the merchant does not answer, what happens?</div>
-            <div style="font: 400 14px/24px 'Open Sans', sans-serif; color: #a9b6c3; text-wrap: pretty;">You told me the customer never waits on the merchant. These two answers disagree about what we do when it simply goes quiet.</div>
-          </div>
+          <div style="font: 700 18px/28px 'Open Sans', sans-serif; color: #f5f9fc; text-wrap: pretty;">If the merchant does not answer, what happens?</div>
           <div style="display: flex; gap: 8px; padding: 8px 10px; background: #101820; border: 1px solid #1c2530; border-radius: 8px;">
             <i class="ph ph-chat-teardrop-text" style="font-size: 12px; color: #8b98a5; flex: none; padding-top: 4px;"></i>
             <div style="display: flex; flex-direction: column; gap: 2px; min-width: 0;">
@@ -313,22 +229,46 @@
             </div>
           </div>
         </div>
-        <div style="display: flex; align-items: baseline; gap: 10px;">
-          <div style="display: inline-flex; align-items: center; height: 18px; padding: 0 6px; border-radius: 4px; background: #131c24; border: 1px solid #26313d; color: #8b98a5; font: 400 10px/12px ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; text-transform: uppercase; letter-spacing: 0.14em; flex: none;">proposed</div>
-          <div style="font: 400 12px/18px 'Open Sans', sans-serif; color: #8b98a5; text-wrap: pretty;">Commented, and still owed. A comment is not an answer, so the word does not change and the wash stays — it is the only addition to a card that does not move it out of its state. The comment sits on the quiet ground, inside the wash.</div>
-        </div>
+        <div style="font: 400 12px/18px 'Open Sans', sans-serif; color: #8b98a5;">Commented, still owed. A comment is not an answer, so the word does not change.</div>
       </div>
 
-    </div>
-    <div style="display: flex; align-items: flex-start; gap: 12px; background: #0b1218; border: 1px solid #26313d; border-radius: 12px; padding: 14px 16px;">
-      <i class="ph ph-warning" style="font-size: 14px; color: #f2762b; flex: none; padding-top: 4px;"></i>
-      <div style="font: 400 14px/24px 'Open Sans', sans-serif; color: #a9b6c3; text-wrap: pretty; max-width: 110ch;">A conflict between two settled answers gets no card of its own. It arrives as the agent arguing — the wash, <span style="font: 400 12px/16px ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; color: #c3cdd7;">ph-warning</span>, <span style="font: 400 12px/16px ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; color: #c3cdd7;">Not agreed</span>, and the two steps named in the reach line — because that is exactly what it is, and a fifth word for it would be a fifth thing to learn.</div>
     </div>
   </div>
 
   <div style="display: flex; flex-direction: column; gap: 18px;">
     <div style="display: flex; align-items: baseline; gap: 16px;">
-      <div style="font: 400 10px/12px ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; text-transform: uppercase; letter-spacing: 0.14em; color: #8b98a5; flex: none;">06 — The choices and the ways out, every state</div>
+      <div style="font: 400 10px/12px ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; text-transform: uppercase; letter-spacing: 0.14em; color: #8b98a5; flex: none;">04 — Every state</div>
+      <div style="flex: 1; height: 1px; background: #18212a;"></div>
+    </div>
+    <div style="display: flex; flex-direction: column;">
+      <div style="display: flex; align-items: baseline; gap: 20px; padding-bottom: 8px; border-bottom: 1px solid #26313d; font: 400 10px/12px ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; text-transform: uppercase; letter-spacing: 0.14em; color: #8b98a5;">
+        <div style="width: 190px; flex: none;">Word</div>
+        <div style="width: 30px; flex: none;">Glyph</div>
+        <div style="width: 150px; flex: none;">Ground</div>
+        <div style="width: 130px; flex: none;">Waiting on</div>
+        <div style="flex: 1; min-width: 0;">Acts</div>
+        <div style="width: 84px; flex: none; text-align: right;">Status</div>
+      </div>
+      <sc-for list="{{ states }}" as="s" hint-placeholder-count="9">
+        <div style="display: flex; align-items: baseline; gap: 20px; padding: 11px 0; border-bottom: 1px solid #18212a;">
+          <div style="width: 190px; flex: none; font: 400 10px/12px ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; text-transform: uppercase; letter-spacing: 0.14em; color: {{ s.wordColor }};">{{ s.word }}</div>
+          <div style="width: 30px; flex: none; color: #f2762b;">{{ s.glyph }}</div>
+          <div style="width: 150px; flex: none; display: flex; align-items: center; gap: 8px;">
+            <div style="width: 18px; height: 14px; flex: none; border-radius: 4px; background: {{ s.bg }}; border: 1px solid {{ s.bd }};"></div>
+            <div style="font: 400 12px/16px 'Open Sans', sans-serif; color: #8b98a5;">{{ s.ground }}</div>
+          </div>
+          <div style="width: 130px; flex: none; font: 400 12px/16px 'Open Sans', sans-serif; color: {{ s.waitColor }};">{{ s.waits }}</div>
+          <div style="flex: 1; min-width: 0; font: 400 12px/16px 'Open Sans', sans-serif; color: #a9b6c3;">{{ s.acts }}</div>
+          <div style="width: 84px; flex: none; display: flex; justify-content: flex-end;">{{ s.tag }}</div>
+        </div>
+      </sc-for>
+    </div>
+    <div style="font: 400 12px/18px 'Open Sans', sans-serif; color: #8b98a5;">Nothing that waits on the agent wears the wash. A conflict between two settled answers gets no word of its own — it arrives as the agent arguing.</div>
+  </div>
+
+  <div style="display: flex; flex-direction: column; gap: 18px;">
+    <div style="display: flex; align-items: baseline; gap: 16px;">
+      <div style="font: 400 10px/12px ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; text-transform: uppercase; letter-spacing: 0.14em; color: #8b98a5; flex: none;">05 — Controls, every state</div>
       <div style="flex: 1; height: 1px; background: #18212a;"></div>
     </div>
     <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 12px;">
@@ -361,8 +301,7 @@
             <div style="font: 400 12px/16px ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; color: #8b98a5; flex: none;">taken</div>
           </div>
         </div>
-        <div style="height: 1px; background: rgba(242, 118, 43, 0.16);"></div>
-        <div style="font: 400 12px/18px 'Open Sans', sans-serif; color: #f2985c; text-wrap: pretty;">Selection is blue on a card that is orange, and that is the point: the wash is the state of the card, blue is what you did to it. Nothing else in the list changes weight — a taken option comes up to <span style="font: 400 12px/16px ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; color: #f5f9fc;">#f5f9fc</span> and gains a dot, and the badge saying which one the agent would take is dropped once you have taken one.</div>
+        <div style="font: 400 12px/18px 'Open Sans', sans-serif; color: #f2985c;">Selection is blue on a card that is orange. The badge drops once you have taken one.</div>
       </div>
 
       <div style="background: #0b1218; border: 1px solid #26313d; border-radius: 12px; padding: 18px 20px 20px; display: flex; flex-direction: column; gap: 14px;">
@@ -377,44 +316,17 @@
           <div style="display: inline-flex; align-items: center; gap: 6px; height: 28px; padding: 0 8px; border-radius: 6px; border: 1px solid #26313d; background: transparent; color: #c3cdd7; font: 600 12px/16px 'Open Sans', sans-serif;"><i class="ph ph-sparkle" style="font-size: 12px; color: #4d97ea;"></i>You decide this one</div>
           <div style="display: inline-flex; align-items: center; gap: 6px; height: 28px; padding: 0 8px; border-radius: 6px; border: 1px solid #4d97ea; background: #131c24; color: #f5f9fc; font: 600 12px/16px 'Open Sans', sans-serif;"><i class="ph ph-sparkle" style="font-size: 12px; color: #4d97ea;"></i>You decide this one</div>
         </div>
-        <div style="font: 400 12px/18px 'Open Sans', sans-serif; color: #8b98a5; text-wrap: pretty;">Two acts, never three, and neither of them is <span style="font: 400 12px/16px ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; color: #c3cdd7;">Agree</span>: agreeing is the first option in the list, so a button beside it would be two ways to say one thing. <span style="font: 400 12px/16px ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; color: #c3cdd7;">Comment</span> replies without settling; <span style="font: 400 12px/16px ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; color: #c3cdd7;">You decide this one</span> hands the choice back.</div>
-        <div style="height: 1px; background: #18212a;"></div>
-        <div style="font: 400 12px/18px 'Open Sans', sans-serif; color: #8b98a5; text-wrap: pretty;">The fourth is not disabled, it is <em style="font-style: normal; color: #c3cdd7;">withdrawn</em> — the same card sits in the plan while the step is open, so every control on it loses <span style="font: 400 12px/16px ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; color: #c3cdd7;">pointer-events</span> and its <span style="font: 400 12px/16px ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; color: #c3cdd7;">tabindex</span> together. Nothing offers what it cannot do.</div>
+        <div style="font: 400 12px/18px 'Open Sans', sans-serif; color: #8b98a5;">Two acts, never three — agreeing is the first option, not a button. The fourth is not disabled but withdrawn: in the plan behind an open step, <span style="font: 400 12px/16px ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; color: #c3cdd7;">pointer-events</span> and <span style="font: 400 12px/16px ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; color: #c3cdd7;">tabindex</span> go together.</div>
       </div>
 
-    </div>
-  </div>
-
-  <div style="display: flex; flex-direction: column; gap: 18px;">
-    <div style="display: flex; align-items: baseline; gap: 16px;">
-      <div style="font: 400 10px/12px ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; text-transform: uppercase; letter-spacing: 0.14em; color: #8b98a5; flex: none;">07 — The rules, and what this family will not get</div>
-      <div style="flex: 1; height: 1px; background: #18212a;"></div>
-    </div>
-    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 40px; align-items: start;">
-      <div style="display: flex; flex-direction: column;">
-        <sc-for list="{{ rules }}" as="r" hint-placeholder-count="8">
-          <div style="display: flex; align-items: baseline; gap: 12px; padding: 10px 0; border-bottom: 1px solid #18212a;">
-            <i class="ph ph-check" style="font-size: 12px; color: #1d9a5c; flex: none;"></i>
-            <div style="font: 400 14px/24px 'Open Sans', sans-serif; color: #a9b6c3; text-wrap: pretty;">{{ r.text }}</div>
-          </div>
-        </sc-for>
-      </div>
-      <div style="display: flex; flex-direction: column;">
-        <sc-for list="{{ nots }}" as="n" hint-placeholder-count="5">
-          <div style="display: flex; align-items: baseline; gap: 12px; padding: 10px 0; border-bottom: 1px solid #18212a;">
-            <i class="ph ph-x" style="font-size: 12px; color: #8b98a5; flex: none;"></i>
-            <div style="font: 400 14px/24px 'Open Sans', sans-serif; color: #8b98a5; text-wrap: pretty;">{{ n.text }}</div>
-          </div>
-        </sc-for>
-      </div>
     </div>
   </div>
 
   <div style="display: flex; align-items: baseline; gap: 20px; padding-top: 8px; border-top: 1px solid #26313d; font: 400 12px/16px ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; color: #8b98a5;">
     <div>Read out of <a href="Conversational%20Builder%20v2.dc.html">Conversational Builder v2</a></div>
     <div><a href="Design%20System.dc.html">Design System</a></div>
-    <div><a href="screen-01.dc.html?step=3">The card in the step pane</a></div>
-    <div><a href="screen-01.dc.html">The same card in the plan</a></div>
+    <div><a href="screen-01.dc.html?step=3">In the step pane</a></div>
+    <div><a href="screen-01.dc.html">In the plan</a></div>
   </div>
 
 </div>
@@ -440,82 +352,35 @@ class Component extends DCLogic {
       }
     }, now ? 'in v2' : 'proposed');
   }
+  owed(word, glyph, acts, kind) {
+    return {
+      word: word, glyph: this.glyph(glyph), wordColor: '#f2985c', bg: WASH, bd: 'rgba(242,118,43,.30)',
+      ground: 'wash', waits: 'you', waitColor: '#f2985c', acts: acts, tag: this.tag(kind)
+    };
+  }
+  settled(word, acts, kind, waits, wordColor) {
+    return {
+      word: word, glyph: this.glyph(null), wordColor: wordColor || '#8b98a5', bg: '#101820', bd: '#1c2530',
+      ground: 'quiet · outlined', waits: waits || 'nobody', waitColor: '#8b98a5', acts: acts, tag: this.tag(kind)
+    };
+  }
   renderVals() {
-    const parts = [
-      { part: 'The eyebrow', spec: 'glyph 12 · word 10/12 +.14em', does: 'A glyph and a word in the mono voice, then a hairline out to what the decision reaches. The word is the state; the glyph says which kind of reply is owed.' },
-      { part: 'The thing itself', spec: '18/28 · 700 over 14/24 · 400', does: 'What was asked or refused, as a sentence, then why in prose. The one place on the card set to be read rather than scanned.' },
-      { part: 'The source', spec: 'ph-book-open-text · mono 12/16', does: 'Only on an argument, and never optional there — the agent does not refuse without showing what it is standing on.' },
-      { part: 'What I would do instead', spec: 'boxes 150 / 190 · connector 34', does: 'The alternative drawn rather than described, on the card’s own ground, with the new box outlined in blue.' },
-      { part: 'The choices', spec: 'row 22 · ring 14 · gap 6', does: 'Agreeing is the first option. One of them is always "Something else — I will tell you", so the list never traps you.' },
-      { part: 'The ways out', spec: 'button 28 · radius 6', does: 'Comment replies without settling; You decide this one hands the choice back. Two, and only ever two.' }
-    ];
     const states = [
+      this.owed('Not agreed', 'ph-warning', 'Pick an option, comment, or hand it back', 'now'),
+      this.owed('Not answered', 'ph-question-mark', 'The same three, and neither gates the other', 'now'),
+      this.settled('Answered by you', 'Change', 'now'),
+      this.settled('— no eyebrow', 'Change — chosen for you, said by the section label', 'now', null, '#5c6975'),
+      this.settled('Agreed', 'Change', 'proposed'),
+      this.settled('You left this to me', 'Change', 'proposed'),
+      this.settled('Changed since built', 'Change, or leave it to be rebuilt', 'proposed', 'the agent'),
+      this.owed('Not agreed', 'ph-warning', 'A conflict, arriving as the agent arguing', 'proposed'),
       {
-        word: 'Not agreed', glyph: this.glyph('ph-warning'), wordColor: '#f2985c',
-        bg: WASH, bd: 'rgba(242,118,43,.30)', ground: 'wash', waits: 'you', waitColor: '#f2985c',
-        acts: 'Take one of the options, comment, or hand it back. The step will not be built until this is settled.', tag: this.tag('now')
-      },
-      {
-        word: 'Not answered', glyph: this.glyph('ph-question-mark'), wordColor: '#f2985c',
-        bg: WASH, bd: 'rgba(242,118,43,.30)', ground: 'wash', waits: 'you', waitColor: '#f2985c',
-        acts: 'The same three acts. Agreeing to the plan is never gated on answering this.', tag: this.tag('now')
-      },
-      {
-        word: 'Answered by you', glyph: this.glyph(null), wordColor: '#8b98a5',
-        bg: '#101820', bd: '#1c2530', ground: 'quiet · outlined', waits: 'nobody', waitColor: '#8b98a5',
-        acts: 'Change. Your answer is the sentence, in the plan’s voice rather than as you typed it.', tag: this.tag('now')
-      },
-      {
-        word: '— no eyebrow', glyph: this.glyph(null), wordColor: '#5c6975',
-        bg: '#101820', bd: '#1c2530', ground: 'quiet · outlined', waits: 'nobody', waitColor: '#8b98a5',
-        acts: 'Change. Chosen for you without being asked — the section label says so, so the card does not repeat it.', tag: this.tag('now')
-      },
-      {
-        word: 'Agreed', glyph: this.glyph(null), wordColor: '#8b98a5',
-        bg: '#101820', bd: '#1c2530', ground: 'quiet · outlined', waits: 'nobody', waitColor: '#8b98a5',
-        acts: 'Change, which puts the argument back on the wash with your answer as its starting point.', tag: this.tag('proposed')
-      },
-      {
-        word: 'You left this to me', glyph: this.glyph(null), wordColor: '#8b98a5',
-        bg: '#101820', bd: '#1c2530', ground: 'quiet · outlined', waits: 'nobody', waitColor: '#8b98a5',
-        acts: 'Change. The agent chose, at your request — settled, and honest about how it got settled.', tag: this.tag('proposed')
-      },
-      {
-        word: 'Changed since built', glyph: this.glyph(null), wordColor: '#8b98a5',
-        bg: '#101820', bd: '#1c2530', ground: 'quiet · outlined', waits: 'the agent', waitColor: '#8b98a5',
-        acts: 'Change, or leave it — the debt is the agent’s to clear, and the reach line names the step running the old answer.', tag: this.tag('proposed')
-      },
-      {
-        word: 'Not agreed', glyph: this.glyph('ph-warning'), wordColor: '#f2985c',
-        bg: WASH, bd: 'rgba(242,118,43,.30)', ground: 'wash', waits: 'you', waitColor: '#f2985c',
-        acts: 'A conflict between two settled answers, arriving as the agent arguing. No new word for it: the reach line names both steps.', tag: this.tag('proposed')
-      },
-      {
-        word: 'Withdrawn', glyph: this.glyph('ph-warning'), wordColor: '#5c6975',
-        bg: WASH, bd: 'rgba(242,118,43,.30)', ground: 'wash · in the plan', waits: 'you, in the pane', waitColor: '#8b98a5',
-        acts: 'Nothing. The card is mounted and visible in the plan behind an open step, so pointer and tabindex are both off.', tag: this.tag('now')
+        word: 'Withdrawn', glyph: this.glyph('ph-warning'), wordColor: '#5c6975', bg: WASH, bd: 'rgba(242,118,43,.30)',
+        ground: 'wash · in the plan', waits: 'you, in the pane', waitColor: '#8b98a5',
+        acts: 'Nothing — pointer and tabindex both off', tag: this.tag('now')
       }
     ];
-    const rules = [
-      { text: 'The wash means exactly one thing: this is waiting on your reply. Which reply comes from the glyph and the word.' },
-      { text: 'One status word per state, and the same word in the plan and in the step pane.' },
-      { text: 'Nothing that waits on the agent is washed — including a settled answer the build has not caught up with.' },
-      { text: 'Agreeing is an option in the list, never a button beside it.' },
-      { text: 'One verb for everything settled: Change.' },
-      { text: 'A comment is not an answer. It is the one thing that can be added to a card without moving it out of its state.' },
-      { text: 'Selection is blue. The card’s own hue never carries what you chose.' },
-      { text: 'The owed card in the plan is the pane’s card part for part — same parts, same values, one radius apart (12 in the plan, 8 in the pane).' },
-      { text: 'A control that cannot act in this state is withdrawn in the logic: pointer-events and tabindex together.' }
-    ];
-    const nots = [
-      { text: 'A colour key. Four hues for four states is a legend the screen never hands you — the word does that work.' },
-      { text: 'A status stripe down the edge of a settled card. The wash does the containing, and nothing else is raised.' },
-      { text: 'A separate state for an answer you typed rather than picked. Provenance is not a difference in what you can do about it, so it stays Answered by you.' },
-      { text: 'A per-card Agree button, a Reopen, an Edit, a Revisit. One verb, and agreeing is an option.' },
-      { text: 'A count over the two kinds of waiting. There is no denominator that covers an argument and a question at once.' },
-      { text: 'An elevation shadow, in any state.' }
-    ];
-    return { parts, states, rules, nots };
+    return { states };
   }
 }
 </script>
