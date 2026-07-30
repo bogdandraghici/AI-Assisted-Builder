@@ -129,13 +129,78 @@ having advanced, said by the app rather than about it.
    `WHAT EXISTS ENDS HERE` then *"The customer would go on to send a receipt. That step is not
    built."* No forward affordance, because there is not one.
 
-**Everything else in the app is a still** — no hover, no cursor, no tabindex. The two live
+**Everything else in the app is a still** — no hover, no cursor, no tabindex. The live
 controls carry `tabindex="0"` and a focus ring, because the mouse can reach them and the rule
 runs both ways: withdraw the tabindex with the pointer, but never leave a pointer target the
 keyboard cannot reach.
 
 The stage swaps **instantly via `sc-if`** — three genuinely different screens are not one
 thing changing shape, so the "one element per thing" rule does not apply.
+
+## The app is dense, but only as dense as the plan licenses
+
+The app is a real enterprise web app: a brand header with the journey name, `Save and exit`,
+help and the customer's own avatar in the app's greys (never the builder's blue `LC` — two
+different people looking at two different things); an account strip; a progress indicator; a
+scrolling body; and a sticky action bar.
+
+**But it gains no capability the plan does not state.** Step 1 says *"Last ninety days. Card
+and account already known, so nothing is typed twice."* So there is no search box and no date
+picker anywhere in it — those would be the preview inventing features the agent never built,
+which is a preview that lies. The account strip is that sentence made visible: facts, not
+fields, with no cursor and nothing to change. Step 2 says *"Free text, then we sort it into
+one of the nine reasons the scheme accepts"* — so free text only, and no reason picker. Step 4
+is not built, so nothing in the app mentions a receipt.
+
+Two things are licensed and worth having:
+
+- **The progress indicator shows two steps and nothing after.** That is the app itself
+  showing the edge, before the tool says a word. It cannot be confused with the run strip:
+  one is inside the white app and counts what the customer sees, the other is the tool's own
+  chrome and counts what the plan contains.
+- **"Your card number is never shared with the merchant."** That is the plan's
+  `cardPan.piiGuard` line — *"that one you cannot switch off"* — said to the customer instead
+  of about them, naming no resource.
+
+**The app scrolls, because a browser window does.** That is also what makes twelve table rows
+honest: the run says `picked 1 of 12` and all twelve are there to be counted. The app's one
+live control sits in a **sticky action bar outside the scroller**, for the same reason the
+tool's act is pinned under the strip and the step pane's under its body — three panes, one
+shape, and the live control never scrolls out of reach.
+
+The typed answer is **111 characters and 22 words**, and the strip says `22 words`. It was 24
+when the character counter arrived and the strip caught it. Two views of one run must agree on
+the arithmetic or neither can be trusted.
+
+## Full screen, and the chat's one exception
+
+An `arrows-out` / `arrows-in` pair in the top bar, in the same slot in both states so the way
+back is never somewhere the way in was not. Plus `Esc`, which takes full screen before it
+takes an open step — full screen is the more modal of the two, and on the run screen there is
+no step to close. `?full=1` puts `index.html` section 05 straight into it.
+
+**It is a real move on the shared 340ms curve, not an `sc-if`** — an unmounted pane has no
+width to travel from. The chat's `width` goes 360 → 0 with its `border-right-width`, the strip
+collapses `1fr → 0fr`, and the frame takes what is freed: **1032 × 491 → 1392 × 804**.
+
+This is the one place the chat moves, and the reason is that you asked to see only the app.
+The act goes with the strip, which is honest rather than lossy: it is clipped to nothing with
+`visibility` on the pane — so it is not offered, not merely hidden — and Esc brings it back.
+
+**Everything the collapse passes over is pinned so it clips instead of reflowing**, which is
+what lets it be one beat:
+
+| Pinned | Value | Why |
+|---|---|---|
+| Chat's two blocks | `min-width: 360px` | every message would otherwise rewrap the whole way down |
+| Strip's five titles | `min-height: 3lh` | nodes go 203 → 275px wide, so titles rewrap 3 lines → 2 |
+| Boundary sentence | `min-height: 2lh` | same, at 406 → 549px |
+
+The app needs no pin at all: every column in it is fixed or capped (`max-width: 620`, a 300px
+sidebar, fixed table columns, a 480px plate), so a wider frame moves nothing.
+
+The 3lh pin also fixes something that was merely untidy — the five mono run-lines were ragged,
+sitting at different heights under titles of different depths. They align now.
 
 ## The edge, and the act
 
@@ -225,6 +290,21 @@ Two new sections, matching the existing two-embed pattern:
 
 - **03** — the run at the edge (`screen-02.dc.html`, default `at=3`).
 - **04** — scrubbed back to the first step (`screen-02.dc.html?at=1`).
+
+## What `support.js` will and will not interpolate
+
+**`{{ … }}` resolves in `style` and in `onClick`. It does not resolve in `class`, `title` or
+`tabindex`** — those render the template text verbatim. For `tabindex` that means an invalid
+value and an element that is never focusable in *either* state.
+
+So every state-dependent glyph, tooltip and tab stop on screen 02 is **two elements behind an
+`sc-if`**, which is legal precisely because none of them animate: the expand/collapse pair,
+and `Continue` live-vs-dead. Where the value never actually varied — the back arrow, the
+crumb, the two unbuilt nodes — it is a literal, which cannot silently fail.
+
+This was found by probing the rendered DOM, and it is **pre-existing in screen 01**: three
+`tabindex="{{ exitTab }}"`, three `tabindex="{{ cardTab }}"` and two `title="{{ upTitle }}"`
+have never worked there. Screen 01 is untouched by this change; the fix is its own.
 
 ## Verification
 

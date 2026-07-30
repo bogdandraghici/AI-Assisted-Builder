@@ -70,14 +70,25 @@ in the logic, not left to look enabled:
   (`support.js:428`) and take **no** `{{ }}` placeholders, so a hover can only be
   withdrawn by taking the pointer off the element — which removes the cursor and the click
   with it. One flag, whole affordance.
-- **Withdraw the tabindex too** (`tabindex="{{ … }}"` → `-1`), or the keyboard keeps
-  reaching a control the mouse no longer can. A whole clipped pane goes out of the tab
-  order with `visibility` on the pane — it inherits, so it does not need a tabindex on
-  every control inside, and being discrete it cannot judder. Delay the hide by the
-  content's fade-out so it does not pop.
-- **Two glyphs, two meanings.** `caret-right` is a disclosure that opens in the pane you
-  are already in; `arrow-right` changes what you are looking at. A control and its row
-  carry the same one.
+- **`{{ … }}` resolves in `style` and in `onClick`, and nowhere else that matters.**
+  Not in `class`, not in `title`, not in `tabindex` — those render the template text
+  verbatim, which for `tabindex` means an invalid value and an element that is never
+  focusable in *either* state. So a state-dependent glyph, tooltip or tab stop is **two
+  elements behind an `sc-if`**, which is legal exactly when the thing does not animate.
+  Screen 01 still has three `tabindex="{{ exitTab }}"` and three `tabindex="{{ cardTab }}"`
+  that have never worked; screen 02 uses `sc-if` throughout.
+- **Withdraw the tabindex too**, or the keyboard keeps reaching a control the mouse no
+  longer can — and the rule runs both ways: never leave a pointer target the keyboard
+  cannot reach either, which is how the previewed app's live control was mouse-only for a
+  while. A whole clipped pane does both at once: it goes out of the tab order with
+  `visibility` on the pane — it inherits, so it does not need a tabindex on every control
+  inside, and being discrete it cannot judder. Delay the hide by the content's fade-out so
+  it does not pop.
+- **Three glyphs, three meanings.** `caret-right` is a disclosure that opens in the pane
+  you are already in; `arrow-right` changes what you are looking at; `arrows-out` /
+  `arrows-in` changes how *much* of it you are looking at. A control and its row carry the
+  same one, and the expand pair holds the same slot in both states so the way back is never
+  somewhere the way in was not.
 - This is about affordances that are **wrong for the current state**, not about
   unimplemented chrome. The bell, the kebab and the undo pair hover and do nothing, and
   that is the fidelity of a design doc — leave them. What may not happen is a control that
@@ -125,6 +136,14 @@ Three rules follow, and each of them was once broken here:
 - **Both kinds are counted in both views, in their own units** — the argument in steps, the
   questions in questions. Any partition of the five steps into one bucket each cannot say
   that a contested step also owes an answer, so the questions end up counted nowhere.
+- **Full screen is the chat's one exception.** The chat is a fixed 360 in every other
+  state on every screen, because a pane that resizes for no reason is one more thing
+  travelling during a move. Asking to see only the app is a reason: the chat and the run
+  strip collapse together on the shared 340ms curve, and everything the collapse passes
+  over is pinned so it clips instead of reflowing — the chat's two blocks at
+  `min-width: 360px`, the strip's five titles at `min-height: 3lh`, its boundary sentence
+  at `2lh`. The act goes with the strip, which is honest rather than lossy: you asked for
+  only the app, and Esc brings it back.
 - **A run of what exists may carry the wash for the step it is evidence about.** Screen 02
   washes step 3 in its rail and carries `Agree` / `Comment further` there, because the run
   has just demonstrated the claim under dispute: the check went out unseen in 3s, which is

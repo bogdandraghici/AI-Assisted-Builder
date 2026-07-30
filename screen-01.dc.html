@@ -907,12 +907,17 @@ class Component extends DCLogic {
   state = {
     step: new URLSearchParams(location.search).get('step') === '3',
     tech: false,
-    at: Math.min(3, Math.max(1, parseInt(new URLSearchParams(location.search).get('at'), 10) || 3))
+    at: Math.min(3, Math.max(1, parseInt(new URLSearchParams(location.search).get('at'), 10) || 3)),
+    full: new URLSearchParams(location.search).get('full') === '1'
   };
 
   componentDidMount() {
     this.onKey = e => {
-      if (e.key === 'Escape' && this.state.step) this.setState({ step: false });
+      if (e.key !== 'Escape') return;
+      // Full screen first: it is the more recent and the more modal of the two,
+      // and on the run screen there is no step to close anyway.
+      if (this.state.full) { this.setState({ full: false }); return; }
+      if (this.state.step) this.setState({ step: false });
     };
     document.addEventListener('keydown', this.onKey);
   }
@@ -1147,17 +1152,11 @@ class Component extends DCLogic {
       // show. One flag, whole affordance: the pointer takes the hover and the
       // cursor with it, and the tabindex keeps the keyboard from reaching what
       // the mouse cannot.
-      rowPE4: 'none',
-      rowTab4: '-1',
-
       // Up from a run IS the plan, and unlike the journey list it exists — so
       // unlike screen 01's plan state, these are live. They are constants
       // rather than expressions because screen 02 has one answer in all three
       // of its states; they exist as keys so the markup reads the same as
       // screen 01's and the reason lives here.
-      runUpPE: 'auto',
-      runExitTab: '0',
-
       // The URL is the web app's own way of saying which screen you are on, so
       // it replaces the caption the phone needed under its bezel. At the edge it
       // still reads `what-happened`, which is the run never having advanced,
@@ -1165,7 +1164,47 @@ class Component extends DCLogic {
       // a placeholder that reads as one.
       stageUrl: this.state.at === 1
         ? 'bank.example/dispute/which-payment'
-        : 'bank.example/dispute/what-happened'
+        : 'bank.example/dispute/what-happened',
+
+      // at=2 and at=3 are the SAME app screen — the only difference is whether
+      // Continue can be pressed and whether the tool is drawing over it. So
+      // they share one block and the button is gated, rather than the block
+      // being written twice and drifting. Same reason the plan card's controls
+      // are gated instead of duplicated.
+      at23: this.state.at !== 1,
+
+      // ── Full screen ──────────────────────────────────────────────────────
+      // The chat is the one thing on this prototype that never moves, and this
+      // is the single exception: you have asked to see only the app, so the
+      // tool gets out of the way. It is a real move on the shared curve, not an
+      // sc-if — an unmounted pane has no width to travel from.
+      //
+      // Everything the collapse passes over is pinned so it clips instead of
+      // reflowing, which is the whole reason this can be one beat: the chat's
+      // two blocks hold `min-width: 360px`, the strip's five titles hold
+      // `min-height: 3lh` and its boundary sentence `2lh`. The app needs no pin
+      // at all — every column in it is either fixed or capped, so a wider frame
+      // moves nothing.
+      // support.js resolves `{{ }}` in `style` but NOT in `class`, `title` or
+      // `tabindex` — those render the template text verbatim. So anything
+      // state-dependent outside `style` is two elements behind an `sc-if`, which
+      // is legal here because none of it animates.
+      toggleFull: () => this.setState(p => ({ full: !p.full })),
+      full: this.state.full,
+      notFull: !this.state.full,
+      chatW: this.state.full ? '0px' : '360px',
+      chatBorder: this.state.full ? '0px' : '1px',
+      stripRows: this.state.full ? '0fr' : '1fr',
+      paneOp: this.state.full ? '0' : '1',
+      // Out fast, in late — a pane closing on live text leaves a sliver, and
+      // coming back the content must not appear before there is room for it.
+      paneOpDur: this.state.full ? '70ms' : '200ms',
+      paneOpDl: this.state.full ? '0ms' : '180ms',
+      // Discrete, so it cannot judder, and it is what takes the whole clipped
+      // pane out of the tab order — the strip's nodes and its Agree included,
+      // without a tabindex on each. Hidden only once the fade has finished.
+      paneVis: this.state.full ? 'hidden' : 'visible',
+      paneVisDl: this.state.full ? '70ms' : '0ms'
     };
   }
 }

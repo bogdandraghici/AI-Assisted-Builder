@@ -180,6 +180,12 @@ Two gates, or the trace lies:
 
 - Gate on the page having actually rendered (`.sc-placeholder` gone, `sc-dc-streaming` off,
   tops non-zero), or you will click a hydrating page, get zeros, and read them as real.
+  **All three, not two.** Placeholders go before the bindings resolve, so a probe that
+  checks only for them reads the raw markup — `style="width: {{ chatW }}"`, invalid CSS,
+  every rect zero — and a naive assertion prints PASS on it. Gate on the *target
+  element's own* `style` attribute being free of `{{`, never on `document.body.innerHTML`,
+  which contains the probe's own braces. And make the probe fail loudly on geometry it
+  knows is impossible, or the gate is worse than none.
 - Give the click a turn to render before asking for `getAnimations()`. Read it
   synchronously after `.click()` and you get zero animations and a flat, lying trace —
   and the traces come out labelled one click behind.
@@ -196,6 +202,15 @@ Chrome's `--virtual-time-budget` advances layout transitions but **not** composi
 opacity, so mid-flight frames captured that way lie — they showed an empty middle that was
 actually a 47%-opacity spine. To check a transition, render a static frame with hand-solved
 intermediate values.
+
+Stepped traces are not available there at all: with a virtual-time budget Chrome settles
+the transitions before `getAnimations()` is asked, so the call returns nothing and the trace
+comes out flat. For a move whose only reflow risk is a pinned box, check **both ends
+instead of the middle** — with transitions disabled, toggle to each resting state and take
+`scrollHeight - offsetHeight` over every pinned box. If no box is smaller than its content
+at either end, none can gain a line anywhere between them, which is the whole property the
+per-frame trace exists to establish. The full-screen move is verified that way: five titles
+at a 54px box and the boundary sentence at 36px, underrun 0.0px at both 1032 and 1392.
 
 When patching the logic to force a state for such a frame, replace the *whole* initialiser
 expression: swapping only `get('step') === '3'` leaves `location.search).true`, which is
