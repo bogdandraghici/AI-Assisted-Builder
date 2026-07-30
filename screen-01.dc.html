@@ -36,22 +36,14 @@
     <div style="flex: none;">
       <div style="height: 48px; background: #101820; border-bottom: 1px solid #18212a; display: flex; align-items: center; gap: 16px; padding: 0 16px;">
         <img src="assets/flowx-mark-white.svg" alt="FlowX" style="height: 22px; width: auto; flex: none;" />
-        <!-- One back-affordance, and it only exists when there is somewhere to
-             go: up from a step is the plan, up from a run is the plan, and up
-             from the plan is the journey list, which this prototype does not
-             have. So it goes inert with the plan rather than sitting beside the
-             breadcrumb promising a destination it cannot reach. pointer-events,
-             not a second hover rule — style-hover is a static string and takes
-             no placeholders.
-             `goBack` rather than `closeStep`, because there are two things it
-             can be on top of now and it must leave whichever one it is. -->
+        <!-- Inert in the plan state: up from the plan is the journey list, which
+             this prototype does not have. `goBack`, not `closeStep` — there are two
+             things it can be on top of and it leaves whichever one it is. -->
         <div onClick="{{ goBack }}" tabindex="{{ exitTab }}" title="{{ upTitle }}" style="width: 26px; height: 26px; border-radius: 6px; border: 1px solid {{ upBorder }}; background: {{ upBg }}; display: inline-flex; align-items: center; justify-content: center; color: {{ upColor }}; cursor: pointer; flex: none; outline: none; pointer-events: {{ upPE }}; transition: background 160ms cubic-bezier(0.2, 0, 0.2, 1), color {{ moveDur }} {{ moveEase }}, border-color {{ moveDur }} {{ moveEase }};" style-hover="background: #1c2632; color: #f5f9fc;" style-focus="box-shadow: 0 0 0 3px rgba(43, 127, 228, 0.32);">
           <i class="ph ph-arrow-left" style="font-size: 14px;"></i>
         </div>
-        <!-- Three tiers, and they mean three different things: #8b98a5 is
-             context you cannot go to, #c3cdd7 is the one crumb that is a link,
-             white semibold is where you are. The two ancestors are outside this
-             prototype, so they read as context instead of pretending. -->
+        <!-- Three tiers: #8b98a5 is context you cannot go to, #c3cdd7 is the one
+             crumb that is a link, white semibold is where you are. -->
         <div style="display: flex; align-items: center; gap: 8px; font: 400 12px/16px 'Open Sans', sans-serif; min-width: 0;">
           <span style="color: #8b98a5;">Journeys</span>
           <span style="color: #4a5764;">/</span>
@@ -61,16 +53,12 @@
           <span style="display: inline-grid; grid-template-columns: {{ crumbCols }}; transition: grid-template-columns {{ moveDur }} {{ moveEase }};">
             <span style="overflow: hidden; min-width: 0; white-space: nowrap; display: flex; align-items: center; gap: 8px; opacity: {{ crumbOp }}; transition: opacity {{ crumbOpDur }} {{ moveEase }} {{ crumbOpDl }};">
               <span style="color: #4a5764;">/</span>
-              <!-- The step's own name, not its index. Nothing in the plan is
-                   numbered, so "Step 3" was a position you could not count to
-                   from the screen it came from. -->
+              <!-- The step's name, not its index: nothing in the plan is numbered. -->
               <span style="color: #ffffff; font-weight: 600;">Check with the merchant</span>
             </span>
           </span>
-          <!-- The run's own crumb, on the same animated grid as the step's. Both
-               cannot be open at once — entering the run closes the step — so the
-               two cells never both hold width, and the bar's contents do not
-               move when one hands over to the other. -->
+          <!-- The run's crumb, on the same animated grid as the step's. The two are
+               never open at once, so the cells never both hold width. -->
           <span style="display: inline-grid; grid-template-columns: {{ runCols }}; transition: grid-template-columns {{ moveDur }} {{ moveEase }};">
             <span style="overflow: hidden; min-width: 0; white-space: nowrap; display: flex; align-items: center; gap: 8px; opacity: {{ runCrumbOp }}; transition: opacity {{ crumbOpDur }} {{ moveEase }} {{ runCrumbOpDl }};">
               <span style="color: #4a5764;">/</span>
@@ -79,51 +67,28 @@
           </span>
         </div>
         <div style="margin-left: auto; display: flex; align-items: center; gap: 12px;">
-          <!-- What the run did, and nothing about the build. This line used to
-               open with the build's identity — `build 2 · 09:37 · 7 resources
-               exist` — and that was chrome-level bookkeeping on a screen whose
-               whole subject is what is still owed. The resource count was the
-               worst of it: a number nothing on the page could be reconciled
-               against, since no row states its own resources any more either.
-               The run's half stays, on the same collapsing cell as the run
-               crumb, so it holds no width until there is a run. The cluster is
-               right-anchored by `margin-left: auto`, so everything after this
-               holds still while the cell opens and only this line's left edge
-               slides, on the shared curve, as one element.
-               Its 12px gap lives INSIDE this wrapper for the same reason the
-               full-screen button's does: the cluster's own `gap: 12px` would
-               otherwise be spent on a zero-width child, and the plan state has
-               to stay pixel-identical. -->
+          <!-- What the run did, and nothing about the build. On the same collapsing
+               cell as the run crumb, so it holds no width until there is a run.
+               The 12px gap lives INSIDE this wrapper: the cluster's own gap would be
+               spent on a zero-width child and the plan state must stay
+               pixel-identical. -->
           <div style="display: inline-flex; align-items: center; gap: {{ fullGap }}; transition: gap {{ moveDur }} {{ moveEase }};">
             <div style="display: grid; grid-template-columns: {{ runCols }}; transition: grid-template-columns {{ moveDur }} {{ moveEase }};">
               <div style="overflow: hidden; min-width: 0; white-space: nowrap; font: 400 12px/16px 'Open Sans', sans-serif; color: #c3cdd7; opacity: {{ runCrumbOp }}; transition: opacity {{ crumbOpDur }} {{ moveEase }} {{ runCrumbOpDl }};">ran 09:46 · reached 3 of 5</div>
             </div>
             <div style="display: inline-flex; align-items: center; gap: 6px;"><div style="width: 26px; height: 26px; border-radius: 99px; border: 1px solid #26313d; background: #161f28; display: inline-flex; align-items: center; justify-content: center; color: #c3cdd7; cursor: pointer; flex: none; transition: background 160ms cubic-bezier(0.2, 0, 0.2, 1);" style-hover="background: #1c2632;"><i class="ph ph-arrow-counter-clockwise" style="font-size: 12px;"></i></div><div style="width: 26px; height: 26px; border-radius: 99px; border: 1px solid #26313d; background: #161f28; display: inline-flex; align-items: center; justify-content: center; color: #c3cdd7; cursor: pointer; flex: none; transition: background 160ms cubic-bezier(0.2, 0, 0.2, 1);" style-hover="background: #1c2632;"><i class="ph ph-arrow-clockwise" style="font-size: 12px;"></i></div></div>
           </div>
-          <!-- The act and the way to see more of it, paired so that the second
-               one costs nothing until there is a run to fill the screen. The
-               cluster's own `gap: 12px` would be spent on a zero-width child, so
-               the gap lives INSIDE this wrapper and collapses with the cell —
-               which is what keeps the plan state pixel-identical. -->
+          <!-- Same gap-inside-the-wrapper trick: it collapses with the cell. -->
           <div style="display: inline-flex; align-items: center; gap: {{ fullGap }}; transition: gap {{ moveDur }} {{ moveEase }};">
-            <!-- One label in both states. `Run again` would mean animating this
-                 button's width, and a word swapped instantly inside a box whose
-                 width is travelling pops. `Test what exists` is what it does
-                 either way — the first time and every time after.
-                 Withdrawn while a step is open: entering the run from the spine
-                 would superpose a spine-to-wide flow travel against the
-                 lie-down transform, and two curves summed are not guaranteed
-                 monotonic. The run is entered from the wide plan only. -->
+            <!-- One label in both states: swapping the word would animate the
+                 button's width. Withdrawn while a step is open — the run is entered
+                 from the wide plan only, so no spine-to-wide travel is ever summed
+                 against the lie-down transform. -->
             <div onClick="{{ openRun }}" tabindex="{{ runTab }}" title="{{ runTitle }}" style="display: inline-flex; align-items: center; gap: 6px; height: 28px; padding: 0 8px; border-radius: 8px; background: {{ runBg }}; color: {{ runFg }}; font: 600 12px/16px 'Open Sans', sans-serif; cursor: pointer; outline: none; pointer-events: {{ runPE }}; transition: background 160ms cubic-bezier(0.2, 0, 0.2, 1), color {{ moveDur }} {{ moveEase }};" style-hover="background: #2ea86a;" style-focus="box-shadow: 0 0 0 3px rgba(46, 168, 106, 0.32);">
               <i class="ph ph-play" style="font-size: 12px;"></i>Test what exists
             </div>
-            <!-- A third glyph for a third meaning. caret-right discloses in the
-                 pane you are already in; arrow-right changes what you are
-                 looking at; arrows-out changes how MUCH of it you are looking
-                 at. It holds the same slot in both of its own states, so the way
-                 back is never somewhere the way in was not — and it holds no
-                 slot at all outside the run, where there is nothing to fill the
-                 screen with. -->
+            <!-- arrows-out: how much of it you are looking at. Same slot in both of
+                 its states, no slot at all outside the run. -->
             <span style="display: inline-grid; grid-template-columns: {{ runCols }}; transition: grid-template-columns {{ moveDur }} {{ moveEase }};">
               <span style="overflow: hidden; min-width: 0; display: inline-flex;">
                 <div onClick="{{ toggleFull }}" tabindex="{{ fullTab }}" title="{{ fullTitle }}" style="width: 26px; height: 26px; border-radius: 99px; border: 1px solid #26313d; background: #161f28; display: inline-flex; align-items: center; justify-content: center; color: #c3cdd7; cursor: pointer; flex: none; outline: none; opacity: {{ runCrumbOp }}; pointer-events: {{ fullPE }}; transition: background 160ms cubic-bezier(0.2, 0, 0.2, 1), opacity {{ crumbOpDur }} {{ moveEase }} {{ runCrumbOpDl }};" style-hover="background: #1c2632; color: #f5f9fc;" style-focus="box-shadow: 0 0 0 3px rgba(43, 127, 228, 0.32);"><i class="ph {{ fullGlyph }}" style="font-size: 12px;"></i></div>
@@ -141,28 +106,15 @@
 
     <div style="flex: 1; display: flex; min-height: 0;">
 
-      <!-- One width in every state, so the chat is the one thing on this screen
-           that never moves, and full screen is its single exception. It was 440
-           with the plan wide and 360 with a step open; the narrower of the two is
-           enough for the conversation, and a pane that resizes for no reason is
-           one more thing travelling during the move.
-           There is one of it now. Two copies of this pane, kept identical by
-           hand, drifted apart twice — which is the whole reason the run stopped
-           being a second screen. -->
+      <!-- 360 in every state but full screen, so the chat never moves. One copy —
+           two kept identical by hand drifted apart twice. -->
       <div style="width: {{ chatW }}; flex: none; background: #0b1218; border-right: {{ chatBorder }} solid #18212a; display: flex; flex-direction: column; min-height: 0; overflow: hidden; visibility: {{ paneVis }}; transition: width {{ moveDur }} {{ moveEase }}, border-right-width {{ moveDur }} {{ moveEase }}, visibility 0s linear {{ paneVisDl }};">
 
-        <!-- Pinned at the width it has when open, so the pane can narrow over it
-             without ever changing its line count: it clips instead of reflowing,
-             invisibly, since it is at zero opacity long before the pane reaches
-             it. Every message in here would otherwise rewrap the whole way
-             down.
-             359, NOT 360. The pane is `width: 360px` with a 1px right border and
-             box-sizing: border-box, so what it actually offers its children is
-             359 — and a pin one pixel too generous is still a pin that lies. It
-             laid this text out a pixel wider than the pane gives and wrapped
-             "never waits / on it." where the unpinned copy wrapped "never /
-             waits on it.". Two copies of one pane, drifting on one pixel; the
-             merge is what made it visible. Measure the number, never round it. -->
+        <!-- Pinned at the width it has when open, so the pane narrows over it
+             without changing its line count: it clips instead of reflowing.
+             359, NOT 360 — `width: 360px` with a 1px border and box-sizing:
+             border-box offers its children 359, and one pixel of generosity rewrapped
+             a message. Measure the pin, never round it. -->
         <div style="min-width: 359px; flex: 1; padding: 24px 24px 0; display: flex; flex-direction: column; gap: 24px; overflow: hidden; min-height: 0; opacity: {{ paneOp }}; transition: opacity {{ paneOpDur }} {{ moveEase }} {{ paneOpDl }};">
 
           <div style="display: flex; gap: 12px;">
@@ -215,16 +167,11 @@
             </div>
           </div>
 
-          <!-- Four lines at this pane's 278px measure, and the pane has no
-               scroller: the budget is 723px against 676px of content. If this
-               copy ever needs to say more, shorten it — do not add a scroller.
-               What it may not do is repeat the rail: where the run stopped and
-               why is said once, over there, on the row it happened to.
-               It is the one turn the plan has not had yet, so it collapses
-               `1fr -> 0fr` outside the run rather than being an sc-if: it has a
-               height to travel from, and the 24px of gap it leaves behind is
-               empty space at the bottom of a top-aligned column, so nothing
-               above it moves either way. -->
+          <!-- Four lines at this pane's 278px measure. No scroller: 723px of budget
+               against 676px of content — if the copy grows, shorten it. It may not
+               repeat the rail. Collapses `1fr -> 0fr` outside the run, not an sc-if,
+               and the 24px of gap it leaves is at the bottom of a top-aligned
+               column. -->
           <div style="display: grid; grid-template-rows: {{ runRows }}; transition: grid-template-rows {{ moveDur }} {{ moveEase }};">
           <div style="overflow: hidden; min-height: 0; opacity: {{ runCrumbOp }}; transition: opacity {{ crumbOpDur }} {{ moveEase }} {{ runCrumbOpDl }};">
           <div style="display: flex; gap: 12px;">
@@ -244,36 +191,27 @@
             <div style="flex: 1; min-width: 0; font: 400 14px/24px 'Open Sans', sans-serif; color: #7b8896;">Reply to the agent</div>
             <div style="font: 600 12px/16px 'Open Sans', sans-serif; color: #5c6975; flex: none;">Send</div>
           </div>
-          <!-- On the plan the agent has to infer which step you mean; in a run or
-               a step you are looking at one, so it lands there. Same promise, one
-               degree more specific — which is the whole yield of a run: what you
-               noticed becomes plan language on the right step. One element with
-               an interpolated string, never two behind an sc-if. -->
+          <!-- One degree more specific in a run or a step, where you are looking at
+               one. One element with an interpolated string, never two behind an
+               sc-if. -->
           <div style="font: 400 12px/16px 'Open Sans', sans-serif; color: #8b98a5;">{{ composerCap }}</div>
         </div>
       </div>
 
-      <!-- Everything right of the chat is ONE grid: two rows by two columns,
-           with FIXED placement and interpolated tracks. It has to be, because
-           the plan travels from a column where the app's place is to a band
-           BENEATH the app, and that is a change of axis — `flex-direction` is
-           discrete and would jump on frame one.
-           App at (1, 1-2), plan surface at (2, 1), step at (2, 2). Nothing is
-           ever re-placed, so nothing jumps; only the tracks move, which is the
-           mechanism every collapse on this screen already uses.
-           BOTH TRACKS IN A TEMPLATE MUST CARRY THE SAME UNIT: `780px -> 1fr`
-           does not interpolate, it snaps. So every track is px and measured.
-           Region is 1080 x 852 at the design size (360 + 1080 = 1440). -->
+      <!-- Everything right of the chat is ONE grid, 2×2, with FIXED placement and
+           interpolated tracks — the plan changes axis (column to band beneath the
+           app) and `flex-direction` is discrete. App at (1, 1-2), plan at (2, 1),
+           step at (2, 2); nothing is ever re-placed, only the tracks move.
+           BOTH TRACKS IN A TEMPLATE MUST CARRY THE SAME UNIT: `780px -> 1fr` snaps.
+           Region is 1080 × 852 at the design size. -->
       <div style="flex: 1; min-width: 0; display: grid; grid-template-rows: {{ gRows }}; grid-template-columns: {{ gCols }}; transition: grid-template-rows {{ moveDur }} {{ moveEase }}, grid-template-columns {{ moveDur }} {{ moveEase }};">
 
-        <!-- The app. Row 1, both columns, clipped to nothing until the run.
-             The frame inside holds `min-height: {{ appMinH }}` so a cell
-             collapsing to zero clips it instead of reflowing it — the same pin
-             the chat's blocks and the strip's titles hold, for the same reason. -->
+        <!-- The app. Row 1, both columns, clipped to nothing until the run. The
+             frame holds `min-height: {{ appMinH }}` so the cell clips it rather than
+             reflowing it. -->
         <div style="grid-row: 1; grid-column: 1 / span 2; min-width: 0; overflow: hidden; background: #0e161d; display: flex; flex-direction: column; padding: {{ appPad }}; visibility: {{ appVis }}; opacity: {{ appOp }}; transition: padding {{ moveDur }} {{ moveEase }}, opacity {{ appOpDur }} {{ moveEase }} {{ appOpDl }}, visibility 0s linear {{ appVisDl }};">
-          <!-- A browser window, not a phone: chrome is chrome, so the frame takes
-               the system's own 12px radius and the off-scale bezel exemption the
-               phone needed is gone. Still no shadow. -->
+          <!-- A browser window, not a phone: the system's own 12px radius, no
+               shadow. -->
           <div style="flex: 1; min-height: 0; background: #ffffff; border: 1px solid #26313d; border-radius: 12px; overflow: hidden; position: relative; display: flex; flex-direction: column;">
 
             <div style="flex: none; height: 36px; background: #f4f6f8; border-bottom: 1px solid #dfe5ea; display: flex; align-items: center; gap: 12px; padding: 0 12px;">
@@ -285,11 +223,9 @@
               <div style="flex: none; width: 420px; height: 22px; background: #ffffff; border: 1px solid #dfe5ea; border-radius: 6px; display: flex; align-items: center; padding: 0 8px; font: 400 12px/16px ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; color: #5c6975;">{{ stageUrl }}</div>
             </div>
 
-            <!-- The app's own header. Brand, the journey it is running, and the
-                 customer — an avatar in the app's greys, never the builder's blue
-                 `LC`, because these are two different people looking at two
-                 different things. `ph-lifebuoy` and not `ph-question`: the circled
-                 question mark is the TOOL's help button in the bar above. -->
+            <!-- The customer's avatar is in the app's greys, never the builder's blue
+                 `LC`. `ph-lifebuoy`, not `ph-question` — the circled question mark is
+                 the TOOL's help button in the bar above. -->
             <div style="flex: none; height: 56px; border-bottom: 1px solid #dfe5ea; display: flex; align-items: center; justify-content: space-between; padding: 0 32px;">
               <div style="display: flex; align-items: center; gap: 12px; min-width: 0;">
                 <div style="width: 20px; height: 20px; flex: none; border-radius: 6px; background: #2b7fe4;"></div>
@@ -304,12 +240,9 @@
               </div>
             </div>
 
-            <!-- The plan's own words made visible: "card and account already known,
-                 so nothing is typed twice." So these are facts, not fields — no
-                 picker, no cursor, nothing to change. Which is also why there is no
-                 search box and no date range anywhere in here: the plan does not
-                 say the agent built either, and a preview that invents capability
-                 is a preview that lies. -->
+            <!-- Facts, not fields — no picker, no cursor. No search box or date range
+                 anywhere in here either: the plan does not say the agent built them,
+                 and a preview may not invent capability. -->
             <div style="flex: none; height: 44px; background: #f4f6f8; border-bottom: 1px solid #dfe5ea; display: flex; align-items: center; gap: 24px; padding: 0 32px;">
               <div style="display: flex; align-items: center; gap: 8px;"><i class="ph ph-user-circle" style="font-size: 14px; color: #5c6975;"></i><div style="font: 400 12px/18px 'Open Sans', sans-serif; color: #5c6975;">Jordan Miles</div></div>
               <div style="display: flex; align-items: center; gap: 8px;"><i class="ph ph-credit-card" style="font-size: 14px; color: #5c6975;"></i><div style="font: 400 12px/18px ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; color: #5c6975;">•••• 4417</div></div>
@@ -317,11 +250,8 @@
             </div>
 
   <sc-if value="{{ at1 }}" hint-placeholder-val="{{ false }}">
-            <!-- The app scrolls, because a browser window does. That is also what
-                 makes twelve rows honest: the run says `picked 1 of 12`, and all
-                 twelve are here to be counted rather than summarised. It is the
-                 reason full screen earns its keep — at the embedded size you read
-                 the shape, maximised you read the thing. -->
+            <!-- The app scrolls. All twelve rows are here because the run says
+                 `picked 1 of 12` and it must be countable. -->
             <div style="flex: 1; min-height: 0; overflow-y: auto; padding: 24px 32px; display: flex; flex-direction: column; gap: 16px;">
                 <div style="flex: none; display: flex; align-items: center; gap: 12px;">
                   <div style="display: flex; align-items: center; gap: 8px;"><div style="width: 16px; height: 16px; flex: none; border-radius: 99px; background: #2b7fe4;"></div><div style="font: 700 12px/18px 'Open Sans', sans-serif; color: #1a2129;">Payment</div></div>
@@ -489,21 +419,10 @@
                  is what makes this legible as the tool rather than as a screen
                  somebody designed. No wash — it is a fact about the build, not
                  your move — and no way forward, because there is not one. -->
-            <!-- The tool drawing over the app. Dark inside a white app on purpose:
-                 white is the thing you built, dark is the tool speaking, and that
-                 is what makes this legible as the tool rather than as a screen
-                 somebody designed.
-                 It is a bar across the frame's foot, and it covers the app's own
-                 action bar exactly — which is the point rather than a collision:
-                 `Continue` is the control that has nowhere to go, so the thing
-                 that says so belongs on top of it. A floating plate could not
-                 manage that at both sizes. Centred, it lay across the customer's
-                 typed words at the embedded size; held a fixed distance off the
-                 bottom, it did the same as soon as the frame was short. Full
-                 width and flush, it lands on the same thing at every size, and
-                 the frame's own radius clips its corners.
-                 No wash — this is a fact about the build, not your move — and no
-                 way forward, because there is not one. -->
+            <!-- The tool drawing over the app: dark because the tool is speaking.
+                 A bar across the frame's foot, full width and flush, covering the
+                 app's own action bar — `Continue` is the control that has nowhere to
+                 go. No wash: this is a fact about the build, not your move. -->
             <div style="position: absolute; inset: 0; background: rgba(11, 18, 24, 0.28); display: flex; flex-direction: column; justify-content: flex-end;">
               <div style="width: 100%; min-height: 69px; flex: none; background: #101820; border-top: 1px solid #26313d; padding: 16px 32px; display: flex; align-items: center; gap: 12px;">
                 <div style="flex: none; font: 400 10px/12px ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; text-transform: uppercase; letter-spacing: 0.14em; color: #8b98a5;">What exists ends here</div>
@@ -514,25 +433,19 @@
           </div>
         </div>
 
-        <!-- The plan surface. Row 2, column 1 — the tall pane in the plan and
-             the step states, the band under the app in the run. Its width and
-             height are the grid's tracks now, not its own flex, so the only
-             geometry left on it is the padding: 32 wide, 16 as a spine, and
-             `0 24 24` as the band, which is what puts the strip's border-top on
-             the band's own top edge and its content on 384. -->
+        <!-- The plan surface. Row 2, column 1. Width and height are the grid's
+             tracks, so the only geometry left here is padding: 32 wide, 16 as a
+             spine, `0 24 24` as the band — which puts the strip's border-top on the
+             band's top edge and its content on 384. -->
         <div style="grid-row: 2; grid-column: 1; background: {{ planBg }}; border-right: {{ planBorder }} solid #18212a; overflow: hidden; min-width: 0; min-height: 0; display: flex; flex-direction: column; padding: {{ planPad }}; transition: background-color {{ moveDur }} {{ moveEase }}, padding {{ moveDur }} {{ moveEase }}, border-right-width {{ moveDur }} {{ moveEase }};">
 
-          <!-- Everything the plan says that the run does not. `flex-grow` to
-               zero rather than an sc-if, so it has a height to travel from, and
-               the content pinned at the height it has when open so the shrink
-               clips it instead of rewrapping it on the way down.
-               The `0 -8px / 0 8px` pair is not spacing. What this wrapper needs
-               to clip is its own HEIGHT, and `overflow: hidden` clips both axes;
-               at its bare content box that cut 3px off the right of step 3's
-               selection outline, which sits at `outline-offset: 3px` and used to
-               be clipped by the pane's padding box 16px further out. The negative
-               margin and the equal padding push the clip box back out without
-               moving the content box a pixel. -->
+          <!-- Everything the plan says that the run does not. `flex-grow` to zero,
+               not an sc-if, so it has a height to travel from; content pinned at its
+               open height so the shrink clips it.
+               The `0 -8px / 0 8px` pair is not spacing — `overflow: hidden` clips
+               both axes, and at the bare content box that cut 3px off step 3's
+               selection outline. The negative margin pushes the clip box out without
+               moving the content box. -->
           <div style="flex-grow: {{ planGrow }}; flex-shrink: 0; flex-basis: 0px; margin: 0 -8px; padding: 0 8px; overflow: hidden; min-height: 0; display: flex; flex-direction: column; visibility: {{ planVis }}; opacity: {{ planOp }}; transition: flex-grow {{ moveDur }} {{ moveEase }}, opacity {{ planOpDur }} {{ moveEase }} {{ planOpDl }}, visibility 0s linear {{ planVisDl }};">
             <div style="min-height: {{ planPinH }}; display: flex; flex-direction: column; flex: 1;">
             <!-- One child now. `Every version` used to sit at the far right of
@@ -551,35 +464,18 @@
                     <div style="width: {{ dashW }}; height: 3px; border-radius: 2px; background: #33404d; transition: width {{ moveDur }} {{ moveEase }};"></div>
                   </div>
                   <div style="display: grid; grid-template-columns: {{ exCols }}; min-width: 0; transition: grid-template-columns {{ moveDur }} {{ moveEase }};">
-                    <!-- Two units, because there are two kinds of waiting and they
-                         do not add up: the argument is counted in steps (there is
-                         one) and the open questions in questions (there are four,
-                         over three steps). "two waiting on you" was a clean
-                         partition of the five steps — 2 built, 1 not agreed, 2
-                         next — which is exactly why it could not say that step 3
-                         owes an answer as well: one step got one bucket and the
-                         argument won the tiebreak. So the four questions were
-                         counted nowhere in the plan, and "waiting on you" was a
-                         third word for what the step pane calls "to settle".
-                         The clauses do not partition the five steps and are not
-                         meant to: the first is the build, the second the argument,
-                         the third the questions — three axes, and step 3 sits on
-                         all three at once. It is the one row under `Not built yet`
-                         that is also the one not agreed and also owes an answer,
-                         and no bucket can say that; three counts in three units
-                         can. -->
+                    <!-- Two units, because the two kinds of waiting do not add up: the
+                         argument in steps (one), the open questions in questions (four,
+                         over three steps). The clauses do not partition the five steps —
+                         build, argument, questions are three axes and step 3 sits on all
+                         three. -->
                     <div style="overflow: hidden; min-width: 0; white-space: nowrap; font: 400 12px/16px 'Open Sans', sans-serif; color: #8b98a5; opacity: {{ exOp }}; transition: opacity {{ exOpDur }} {{ moveEase }} {{ exOpDl }};">Two of five built · one not agreed · <i class="ph ph-question-mark" style="font-size: 10px;"></i> four to settle</div>
                   </div>
                 </div>
                 <div style="display: grid; grid-template-rows: {{ rmRows }}; transition: grid-template-rows {{ moveDur }} {{ moveEase }};">
                   <div style="overflow: hidden; min-height: 0; opacity: {{ rmOp }}; transition: opacity {{ rmOpDur }} {{ moveEase }} {{ rmOpDl }};">
-                    <!-- It repeats the wide line's first clause now instead of
-                         introducing a second word for the same partition. `2
-                         agreed` counted an axis the spine no longer groups by, so
-                         the two states of one header disagreed about both the unit
-                         and the number — and landed on the same number for two
-                         different reasons, which is the kind of agreement that
-                         hides a bug rather than proving there is none. -->
+                    <!-- Repeats the wide line's first clause rather than introducing a
+                         second word for the same partition. -->
                     <div style="font: 400 12px/16px ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; color: #4a5764; white-space: nowrap;">5 steps · 2 built</div>
                   </div>
                 </div>
@@ -588,21 +484,10 @@
 
             <div style="flex: 1; display: flex; flex-direction: column; min-height: 0;">
 
-              <!-- Two headings, and the axis is the build. It used to be three —
-                   Agreed / Not agreed / Next — which grouped the plan by whether
-                   the plan itself was settled and gave the contested step a bucket
-                   of its own, so a heading was spent on a state that step already
-                   says two other ways: a washed card, two acts.
-                   The argument is left to the object it belongs to now, and the
-                   grouping answers the one question the plan is read for.
-                   Only two rows are under here. `Built` is the strict word —
-                   finished, agreed, standing — see the boundary below for why the
-                   step that ran at 09:37 is not one of them. Orange leaves the
-                   group headings entirely, which is stricter rationing than
-                   before, not looser: it is now the settle tags, the wash, and
-                   step 3's own `Not agreed`. The gutter has left it too: step 3's
-                   dot is dashed grey like row 4's, because the gutter answers the
-                   heading's question and nothing else. -->
+              <!-- Two headings, and the axis is the build. Only two rows are under
+                   here; `Built` is the strict word — finished, agreed, standing. Orange
+                   is not spent on the group headings, and the gutter does not carry the
+                   argument either. -->
               <div style="display: grid; grid-template-rows: {{ rmRows }}; transition: grid-template-rows {{ moveDur }} {{ moveEase }};">
                 <div style="overflow: hidden; min-height: 0; opacity: {{ rmOp }}; transition: opacity {{ rmOpDur }} {{ moveEase }} {{ rmOpDl }};">
                   <div style="padding-bottom: 8px; font: 400 10px/12px ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; text-transform: uppercase; letter-spacing: 0.14em; color: #2ea86a; white-space: nowrap;">Built</div>
@@ -619,47 +504,21 @@
                     <div style="min-height: {{ titleLines }}; font-family: 'Open Sans', sans-serif; font-weight: 600; font-size: {{ titleSize }}; line-height: {{ titleLh }}; max-width: {{ titleMax }}; color: #f5f9fc; text-wrap: pretty; transition: min-height {{ ldDur }} {{ ldEase }}, font-size {{ wrDur }} {{ wrEase }}, line-height {{ wrDur }} {{ wrEase }}, max-width {{ wrDur }} {{ wrEase }};">We show the payments they could dispute</div>
                     <div style="display: grid; grid-template-rows: {{ exRows }}; transition: grid-template-rows {{ moveDur }} {{ moveEase }};">
                       <div style="overflow: hidden; min-height: 0; opacity: {{ exOp }}; transition: opacity {{ exOpDur }} {{ moveEase }} {{ exOpDl }};">
-                        <!-- Pinned so the pane can narrow over it without changing
-                             its line count: a collapsing box's height is a fraction
-                             of its CONTENT's height, so a description that rewraps
-                             mid-collapse makes that fraction GROW while it is meant
-                             to be shrinking. It clips instead, invisibly — it is at
-                             zero opacity long before the pane reaches it. The number
-                             is the width the block actually has when open at the
-                             1440 design size (838 / 838 / 945 / 860 / 860 / 1015 —
-                             they differ because the counts column beside each one
-                             does), so at that size there is no reflow at all. This
-                             is what lets the collapse and the resize be one move
-                             instead of two. Measure them, never derive them: they
-                             all moved when the chat went from 440 to a fixed 360,
-                             and all four row pins moved again when the counts
-                             column became a single settle tag — rows 1 and 2 lost
-                             38px because `Nothing to settle` is wider than
-                             `N resources ›`, rows 4 and 5 gained 12 and lost 15
-                             because the tag is narrower than either line of the
-                             stack it replaced. Read them with the pins lifted —
-                             a pin can only ever report itself — and floor the
-                             fraction: a pin above the real width overflows its
-                             clipping parent, and the text has hundreds of pixels
-                             of slack either way. See docs/notes.md. -->
+                        <!-- Pinned so the pane narrows over it without changing its
+                             line count — a collapsing box's height is a fraction of its
+                             CONTENT's, so anything that rewraps grows while it shrinks.
+                             The number is the width the block actually has when open at
+                             1440; they differ because the counts column beside each one
+                             does. Measure them, never derive them: read them with every
+                             pin lifted at once and floor the fraction. -->
                         <div style="min-width: 838px; font: 400 12px/18px 'Open Sans', sans-serif; color: #8b98a5;">The customer sees ninety days of their own payments and picks the disputed one in a single click.</div>
                       </div>
                     </div>
                   </div>
-                  <!-- One tag per row, and it answers the only question the plan
-                       is for: is anything still owed here. It replaced `N
-                       resources ›`, which counted the agent's own output in a
-                       unit the reader has no way to judge — three is neither good
-                       nor bad — and put a disclosure in the column where the
-                       row's state belongs.
-                       Two colours, one shape. Grey is settled, orange is owed;
-                       the number and the `ph-question-mark` say which kind of
-                       waiting it is, exactly as the spine's chips do. This is the
-                       one place a count wears orange, and it is a deliberate
-                       change to the old rule — see docs/notes.md. It stays a
-                       flat tint behind a 1px edge, never the 180° gradient: the
-                       wash is still the only thing that means "answer this
-                       here", and it still belongs to two objects only. -->
+                  <!-- One tag per row: is anything still owed here. Grey is settled,
+                       orange is owed; the number and the `ph-question-mark` say which
+                       kind. A flat tint behind a 1px edge, never the 180° gradient —
+                       the wash is still the only thing meaning "answer this here". -->
                   <div style="display: grid; grid-template-columns: {{ exCols }}; flex: none; transition: grid-template-columns {{ moveDur }} {{ moveEase }};">
                     <div style="overflow: hidden; min-width: 0; white-space: nowrap; display: flex; padding-top: 2px; opacity: {{ exOp }}; transition: opacity {{ exOpDur }} {{ moveEase }} {{ exOpDl }};"><div style="display: inline-flex; align-items: center; height: 18px; padding: 0 6px; border-radius: 4px; background: #131c24; border: 1px solid #26313d; color: #8b98a5; font: 400 10px/12px ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;">Nothing to settle</div></div>
                   </div>
@@ -686,19 +545,11 @@
                 </div>
               </div>
 
-              <!-- The boundary, and it opens with the contested step. `Built` is
-                   the strict word here — finished, agreed, standing — so a step
-                   whose shape is still being argued about and whose last two
-                   resources do not exist has not been built, whatever ran at
-                   09:37. That is what the act's own caption has said all along in
-                   three places: "one question still to settle BEFORE I BUILD IT".
-                   `Next` used to open here instead, which said where these three
-                   sat in a queue — the one thing the reader can already see from
-                   the order.
-                   The run strip draws its boundary one column further right,
-                   after step 3, and that is not a disagreement: the wall marks
-                   what EXISTS, which is the looser claim and the only one a run
-                   can make. Three cards ran; two of them are built. -->
+              <!-- The boundary opens with the contested step: `Built` is strict, and a
+                   step still being argued about whose last two resources do not exist is
+                   not built, whatever ran at 09:37. The run strip draws its boundary one
+                   column further right — that wall marks what EXISTS, the looser claim
+                   and the only one a run can make. -->
               <div style="display: grid; grid-template-rows: {{ rmRows }}; transition: grid-template-rows {{ moveDur }} {{ moveEase }};">
                 <div style="overflow: hidden; min-height: 0; opacity: {{ rmOp }}; transition: opacity {{ rmOpDur }} {{ moveEase }} {{ rmOpDl }};">
                   <div style="padding-bottom: 8px; font: 400 10px/12px ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; text-transform: uppercase; letter-spacing: 0.14em; color: #5c6975; white-space: nowrap;">Not built yet</div>
@@ -707,14 +558,9 @@
 
               <div style="position: relative; display: flex; gap: {{ rowGap }}; align-items: stretch; transition: gap {{ moveDur }} {{ moveEase }};">
                 <div style="width: {{ gutterW }}; flex: none; display: flex; flex-direction: column; align-items: center; transition: width {{ moveDur }} {{ moveEase }};">
-                  <!-- Row 4's dot, exactly: the gutter answers one question, the
-                       heading's question, and the answer here is the same as rows
-                       4 and 5 — not built. It was orange with a ph-warning, which
-                       made the argument a third thing the gutter could say and
-                       made this step look like the only one with something owing
-                       on it; rows 4 and 5 owe three answers between them. What is
-                       contested about it is said by the washed card under the row,
-                       its `Not agreed`, and its two acts. -->
+                  <!-- Row 4's dot exactly: the gutter answers the heading's question
+                       only, and the answer here is the same — not built. What is
+                       contested is said by the card under the row. -->
                   <div style="position: absolute; left: 0; top: 0; width: {{ dotSize }}; height: {{ dotSize }}; border-radius: 99px; background: #0b1218; border: 1px dashed #8b98a5; transition: width {{ moveDur }} {{ moveEase }}, height {{ moveDur }} {{ moveEase }};"></div>
                   <div style="position: absolute; left: {{ connL }}; top: {{ connT }}; right: {{ connR }}; bottom: {{ connB }}; background: {{ c3Bg }}; border: 0 dashed #26313d; border-left-width: {{ c3VW }}; transition: left {{ moveDur }} {{ moveEase }}, top {{ moveDur }} {{ moveEase }}, right {{ moveDur }} {{ moveEase }}, bottom {{ moveDur }} {{ moveEase }}, background-color {{ moveDur }} {{ moveEase }}, border-left-width {{ moveDur }} {{ moveEase }};"></div>
                 </div>
@@ -744,26 +590,15 @@
                             <div style="padding-bottom: 8px; font: 400 10px/12px ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; text-transform: uppercase; letter-spacing: 0.14em; color: #f2762b; white-space: nowrap;">Not agreed</div>
                           </div>
                         </div>
-                      <!-- Opens the step; it does not close it. Once the plan is a
-                           spine the arrow and the tag are gone, so there is nothing
-                           left here to say what a click would do — and a hover wash
-                           on a row with no affordance is the row lying.
-                           pointer-events takes the hover, the cursor and the click
-                           away together, and the three ways out (×, Esc, breadcrumb)
-                           stay the only ones. The hover is the design system's own
-                           #131c24 now rather than a tint of the wash: in the wide
-                           plan this row is not washed, and an orange hover on an
-                           unwashed row is the colour saying "your move" about a
-                           disclosure. -->
+                      <!-- Opens the step; it does not close it. In the spine the arrow
+                           and the tag are gone, so nothing says what a click would do —
+                           pointer-events takes the hover, the cursor and the click away
+                           together. The hover is #131c24, not a tint of the wash: this
+                           row is not washed in the wide plan. -->
                         <div onClick="{{ openStep }}" tabindex="{{ cardTab }}" style="display: flex; align-items: baseline; gap: 8px; cursor: pointer; margin: -6px -8px 0; padding: 6px 8px 0; border-radius: 8px; outline: none; pointer-events: {{ cardPE }}; transition: background 160ms cubic-bezier(0.2, 0, 0.2, 1);" style-hover="background: #131c24;" style-focus="box-shadow: 0 0 0 3px rgba(43, 127, 228, 0.32);">
                           <div style="min-height: {{ titleLines }}; font-family: 'Open Sans', sans-serif; font-weight: 600; font-size: {{ titleSize }}; line-height: {{ titleLh }}; max-width: {{ cardTitleMax }}; color: #f5f9fc; text-wrap: pretty; transition: min-height {{ ldDur }} {{ ldEase }}, font-size {{ wrDur }} {{ wrEase }}, line-height {{ wrDur }} {{ wrEase }}, max-width {{ wrDur }} {{ wrEase }};">We check with the merchant before asking for evidence</div>
-                        <!-- An arrow, not a caret. Two glyphs, two meanings, no
-                             overlap: caret-right is a disclosure that opens in the
-                             pane you are already in (the step pane's technical
-                             table and its version list — the plan itself no longer
-                             holds one), arrow-right changes what you are looking
-                             at. The title and the button below it do the same
-                             thing, so they carry the same glyph. -->
+                        <!-- An arrow, not a caret: caret-right discloses in the pane you
+                             are already in, arrow-right changes what you look at. -->
                           <i class="ph ph-arrow-right" style="font-size: {{ caretSize }}; color: #f2985c; flex: none; opacity: {{ exOp }}; transition: font-size {{ wrDur }} {{ wrEase }}, opacity {{ exOpDur }} {{ moveEase }} {{ exOpDl }};"></i>
                         </div>
                       </div>
@@ -793,14 +628,9 @@
                       </div>
                     </div>
 
-                    <!-- One tag, in the same column as every other row's, and
-                         orange because something is owed. It used to be `Not
-                         agreed` here and no count at all: the count was said to
-                         cost 74px of title measure, which it did while this row's
-                         title lived inside a padded card with the chip beside it.
-                         The row is an ordinary row now and pays exactly what rows
-                         4 and 5 pay. `Not agreed` moved to the heading of the card
-                         below, which is the object the state belongs to. -->
+                    <!-- One tag, in the same column as every other row's, and orange
+                         because something is owed. `Not agreed` belongs to the card
+                         below, which is the object the state is about. -->
                     <div style="position: relative; display: grid; grid-template-columns: {{ exCols }}; flex: none; transition: grid-template-columns {{ moveDur }} {{ moveEase }};">
                       <div style="overflow: hidden; min-width: 0; white-space: nowrap; display: flex; padding-top: 2px; opacity: {{ exOp }}; transition: opacity {{ exOpDur }} {{ moveEase }} {{ exOpDl }};"><div style="display: inline-flex; align-items: center; gap: 4px; height: 18px; padding: 0 6px; border-radius: 4px; background: rgba(242, 118, 43, 0.14); border: 1px solid rgba(242, 118, 43, 0.30); color: #f2762b; font: 400 10px/12px ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;"><i class="ph ph-question-mark" style="font-size: 10px;"></i>1 to settle</div></div>
                     </div>
@@ -814,13 +644,9 @@
                            narrow is the box with the border on it. -->
                       <div style="min-width: 979px; margin-top: 12px; background: linear-gradient(180deg, rgba(242, 118, 43, 0.14), rgba(242, 118, 43, 0.06) 45%, rgba(242, 118, 43, 0.025)); border: 1px solid rgba(242, 118, 43, 0.30); border-radius: 12px; padding: 16px; display: flex; flex-direction: column; gap: 12px;">
 
-                        <!-- No glyph, and the word is now the only thing naming
-                             this kind of waiting in the plan: the row's dot used
-                             to be a ph-warning and is a plain dashed dot now. The
-                             word is enough — the rule is that the colour may not
-                             say which kind, and `Not agreed` over `Agree` /
-                             `Comment further` says it in words twice. The
-                             ph-warning lives on the step pane's eyebrow. -->
+                        <!-- No glyph: the word is enough, and `Not agreed` over `Agree` /
+                             `Comment further` says it twice. The ph-warning lives on the
+                             step pane's eyebrow. -->
                         <div style="font: 400 10px/12px ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; text-transform: uppercase; letter-spacing: 0.14em; color: #f2762b;">Not agreed</div>
 
                         <div style="display: flex; flex-direction: column; gap: 8px;">
@@ -854,42 +680,21 @@
                             </div>
                           </div>
 
-                          <!-- Only the part the drawing cannot draw. "The customer
-                               never waits for it" was this sentence's first clause
-                               and it is what `unseen · 3s` on the branch already
-                               says; the step's own subtitle said the whole thing
-                               over again in different words, which is one fact in
-                               three places. What is left is the outcome that ends
-                               the dispute early, and there is nowhere else to read
-                               it. -->
+                          <!-- Only the part the drawing cannot draw: the outcome that
+                               ends the dispute early. `unseen · 3s` on the branch already
+                               says the customer never waits for it. -->
                           <div style="font: 400 12px/18px 'Open Sans', sans-serif; color: #c3cdd7; text-wrap: pretty;">If the merchant has already refunded them we stop there and say so, instead of asking for a receipt.</div>
                         </div>
 
-                        <!-- The two acts of an argument — settle it, or keep
-                             having it — and neither of them is "build". Building
-                             was never the builder's move: the agent builds once it
-                             is agreed and has what it needs.
-                             "Agree and build" welded the two kinds of waiting into
-                             one control and then killed it, so the one thing this
-                             screen exists to ask — do you accept the revised
-                             step — could not be answered until an unrelated
-                             implementation question was. The plan's own taxonomy
-                             says that gate is wrong: steps 4 and 5 sit under Next,
-                             not under Not agreed, and each still owes answers.
-                             Agreed-and-still-owing is a legal state here, and step
-                             3 was the only place the two axes were fused.
-                             So agreeing is live, and what the answer is still
-                             needed for is said in words beside it instead of acted
-                             out by a dead button. Same pair, same words, in the
-                             step — the way in is the title's arrow and the row,
-                             which is what a disclosure was always for. -->
+                        <!-- The two acts of an argument — settle it, or keep having it —
+                             and neither is "build": the agent builds once it is agreed and
+                             has what it needs. Agreed-and-still-owing is a legal state, so
+                             agreeing is never gated on answering; what the answer is still
+                             needed for is said in words beside it. -->
                         <div style="display: flex; align-items: center; gap: 12px;">
-                          <!-- cardTab and cardPE, not a bare 0 and no gate at all:
-                               these live inside a block that collapses to nothing
-                               when the step is open, so they are the plan pane's
-                               mirror of the closed step's thirteen — tab stops with
-                               nothing on screen, and now that they are live,
-                               pointer targets with nothing on screen too. -->
+                          <!-- cardTab and cardPE, not a bare 0: this block collapses to
+                               nothing when the step is open, so these would otherwise be
+                               tab stops and pointer targets with nothing on screen. -->
                           <div tabindex="{{ cardTab }}" style="display: inline-flex; flex: none; white-space: nowrap; align-items: center; gap: 6px; height: 36px; padding: 0 12px; font: 600 14px/24px 'Open Sans', sans-serif; color: #ffffff; background: #2b7fe4; border-radius: 8px; cursor: pointer; outline: none; pointer-events: {{ cardPE }}; transition: background 160ms cubic-bezier(0.2, 0, 0.2, 1);" style-hover="background: #4d97ea;" style-active="background: #2b5f9e;" style-focus="box-shadow: 0 0 0 3px rgba(43, 127, 228, 0.32);"><i class="ph ph-check" style="font-size: 14px;"></i>Agree</div>
                           <div tabindex="{{ cardTab }}" style="display: inline-flex; flex: none; white-space: nowrap; align-items: center; gap: 6px; height: 36px; padding: 0 12px; font: 600 14px/24px 'Open Sans', sans-serif; color: #c3cdd7; background: transparent; border: 1px solid #26313d; border-radius: 8px; cursor: pointer; outline: none; pointer-events: {{ cardPE }}; transition: all 160ms cubic-bezier(0.2, 0, 0.2, 1);" style-hover="border-color: #4d97ea; background: #131c24; color: #f5f9fc;" style-focus="box-shadow: 0 0 0 3px rgba(43, 127, 228, 0.32);"><i class="ph ph-chat-teardrop-text" style="font-size: 14px;"></i>Comment further</div>
                           <div style="flex: 1;"></div>
@@ -923,17 +728,10 @@
                       </div>
                     </div>
                   </div>
-                  <!-- One thing here now, where there were two stacked: `Nothing
-                       built yet ›` over the count. The stack existed to keep the
-                       column narrow — side by side it was 74px wider, and 74px is
-                       74px the title has to be narrower than at every instant of
-                       the move, which mid-flight put the title's real width
-                       (282px at t=167) BELOW its own animating max-width (332px)
-                       and handed the pane the decision about where the line
-                       broke. Dropping the build state removes the pressure
-                       entirely rather than arranging around it: the column is now
-                       one tag, narrower than either stack, and the description's
-                       pin beside it grew to match. -->
+                  <!-- One tag, where two were stacked. Side by side the stack was 74px
+                       wider, and 74px is 74px the title must be narrower than at every
+                       instant — mid-flight that put the title's real width below its own
+                       animating max-width and handed wrapping back to the pane. -->
                   <div style="display: grid; grid-template-columns: {{ exCols }}; flex: none; transition: grid-template-columns {{ moveDur }} {{ moveEase }};">
                     <div style="overflow: hidden; min-width: 0; white-space: nowrap; display: flex; padding-top: 2px; opacity: {{ exOp }}; transition: opacity {{ exOpDur }} {{ moveEase }} {{ exOpDl }};"><div style="display: inline-flex; align-items: center; gap: 4px; height: 18px; padding: 0 6px; border-radius: 4px; background: rgba(242, 118, 43, 0.14); border: 1px solid rgba(242, 118, 43, 0.30); color: #f2762b; font: 400 10px/12px ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;"><i class="ph ph-question-mark" style="font-size: 10px;"></i>2 to settle</div></div>
                   </div>
@@ -950,12 +748,9 @@
                     <div style="min-height: {{ titleLines }}; font-family: 'Open Sans', sans-serif; font-weight: 600; font-size: {{ titleSize }}; line-height: {{ titleLh }}; max-width: {{ titleMax }}; color: #f5f9fc; text-wrap: pretty; transition: min-height {{ ldDur }} {{ ldEase }}, font-size {{ wrDur }} {{ wrEase }}, line-height {{ wrDur }} {{ wrEase }}, max-width {{ wrDur }} {{ wrEase }};">We send the biggest disputes to a person</div>
                     <div style="display: grid; grid-template-rows: {{ exRows }}; transition: grid-template-rows {{ moveDur }} {{ moveEase }};">
                       <div style="overflow: hidden; min-height: 0; opacity: {{ exOp }}; transition: opacity {{ exOpDur }} {{ moveEase }} {{ exOpDl }};">
-                        <!-- #8b98a5, the same grey as the other three descriptions. It
-                             was the brighter #c3cdd7 while it carried the open question
-                             — "{{ threshold }} is my guess" — because that was the agent
-                             asking for something. It states an outcome now, like rows 1
-                             and 2, and the open question is counted by the `1 to settle`
-                             chip beside it, which is how rows 3 and 4 already do it. -->
+                        <!-- #8b98a5, the same grey as the other three descriptions: it
+                             states an outcome, and its open question is counted by the
+                             `1 to settle` chip beside it. -->
                         <div style="min-width: 860px; font: 400 12px/18px 'Open Sans', sans-serif; color: #8b98a5;">Disputes above {{ threshold }} reach a person instead of an automatic decision, and the customer is told a reviewer has it.</div>
                       </div>
                     </div>
@@ -1001,20 +796,12 @@
                  act, which belongs to the run rather than to either side. -->
             <div style="position: absolute; left: calc((100% - 16px) * 0.6); top: 16px; bottom: 60px; width: 0; border-left: 2px solid #26313d;"></div>
 
-            <!-- Two headings, lying down, and the left one is `Ran` rather than
-                 the plan's `Built` — the one place the two views use different
-                 words, and the wall is the reason. This boundary is the run's
-                 own: it marks what EXISTS, which is the looser claim and the only
-                 one a run can make. All three cards left of it say `ran · …`, so
-                 `Built` over them would be contradicted by the captions directly
-                 underneath — step 3 ran at 09:37 and is still not built. `Not
-                 built yet` is the plan's word unchanged, over the two columns it
-                 is true of.
-                 Three headings used to sit here — 2 + 1 + 2 — spending one on the
-                 middle column's argument, which that column already carries below
-                 as a washed card and two acts. Merging into 3 + 2
-                 leaves every column boundary where it was, spacer included, so
-                 the wall at 0.6 still lands on the seam it names. -->
+            <!-- Two headings, lying down, and the left one is `Ran` rather than the
+                 plan's `Built` — the one place the two views use different words. This
+                 boundary marks what EXISTS: all three cards left of it say `ran · …`,
+                 and step 3 ran at 09:37 and is still not built. Merging to 3 + 2 leaves
+                 every column boundary where it was, so the wall at 0.6 still lands on
+                 the seam it names. -->
             <div style="flex: none; display: flex; align-items: flex-end; padding-bottom: 8px;">
               <div style="flex: 3 1 0px; min-width: 0; font: 400 10px/12px ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; text-transform: uppercase; letter-spacing: 0.14em; color: #2ea86a;">Ran</div>
               <div style="width: 16px; flex: none;"></div>
@@ -1044,12 +831,9 @@
               </div>
               <div style="flex: 1 1 0px; min-width: 0; display: flex; flex-direction: column;">
                 <div style="display: flex; align-items: center; height: 20px;">
-                  <!-- A check, like the two before it. Left of the wall the dots
-                       answer the run's own question — did this exist and run —
-                       and this one ran at 09:37, which its caption says. It wore
-                       an orange ph-warning, the argument answering a question the
-                       run was not asking; the washed card and the acts below it
-                       carry that. -->
+                  <!-- A check, like the two before it. Left of the wall the dots answer
+                       the run's own question — did this exist and run — and this one ran
+                       at 09:37. -->
                   <div style="width: 20px; height: 20px; flex: none; border-radius: 99px; background: #2ea86a; display: grid; place-items: center;"><i class="ph ph-check" style="font-size: 11px; color: #ffffff;"></i></div>
                   <div style="flex: 1; height: 2px; background: #26313d;"></div>
                 </div>
@@ -1113,16 +897,10 @@
           </div>
         </div>
 
-      <!-- `visibility` is what takes the closed step out of the tab order, and
-           it is set here because it inherits — otherwise it is thirteen
-           tabindexes to keep in sync. The pane is clipped to nothing when
-           closed, so the mouse could never reach these controls; the keyboard
-           walked straight into all thirteen of them, off the right edge of the
-           screen, with the focus ring invisible.
-           It is a discrete property: it cannot interpolate, so it cannot
-           judder. The 0s delay is what keeps it out of the way of the move —
-           visible the instant the pane opens, hidden only once the content has
-           finished its fade out. -->
+      <!-- `visibility` takes the closed step out of the tab order, and it is set
+           here because it inherits — otherwise it is thirteen tabindexes to keep in
+           sync. Discrete, so it cannot judder: visible the instant the pane opens,
+           hidden only once the content has finished fading out. -->
       <div style="grid-row: 2; grid-column: 2; position: relative; overflow: hidden; min-width: 0; min-height: 0; visibility: {{ detVis }}; transition: visibility 0s linear {{ detVisDl }};">
 
         <!-- Outside the scroller, not inside it. It used to be the second child
@@ -1144,24 +922,15 @@
           <div style="flex: none; max-width: 800px; display: flex; flex-direction: column; gap: 8px; padding-bottom: 12px; opacity: {{ dOp }}; transform: {{ dTr }}; transition: opacity {{ dDur }} cubic-bezier(0.2, 0, 0.2, 1) {{ dDl }}, transform {{ dDur }} cubic-bezier(0.2, 0, 0.2, 1) {{ dDl }};">
             <div style="display: inline-flex; align-self: flex-start; align-items: center; gap: 6px; color: #f2762b;">
               <i class="ph ph-warning" style="font-size: 12px;"></i>
-              <!-- Same status word the card's heading and step 3's own eyebrow in
-                   the spine use — three views, one word. It was "waiting on you"
-                   here, "Not agreed" on the chip, "You are here" on the spine and
-                   "being argued about" in the plan subtitle: four names for one
-                   state, across a transition that is supposed to be one thing
-                   changing shape. It survived the plan's regrouping onto the build
-                   axis unchanged, because agreement is not what that axis is
-                   about and this pane's whole subject is the argument. -->
+              <!-- Same status word the card's heading and step 3's spine eyebrow use —
+                   three views, one word. -->
               <div style="font: 400 10px/12px ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; text-transform: uppercase; letter-spacing: 0.14em;">Not agreed · step 3 of 5</div>
             </div>
             <div style="font: 700 24px/38px 'Open Sans', sans-serif; color: #f5f9fc;">We check with the merchant before asking for evidence</div>
             <div style="font: 400 14px/24px 'Open Sans', sans-serif; color: #a9b6c3; text-wrap: pretty;">We ask the merchant about the payment while the customer is still describing it. They never wait for it and never see it — unless the merchant has already refunded them, in which case we stop and say so.</div>
-            <!-- The whole of the reason, here: one sentence and the rule it
-                 rests on. The plan card argues the case — it names what you
-                 asked for and what breaks — because that is where the refusal
-                 happens, next to the instruction. By the time you are in the
-                 step the case is made; what you still need is the claim it turns
-                 on, so a deep link to `?step=3` stands on its own. -->
+            <!-- One sentence and the rule it rests on. The plan card argues the case,
+                 next to the instruction; by the time you are here what you need is the
+                 claim it turns on, so `?step=3` stands on its own. -->
             <div style="display: flex; align-items: center; gap: 8px; flex-wrap: wrap;">
               <div style="font: 400 14px/24px 'Open Sans', sans-serif; color: #c3cdd7; text-wrap: pretty;">The scheme needs an attempt with the merchant before we ask for evidence.</div>
               <div style="display: inline-flex; align-items: center; gap: 8px; cursor: pointer; color: #f2985c; transition: color 160ms cubic-bezier(0.2, 0, 0.2, 1);" style-hover="color: #f5f9fc;">
@@ -1171,14 +940,9 @@
             </div>
           </div>
 
-          <!-- The drawing, and nothing that came with it. The reason and the
-               citation are in the header now: they used to be repeated here word
-               for word from the plan card, so the click that means "show me more
-               about this" gave you the same two paragraphs again and a second
-               copy of the same picture. The picture is the one thing worth
-               carrying twice — in the plan it is the argument, here it is what
-               the open question below is about — so it keeps the label it has
-               there. One drawing, one name for it. -->
+          <!-- The drawing, and nothing that came with it — the reason and the citation
+               are in the header. The picture is the one thing worth carrying twice, so
+               it keeps the label it has in the plan. -->
           <div style="flex: none; max-width: 800px; display: flex; flex-direction: column; gap: 12px; padding-bottom: 12px; opacity: {{ dOp }}; transform: {{ dTr }}; transition: opacity {{ dDur }} cubic-bezier(0.2, 0, 0.2, 1) {{ dDl }}, transform {{ dDur }} cubic-bezier(0.2, 0, 0.2, 1) {{ dDl }};">
             <div style="font: 400 10px/12px ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; text-transform: uppercase; letter-spacing: 0.14em; color: #8b98a5;">What I would do instead</div>
             <div style="background: #101820; border: 1px solid #1c2530; border-radius: 8px; padding: 16px; display: flex; flex-direction: column;">
@@ -1205,83 +969,32 @@
           <div style="flex: none; max-width: 800px; display: flex; flex-direction: column; gap: 8px; padding-bottom: 12px; opacity: {{ dOp }}; transform: {{ dTr }}; transition: opacity {{ dDur }} cubic-bezier(0.2, 0, 0.2, 1) {{ dDl }}, transform {{ dDur }} cubic-bezier(0.2, 0, 0.2, 1) {{ dDl }};">
             <div style="display: flex; align-items: baseline; justify-content: space-between; gap: 16px;">
               <div style="font: 400 10px/12px ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; text-transform: uppercase; letter-spacing: 0.14em; color: #8b98a5;">What I need from you</div>
-              <!-- The same words the plan's step-3 card uses: "One question
-                   still to settle before I build it." One question, in both
-                   views, in questions.
-                   It was "1 of 2 still to settle", and there is no second thing
-                   to settle — the other card in the list is the one you have
-                   already answered. A denominator is a promise that everything
-                   it counts is the same kind of thing, and with three items and
-                   two of them open that nearly held; with two items in two
-                   different states it just asks which the second one is. Count
-                   what is open, in the unit it is open in, and let the cards
-                   below say how many there are and which is which. -->
+              <!-- The same words the plan's step-3 card uses. Count what is open, in
+                   the unit it is open in, and let the cards below say which is which —
+                   no denominator, because the two items are in different states. -->
               <div style="display: inline-flex; align-items: center; gap: 4px; font: 400 12px/16px 'Open Sans', sans-serif; color: #8b98a5;"><i class="ph ph-question-mark" style="font-size: 10px;"></i>One question still to settle</div>
             </div>
 
-            <!-- Two things in one list, so two cards of one species: an eyebrow
-                 that names the state, then the thing itself. The state was a
-                 colour before — a 3px left stripe, orange nobody yet, green you,
-                 blue me, grey me alone — and the settled ones repeated it a
-                 second time in the answerer's avatar. Two decorations for one
-                 word, and a four-colour key the screen never hands you: green and
-                 blue say nothing until you have compared the two rows and
-                 guessed. It is the word now, in the mono voice everything the
-                 product says about the plan is in — `Not answered` and
-                 `Answered by you` — and the stripe is left to mean the one thing
-                 it can carry alone.
-                 Two of the colours are gone rather than translated. "Blue me"
-                 and "grey me alone" were one state told apart by how it came
-                 about: whether I put the question to you before answering it
-                 myself. Nothing you can do about the two differs — both are mine,
-                 both are reversible, both are here for you to overrule — so they
-                 are one list now, the one below, and the section label is what
-                 says whose they are. This list is only what is still on you.
-                 This card is taller because it has a question in it, not
-                 because it is a different kind of object.
-                 It wears the wash, and the wash is what the last stripe on the
-                 screen turned into. What the orange means is one thing now: this
-                 is waiting on your reply. The contested step in the plan wears it
-                 because it is asking you to agree or argue; this card wears it
-                 because it is asking you a question. Both are your move, both are
-                 answered where they are drawn, and neither is a state you can
-                 read off anything else on the screen.
-                 So there are two washes with a step open — one in the spine, one
-                 here — and that is the point rather than the old collision. The
-                 collision was two washes that both had to be decoded as "the
-                 thing that is not agreed", one of which wasn't; when the wash
-                 means "your move" the count of them is just how many moves you
-                 owe. Which move stays on the glyph and the word: `ph-warning` and
-                 `Not agreed` for the argument, `ph-question-mark` and
-                 `Not answered` for the question. Same values as the plan card —
-                 same 180° fall, same 0.30 edge — because a builder who has
-                 learnt the plan's orange should not have to learn this one. -->
+            <!-- Two cards of one species: an eyebrow naming the state, then the thing
+                 itself. The state is the word, in the mono voice — `Not answered`,
+                 `Answered by you` — not a colour: a four-colour stripe key is one the
+                 screen never hands you. Questions I answered myself and questions I
+                 never asked differ only in how they arrived, so they are one list below
+                 and the section label says whose they are. This list is what is still on
+                 you.
+                 It wears the wash, which means one thing: this is waiting on your reply.
+                 Which move is on the glyph and the word — `ph-warning` / `Not agreed`
+                 for the argument, `ph-question-mark` / `Not answered` for the question.
+                 Same values as the plan card. -->
             <div style="background: linear-gradient(180deg, rgba(242, 118, 43, 0.14), rgba(242, 118, 43, 0.06) 45%, rgba(242, 118, 43, 0.025)); border: 1px solid rgba(242, 118, 43, 0.30); border-radius: 8px; padding: 16px; display: flex; flex-direction: column; gap: 8px;">
-              <!-- A question mark, not a warning. `ph-warning` is the
-                   disagreement: it is on step 3's dot, on its plan chip and in
-                   this step's own "Not agreed" badge 470px above this line.
-                   Wearing it here too made the two kinds of waiting the same mark
-                   in the same orange, on one screen, at the exact moment you need
-                   to tell them apart — one is "I will not do what you asked", the
-                   other is "I do not know what you want". Two meanings, two
-                   glyphs, same rule as caret-right and arrow-right.
-                   `question-mark` and not `question`, because the circled `?` is
-                   the help button in the top bar and that would only move the
-                   collision rather than remove it. The bare mark is also lighter
-                   than the triangle, so an open question does not read as a
-                   second alarm.
-                   Bare, and not in a tinted square any more. The square was
-                   rgba(.16) orange, the wash under it is rgba(.14) falling to
-                   rgba(.025): it had nothing left to be seen against at the top
-                   of the card, which is where it sat. Glyph and word alone is
-                   also what the step's own header does with `Not agreed` 470px
-                   above this line, so the two states are said the same way in the
-                   same pane. The rule the square was keeping — one thing, one
-                   mark — is kept by the wash now, which is on the card and not
-                   beside the label. The hairline that carries the eye across to
-                   "affects the evidence step" takes the card's own edge colour
-                   for the same reason: a #1c2530 groove is a cool grey line lying
-                   across a warm surface. -->
+              <!-- A question mark, not a warning: `ph-warning` is the disagreement, and
+                   wearing it here too would make the two kinds of waiting one mark in one
+                   orange. `question-mark` and not `question` — the circled `?` is the top
+                   bar's help — and the bare mark is lighter than the triangle.
+                   Bare, not in a tinted square: rgba(.16) orange had nothing to be seen
+                   against on a wash falling from rgba(.14). The hairline across to
+                   "affects the evidence step" takes the card's own edge colour, or it is
+                   a cool grey line lying on a warm surface. -->
               <div style="display: flex; align-items: center; gap: 8px;">
                 <i class="ph ph-question-mark" style="font-size: 12px; color: #f2762b; flex: none;"></i>
                 <div style="font: 400 10px/12px ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; text-transform: uppercase; letter-spacing: 0.14em; color: #f2985c; flex: none;">Not answered</div>
@@ -1310,14 +1023,9 @@
                 </div>
               </div>
 
-              <!-- These three hovered to #0b1218, which is the ground: on the
-                   flat card it was a shade darker and read as pressed, and under
-                   the wash it would have been a hole punched through to the page
-                   behind. #131c24 is the design system's hover wash — "lifted
-                   card, and every hover wash" — and it is already what the one
-                   other button standing on this gradient uses, the "open this
-                   step" button in the plan card. A control on the orange lifts
-                   towards the light like any other; it does not go transparent. -->
+              <!-- #131c24, the design system's hover wash. #0b1218 is the ground: on the
+                   flat card it read as pressed, and under the wash it is a hole punched
+                   through to the page. A control on the orange lifts towards the light. -->
               <div style="display: flex; align-items: center; gap: 8px;">
                 <div tabindex="0" style="display: inline-flex; align-items: center; gap: 6px; height: 28px; padding: 0 8px; border-radius: 6px; border: 1px solid #26313d; background: transparent; color: #c3cdd7; font: 600 12px/16px 'Open Sans', sans-serif; cursor: pointer; outline: none; transition: all 160ms cubic-bezier(0.2, 0, 0.2, 1);" style-hover="border-color: #4d97ea; background: #131c24; color: #f5f9fc;" style-focus="box-shadow: 0 0 0 3px rgba(43, 127, 228, 0.32);"><i class="ph ph-plus" style="font-size: 12px;"></i>Add a detail</div>
                 <div tabindex="0" style="display: inline-flex; align-items: center; gap: 6px; height: 28px; padding: 0 8px; border-radius: 6px; border: 1px solid #26313d; background: transparent; color: #c3cdd7; font: 600 12px/16px 'Open Sans', sans-serif; cursor: pointer; outline: none; transition: all 160ms cubic-bezier(0.2, 0, 0.2, 1);" style-hover="border-color: #4d97ea; background: #131c24; color: #f5f9fc;" style-focus="box-shadow: 0 0 0 3px rgba(43, 127, 228, 0.32);"><i class="ph ph-chat-teardrop-text" style="font-size: 12px;"></i>Comment</div>
@@ -1326,18 +1034,11 @@
               </div>
             </div>
 
-            <!-- The status word takes a line of its own because it will not fit
-                 beside the sentence: the avatar and its gap were 32px, a word is
-                 110px, and across it comes to 688px in a 642px card — the
-                 sentence would have wrapped under its own label and read as two
-                 lines of one thought. A line costs 22px of height and no width,
-                 which is the trade the plan rows make with their counts.
-                 `Change` rides the sentence and not the label, because the
-                 sentence is what it changes. Sat up on the label's line it read
-                 as the label's control, and the two things nearest each other in
-                 a card are taken to be about each other. It leaves the row it is
-                 on the same shape as the settled rows in the list below —
-                 sentence, then its verb — and those have no label at all. -->
+            <!-- The status word takes a line of its own because it will not fit beside
+                 the sentence: 688px across in a 642px card. A line costs 22px of height
+                 and no width. `Change` rides the sentence, not the label, because the
+                 sentence is what it changes — which leaves this row the same shape as
+                 the settled rows below. -->
             <div style="background: #101820; border: 1px solid #1c2530; border-radius: 8px; padding: 8px 16px; display: flex; flex-direction: column; gap: 6px;">
               <div style="font: 400 10px/12px ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; text-transform: uppercase; letter-spacing: 0.14em; color: #8b98a5;">Answered by you</div>
               <div style="display: flex; align-items: baseline; gap: 12px;">
@@ -1353,22 +1054,10 @@
               <div style="font: 400 10px/12px ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; text-transform: uppercase; letter-spacing: 0.14em; color: #8b98a5;">What I chose for you</div>
               <div style="font: 400 12px/16px 'Open Sans', sans-serif; color: #8b98a5;">Nothing to settle</div>
             </div>
-            <!-- Everything I settled, in one list, whether or not I asked you
-                 first. This one came up as a question and I answered it when you
-                 did not; the numbers below I never put to you at all. That is a
-                 difference in how they arrived, not in what they are or what you
-                 can do about them, and it used to be spelled two ways at once —
-                 a section of its own up in "what I need from you", and a blue
-                 stripe against this card's grey one. Nothing needs an eyebrow
-                 here: the label above the list is whose these are. No stripes
-                 either, for the same reason the green and blue went — a key you
-                 cannot read is decoration.
-                 One verb across every settled thing on the screen: `Change`. It
-                 was "Take it back" here, which is a different act only if you
-                 already know this one was put to you and the rest were not —
-                 which is the provenance the section merge just got rid of, asked
-                 for a second time in a control. What you do is the same in both
-                 places: you open it and say something else. -->
+            <!-- Everything I settled, in one list, whether or not I asked you first —
+                 provenance is not a difference in what you can do about it. The label
+                 above the list is whose these are, so no eyebrows and no stripes.
+                 One verb across every settled thing on the screen: `Change`. -->
             <div style="background: #101820; border: 1px solid #1c2530; border-radius: 8px; padding: 8px 16px; display: flex; align-items: baseline; gap: 12px;">
               <div style="flex: 1; min-width: 0; font: 400 14px/22px 'Open Sans', sans-serif; color: #c3cdd7; text-wrap: pretty;"><span style="font-weight: 600;">What we tell the merchant</span> — the payment only, never the customer's own words</div>
               <div tabindex="0" style="font: 600 12px/16px 'Open Sans', sans-serif; color: #8b98a5; cursor: pointer; outline: none; flex: none; transition: color 160ms cubic-bezier(0.2, 0, 0.2, 1);" style-hover="color: #4d97ea;">Change</div>
@@ -1384,12 +1073,9 @@
           <div style="flex: 1; min-height: 24px;"></div>
 
           <div style="flex: none; border-top: 1px solid #18212a; padding-top: 12px; display: flex; flex-direction: column; gap: 12px; opacity: {{ dOp }}; transform: {{ dTr }}; transition: opacity {{ dDur }} cubic-bezier(0.2, 0, 0.2, 1) {{ dDl }}, transform {{ dDur }} cubic-bezier(0.2, 0, 0.2, 1) {{ dDl }};">
-            <!-- The only version history left, and the only place resources are
-                 counted. Both used to be duplicated in the plan — a header link
-                 and an `N resources ›` on every row — where they answered
-                 nothing the plan is read for. Here they have a scope worth
-                 having: what did THIS step look like before we argued about it,
-                 and what does it actually stand on. -->
+            <!-- The only version history left, and the only place resources are counted.
+                 Here they have a scope worth having: what did THIS step look like before
+                 we argued, and what does it stand on. -->
             <div style="display: flex; align-items: center; gap: 24px;">
               <div onClick="{{ toggle }}" style="flex: 1; min-width: 0; display: flex; align-items: center; gap: 8px; cursor: pointer; color: #8b98a5; transition: color 160ms cubic-bezier(0.2, 0, 0.2, 1);" style-hover="color: #c3cdd7;">
 <sc-if value="{{ closed }}" hint-placeholder-val="{{ false }}">
@@ -1447,27 +1133,16 @@
           </div>
         </div>
 
-        <!-- Pinned, for the same reason the × is: the act this panel exists to
-             ask for was 38px below the fold at 1440x900, with 143px of overflow
-             above it, so the panel asked you to decide and put the decision
-             off-screen. It read as the call simply not being here — and being in
-             the markup is not being present.
-             It also gives the two panes one shape: a scrolling body with the act
-             pinned under it, which the chat has had all along.
-             69px is what it occupies — 16 + 36 + 16 and the hairline — and the
-             scroller's `bottom` is that number. The right padding matches the
-             scroller's 74px so the caption lands on the same right edge as the
-             cards above it, not under the ×'s column.
-             Fades on `dOp` with every other block, holds `min-width: 780px` so an
-             opening pane uncovers it rather than squeezing it, and inherits the
-             pane's `visibility`, so it leaves the tab order with the step. -->
+        <!-- Pinned, like the ×: the act this panel exists to ask for was 38px below
+             the fold at 1440×900, and being in the markup is not being present. It also
+             gives the two panes one shape — scrolling body, act pinned under it.
+             69px is what it occupies (16 + 36 + 16 and the hairline) and the scroller's
+             `bottom` is that number; the right padding matches the scroller's 74px.
+             Holds `min-width: 780px` so an opening pane uncovers it rather than
+             squeezing it, and inherits the pane's `visibility`. -->
         <div style="position: absolute; bottom: 0; left: 0; width: 100%; min-width: 780px; padding: 16px 74px 16px 32px; background: #0b1218; border-top: 1px solid #18212a; display: flex; align-items: center; gap: 12px; opacity: {{ dOp }}; transition: opacity {{ dDur }} cubic-bezier(0.2, 0, 0.2, 1) {{ dDl }};">
-          <!-- The argument, and only the argument: agree to the revised shape, or
-               keep arguing about it. The questions are settled in their own
-               section above, where each one carries its own way out — so "You
-               decide the rest" has gone. With one question open, "the rest" and
-               the card's own "You decide this one" were the same click offered
-               twice, and the second had a count above it saying there was one. -->
+          <!-- The argument, and only the argument. The questions are settled in their
+               own section above, each carrying its own way out. -->
           <!-- flex: none and nowrap, because this pane is narrower than it looks:
                the blocks are capped at 800px but the pane only gives them 674 at
                the design size, so a shrinkable button lost the argument with the
@@ -1489,25 +1164,18 @@
 </x-dc>
 <script type="text/x-dc" data-dc-script data-props="{&quot;threshold&quot;:{&quot;editor&quot;:&quot;text&quot;,&quot;default&quot;:&quot;£500&quot;,&quot;tsType&quot;:&quot;string&quot;,&quot;section&quot;:&quot;Content&quot;}}">
 class Component extends DCLogic {
-  // Two states of one screen. The plan does not cross-fade into a sidebar —
-  // there is only ever ONE plan, and it changes its own properties: type size,
-  // dot size, padding, and what it is willing to show. Every row in the wide
-  // plan is the same element as the row in the spine, which is the whole reason
-  // it reads as a transform instead of a dissolve.
+  // Two states of one screen. There is only ever ONE plan and it changes its own
+  // properties — every row in the wide plan is the same element as the row in the
+  // spine, which is why it reads as a transform rather than a dissolve.
   //
-  // Collapsing is `grid-template-rows: 1fr -> 0fr` (and `-columns` for the
-  // horizontal ones) rather than max-height, so the closed size is exactly the
-  // content's own height and there is no magic number to keep in sync.
+  // Collapsing is `grid-template-rows: 1fr -> 0fr` (`-columns` horizontally), so the
+  // closed size is the content's own and there is no magic number to keep in sync.
   //
-  // `?step=3` starts opened, which is how index.html shows a second state
-  // without a second copy of this markup — and `?run=1`, `&at=`, `&full=1` do
-  // the same for the three states of the run. Five states, one screen, one copy.
-  //
-  // `at` and `full` are facts ABOUT a run, so either of them in the URL implies
-  // one; and `step` and `run` are made exclusive here rather than trusted to be,
-  // because a hand-typed `?step=3&run=1` would otherwise ask the five rows to
-  // travel from the spine's flow positions using the wide plan's measured
-  // transforms — which is the one pair of endpoints that was never measured.
+  // `?step=3`, `?run=1`, `&at=`, `&full=1` give index.html five states off one copy
+  // of the markup. `at` and `full` imply a run; `step` and `run` are made exclusive
+  // here, because `?step=3&run=1` would ask the rows to travel from the spine's flow
+  // positions using the wide plan's measured transforms — the one pair of endpoints
+  // never measured.
   state = (() => {
     const q = new URLSearchParams(location.search);
     const run = q.get('run') === '1' || q.has('at') || q.has('full');
@@ -1587,18 +1255,13 @@ class Component extends DCLogic {
         : 'Anything you type lands on the step it is about.',
 
       // ── Nothing offers what it cannot do ─────────────────────────────────
-      // Every control on this screen that changes what you are looking at is
-      // gated here rather than styled to look gated, because `style-hover` is a
-      // static string in support.js and takes no placeholders — so a hover can
-      // only be withdrawn by taking the pointer away from the element. That is
-      // also what removes the cursor and the click, which is the point: an
-      // affordance should arrive and leave in one piece.
-      //
-      // The arrow and the plan crumb are the same control at two sizes: up one
-      // level. Up from a step is the plan and up from a run is the plan, so both
-      // are live over either. Up from the plan itself is the journey list, which
-      // this prototype does not have, so there they go quiet instead of
-      // promising it.
+      // Every control that changes what you are looking at is gated here rather than
+      // styled to look gated: `style-hover` is a static string, so a hover can only
+      // be withdrawn by taking the pointer off the element — which takes the cursor
+      // and the click with it.
+      // The arrow and the plan crumb are one control at two sizes: up one level. Up
+      // from a step or a run is the plan; up from the plan is the journey list, which
+      // this prototype does not have, so there they go quiet.
       upPE: (on || run) ? 'auto' : 'none',
       upTitle: (on || run) ? 'Back to the plan — Esc' : '',
       upColor: (on || run) ? '#c3cdd7' : '#4a5764',
@@ -1633,51 +1296,38 @@ class Component extends DCLogic {
 
       // ── One move ─────────────────────────────────────────────────────────
       // Everything that changes shape changes on this one curve over this one
-      // duration, in both directions, starting at the same instant: the panes
-      // resize while the detail collapses while the spine's labels open their
-      // space while the padding tightens. There is no sequence to read and no
-      // seam to hide, which is the only way this stops looking like several
-      // things happening to one screen.
-      //
-      // It could not always be one move. Two things forced a sequence, and both
-      // are dealt with below rather than scheduled around: content that reflows
-      // when the pane narrows over it, and text that gains a line.
+      // duration, in both directions, starting at the same instant. No sequence to
+      // read, no seam to hide. Two things used to force a sequence and are dealt with
+      // below rather than scheduled around: content that reflows when the pane
+      // narrows over it, and text that gains a line.
       moveDur: '340ms',
       moveEase: 'cubic-bezier(0.2, 0, 0.2, 1)',
 
       // ── What the plan stops showing ──────────────────────────────────────
-      // Descriptions, the drawing, the resource counts. This is two thirds of
-      // the vertical distance the move covers, and it used to have to finish
-      // before the panes could start: a collapsing box's height is a fraction
-      // of its CONTENT's height, so a description rewrapping as the pane
-      // narrowed made the fraction grow while it was supposed to be shrinking,
-      // and every row below it lurched. The fix is in the markup — each of
-      // these blocks holds a `min-width` at the measure it has when open, so
-      // the pane can narrow over it without ever changing its line count, and
-      // it clips instead of reflowing. Then it can collapse whenever it likes.
+      // Descriptions, the drawing, the resource counts — two thirds of the vertical
+      // distance the move covers. Each block holds a `min-width` at the measure it
+      // has when open, so the pane narrows over it without changing its line count
+      // and it clips instead of reflowing. Then it can collapse whenever it likes.
       exRows: on ? '0fr' : '1fr',
       exCols: on ? '0fr' : '1fr',
 
       // ── The dot and the connector, out of flow ───────────────────────────
-      // A dot that is a flex child of a left gutter cannot travel to above a
-      // title, and a 2px line whose length is `flex: 1` cannot become a 2px line
-      // on the other axis. So both are absolute against the row.
+      // A dot that is a flex child of a left gutter cannot travel to above a title,
+      // and a 2px line sized by `flex: 1` cannot become a 2px line on the other axis.
+      // Both are absolute against the row.
       //
-      // The dot needs no offsets: it is left 0, top 0 in all three states,
-      // because the plan's dot exactly fills its gutter's width and the strip's
-      // sits at its node's top-left. Only its size travels. (Absolute offsets
-      // resolve against the PADDING box, so this stays true when the row takes
-      // the 28px of top padding the run needs for the dot to sit above the card.)
+      // The dot needs no offsets — left 0, top 0 in all three states, and only its
+      // size travels. (Absolute offsets resolve against the PADDING box, so this
+      // holds when the row takes the run's 28px of top padding.)
       //
-      // The connector carries its length in `calc(100% - Npx)` insets rather than
-      // a height, so it still auto-sizes to its row in the plan and to its node
-      // in the run and there is no measured length to keep in sync with copy.
-      // Both ends are set in both states — never `auto`, which would not
-      // interpolate. The arithmetic, and it must stay 2px wide at every step:
+      // The connector carries its length in `calc(100% - Npx)` insets, so it
+      // auto-sizes to its row and there is no measured length to keep in sync with
+      // copy. Both ends set in both states — never `auto`, which would not
+      // interpolate. It must stay 2px wide at every step:
       //   plan   left 9  right calc(100% - 11px)  ->  100% - 9 - 100% + 11 = 2
       //   spine  left 3  right calc(100% -  5px)  ->  100% - 3 - 100% +  5 = 2
       //   run    top  9  bottom calc(100% - 11px) ->  the same, on the other axis
-      // 9 and 3 are (gutterW - 2) / 2, and 24 and 12 are dotSize + the 4px gap.
+      // 9 and 3 are (gutterW - 2) / 2; 24 and 12 are dotSize + the 4px gap.
       connL: run ? '20px' : (on ? '3px' : '9px'),
       connT: run ? '9px' : (on ? '12px' : '24px'),
       connR: run ? '0px' : (on ? 'calc(100% - 5px)' : 'calc(100% - 11px)'),
@@ -1704,85 +1354,56 @@ class Component extends DCLogic {
       caretSize: on ? '0px' : '12px',
 
       // ── What a title is wrapped to ───────────────────────────────────────
-      // These must equal the width the title ACTUALLY ends up with. Both
-      // collapsed siblings leave their flex gap behind, which is what the first
-      // pass got wrong:  row  300 - 32 pad - 8 dot - 12 gap - 24 gap = 224
-      //                  card 248 row - 2 border - 20 pad - 24 gap - 8 gap = 194
-      // The card's number moved 206 -> 194 when the contested row took the same
-      // 24px gap to its tag column that the other four have; it was 12 while the
-      // `Not agreed` chip sat in that slot instead.
+      // These must equal the width the title ACTUALLY ends up with, and a collapsed
+      // sibling still leaves its flex gap behind:
+      //   row  300 - 32 pad - 8 dot - 12 gap - 24 gap = 224
+      //   card 248 - 2 border - 20 pad - 24 gap - 8 gap = 194
       titleMax: on ? '224px' : '800px',
       cardTitleMax: on ? '194px' : '800px',
-      // The measure animates FASTER than the pane, and that is what keeps the
-      // pane out of the wrapping: at every instant the max-width is below the
-      // width actually available, so it is the max-width that decides where the
-      // lines break, on a curve, and not the pane arriving at some width. (Both
-      // start at the same instant, so this only needs the measure to travel a
-      // shorter road: 800 -> 224 against 879 -> 224.) Closing it takes the full
-      // duration on the shared curve, which satisfies the same inequality.
+      // The measure animates FASTER than the pane, which is what keeps the pane out
+      // of the wrapping: at every instant max-width is below the width available, so
+      // max-width decides where the lines break. Both start together, so the measure
+      // only needs the shorter road — 800 -> 224 against 879 -> 224.
       wrDur: on ? '260ms' : '340ms',
       wrEase: on ? 'cubic-bezier(0, 0, 0.4, 0.8)' : 'cubic-bezier(0.2, 0, 0.2, 1)',
 
       // ── The line box, reserved before the text needs it ──────────────────
-      // Rewrapping is not motion. It is a stack of 18px jumps, one per line a
-      // title gains, and no curve can smooth a jump — the best the old timing
-      // could do was hide them inside a collapse violent enough to cover them,
-      // which is why the collapse had to be violent. So instead the box grows
-      // to the height its final wrap will need BEFORE the wrap happens, and the
-      // text then reflows inside a box that is already big enough: five titles
-      // restacking stopped moving anything at all. Measured, the interior rows
-      // went from 15-25px lurches to a 4px-a-frame drift, and the collapse was
-      // free to slow from 60px a frame to 20.
+      // Rewrapping is not motion, it is a stack of 18px jumps, and no curve smooths a
+      // jump. So the box grows to the height its final wrap needs BEFORE the wrap
+      // happens, and the text reflows inside a box already big enough.
       //
-      // ldDur leads wrDur for that reason, and on the way back it lags it —
-      // the box may only shrink once the text inside has un-wrapped, or the
-      // content is what sets the height again and the jumps come back.
+      // ldDur leads wrDur opening and lags it closing — the box may only shrink once
+      // the text has un-wrapped, or the content sets the height again.
       //
-      // But it must lag the UN-WRAP, not the whole 340ms. Closing used to take
-      // the full duration on an ease that finished late, and the cost was the
-      // one thing the move is not allowed to do: the panes were done at ~300ms
-      // while 32px of reserved box per title was still collapsing, and rows that
-      // had travelled 218px DOWN drifted 19px back UP over the last 100ms. It
-      // read exactly as it measured — smooth opening, awkward closing.
-      // Closing at 240ms puts the shrink back inside the window where the pane
-      // is still moving, so it is absorbed instead of exposed: the backward
-      // drift goes 19.4px -> 1.4px and the peak forward step 35px -> 28px, which
-      // is the opening's own 27. The measure still wins the race that matters —
-      // the text un-wraps in the first ~80ms, long before the box needs to be
-      // smaller, and the check for that is the box-underrun trace in
-      // docs/notes.md, not the ratio of the two durations.
+      // But it must lag the UN-WRAP, not the whole 340ms. At 340 the panes rested
+      // ~300ms while 32px of reserved box was still collapsing, and rows drifted 19px
+      // back UP. 240 puts the shrink inside the pane's own window: drift 19.4 ->
+      // 1.4px, peak forward step 35 -> 28px. The check is the box-underrun trace, not
+      // the ratio of the two durations.
       //
-      // 2lh is how many lines a title takes at the spine measure, in line units
-      // so it follows the type ladder. Wrong copy degrades to a jump, not a break.
-      // One value for all five: rows 1 and 3 reserved 3, and a sweep of both
-      // directions says nothing passes 2 lines at any instant. Row 3's dead line
-      // was the only visible one — it sat between its title and its count.
+      // 2lh is how many lines a title takes at the spine measure, in line units so it
+      // follows the type ladder. One value for all five — a sweep of both directions
+      // says nothing passes 2 lines at any instant. Wrong copy degrades to a jump.
       titleLines: on ? '2lh' : '1lh',
       ldDur: on ? '200ms' : '240ms',
       ldEase: on ? 'cubic-bezier(0, 0, 0.4, 0.8)' : 'cubic-bezier(0.3, 0, 0.5, 1)',
 
       // ── The panes, and the plan tightening with them ─────────────────────
-      // The chat is a fixed 360 in every state but full screen and takes no part
-      // in this move. Everything right of it is one grid whose tracks carry all
-      // three shapes, so the plan and the step no longer trade flex-grow and the
-      // app no longer needs a column of its own: they are cells that never move,
-      // in a grid whose rows and columns do.
+      // The chat is a fixed 360 in every state but full screen. Everything right of
+      // it is one grid whose tracks carry all three shapes, so nothing is ever
+      // re-placed — only the rows and columns move.
       //
       // MEASURED, at the 1440 x 900 design size, region 1080 x 852:
       //   rows are  [app] [plan band]  and columns are  [plan] [step].
       //   plan / step        0 · 852     1080 · 0   and   300 · 780
       //   run               531 · 321    1080 · 0
       //   run + full        852 · 0      1440 · 0
-      // 531 is 24 top pad + 491 frame + 16, which is the 16 the strip used to
-      // carry as its own margin-top; moving it here is what lets the band's
-      // border-top sit exactly on the band track's top edge. 321 is the rest:
-      // 1 border + 16 pad + 20 labels + 148 tallest node + 64 boundary + 48 act
-      // + 24 pad. They sum to 852 exactly, and if any of them stops being true
-      // the band and the app will overlap or gap rather than fail loudly — so
-      // re-measure all of them together, never one.
+      // 531 is 24 top pad + 491 frame + 16. 321 is 1 border + 16 pad + 20 labels +
+      // 148 tallest node + 64 boundary + 48 act + 24 pad. They sum to 852 exactly and
+      // would gap or overlap rather than fail loudly — re-measure all of them
+      // together, never one.
       //
-      // BOTH TRACKS IN A TEMPLATE MUST CARRY THE SAME UNIT. `780px -> 1fr` does
-      // not interpolate; it snaps, and the whole move dies on frame one.
+      // BOTH TRACKS IN A TEMPLATE MUST CARRY THE SAME UNIT. `780px -> 1fr` snaps.
       gRows: run ? (full ? '852px 0px' : '531px 321px') : '0px 852px',
       gCols: on ? '300px 780px' : (run && full ? '1440px 0px' : '1080px 0px'),
 
@@ -1851,40 +1472,24 @@ class Component extends DCLogic {
       stepPad: on ? '10px' : '0px',
 
       // ── The labels the spine alone carries ───────────────────────────────
-      // Built / Not built yet, step 3's own `Not agreed`, the step counts and
-      // "5 steps · 2 built" have no counterpart in the wide plan, so they can
-      // only fade — but the SPACE they need is part of the shape the plan is
-      // collapsing into, so it opens with everything else and only the fade is
-      // late. Given a beat of its own it made five rows fly up past where they
-      // belonged and slide a hundred pixels back down once the rest had settled.
-      //
-      // Nothing in here reflows: every label is nowrap, and the chip row that
-      // needed a pin to stop it breaking mid-flight is a single chip now.
+      // Built / Not built yet, step 3's `Not agreed`, the counts, "5 steps · 2 built".
+      // No counterpart in the wide plan, so they can only fade — but the SPACE they
+      // need opens with everything else and only the fade is late. Given a beat of
+      // its own it made five rows fly past where they belonged. Nothing in here
+      // reflows: every label is nowrap.
       rmRows: on ? '1fr' : '0fr',
       rmOp: on ? '1' : '0',
       rmOpDur: on ? '200ms' : '100ms',
       rmOpDl: on ? '200ms' : '0ms',
 
       // ── Selection: blue means "you are here" ─────────────────────────────
-      // The open step's spine card wears a 1px #4d97ea outline. Selection is
-      // structural, not a call to action, so it never spends orange — and it
-      // only exists in the spine, where something IS open. Paint-only
-      // (outline-color), on rmOpDur/rmOpDl — the spine labels' own schedule,
-      // reused rather than copied, so retuning the labels can't leave the
-      // ring on old timing.
+      // Paint-only (outline-color), on rmOpDur/rmOpDl — the spine labels' own
+      // schedule, reused rather than copied. Spine only, where something IS open.
       selOutline: on ? 'rgba(77, 151, 234, 1)' : 'rgba(77, 151, 234, 0)',
 
-      // The step itself, arriving behind its opening pane. Laid out at full
-      // width and clipped, so it is uncovered rather than squeezed. Leaving is
-      // one fast fade — a staggered exit reads as hesitation.
-      //
-      // `dDl` is the delay the blocks' transitions ask for, and it is 0 in both
-      // directions: the step fades with the pane, not after it. It used to be
-      // undefined — the markup read `{{ dDl }}`, resolve returned nothing, and
-      // the delay came out as an empty string in valid CSS, so it worked by
-      // accident. The five per-block delays that were defined instead, d1..d5,
-      // were never read by anything; the staggered entrance they belonged to was
-      // abandoned for the same reason its exit was.
+      // The step itself, arriving behind its opening pane. Laid out at full width and
+      // clipped, so it is uncovered rather than squeezed. Leaving is one fast fade.
+      // `dDl` is 0 in both directions: the step fades with the pane, not after it.
       dOp: on ? '1' : '0',
       dTr: 'translateY(0)',
       dDur: on ? '240ms' : '120ms',
@@ -1904,11 +1509,9 @@ class Component extends DCLogic {
       planCrumbColor: (on || run) ? '#c3cdd7' : '#ffffff',
 
       // ── Screen 02: the run, and where it stops ───────────────────────────
-      // Three stage states, chosen with sc-if. That is legal here and only
-      // here: nothing on screen 02 animates, and the three phone screens are
-      // genuinely different content rather than one thing changing shape, so
-      // the "one element per thing" rule does not apply. An instant swap is
-      // also the honest reading — it is a different screen, not a transform.
+      // Three stage states, chosen with sc-if. Legal here and only here: nothing on
+      // screen 02 animates, and the three screens are different content rather than
+      // one thing changing shape.
       at1: this.state.at === 1,
       at3: this.state.at === 3,
       goTo1: () => this.setState({ at: 1 }),
@@ -1923,20 +1526,13 @@ class Component extends DCLogic {
       selRow2: this.state.at === 2 ? '#4d97ea' : 'transparent',
       selRow3: this.state.at === 3 ? '#4d97ea' : 'transparent',
 
-      // Rows 4 and 5 are not steps you can look at — nothing of them exists to
-      // show. One flag, whole affordance: the pointer takes the hover and the
-      // cursor with it, and the tabindex keeps the keyboard from reaching what
-      // the mouse cannot.
-      // Up from a run IS the plan, and unlike the journey list it exists — so
-      // unlike screen 01's plan state, these are live. They are constants
-      // rather than expressions because screen 02 has one answer in all three
-      // of its states; they exist as keys so the markup reads the same as
-      // screen 01's and the reason lives here.
-      // The URL is the web app's own way of saying which screen you are on, so
-      // it replaces the caption the phone needed under its bezel. At the edge it
-      // still reads `what-happened`, which is the run never having advanced,
-      // said by the app rather than about it. `example` is the reserved TLD —
-      // a placeholder that reads as one.
+      // Rows 4 and 5 are not steps you can look at — nothing of them exists to show.
+      // One flag, whole affordance: the pointer takes the hover and the cursor, the
+      // tabindex keeps the keyboard out.
+      // Up from a run IS the plan, and it exists, so unlike screen 01's plan state
+      // these are live. Constants rather than expressions because screen 02 has one
+      // answer in all three of its states; they exist as keys so the markup reads the
+      // same as screen 01's. `example` is the reserved TLD.
       stageUrl: this.state.at === 1
         ? 'bank.example/dispute/which-payment'
         : 'bank.example/dispute/what-happened',
@@ -1952,17 +1548,11 @@ class Component extends DCLogic {
       contCursor: this.state.at === 2 ? 'pointer' : 'default',
 
       // ── Full screen ──────────────────────────────────────────────────────
-      // The chat is the one thing on this prototype that never moves, and this
-      // is the single exception: you have asked to see only the app, so the
-      // tool gets out of the way. It is a real move on the shared curve, not an
-      // sc-if — an unmounted pane has no width to travel from.
-      //
-      // Everything the collapse passes over is pinned so it clips instead of
-      // reflowing, which is the whole reason this can be one beat: the chat's
-      // two blocks hold `min-width: 359px`, the strip's five titles hold
-      // `min-height: 3lh` and its boundary sentence `2lh`. The app needs no pin
-      // at all — every column in it is either fixed or capped, so a wider frame
-      // moves nothing.
+      // The single exception to the chat never moving. A real move on the shared
+      // curve, not an sc-if — an unmounted pane has no width to travel from.
+      // Everything the collapse passes over is pinned: the chat's two blocks at
+      // `min-width: 359px`, the strip's five titles at `min-height: 3lh`, its boundary
+      // sentence at `2lh`. The app needs no pin — every column is fixed or capped.
       toggleFull: () => this.setState(p => ({ full: !p.full })),
       fullGlyph: full ? 'ph-arrows-in' : 'ph-arrows-out',
       fullTitle: full ? 'Back to the run — Esc' : 'Fill the screen',
