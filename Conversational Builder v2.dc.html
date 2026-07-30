@@ -1207,7 +1207,7 @@
               <div style="font: 700 18px/28px 'Open Sans', sans-serif; color: #1a2129;">Which payment?</div>
               <div style="font: 400 14px/22px 'Open Sans', sans-serif; color: #5c6975;">Pick the one you do not recognise.</div>
               <div style="display: flex; flex-direction: column; gap: 8px;">
-                <div onClick="{{ goTo2 }}" style="display: flex; align-items: center; justify-content: space-between; gap: 12px; padding: 12px; background: #f4f6f8; border: 1px solid #2b7fe4; border-radius: 8px; cursor: pointer;">
+                <div onClick="{{ goTo2 }}" tabindex="0" style="display: flex; align-items: center; justify-content: space-between; gap: 12px; padding: 12px; background: #f4f6f8; border: 1px solid #2b7fe4; border-radius: 8px; cursor: pointer; outline: none; transition: background 160ms cubic-bezier(0.2, 0, 0.2, 1);" style-hover="background: #ffffff;" style-focus="box-shadow: 0 0 0 3px rgba(43, 127, 228, 0.32);">
                   <div style="min-width: 0;">
                     <div style="font: 600 14px/22px 'Open Sans', sans-serif; color: #1a2129;">NORTHGATE SUPPLY CO</div>
                     <div style="font: 400 12px/18px 'Open Sans', sans-serif; color: #5c6975;">24 July · card ending 4417</div>
@@ -1262,7 +1262,7 @@
               <div style="flex: none; min-height: 120px; padding: 12px; background: #ffffff; border: 1px solid #2b7fe4; border-radius: 8px; font: 400 14px/22px 'Open Sans', sans-serif; color: #1a2129;">I ordered a parcel from them on the 24th and it never turned up. They stopped replying to my emails after the second one.</div>
               <div style="font: 400 12px/18px 'Open Sans', sans-serif; color: #5c6975;">NORTHGATE SUPPLY CO · £248.00 · 24 July</div>
               <div style="flex: 1;"></div>
-              <div onClick="{{ goTo3 }}" style="flex: none; height: 44px; border-radius: 8px; background: #2b7fe4; color: #ffffff; display: grid; place-items: center; font: 600 14px/22px 'Open Sans', sans-serif; cursor: pointer;">Continue</div>
+              <div onClick="{{ goTo3 }}" tabindex="0" style="flex: none; height: 44px; border-radius: 8px; background: #2b7fe4; color: #ffffff; display: grid; place-items: center; font: 600 14px/22px 'Open Sans', sans-serif; cursor: pointer; outline: none; transition: background 160ms cubic-bezier(0.2, 0, 0.2, 1);" style-hover="background: #4d97ea;" style-focus="box-shadow: 0 0 0 3px rgba(43, 127, 228, 0.32);">Continue</div>
             </div>
 </sc-if>
 <sc-if value="{{ at3 }}" hint-placeholder-val="{{ true }}">
