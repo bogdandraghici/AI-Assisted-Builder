@@ -251,6 +251,27 @@ Built and verified (commit `022d7b7`):
   differing pixels.** The step state differs only where the entry button goes quiet. The
   run's three states differ only in the top bar and in the corrected chat wrap.
 
+Also built and verified (commit `db3c365`): **the dot and the connector have left flex
+flow**, which is the groundwork the lie-down cannot start without — a dot that is a flex
+child of a left gutter cannot travel to above a title, and a 2px line whose length is
+`flex: 1` cannot become a 2px line on the other axis. All three resting states come out at
+**zero differing pixels**, and neither element gained a measured constant.
+
+Two things that pass turned up, and the second corrects what this spec said earlier:
+
+- **The dot needs no offsets at all** — `left: 0; top: 0` in every state, because the
+  plan's dot exactly fills its gutter's width and the strip's sits at its node's top-left.
+  Only its size travels.
+- **The title's `max-width` must end at an explicit `169px`, not at `100%`.** `100%` is
+  the tidier way to say "no constraint beyond the card", and it is what the strip has
+  today via `max-width: none` — but it breaks the rule the measure exists to satisfy.
+  Travelling `800px → 100%` puts max-width at `calc(400px + 50%)` mid-flight against a
+  container of ~592px, so max-width becomes *larger* than the container and the pane takes
+  the wrapping back. With `800px → 169px` against a container travelling `1015 → 169`,
+  max-width is strictly the smaller of the two at every instant until they meet at rest,
+  which is the property `docs/motion.md` describes. 169 must be at or just under the true
+  final width — measured at 169.19 for node 1 and 169.2 for the rest — never over.
+
 **Not yet built: the five rows are still two sets of elements.** So the plan → run
 transition is currently the collapse-and-fade this design rejected, not the plan lying
 down. The mechanism below is settled and measured; it is the assembly that is outstanding.
