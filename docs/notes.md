@@ -97,11 +97,15 @@ The wash: `linear-gradient(180deg, rgba(242,118,43,.14), rgba(242,118,43,.06) 45
 rgba(242,118,43,.025))` behind `1px solid rgba(242,118,43,.30)`. The settle tag is a flat tint at
 the same values — `.14` on `.30` when owed, `#131c24` on `#26313d` when not.
 
-Inside the wash the cool ladder goes neutral, saturation ≤5% — ground `#151414`, lifted `#1e1d1d`,
-outlined `#191818` on `#2b2a2a`, hairline `#252424`, line-strong `#3a3838`. Wireframe insets sink
-to `#0d0d0d` and draw at `#4a4949`. Past ~20% saturation these go mustard; the hue is not the
-problem, the chroma is. Blue stays cool and means taken, so hover lifts the ground and never takes
-the border.
+Inside the wash the cool ladder goes flat neutral — ground `#141414`, lifted `#1d1d1d`, outlined
+`#181818` on `#2a2a2a`, hairline `#242424`, line-strong `#383838`. Wireframe insets sink to
+`#0d0d0d` and draw at `#494949`. Warming these to match the wash goes mustard by ~20% saturation;
+grey is the answer, not a warmer grey. Blue stays cool and means taken, so hover lifts the ground
+and never takes the border.
+
+The owed card is three bands — head, reply, acts — split by full-bleed
+`1px solid rgba(242,118,43,.16)`, at `12/16` · `14/16` · `10/16`. Prose caps at `62ch`, the
+proposal badge pins right, and the eyebrow's meta right-aligns with no rule between.
 
 Ladder: 10 · 12 · 14 · 18 · 24 over line-heights 12 · 16 · 18 · 22 · 24 · 28 · 38. No 11px, no
 13px. Spacing 4 · 6 · 8 · 12 · 16 · 24 · 56. Prose caps at 800px. Open Sans is plan language, mono
