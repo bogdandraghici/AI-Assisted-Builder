@@ -28,13 +28,22 @@ nothing else. Prose inside the elastic column is capped at 800px so a line stays
 §01 and §03 — ground `#0b1218`, side pane `#0e161d`, lifted card `#131c24`, outlined card
 `#101820` behind `#1c2530`, hairline `#18212a`.
 
-**There are no elevation shadows.** The one exception per screen is carried by a wash of the
-disagreement orange plus a tinted edge — always 180°, strongest at the top edge and
-thinning, but never all the way out, by the bottom. `box-shadow` is only ever the 3px focus
-ring.
+**There are no elevation shadows.** The only lift is a wash of the disagreement orange plus a
+tinted edge — `linear-gradient(180deg, rgba(242,118,43,.14), rgba(242,118,43,.06) 45%,
+rgba(242,118,43,.025))` behind `1px solid rgba(242,118,43,.30)`, always 180°, strongest at
+the top edge and thinning, but never all the way out, by the bottom. `box-shadow` is only
+ever the 3px focus ring. A control standing on the wash still hovers to `#131c24` like any
+other — the hover wash lifts towards the light; it never opens a hole to `#0b1218`.
 
-**A 3px left stripe marks the one open thing, and nothing else.** It used to be a key —
-orange, green, blue, grey for who had settled a card — which asks the reader to learn four
-colours in order to be told something a word says plainly, and reads as decoration, because
-that is all an unlearnable key can be. Status is a mono micro-label now (`Answered by you`),
-so the one stripe left on a screen is the orange one on whatever is still open.
+**The wash means one thing: this is waiting on your reply.** Nothing else may wear it. Not a
+count, not a mention, not a settled thing, not a step that merely matters. Two of them on a
+screen is normal and says you owe two replies — the contested step in the plan, and the open
+question in the step pane. *Which* reply is the glyph and the word, never the colour:
+`ph-warning` with `Not agreed`, `ph-question-mark` with `Not answered`. Wash it where the
+reply is given, so what is asked and where you answer it are the same object.
+
+**There are no left status stripes.** A 3px stripe used to be a four-colour key — orange,
+green, blue, grey for who had settled a card — which asks the reader to learn four colours to
+be told what a word says plainly, and so reads as decoration, because that is all an
+unlearnable key can be. Status is a mono micro-label now (`Answered by you`), and what was
+open takes the wash.

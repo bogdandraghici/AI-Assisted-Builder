@@ -97,12 +97,21 @@ in the logic, not left to look enabled:
 The builder is asked for two different things and they are not the same act:
 
 - **The plan is being negotiated.** The agent will not do what was asked and says why.
-  Word: `Not agreed` → `Agreed`. Glyph: `ph-warning`. Colour: the disagreement orange,
-  which is the one wash per screen. Argued in the chat, settled in the step's footer.
+  Word: `Not agreed` → `Agreed`. Glyph: `ph-warning`. Argued in the chat, settled in the
+  step's footer.
 - **A step needs a detail before it can be built.** Word: `N to settle` / `Not answered`.
   Glyph: `ph-question-mark` — *not* `ph-question`, which is the top bar's help button.
-  Colour: quiet mono grey in the plan rows; the orange stripe only on the one card that is
-  actually open. Answered in place, on the question itself.
+  Answered in place, on the question itself.
+
+Both wear the orange wash, and **the wash means exactly one thing: this is waiting on your
+reply.** Only the two objects above may carry it — the contested step's card, in the plan and
+in the spine, and the one open question in the step pane. So two washes on screen with a step
+open is right, and says you owe two replies. Which reply is the glyph and the word, never the
+colour; the colour only ever says *your move*. Everything else stays quiet: a count of open
+questions in a plan row is grey mono, because a count is not a question you can answer where
+it stands. There are no left status stripes — see
+[docs/type-and-palette.md](docs/type-and-palette.md) for what that key cost and why the wash
+replaced it.
 
 Three rules follow, and each of them was once broken here:
 
@@ -116,9 +125,10 @@ Three rules follow, and each of them was once broken here:
 - **Both kinds are counted in both views, in their own units** — the argument in steps, the
   questions in questions. Any partition of the five steps into one bucket each cannot say
   that a contested step also owes an answer, so the questions end up counted nowhere.
-- **Never spend orange on a detail.** Orange is the disagreement. A grey count in the row
-  and an orange wash on the one blocking step keeps the screen's single alarm meaningful;
-  escalating four routine questions to orange flattens it.
+- **Never spend orange on a mention of a question — only on the question itself.** The four
+  routine questions are grey counts in their plan rows; the one you can answer where it
+  stands is washed. Orange every mention of them and it stops meaning *your move* and starts
+  meaning *questions exist*, which is a fact about the plan, not a call on you.
 - **The act is pinned, never scrolled.** The step pane's `Agree` / `Comment further` row sat
   38px below the fold at 1440×900 with 143px of overflow above it, so the panel asked you to
   decide and put the decision off-screen — which reads as the call not being there at all.

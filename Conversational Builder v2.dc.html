@@ -634,12 +634,24 @@
                  says whose they are. This list is only what is still on you.
                  This card is taller because it has a question in it, not
                  because it is a different kind of object.
-                 It used to carry the orange wash, which is the one exception per
-                 screen and already spent: the plan's step-3 card keeps it, and
-                 keeps it in the spine too, so with a step open there were two
-                 washes on screen arguing about which of them was the thing that
-                 is not agreed. The wash is the step. The stripe is the question. -->
-            <div style="background: #101820; border: 1px solid #1c2530; border-left: 3px solid #f2762b; border-radius: 8px; padding: 16px; display: flex; flex-direction: column; gap: 8px;">
+                 It wears the wash, and the wash is what the last stripe on the
+                 screen turned into. What the orange means is one thing now: this
+                 is waiting on your reply. The contested step in the plan wears it
+                 because it is asking you to agree or argue; this card wears it
+                 because it is asking you a question. Both are your move, both are
+                 answered where they are drawn, and neither is a state you can
+                 read off anything else on the screen.
+                 So there are two washes with a step open — one in the spine, one
+                 here — and that is the point rather than the old collision. The
+                 collision was two washes that both had to be decoded as "the
+                 thing that is not agreed", one of which wasn't; when the wash
+                 means "your move" the count of them is just how many moves you
+                 owe. Which move stays on the glyph and the word: `ph-warning` and
+                 `Not agreed` for the argument, `ph-question-mark` and
+                 `Not answered` for the question. Same values as the plan card —
+                 same 180° fall, same 0.30 edge — because a builder who has
+                 learnt the plan's orange should not have to learn this one. -->
+            <div style="background: linear-gradient(180deg, rgba(242, 118, 43, 0.14), rgba(242, 118, 43, 0.06) 45%, rgba(242, 118, 43, 0.025)); border: 1px solid rgba(242, 118, 43, 0.30); border-radius: 8px; padding: 16px; display: flex; flex-direction: column; gap: 8px;">
               <!-- A question mark, not a warning. `ph-warning` is the
                    disagreement: it is on step 3's dot, on its plan chip and in
                    this step's own "Not agreed" badge 470px above this line.
@@ -652,13 +664,23 @@
                    the help button in the top bar and that would only move the
                    collision rather than remove it. The bare mark is also lighter
                    than the triangle, so an open question does not read as a
-                   second alarm. The orange stays: this is the one open item in
-                   the list, and the stripe beside it is what says nobody has
-                   settled it yet. -->
+                   second alarm.
+                   Bare, and not in a tinted square any more. The square was
+                   rgba(.16) orange, the wash under it is rgba(.14) falling to
+                   rgba(.025): it had nothing left to be seen against at the top
+                   of the card, which is where it sat. Glyph and word alone is
+                   also what the step's own header does with `Not agreed` 470px
+                   above this line, so the two states are said the same way in the
+                   same pane. The rule the square was keeping — one thing, one
+                   mark — is kept by the wash now, which is on the card and not
+                   beside the label. The hairline that carries the eye across to
+                   "affects the evidence step" takes the card's own edge colour
+                   for the same reason: a #1c2530 groove is a cool grey line lying
+                   across a warm surface. -->
               <div style="display: flex; align-items: center; gap: 8px;">
-                <div style="width: 20px; height: 20px; flex: none; border-radius: 6px; background: rgba(242, 118, 43, 0.16); display: grid; place-items: center;"><i class="ph ph-question-mark" style="font-size: 12px; color: #f2762b;"></i></div>
+                <i class="ph ph-question-mark" style="font-size: 12px; color: #f2762b; flex: none;"></i>
                 <div style="font: 400 10px/12px ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; text-transform: uppercase; letter-spacing: 0.14em; color: #f2985c; flex: none;">Not answered</div>
-                <div style="flex: 1; height: 1px; background: #1c2530;"></div>
+                <div style="flex: 1; height: 1px; background: rgba(242, 118, 43, 0.30);"></div>
                 <div style="font: 400 12px/16px ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; color: #8b98a5; flex: none;">affects the evidence step</div>
               </div>
               <div style="display: flex; flex-direction: column; gap: 12px;">
@@ -683,10 +705,18 @@
                 </div>
               </div>
 
+              <!-- These three hovered to #0b1218, which is the ground: on the
+                   flat card it was a shade darker and read as pressed, and under
+                   the wash it would have been a hole punched through to the page
+                   behind. #131c24 is the design system's hover wash — "lifted
+                   card, and every hover wash" — and it is already what the one
+                   other button standing on this gradient uses, the "open this
+                   step" button in the plan card. A control on the orange lifts
+                   towards the light like any other; it does not go transparent. -->
               <div style="display: flex; align-items: center; gap: 8px;">
-                <div tabindex="0" style="display: inline-flex; align-items: center; gap: 6px; height: 28px; padding: 0 8px; border-radius: 6px; border: 1px solid #26313d; background: transparent; color: #c3cdd7; font: 600 12px/16px 'Open Sans', sans-serif; cursor: pointer; outline: none; transition: all 160ms cubic-bezier(0.2, 0, 0.2, 1);" style-hover="border-color: #4d97ea; background: #0b1218; color: #f5f9fc;" style-focus="box-shadow: 0 0 0 3px rgba(43, 127, 228, 0.32);"><i class="ph ph-plus" style="font-size: 12px;"></i>Add a detail</div>
-                <div tabindex="0" style="display: inline-flex; align-items: center; gap: 6px; height: 28px; padding: 0 8px; border-radius: 6px; border: 1px solid #26313d; background: transparent; color: #c3cdd7; font: 600 12px/16px 'Open Sans', sans-serif; cursor: pointer; outline: none; transition: all 160ms cubic-bezier(0.2, 0, 0.2, 1);" style-hover="border-color: #4d97ea; background: #0b1218; color: #f5f9fc;" style-focus="box-shadow: 0 0 0 3px rgba(43, 127, 228, 0.32);"><i class="ph ph-chat-teardrop-text" style="font-size: 12px;"></i>Comment</div>
-                <div tabindex="0" style="display: inline-flex; align-items: center; gap: 6px; height: 28px; padding: 0 8px; border-radius: 6px; border: 1px solid #26313d; background: transparent; color: #c3cdd7; font: 600 12px/16px 'Open Sans', sans-serif; cursor: pointer; outline: none; transition: all 160ms cubic-bezier(0.2, 0, 0.2, 1);" style-hover="border-color: #4d97ea; background: #0b1218; color: #f5f9fc;" style-focus="box-shadow: 0 0 0 3px rgba(43, 127, 228, 0.32);"><i class="ph ph-sparkle" style="font-size: 12px; color: #4d97ea;"></i>You decide this one</div>
+                <div tabindex="0" style="display: inline-flex; align-items: center; gap: 6px; height: 28px; padding: 0 8px; border-radius: 6px; border: 1px solid #26313d; background: transparent; color: #c3cdd7; font: 600 12px/16px 'Open Sans', sans-serif; cursor: pointer; outline: none; transition: all 160ms cubic-bezier(0.2, 0, 0.2, 1);" style-hover="border-color: #4d97ea; background: #131c24; color: #f5f9fc;" style-focus="box-shadow: 0 0 0 3px rgba(43, 127, 228, 0.32);"><i class="ph ph-plus" style="font-size: 12px;"></i>Add a detail</div>
+                <div tabindex="0" style="display: inline-flex; align-items: center; gap: 6px; height: 28px; padding: 0 8px; border-radius: 6px; border: 1px solid #26313d; background: transparent; color: #c3cdd7; font: 600 12px/16px 'Open Sans', sans-serif; cursor: pointer; outline: none; transition: all 160ms cubic-bezier(0.2, 0, 0.2, 1);" style-hover="border-color: #4d97ea; background: #131c24; color: #f5f9fc;" style-focus="box-shadow: 0 0 0 3px rgba(43, 127, 228, 0.32);"><i class="ph ph-chat-teardrop-text" style="font-size: 12px;"></i>Comment</div>
+                <div tabindex="0" style="display: inline-flex; align-items: center; gap: 6px; height: 28px; padding: 0 8px; border-radius: 6px; border: 1px solid #26313d; background: transparent; color: #c3cdd7; font: 600 12px/16px 'Open Sans', sans-serif; cursor: pointer; outline: none; transition: all 160ms cubic-bezier(0.2, 0, 0.2, 1);" style-hover="border-color: #4d97ea; background: #131c24; color: #f5f9fc;" style-focus="box-shadow: 0 0 0 3px rgba(43, 127, 228, 0.32);"><i class="ph ph-sparkle" style="font-size: 12px; color: #4d97ea;"></i>You decide this one</div>
               </div>
               </div>
             </div>
