@@ -891,10 +891,9 @@
               </div>
             </div>
 
-            <!-- Pinned under the run, buttons left and caption right — the exact
-                 shape the step pane's footer already has, for the same reason: the
-                 act may not be the thing that scrolls or crowds. Same pair, same
-                 size, same glyphs, same caption as the plan card and the step. -->
+            <!-- Pinned under the run, buttons left and caption right: the act may not be
+                 the thing that scrolls or crowds, and here it is the only act on screen.
+                 Same pair, same size, same glyphs, same caption as the plan card. -->
             <div style="flex: none; display: flex; align-items: center; gap: 12px; padding-top: 12px;">
               <div tabindex="0" style="display: inline-flex; flex: none; white-space: nowrap; align-items: center; gap: 6px; height: 36px; padding: 0 12px; font: 600 14px/24px 'Open Sans', sans-serif; color: #ffffff; background: #2b7fe4; border-radius: 8px; cursor: pointer; outline: none; transition: background 160ms cubic-bezier(0.2, 0, 0.2, 1);" style-hover="background: #4d97ea;" style-active="background: #2b5f9e;" style-focus="box-shadow: 0 0 0 3px rgba(43, 127, 228, 0.32);"><i class="ph ph-check" style="font-size: 14px;"></i>Agree</div>
               <div tabindex="0" style="display: inline-flex; flex: none; white-space: nowrap; align-items: center; gap: 6px; height: 36px; padding: 0 12px; font: 600 14px/24px 'Open Sans', sans-serif; color: #c3cdd7; background: transparent; border: 1px solid #26313d; border-radius: 8px; cursor: pointer; outline: none; transition: all 160ms cubic-bezier(0.2, 0, 0.2, 1);" style-hover="border-color: #4d97ea; background: #131c24; color: #f5f9fc;" style-focus="box-shadow: 0 0 0 3px rgba(43, 127, 228, 0.32);"><i class="ph ph-chat-teardrop-text" style="font-size: 14px;"></i>Comment further</div>
@@ -924,77 +923,94 @@
         <!-- The right padding is 42px wider than the left: that is the ×'s own
              column, so nothing scrolls underneath it. It also puts the heading
              and the cards on the same right edge, which they were not when the ×
-             was a flex child of the heading and only the heading paid for it.
-             `bottom: 69px` is the pinned decision below — see it for why. -->
-        <div style="position: absolute; top: 0; left: 0; bottom: 69px; width: 100%; min-width: 780px; display: flex; flex-direction: column; overflow-y: auto; padding: 24px 74px 16px 32px;">
+             was a flex child of the heading and only the heading paid for it. -->
+        <div style="position: absolute; top: 0; left: 0; bottom: 0; width: 100%; min-width: 780px; display: flex; flex-direction: column; overflow-y: auto; padding: 24px 74px 24px 32px;">
 
           <div style="flex: none; max-width: 800px; display: flex; flex-direction: column; gap: 8px; padding-bottom: 12px; opacity: {{ dOp }}; transform: {{ dTr }}; transition: opacity {{ dDur }} cubic-bezier(0.2, 0, 0.2, 1) {{ dDl }}, transform {{ dDur }} cubic-bezier(0.2, 0, 0.2, 1) {{ dDl }};">
-            <div style="display: inline-flex; align-self: flex-start; align-items: center; gap: 6px; color: #f2762b;">
-              <i class="ph ph-warning" style="font-size: 12px;"></i>
-              <!-- Same status word the card's heading and step 3's spine eyebrow use —
-                   three views, one word. -->
-              <div style="font: 400 10px/12px ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; text-transform: uppercase; letter-spacing: 0.14em;">Not agreed · step 3 of 5</div>
-            </div>
+            <!-- Location only. `Not agreed` belongs to the card below — the object the
+                 state is about — which is the division the plan's row and card make. -->
+            <div style="font: 400 10px/12px ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; text-transform: uppercase; letter-spacing: 0.14em; color: #8b98a5;">Step 3 of 5</div>
             <div style="font: 700 24px/38px 'Open Sans', sans-serif; color: #f5f9fc;">We check with the merchant before asking for evidence</div>
             <div style="font: 400 14px/24px 'Open Sans', sans-serif; color: #a9b6c3; text-wrap: pretty;">We ask the merchant about the payment while the customer is still describing it. They never wait for it and never see it — unless the merchant has already refunded them, in which case we stop and say so.</div>
-            <!-- One sentence and the rule it rests on. The plan card argues the case,
-                 next to the instruction; by the time you are here what you need is the
-                 claim it turns on, so `?step=3` stands on its own. -->
-            <div style="display: flex; align-items: center; gap: 8px; flex-wrap: wrap;">
-              <div style="font: 400 14px/24px 'Open Sans', sans-serif; color: #c3cdd7; text-wrap: pretty;">The scheme needs an attempt with the merchant before we ask for evidence.</div>
-              <div style="display: inline-flex; align-items: center; gap: 8px; cursor: pointer; color: #f2985c; transition: color 160ms cubic-bezier(0.2, 0, 0.2, 1);" style-hover="color: #f5f9fc;">
-                <i class="ph ph-book-open-text" style="font-size: 14px; color: #f2762b;"></i>
-                <div style="font: 400 12px/16px ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;">Scheme rules §4.2</div>
-              </div>
-            </div>
-          </div>
-
-          <!-- The drawing, and nothing that came with it — the reason and the citation
-               are in the header. The picture is the one thing worth carrying twice, so
-               it keeps the label it has in the plan. -->
-          <div style="flex: none; max-width: 800px; display: flex; flex-direction: column; gap: 12px; padding-bottom: 12px; opacity: {{ dOp }}; transform: {{ dTr }}; transition: opacity {{ dDur }} cubic-bezier(0.2, 0, 0.2, 1) {{ dDl }}, transform {{ dDur }} cubic-bezier(0.2, 0, 0.2, 1) {{ dDl }};">
-            <div style="font: 400 10px/12px ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; text-transform: uppercase; letter-spacing: 0.14em; color: #8b98a5;">What I would do instead</div>
-            <div style="background: #101820; border: 1px solid #1c2530; border-radius: 8px; padding: 16px; display: flex; flex-direction: column;">
-              <div style="display: flex; flex-direction: column;">
-                <div style="display: flex; align-items: flex-start;">
-                  <div style="width: 150px; flex: none; background: #0b1218; border: 1px solid #1c2530; border-radius: 8px; padding: 8px 10px; font: 600 12px/16px 'Open Sans', sans-serif; color: #f5f9fc;">Say what happened</div>
-                  <div style="width: 34px; height: 34px; flex: none; position: relative;">
-                    <div style="position: absolute; left: 0; top: 16px; width: 28px; height: 2px; background: #26313d;"></div>
-                    <div style="position: absolute; left: 28px; top: 13px; width: 0; height: 0; border-left: 6px solid #26313d; border-top: 4px solid transparent; border-bottom: 4px solid transparent;"></div>
-                    <div style="position: absolute; left: 16px; top: 17px; bottom: 0; width: 2px; background: #26313d;"></div>
-                  </div>
-                  <div style="width: 150px; flex: none; background: #0b1218; border: 1px solid #1c2530; border-radius: 8px; padding: 8px 10px; font: 600 12px/16px 'Open Sans', sans-serif; color: #f5f9fc;">Send a receipt</div>
-                </div>
-                <div style="display: flex; align-items: flex-start;">
-                  <div style="width: 166px; flex: none;"></div>
-                  <div style="width: 20px; height: 18px; flex: none; border-bottom-left-radius: 8px; border-left: 2px solid #26313d; border-bottom: 2px solid #26313d; margin-right: -1px;"></div>
-                  <div style="width: 190px; flex: none; background: #0b1218; border: 1px solid #4d97ea; border-radius: 8px; padding: 8px 10px; font: 600 12px/16px 'Open Sans', sans-serif; color: #f5f9fc;">Ask the merchant</div>
-                  <div style="font: 400 12px/16px ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; color: #8b98a5; flex: none; padding-top: 9px; margin-left: 12px;">unseen · 3s</div>
-                </div>
-              </div>
-            </div>
           </div>
 
           <div style="flex: none; max-width: 800px; display: flex; flex-direction: column; gap: 8px; padding-bottom: 12px; opacity: {{ dOp }}; transform: {{ dTr }}; transition: opacity {{ dDur }} cubic-bezier(0.2, 0, 0.2, 1) {{ dDl }}, transform {{ dDur }} cubic-bezier(0.2, 0, 0.2, 1) {{ dDl }};">
             <div style="display: flex; align-items: baseline; justify-content: space-between; gap: 16px;">
               <div style="font: 400 10px/12px ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; text-transform: uppercase; letter-spacing: 0.14em; color: #8b98a5;">What I need from you</div>
-              <!-- The same words the plan's step-3 card uses. Count what is open, in
-                   the unit it is open in, and let the cards below say which is which —
-                   no denominator, because the two items are in different states. -->
-              <div style="display: inline-flex; align-items: center; gap: 4px; font: 400 12px/16px 'Open Sans', sans-serif; color: #8b98a5;"><i class="ph ph-question-mark" style="font-size: 10px;"></i>One question still to settle</div>
+              <!-- Both kinds of waiting, each counted in its own unit — a plan being
+                   negotiated is not a step owing a detail, and neither gates the other.
+                   Grey glyphs: these are MENTIONS of the two things, and the cards
+                   below are the things. No denominator, the items are in different
+                   states. -->
+              <div style="display: inline-flex; align-items: center; gap: 8px; font: 400 12px/16px 'Open Sans', sans-serif; color: #8b98a5;"><span style="display: inline-flex; align-items: center; gap: 4px;"><i class="ph ph-warning" style="font-size: 10px;"></i>Not agreed</span><span style="display: inline-flex; align-items: center; gap: 4px;"><i class="ph ph-question-mark" style="font-size: 10px;"></i>One question still to settle</span></div>
             </div>
 
-            <!-- Two cards of one species: an eyebrow naming the state, then the thing
-                 itself. The state is the word, in the mono voice — `Not answered`,
-                 `Answered by you` — not a colour: a four-colour stripe key is one the
-                 screen never hands you. Questions I answered myself and questions I
-                 never asked differ only in how they arrived, so they are one list below
-                 and the section label says whose they are. This list is what is still on
-                 you.
+            <!-- Cards of one species: an eyebrow naming the state, then the thing
+                 itself. The state is the word, in the mono voice — `Not agreed`,
+                 `Not answered`, `Answered by you` — not a colour: a four-colour stripe
+                 key is one the screen never hands you. Questions I answered myself and
+                 questions I never asked differ only in how they arrived, so they are one
+                 list below and the section label says whose they are. This list is what
+                 is still on you.
                  It wears the wash, which means one thing: this is waiting on your reply.
                  Which move is on the glyph and the word — `ph-warning` / `Not agreed`
                  for the argument, `ph-question-mark` / `Not answered` for the question.
                  Same values as the plan card. -->
+
+            <!-- The argument, as one card in the list rather than spread over the
+                 heading and a pinned footer: it is a thing owed, so it sits with the
+                 other things owed and carries its own way out. The plan's step-3 card
+                 is this card — same wash, same words, same pair of acts. -->
+            <div style="background: linear-gradient(180deg, rgba(242, 118, 43, 0.14), rgba(242, 118, 43, 0.06) 45%, rgba(242, 118, 43, 0.025)); border: 1px solid rgba(242, 118, 43, 0.30); border-radius: 8px; padding: 16px; display: flex; flex-direction: column; gap: 12px;">
+              <div style="display: flex; align-items: center; gap: 8px;">
+                <i class="ph ph-warning" style="font-size: 12px; color: #f2762b; flex: none;"></i>
+                <div style="font: 400 10px/12px ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; text-transform: uppercase; letter-spacing: 0.14em; color: #f2985c; flex: none;">Not agreed</div>
+                <div style="flex: 1; height: 1px; background: rgba(242, 118, 43, 0.30);"></div>
+                <div style="font: 400 12px/16px ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; color: #8b98a5; flex: none;">affects steps 4–5</div>
+              </div>
+
+              <div style="display: flex; flex-direction: column; gap: 6px;">
+                <div style="font: 700 18px/28px 'Open Sans', sans-serif; color: #f5f9fc; text-wrap: pretty;">You asked me to drop the merchant check</div>
+                <div style="font: 400 14px/24px 'Open Sans', sans-serif; color: #a9b6c3; text-wrap: pretty;">The scheme needs an attempt with the merchant before we ask for evidence — without one the chargeback is out of scope the moment we submit it.</div>
+                <div style="display: inline-flex; align-self: flex-start; align-items: center; gap: 8px; cursor: pointer; color: #f2985c; transition: color 160ms cubic-bezier(0.2, 0, 0.2, 1);" style-hover="color: #f5f9fc;">
+                  <i class="ph ph-book-open-text" style="font-size: 14px; color: #f2762b;"></i>
+                  <div style="font: 400 12px/16px ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;">Scheme rules §4.2</div>
+                </div>
+              </div>
+
+              <div style="height: 1px; background: rgba(242, 118, 43, 0.16);"></div>
+
+              <!-- The drawing keeps the label it has in the plan, and its boxes keep the
+                   ground: on the wash they are the plan card's own values. -->
+              <div style="display: flex; flex-direction: column; gap: 12px;">
+                <div style="font: 400 10px/12px ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; text-transform: uppercase; letter-spacing: 0.14em; color: #8b98a5;">What I would do instead</div>
+                <div style="display: flex; flex-direction: column;">
+                  <div style="display: flex; align-items: flex-start;">
+                    <div style="width: 150px; flex: none; background: #0b1218; border: 1px solid #1c2530; border-radius: 8px; padding: 8px 10px; font: 600 12px/16px 'Open Sans', sans-serif; color: #f5f9fc;">Say what happened</div>
+                    <div style="width: 34px; height: 34px; flex: none; position: relative;">
+                      <div style="position: absolute; left: 0; top: 16px; width: 28px; height: 2px; background: #26313d;"></div>
+                      <div style="position: absolute; left: 28px; top: 13px; width: 0; height: 0; border-left: 6px solid #26313d; border-top: 4px solid transparent; border-bottom: 4px solid transparent;"></div>
+                      <div style="position: absolute; left: 16px; top: 17px; bottom: 0; width: 2px; background: #26313d;"></div>
+                    </div>
+                    <div style="width: 150px; flex: none; background: #0b1218; border: 1px solid #1c2530; border-radius: 8px; padding: 8px 10px; font: 600 12px/16px 'Open Sans', sans-serif; color: #f5f9fc;">Send a receipt</div>
+                  </div>
+                  <div style="display: flex; align-items: flex-start;">
+                    <div style="width: 166px; flex: none;"></div>
+                    <div style="width: 20px; height: 18px; flex: none; border-bottom-left-radius: 8px; border-left: 2px solid #26313d; border-bottom: 2px solid #26313d; margin-right: -1px;"></div>
+                    <div style="width: 190px; flex: none; background: #0b1218; border: 1px solid #4d97ea; border-radius: 8px; padding: 8px 10px; font: 600 12px/16px 'Open Sans', sans-serif; color: #f5f9fc;">Ask the merchant</div>
+                    <div style="font: 400 12px/16px ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; color: #8b98a5; flex: none; padding-top: 9px; margin-left: 12px;">unseen · 3s</div>
+                  </div>
+                </div>
+              </div>
+
+              <!-- The two acts of an argument — settle it, or keep having it. Neither is
+                   "build", and neither is gated on the question below. -->
+              <div style="display: flex; align-items: center; gap: 12px;">
+                <div tabindex="0" style="display: inline-flex; flex: none; white-space: nowrap; align-items: center; gap: 6px; height: 36px; padding: 0 12px; font: 600 14px/24px 'Open Sans', sans-serif; color: #ffffff; background: #2b7fe4; border-radius: 8px; cursor: pointer; outline: none; transition: background 160ms cubic-bezier(0.2, 0, 0.2, 1);" style-hover="background: #4d97ea;" style-active="background: #2b5f9e;" style-focus="box-shadow: 0 0 0 3px rgba(43, 127, 228, 0.32);"><i class="ph ph-check" style="font-size: 14px;"></i>Agree</div>
+                <div tabindex="0" style="display: inline-flex; flex: none; white-space: nowrap; align-items: center; gap: 6px; height: 36px; padding: 0 12px; font: 600 14px/24px 'Open Sans', sans-serif; color: #c3cdd7; background: transparent; border: 1px solid #26313d; border-radius: 8px; cursor: pointer; outline: none; transition: all 160ms cubic-bezier(0.2, 0, 0.2, 1);" style-hover="border-color: #4d97ea; background: #131c24; color: #f5f9fc;" style-focus="box-shadow: 0 0 0 3px rgba(43, 127, 228, 0.32);"><i class="ph ph-chat-teardrop-text" style="font-size: 14px;"></i>Comment further</div>
+              </div>
+            </div>
+
             <div style="background: linear-gradient(180deg, rgba(242, 118, 43, 0.14), rgba(242, 118, 43, 0.06) 45%, rgba(242, 118, 43, 0.025)); border: 1px solid rgba(242, 118, 43, 0.30); border-radius: 8px; padding: 16px; display: flex; flex-direction: column; gap: 8px;">
               <!-- A question mark, not a warning: `ph-warning` is the disagreement, and
                    wearing it here too would make the two kinds of waiting one mark in one
@@ -1142,25 +1158,6 @@
           </div>
         </div>
 
-        <!-- Pinned, like the ×: the act this panel exists to ask for was 38px below
-             the fold at 1440×900, and being in the markup is not being present. It also
-             gives the two panes one shape — scrolling body, act pinned under it.
-             69px is what it occupies (16 + 36 + 16 and the hairline) and the scroller's
-             `bottom` is that number; the right padding matches the scroller's 74px.
-             Holds `min-width: 780px` so an opening pane uncovers it rather than
-             squeezing it, and inherits the pane's `visibility`. -->
-        <div style="position: absolute; bottom: 0; left: 0; width: 100%; min-width: 780px; padding: 16px 74px 16px 32px; background: #0b1218; border-top: 1px solid #18212a; display: flex; align-items: center; gap: 12px; opacity: {{ dOp }}; transition: opacity {{ dDur }} cubic-bezier(0.2, 0, 0.2, 1) {{ dDl }};">
-          <!-- The argument, and only the argument. The questions are settled in their
-               own section above, each carrying its own way out. -->
-          <!-- flex: none and nowrap, because this pane is narrower than it looks:
-               the blocks are capped at 800px but the pane only gives them 674 at
-               the design size, so a shrinkable button lost the argument with the
-               caption and "Comment further" broke over two lines. -->
-          <div tabindex="0" style="display: inline-flex; flex: none; white-space: nowrap; align-items: center; gap: 6px; height: 36px; padding: 0 12px; font: 600 14px/24px 'Open Sans', sans-serif; color: #ffffff; background: #2b7fe4; border-radius: 8px; cursor: pointer; outline: none; transition: background 160ms cubic-bezier(0.2, 0, 0.2, 1);" style-hover="background: #4d97ea;" style-active="background: #2b5f9e;" style-focus="box-shadow: 0 0 0 3px rgba(43, 127, 228, 0.32);"><i class="ph ph-check" style="font-size: 14px;"></i>Agree</div>
-          <div tabindex="0" style="display: inline-flex; flex: none; white-space: nowrap; align-items: center; gap: 6px; height: 36px; padding: 0 12px; font: 600 14px/24px 'Open Sans', sans-serif; color: #c3cdd7; background: transparent; border: 1px solid #26313d; border-radius: 8px; cursor: pointer; outline: none; transition: all 160ms cubic-bezier(0.2, 0, 0.2, 1);" style-hover="border-color: #4d97ea; background: #131c24; color: #f5f9fc;" style-focus="box-shadow: 0 0 0 3px rgba(43, 127, 228, 0.32);"><i class="ph ph-chat-teardrop-text" style="font-size: 14px;"></i>Comment further</div>
-          <div style="flex: 1;"></div>
-          <div style="display: inline-flex; align-items: center; gap: 4px; font: 400 12px/16px 'Open Sans', sans-serif; color: #8b98a5; white-space: nowrap;"><i class="ph ph-question-mark" style="font-size: 10px;"></i>One question still to settle before I build it.</div>
-        </div>
       </div>
 
       </div>
