@@ -673,19 +673,24 @@
               </div>
             </div>
 
-            <!-- Stacked, not laid out across: the status word and the sentence
-                 want the same row and there is not 780px of pane for both. The
-                 avatar and its gap were 32px and a word is 110px, so across it
-                 comes to 688px in a 642px card — the sentence would have wrapped
-                 under its own label and read as two lines of one thought. Stacked
-                 it costs 22px of height and no width at all, which is the trade
-                 the plan rows make with their counts. -->
+            <!-- The status word takes a line of its own because it will not fit
+                 beside the sentence: the avatar and its gap were 32px, a word is
+                 110px, and across it comes to 688px in a 642px card — the
+                 sentence would have wrapped under its own label and read as two
+                 lines of one thought. A line costs 22px of height and no width,
+                 which is the trade the plan rows make with their counts.
+                 `Change` rides the sentence and not the label, because the
+                 sentence is what it changes. Sat up on the label's line it read
+                 as the label's control, and the two things nearest each other in
+                 a card are taken to be about each other. It leaves the row it is
+                 on the same shape as the settled rows in the list below —
+                 sentence, then its verb — and those have no label at all. -->
             <div style="background: #101820; border: 1px solid #1c2530; border-radius: 8px; padding: 8px 16px; display: flex; flex-direction: column; gap: 6px;">
+              <div style="font: 400 10px/12px ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; text-transform: uppercase; letter-spacing: 0.14em; color: #8b98a5;">Answered by you</div>
               <div style="display: flex; align-items: baseline; gap: 12px;">
-                <div style="flex: 1; min-width: 0; font: 400 10px/12px ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; text-transform: uppercase; letter-spacing: 0.14em; color: #8b98a5;">Answered by you</div>
+                <div style="flex: 1; min-width: 0; font: 400 14px/22px 'Open Sans', sans-serif; color: #c3cdd7; text-wrap: pretty;"><span style="font-weight: 600;">Which disputes we check</span> — only the four reasons where a merchant can help</div>
                 <div tabindex="0" style="font: 600 12px/16px 'Open Sans', sans-serif; color: #8b98a5; cursor: pointer; outline: none; flex: none; transition: color 160ms cubic-bezier(0.2, 0, 0.2, 1);" style-hover="color: #4d97ea;">Change</div>
               </div>
-              <div style="font: 400 14px/22px 'Open Sans', sans-serif; color: #c3cdd7; text-wrap: pretty;"><span style="font-weight: 600;">Which disputes we check</span> — only the four reasons where a merchant can help</div>
             </div>
 
           </div>
@@ -702,15 +707,18 @@
                  can do about them, and it used to be spelled two ways at once —
                  a section of its own up in "what I need from you", and a blue
                  stripe against this card's grey one. Nothing needs an eyebrow
-                 here: the label above the list is whose these are, and "Take it
-                 back" says the rest. No stripes either, for the same reason the
-                 green and blue went — a key you cannot read is decoration.
-                 It keeps its own verb, though. The numbers are edited in place
-                 because a number has an obvious next value; a policy does not, so
-                 the way to change this one is to hand the question back. -->
+                 here: the label above the list is whose these are. No stripes
+                 either, for the same reason the green and blue went — a key you
+                 cannot read is decoration.
+                 One verb across every settled thing on the screen: `Change`. It
+                 was "Take it back" here, which is a different act only if you
+                 already know this one was put to you and the rest were not —
+                 which is the provenance the section merge just got rid of, asked
+                 for a second time in a control. What you do is the same in both
+                 places: you open it and say something else. -->
             <div style="background: #101820; border: 1px solid #1c2530; border-radius: 8px; padding: 8px 16px; display: flex; align-items: baseline; gap: 12px;">
               <div style="flex: 1; min-width: 0; font: 400 14px/22px 'Open Sans', sans-serif; color: #c3cdd7; text-wrap: pretty;"><span style="font-weight: 600;">What we tell the merchant</span> — the payment only, never the customer's own words</div>
-              <div tabindex="0" style="font: 600 12px/16px 'Open Sans', sans-serif; color: #8b98a5; cursor: pointer; outline: none; flex: none; transition: color 160ms cubic-bezier(0.2, 0, 0.2, 1);" style-hover="color: #4d97ea;">Take it back</div>
+              <div tabindex="0" style="font: 600 12px/16px 'Open Sans', sans-serif; color: #8b98a5; cursor: pointer; outline: none; flex: none; transition: color 160ms cubic-bezier(0.2, 0, 0.2, 1);" style-hover="color: #4d97ea;">Change</div>
             </div>
 
             <div style="background: #101820; border: 1px solid #1c2530; border-radius: 8px; padding: 12px 16px; display: flex; flex-direction: column; font: 400 14px/24px 'Open Sans', sans-serif; color: #c3cdd7;">
