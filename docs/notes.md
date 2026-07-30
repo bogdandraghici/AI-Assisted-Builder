@@ -97,6 +97,11 @@ The wash: `linear-gradient(180deg, rgba(242,118,43,.14), rgba(242,118,43,.06) 45
 rgba(242,118,43,.025))` behind `1px solid rgba(242,118,43,.30)`. The settle tag is a flat tint at
 the same values — `.14` on `.30` when owed, `#131c24` on `#26313d` when not.
 
+Inside the wash the cool ladder is mirrored warm — ground `#18120b`, lifted `#241c13`, outlined
+`#201810` on `#30251c`, hairline `#2a2118`, line-strong `#3d3126`. Wireframe insets sink to
+`#120d08` and draw at `#4a3b2c`. Blue stays cool and means taken, so hover lifts the ground and
+never takes the border.
+
 Ladder: 10 · 12 · 14 · 18 · 24 over line-heights 12 · 16 · 18 · 22 · 24 · 28 · 38. No 11px, no
 13px. Spacing 4 · 6 · 8 · 12 · 16 · 24 · 56. Prose caps at 800px. Open Sans is plan language, mono
 is what the product says *about* the plan (micro-labels `10/12 · 400` at `+.14em`).
