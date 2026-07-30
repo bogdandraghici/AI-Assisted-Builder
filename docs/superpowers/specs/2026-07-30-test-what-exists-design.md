@@ -291,20 +291,27 @@ Two new sections, matching the existing two-embed pattern:
 - **03** — the run at the edge (`screen-02.dc.html`, default `at=3`).
 - **04** — scrubbed back to the first step (`screen-02.dc.html?at=1`).
 
-## What `support.js` will and will not interpolate
+## What `support.js` interpolates
 
-**`{{ … }}` resolves in `style` and in `onClick`. It does not resolve in `class`, `title` or
-`tabindex`** — those render the template text verbatim. For `tabindex` that means an invalid
-value and an element that is never focusable in *either* state.
+**`{{ … }}` resolves in every attribute.** `collectProps` runs `compileAttr` over all of
+them (`support.js:441`), so `tabindex`, `title` and `class` behave exactly like `style`. The
+only exception is `style-hover` / `style-active` / `style-focus`, which are handed to
+`pseudoClass()` verbatim — which is why an affordance is withdrawn with `pointer-events`
+inside `style` rather than by removing a hover rule.
 
-So every state-dependent glyph, tooltip and tab stop on screen 02 is **two elements behind an
-`sc-if`**, which is legal precisely because none of them animate: the expand/collapse pair,
-and `Continue` live-vs-dead. Where the value never actually varied — the back arrow, the
-crumb, the two unbuilt nodes — it is a literal, which cannot silently fail.
+So screen 02 uses one element with interpolated attributes wherever something varies by
+state: the expand/collapse control (`class`, `title`), and `Continue`
+(`tabindex` / `pointer-events` / `cursor`). Where a value never actually varied — the back
+arrow, the crumb, the two unbuilt nodes — it is a literal, which cannot silently fail.
 
-This was found by probing the rendered DOM, and it is **pre-existing in screen 01**: three
-`tabindex="{{ exitTab }}"`, three `tabindex="{{ cardTab }}"` and two `title="{{ upTitle }}"`
-have never worked there. Screen 01 is untouched by this change; the fix is its own.
+Verified on the hydrated DOM in every state: zero unresolved `{{` in any attribute, the
+glyph pair flipping with `full`, and `Continue` at `tabindex="0" / pointer-events: auto` at
+`at=2` against `tabindex="-1" / pointer-events: none` at `at=3`.
+
+**An earlier draft of this spec claimed the opposite** — that `tabindex`, `title` and
+`class` are not interpolated, and that screen 01 had six broken tab stops. That was wrong,
+and it came from probing the DOM before hydration finished. Screen 01 resolves `exitTab`,
+`cardTab` and `upTitle` correctly in both states.
 
 ## Verification
 

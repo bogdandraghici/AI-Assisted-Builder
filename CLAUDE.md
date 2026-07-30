@@ -70,13 +70,16 @@ in the logic, not left to look enabled:
   (`support.js:428`) and take **no** `{{ }}` placeholders, so a hover can only be
   withdrawn by taking the pointer off the element — which removes the cursor and the click
   with it. One flag, whole affordance.
-- **`{{ … }}` resolves in `style` and in `onClick`, and nowhere else that matters.**
-  Not in `class`, not in `title`, not in `tabindex` — those render the template text
-  verbatim, which for `tabindex` means an invalid value and an element that is never
-  focusable in *either* state. So a state-dependent glyph, tooltip or tab stop is **two
-  elements behind an `sc-if`**, which is legal exactly when the thing does not animate.
-  Screen 01 still has three `tabindex="{{ exitTab }}"` and three `tabindex="{{ cardTab }}"`
-  that have never worked; screen 02 uses `sc-if` throughout.
+- **`{{ … }}` resolves in *every* attribute** — `collectProps` runs `compileAttr` over all
+  of them (`support.js:441`), so `tabindex`, `title` and `class` interpolate exactly like
+  `style` does. The `style-hover` / `style-active` / `style-focus` trio above is the one
+  exception, and it is an exception because those are passed to `pseudoClass()` verbatim
+  rather than compiled. So a state-dependent tab stop, tooltip or glyph is **one element
+  with an interpolated attribute**, never two behind an `sc-if`.
+  *Do not re-diagnose this from a rendered DOM without gating on hydration properly* — a
+  probe that checks only for `.sc-placeholder` reads the raw markup, sees
+  `tabindex="{{ exitTab }}"`, and will convince you of a bug that is not there. It did once.
+  See **[docs/motion.md](docs/motion.md)**, "How to measure it".
 - **Withdraw the tabindex too**, or the keyboard keeps reaching a control the mouse no
   longer can — and the rule runs both ways: never leave a pointer target the keyboard
   cannot reach either, which is how the previewed app's live control was mouse-only for a

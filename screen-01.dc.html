@@ -1134,7 +1134,6 @@ class Component extends DCLogic {
       // the "one element per thing" rule does not apply. An instant swap is
       // also the honest reading — it is a different screen, not a transform.
       at1: this.state.at === 1,
-      at2: this.state.at === 2,
       at3: this.state.at === 3,
       goTo1: () => this.setState({ at: 1 }),
       goTo2: () => this.setState({ at: 2 }),
@@ -1172,6 +1171,9 @@ class Component extends DCLogic {
       // being written twice and drifting. Same reason the plan card's controls
       // are gated instead of duplicated.
       at23: this.state.at !== 1,
+      contPE: this.state.at === 2 ? 'auto' : 'none',
+      contTab: this.state.at === 2 ? '0' : '-1',
+      contCursor: this.state.at === 2 ? 'pointer' : 'default',
 
       // ── Full screen ──────────────────────────────────────────────────────
       // The chat is the one thing on this prototype that never moves, and this
@@ -1185,13 +1187,9 @@ class Component extends DCLogic {
       // `min-height: 3lh` and its boundary sentence `2lh`. The app needs no pin
       // at all — every column in it is either fixed or capped, so a wider frame
       // moves nothing.
-      // support.js resolves `{{ }}` in `style` but NOT in `class`, `title` or
-      // `tabindex` — those render the template text verbatim. So anything
-      // state-dependent outside `style` is two elements behind an `sc-if`, which
-      // is legal here because none of it animates.
       toggleFull: () => this.setState(p => ({ full: !p.full })),
-      full: this.state.full,
-      notFull: !this.state.full,
+      fullGlyph: this.state.full ? 'ph-arrows-in' : 'ph-arrows-out',
+      fullTitle: this.state.full ? 'Back to the run — Esc' : 'Fill the screen',
       chatW: this.state.full ? '0px' : '360px',
       chatBorder: this.state.full ? '0px' : '1px',
       stripRows: this.state.full ? '0fr' : '1fr',

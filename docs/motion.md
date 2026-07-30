@@ -185,7 +185,11 @@ Two gates, or the trace lies:
   every rect zero — and a naive assertion prints PASS on it. Gate on the *target
   element's own* `style` attribute being free of `{{`, never on `document.body.innerHTML`,
   which contains the probe's own braces. And make the probe fail loudly on geometry it
-  knows is impossible, or the gate is worse than none.
+  knows is impossible, or the gate is worse than none — a check that prints PASS over
+  all-zero rects is worse than no check at all.
+  This is not hypothetical: a weak gate here produced a confident, wrong bug report that
+  `support.js` does not interpolate `tabindex`, `title` or `class`. It interpolates all
+  three. What the probe was reading was the markup before hydration.
 - Give the click a turn to render before asking for `getAnimations()`. Read it
   synchronously after `.click()` and you get zero animations and a flat, lying trace —
   and the traces come out labelled one click behind.
