@@ -236,6 +236,58 @@ If a stepped trace is unavailable — headless Chrome settles transitions before
 opacity — then check **both ends instead of the middle** per step 3, which establishes the
 same property the trace exists to establish.
 
+## Where this stands
+
+Built and verified (commit `022d7b7`):
+
+- One block, one chat, one top bar. `screen-02.dc.html` swept; `index.html`'s five
+  sections are five states of one page.
+- The 2×2 grid with the measured tracks above. All of them confirmed against the render:
+  region 1080 × 852, rows `0/852 · 531/321 · 852/0`, columns `1080/0 · 300/780 · 1440/0`.
+- The state machine: entry, `Fill the screen`, Esc unwinding one thing at a time, the
+  breadcrumb, the back arrow, and `Test what exists` withdrawn over a step
+  (`pointer-events: none`, `tabindex: -1`). All asserted by `probe-click.html`.
+- Resting states against the previous build: **the plan is pixel-identical, zero
+  differing pixels.** The step state differs only where the entry button goes quiet. The
+  run's three states differ only in the top bar and in the corrected chat wrap.
+
+**Not yet built: the five rows are still two sets of elements.** So the plan → run
+transition is currently the collapse-and-fade this design rejected, not the plan lying
+down. The mechanism below is settled and measured; it is the assembly that is outstanding.
+
+### The remainder, as designed
+
+Each step becomes `position: relative`, with:
+
+- **`width`** — `100%` in the plan, `calc((100% - 16px) / 5)` in the run. Both are
+  interpolable, and neither is a measured constant, so the band still divides correctly
+  above 1440 the way `flex: 1 1 0px` did.
+- **`transform`** — `translateX` in multiples of the element's own width, which is
+  viewport-independent: `0`, `100%`, `200%`, `calc(300% + 16px)`, `calc(400% + 16px)`,
+  the 16px being the wall's gap. `translateY` is the negative of the cumulative flow
+  height above each step *in the run state*, which is content-dependent and must be
+  measured after the internals collapse — the one set of numbers still to take.
+- **The dot** — absolutely positioned, so moving it from the left gutter to above the
+  title costs no reflow. `top: 0` in both, because absolute positioning resolves against
+  the padding box and so is unaffected by the step's own `padding-top`. The plan's step-4
+  and step-5 dots are already `1px dashed #8b98a5` and `1px solid #8b98a5`, exactly the
+  strip's, so only `dotSize`, `left` and `top` interpolate.
+- **The connector rotating rather than reshaping**, and without measured lengths. All
+  four insets are set in both states so neither is ever `auto`, and the two that carry
+  the length use percentages: plan `left 9 · top 24 · right calc(100% - 11px) · bottom 0`,
+  run `left 20 · top 9 · right 0 · bottom calc(100% - 11px)`. Those interpolate as calc,
+  so the line auto-sizes to its row in the plan and to its node in the run with no number
+  to keep in sync.
+- **`padding: 28px 8px 0 0`** in the run — the 20px dot plus the card's 8px top margin,
+  and the card's 8px right margin.
+- **The title** — `max-width` 800 → 224/206 → 169, leading the measure on
+  `cubic-bezier(0, 0, 0.4, 0.8)`, with `min-height` reserving the line box as it already
+  does at `3lh`.
+
+The three group headings travel the same way; the strip's own heads row and nodes row are
+then deleted, since those elements come from the plan, and its wall, boundary caption and
+act row move into a run-only wrapper.
+
 ## Risk, stated plainly
 
 This is the largest single change to `Conversational Builder v2.dc.html`: two 1440×900 blocks
