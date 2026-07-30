@@ -22,18 +22,15 @@ pseudo-class attributes, `DCLogic` and React.
 - **One status word per state, across both views.**
 - **Pick a role from the type ladder; never invent a size.** No elevation shadows.
 
-## The notes
-
-[docs/notes.md](docs/notes.md) holds the measured values and the traps — motion pins, easing,
-how to prove the move does not judder, the wash and the two kinds of waiting, the type ladder
-and palette, `build-screens.py`. It is **reference, not a log**: read the section you are about
-to touch, and only write back when a measured number changes or a new trap bites. Do not
-narrate changes into it.
-
 ## Working here
 
 - This is a design prototype. Bias to speed — make the change, run the build, look at it.
   Prose about the change is not part of the change.
+- **Don't document much, and don't read much.** [docs/notes.md](docs/notes.md) holds the numbers
+  that cost real measurement. Open it when you are about to touch the transition or a pin;
+  otherwise go straight to the source doc. Write back only when a measured number changes or a
+  new trap bites — a line or two, never the reasoning that got there. Same for comments in the
+  source doc: state the value, don't justify it.
 - Specs and plans only for large features — anything that restructures a screen or touches the
   transition. Tweaks, copy and single-state changes go straight to the source doc.
 - Preview over HTTP: `python3 -m http.server 8765 --bind 127.0.0.1`. Opening `file://` breaks
