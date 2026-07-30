@@ -15,7 +15,8 @@ CSS transitions over interpolated inline styles; `support.js` re-resolves them e
 | `ldDur` closing | **240ms**, not 340 |
 | Chat pane | fixed 360px, takes no part in the move |
 | Step pane content | `min-width: 780px` |
-| Row `min-width` pins @1440 | **838 / 838 / 860 / 979 / 860 / 860 / 1015** |
+| Row `min-width` pins @1440 | **838 / 838 / 860 / 979 / 860 / 860** |
+| Plan slack @1440×900 | **9px** — the filler at the end of the plan column |
 | Title `max-width` final (row) | `300 − 32 pad − 8 dot − 12 gap − 24 gap = 224` |
 | Title `max-width` final (card) | `248 − 2 border − 20 pad − 24 gap − 8 gap = 194` |
 | `titleLines` | 2lh, one value for all five (`1lh` wide) |
@@ -34,7 +35,9 @@ CSS transitions over interpolated inline styles; `support.js` re-resolves them e
 - `max-width` must be smaller than the space at every instant, so it alone decides line breaks.
   Reserve the line box in `lh`, leading the measure opening and lagging it closing.
 - The pins are a function of the chat's width and of what the counts column holds — move either and
-  all seven are invalid. The fourth (979) is on the contested step's **card**, not its contents.
+  all six are invalid. The fourth (979) is on the contested step's **card**, not its contents.
+- The plan does not scroll, and the contested card holds the step pane's whole card. Anything added
+  to that card comes out of 9px — measure the plan column's trailing filler before and after.
 - `max-width` finals must include gaps — a collapsed sibling still occupies its flex `gap`.
 - A wider counts column is a motion change: it narrows the title at every instant.
 - Absolute figures are rig-specific (~5.5px back-total on an unchanged build). Gate on a same-rig
