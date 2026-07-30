@@ -46,11 +46,18 @@ when open and it clips instead of reflowing — invisibly, since it is at zero o
 before the pane reaches it.
 
 Measure the number, don't guess it: they differ per row
-(**838 / 838 / 945 / 860 / 860 / 1015** at 1440) because the counts column beside each one
-does. They are a function of the chat pane's width, so anything that moves that pane
-invalidates all six — they all shifted 80px when the chat settled on one 360 width — and of
+(**838 / 838 / 860 / 979 / 860 / 860 / 1015** at 1440) because the counts column beside each
+one does. They are a function of the chat pane's width, so anything that moves that pane
+invalidates all seven — they all shifted 80px when the chat settled on one 360 width — and of
 what the counts column holds, so all four row pins moved again when it became a single
 settle tag.
+
+The fourth is the contested step's card, and it is pinned on the **card itself**, not on its
+contents — it has an edge the contents would burst through before the clipping parent caught
+them, and a broken orange box mid-move is worse than a rewrap. It was 945 on the inner block
+while the card wrapped the whole step; it is 979 on the card now that the card sits under an
+ordinary row and spans that row's full width. The third pin is the description that row never
+had, and it is 860 because its counts column now holds the same settle tag rows 4 and 5 hold.
 
 A pin can only ever report itself, so the ordinary probe cannot read the number it should
 be. Lift every `min-width` to 0 at once, read what each box is then given, and put them
@@ -119,10 +126,14 @@ It must equal the true final width, gaps included — a collapsed sibling still 
 flex `gap`, so the first attempt was 24px too generous and bought one last rewrap on the
 final frame. Derive it, from the spine width in and the gaps out:
 row `300 - 32 pad - 8 dot - 12 gap - 24 gap = 224`, and the card from the 248 the row
-leaves it: `248 - 2 border - 20 pad - 12 gap - 8 gap = 206`. It applies to anything that
-wraps, not just titles: the pair of chips in the card broke onto a second line 20ms before
-the dock landed and threw the two rows below it down 26px in one frame. At 206 they fit
-side by side and no longer wrap at all — but the pin stays, because what it prevents is the
+leaves it: `248 - 2 border - 20 pad - 24 gap - 8 gap = 194`. That last one was 206 while the
+`Not agreed` chip sat in the slot beside the title on a 12px gap; the contested row takes the
+same 24px gap to its tag column that the other four take now, and pays the 12px for it. It
+applies to anything that wraps, not just titles: the pair of chips in the card broke onto a
+second line 20ms before the dock landed and threw the two rows below it down 26px in one
+frame. At 194 they still fit side by side and do not wrap — measured, not assumed: the pair's
+box is 26px, which is one 18px chip under its own 8px of padding-top, and a second line would
+read 50. The pin stays, because what it prevents is the
 wrap happening *during* the move, and an unpinned pair would still cross their own break
 point on the way in.
 
@@ -152,7 +163,20 @@ it was there first.
 
 ## Where it stands
 
-At 16.7ms per frame: the two rows that travel 196 and 200px peak at 24px a frame opening
+**The two travelling rows moved to 237 and 241px when the contested step's card came out
+from around it and went under it, and the stepped trace has not been re-run since.** The
+distance grew 41px because the wide plan's row 3 grew by that much: a description line it
+never had, plus the card's own 12px margin, 16px padding and `Not agreed` heading, against
+the 16px top padding and 12px body offset the old card spent instead. The relation below
+says what that costs — peaks track distance — so expect something near the 27–31 a frame
+this move has run at before, and confirm it with the stepped trace before treating the
+figures in the next paragraph as current. What *was* re-measured on this build is the
+both-ends gate that establishes the property the trace exists to check: every pinned box has
+zero width-overflow in both resting states, the plan's own box zero height-overflow, `planPinH`
+unmoved at 816 / 812, all five titles one line at 800 in the wide plan, and the spine's line
+counts unchanged at 2 / 1 / 2 / 2 / 2.
+
+At 16.7ms per frame, on the build where those rows travelled 196 and 200px, they peaked at 24px a frame opening
 and 26px closing, and both directions are monotonic to rest — against the direction of
 travel the worst single step is 2.1px opening and 0.0px closing, totalling 2.2px and 0.0px
 across the whole move, and the interior rows never step more than 4.2px in either

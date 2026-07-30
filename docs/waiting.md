@@ -11,10 +11,19 @@ The builder is asked for two different things and they are not the same act:
 
 ## The wash means exactly one thing: this is waiting on your reply
 
-Both kinds wear the orange wash, and only the two objects above may carry it — the contested
-step's card, in the plan and in the spine, and the one open question in the step pane. So two
-washes on screen with a step open is right, and says you owe two replies. Which reply is the
-glyph and the word, never the colour; the colour only ever says *your move*.
+Both kinds wear the orange wash, and only the two objects above may carry it — the argument
+about the contested step, and the one open question in the step pane. So two washes on screen
+with a step open is right, and says you owe two replies. Which reply is the glyph and the
+word, never the colour; the colour only ever says *your move*.
+
+**The wash is on the argument, not on the step.** In the wide plan the contested step is an
+ordinary row — title, description, settle tag, same left edge as the other four — and the
+washed card sits *under* it holding the whole of what is owed: the objection, the reference,
+the drawing, and the two acts. The card engulfing the step said the step was the thing
+waiting on you, and it is not; the step is a step, and there happens to be an argument about
+it. In the spine the card is inside the same collapse as every other row's description and
+clips to nothing, so the wash falls back onto the step's own block and the spine keeps the
+one washed card it has always had — one element in both states, only its paint crossing.
 
 Nothing else takes the wash — the 180° gradient behind a tinted edge is those two objects and
 no others. Colour alone is a narrower claim than the wash, and exactly one count spends it:
@@ -41,8 +50,13 @@ and the wash's own values.
   before you asked to drop it at 09:39 — that timeline is what earns the screen its subject.
   Wash it where the reply is given, and the reply is best given here. Still one wash on that
   screen, still the same object the plan washes, still the same words in all three views.
-- **One tag per plan row, and it is the whole of the row's right-hand column.** `N to settle`
-  or `Nothing to settle`, and nothing else. It replaced `N resources ›`, which counted the
+- **One tag per plan row, and it is the whole of the row's right-hand column — all five of
+  them.** `N to settle` or `Nothing to settle`, and nothing else. The contested row used to
+  hold `Not agreed` there and no count at all, on the grounds that a count cost 74px of title
+  measure; that was true while its title lived inside a padded card with the chip beside it,
+  and it stopped being true when the row became an ordinary row paying exactly what rows 4
+  and 5 pay. `Not agreed` is the heading of the card below, which is the object the state
+  belongs to. The tag replaced `N resources ›`, which counted the
   agent's own output in a unit the reader has no way to judge — three resources is neither
   good nor bad — and spent the one column a row has on a disclosure rather than on the row's
   state. The plan is read for what is still owed, so that is what the column says. The
@@ -57,10 +71,12 @@ and the wash's own values.
   owed, read down in one pass, and a row owing nothing has to be distinguishable from a row
   owing two without reading five numbers. The wash's own meaning is untouched: still a
   gradient, still two objects, still the only thing that says *answer this here*.
-- **The contested step's chips stay grey, and it is the one exception.** Row 3 already spends
-  orange twice — the wash and the `Not agreed` heading — and a third orange thing meaning
-  something else on one card is the two kinds of waiting wearing one colour. It says its open
-  question in words, in the card's footer caption, instead.
+- **The contested step's chips stay grey in the spine, and it is the one exception.** There
+  the step's own block is washed, under a `Not agreed` heading, so it already spends orange
+  twice and a third orange thing meaning something else on one card is the two kinds of
+  waiting wearing one colour. In the wide plan the row carries no wash of its own, so its
+  settle tag is orange like every other row's — the exception is about the card, not about
+  the step, and it lives wherever the card is.
 - **A mention still gets the question's glyph, in its own colour.** Every "N to settle" count
   and caption carries a `ph-question-mark` taking the colour of whatever it precedes — the
   tag's orange, the count's grey everywhere else. The glyph never has a colour of its own.
