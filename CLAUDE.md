@@ -92,6 +92,40 @@ in the logic, not left to look enabled:
   read as a change of subject, which is exactly what the one-beat transition is built to
   avoid.
 
+## Two kinds of waiting, and they must never gate each other
+
+The builder is asked for two different things and they are not the same act:
+
+- **The plan is being negotiated.** The agent will not do what was asked and says why.
+  Word: `Not agreed` → `Agreed`. Glyph: `ph-warning`. Colour: the disagreement orange,
+  which is the one wash per screen. Argued in the chat, settled in the step's footer.
+- **A step needs a detail before it can be built.** Word: `N to settle` / `Not answered`.
+  Glyph: `ph-question-mark` — *not* `ph-question`, which is the top bar's help button.
+  Colour: quiet mono grey in the plan rows; the orange stripe only on the one card that is
+  actually open. Answered in place, on the question itself.
+
+Three rules follow, and each of them was once broken here:
+
+- **Agreeing is never gated on answering.** They are independent, and the plan says so
+  itself: steps 4 and 5 are under *Next*, agreed, each still owing answers.
+  Agreed-and-still-owing is a legal state, so a contested step must be able to reach it.
+  `Agree and build` welded the two together and then went dead, which made the one thing
+  the screen exists to ask unanswerable until unrelated spec work was done. The two acts of
+  an argument are **agree** and **comment further**; *build* is the agent's move, not the
+  builder's, and it belongs in no button here.
+- **Both kinds are counted in both views, in their own units** — the argument in steps, the
+  questions in questions. Any partition of the five steps into one bucket each cannot say
+  that a contested step also owes an answer, so the questions end up counted nowhere.
+- **Never spend orange on a detail.** Orange is the disagreement. A grey count in the row
+  and an orange wash on the one blocking step keeps the screen's single alarm meaningful;
+  escalating four routine questions to orange flattens it.
+
+Adding a count to a plan row is not free — see [docs/motion.md](docs/motion.md). It widens
+the counts column, which narrows the title beside it at every instant of the move, and a
+title whose real width drops below its own animating `max-width` hands the wrapping back to
+the pane. **Stack the count under the build phrase rather than beside it**, so the column
+stays as wide as its widest line and every `min-width` pin holds.
+
 ## Type and spacing
 
 **[docs/type-and-palette.md](docs/type-and-palette.md)** — the type ladder, the spacing

@@ -174,7 +174,17 @@
                 <div style="width: {{ dashW }}; height: 3px; border-radius: 2px; background: #33404d; transition: width {{ moveDur }} {{ moveEase }};"></div>
               </div>
               <div style="display: grid; grid-template-columns: {{ exCols }}; min-width: 0; transition: grid-template-columns {{ moveDur }} {{ moveEase }};">
-                <div style="overflow: hidden; min-width: 0; white-space: nowrap; font: 400 12px/16px 'Open Sans', sans-serif; color: #8b98a5; opacity: {{ exOp }}; transition: opacity {{ exOpDur }} {{ moveEase }} {{ exOpDl }};">Two of five built · one not agreed · two waiting on you</div>
+                <!-- Two units, because there are two kinds of waiting and they
+                     do not add up: the argument is counted in steps (there is
+                     one) and the open questions in questions (there are four,
+                     over three steps). "two waiting on you" was a clean
+                     partition of the five steps — 2 built, 1 not agreed, 2
+                     next — which is exactly why it could not say that step 3
+                     owes an answer as well: one step got one bucket and the
+                     argument won the tiebreak. So the four questions were
+                     counted nowhere in the plan, and "waiting on you" was a
+                     third word for what the step pane calls "to settle". -->
+                <div style="overflow: hidden; min-width: 0; white-space: nowrap; font: 400 12px/16px 'Open Sans', sans-serif; color: #8b98a5; opacity: {{ exOp }}; transition: opacity {{ exOpDur }} {{ moveEase }} {{ exOpDl }};">Two of five built · one not agreed · four to settle</div>
               </div>
             </div>
             <div style="display: grid; grid-template-rows: {{ rmRows }}; transition: grid-template-rows {{ moveDur }} {{ moveEase }};">
@@ -221,7 +231,10 @@
                          does), so at that size there is no reflow at all. This
                          is what lets the collapse and the resize be one move
                          instead of two. Measure them, never derive them: they
-                         all moved when the chat went from 440 to a fixed 360. -->
+                         all moved when the chat went from 440 to a fixed 360,
+                         and rows 4 and 5 would have moved 78px again had their
+                         counts column taken "N to settle" side by side instead
+                         of stacking it. -->
                     <div style="min-width: 876px; font: 400 12px/18px 'Open Sans', sans-serif; color: #8b98a5;">Last ninety days. Card and account already known, so nothing is typed twice.</div>
                   </div>
                 </div>
@@ -283,6 +296,21 @@
                          same thing, so they carry the same glyph. -->
                     <i class="ph ph-arrow-right" style="font-size: {{ caretSize }}; color: #f2985c; flex: none; opacity: {{ exOp }}; transition: font-size {{ wrDur }} {{ wrEase }}, opacity {{ exOpDur }} {{ moveEase }} {{ exOpDl }};"></i>
                   </div>
+                  <!-- The chip and nothing else. The step's open question wanted
+                       to be counted here too, next to the state — rows 4 and 5
+                       carry theirs in exactly this slot — and it cost 74px of
+                       column that the title has to be narrower than at every
+                       instant of the move. That tightened the one inequality the
+                       simultaneous move rests on (`max-width` below the width
+                       actually available, always) and it measured: opening's
+                       backward drift went 2.2px -> 5.2px and box-underrun
+                       1.4px -> 3.0px, for a count already stated twice.
+                       So it is not here. This card is the one row whose body is
+                       open in the wide plan, so it can say the thing in words —
+                       the footer caption does — and rows 4 and 5, which have no
+                       body to say it in, get the count instead. The spine keeps
+                       its chip. Different slots because the rows are in
+                       genuinely different states, not for want of a rule. -->
                   <div style="display: grid; grid-template-columns: {{ exCols }}; flex: none; margin-top: 2px; transition: grid-template-columns {{ moveDur }} {{ moveEase }};">
                     <div style="overflow: hidden; min-width: 0; white-space: nowrap; opacity: {{ exOp }}; transition: opacity {{ exOpDur }} {{ moveEase }} {{ exOpDl }};">
                       <div style="display: inline-flex; align-items: center; height: 18px; padding: 0 6px; border-radius: 4px; background: rgba(242, 118, 43, 0.14); color: #f2762b; font: 400 10px/12px ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; text-transform: uppercase; letter-spacing: 0.14em;">Not agreed</div>
@@ -299,7 +327,13 @@
                          which threw the two rows below it down 26px in one
                          frame. Same rule as the titles, same number. -->
                     <div style="max-width: 206px; padding-top: 8px; display: flex; flex-wrap: wrap; gap: 6px;">
-                      <div style="display: inline-flex; align-items: center; height: 18px; padding: 0 6px; border-radius: 4px; background: rgba(242, 118, 43, 0.14); border: 1px solid rgba(242, 118, 43, 0.26); color: #f2985c; font: 400 10px/12px ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;">1 to settle</div>
+                      <!-- Neutral, not orange. Orange is the disagreement, and
+                           the spine already spends it twice on this step — the
+                           wash and the "Not agreed" heading above it. A third
+                           orange thing that means something else entirely was
+                           the two kinds of waiting wearing one colour. Same
+                           chip as "2 not built" beside it: both are counts. -->
+                      <div style="display: inline-flex; align-items: center; height: 18px; padding: 0 6px; border-radius: 4px; background: #131c24; border: 1px solid #26313d; color: #8b98a5; font: 400 10px/12px ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;">1 to settle</div>
                       <div style="display: inline-flex; align-items: center; height: 18px; padding: 0 6px; border-radius: 4px; background: #131c24; border: 1px solid #26313d; color: #8b98a5; font: 400 10px/12px ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;">2 not built</div>
                     </div>
                   </div>
@@ -351,26 +385,35 @@
                         <div style="font: 400 12px/18px 'Open Sans', sans-serif; color: #c3cdd7; text-wrap: pretty;">If the merchant has already refunded them we stop there and say so, instead of asking for a receipt.</div>
                       </div>
 
-                      <!-- The step is blocked on one unanswered question, and
-                           the step screen says so with a dead "Agree and build".
-                           So agreeing cannot be live here either — the plan
-                           offering a one-click agree that the step then refuses
-                           is the two states disagreeing about the same act. The
-                           way forward is the step, so the step is the primary.
-                           Same act, so the same words: this said "Agree to this"
-                           and the step said "Agree and build", which reads as
-                           two different offers of which only one builds. One
-                           status word per state applies to what you can DO in
-                           it, not only to what it is called. -->
+                      <!-- The two acts of an argument — settle it, or keep
+                           having it — and neither of them is "build". Building
+                           was never the builder's move: the agent builds once it
+                           is agreed and has what it needs.
+                           "Agree and build" welded the two kinds of waiting into
+                           one control and then killed it, so the one thing this
+                           screen exists to ask — do you accept the revised
+                           step — could not be answered until an unrelated
+                           implementation question was. The plan's own taxonomy
+                           says that gate is wrong: steps 4 and 5 sit under Next,
+                           not under Not agreed, and each still owes answers.
+                           Agreed-and-still-owing is a legal state here, and step
+                           3 was the only place the two axes were fused.
+                           So agreeing is live, and what the answer is still
+                           needed for is said in words beside it instead of acted
+                           out by a dead button. Same pair, same words, in the
+                           step — the way in is the title's arrow and the row,
+                           which is what a disclosure was always for. -->
                       <div style="display: flex; align-items: center; gap: 12px;">
-                        <!-- cardTab, not a bare 0: this button lives inside a
-                             block that collapses to nothing when the step is
-                             open, so it is the plan pane's mirror of the closed
-                             step's thirteen — a tab stop with nothing on screen. -->
-                        <div onClick="{{ openStep }}" tabindex="{{ cardTab }}" style="display: inline-flex; align-items: center; gap: 6px; height: 36px; padding: 0 12px; font: 600 14px/24px 'Open Sans', sans-serif; color: #ffffff; background: #2b7fe4; border-radius: 8px; cursor: pointer; outline: none; transition: background 160ms cubic-bezier(0.2, 0, 0.2, 1);" style-hover="background: #4d97ea;" style-active="background: #2b5f9e;" style-focus="box-shadow: 0 0 0 3px rgba(43, 127, 228, 0.32);"><i class="ph ph-arrow-right" style="font-size: 14px;"></i>See what it needs</div>
-                        <div title="One question to settle first" style="display: inline-flex; align-items: center; gap: 6px; height: 36px; padding: 0 12px; font: 600 14px/24px 'Open Sans', sans-serif; color: #8b98a5; background: transparent; border: 1px solid #1c2530; border-radius: 8px; cursor: not-allowed;"><i class="ph ph-check" style="font-size: 14px;"></i>Agree and build</div>
+                        <!-- cardTab and cardPE, not a bare 0 and no gate at all:
+                             these live inside a block that collapses to nothing
+                             when the step is open, so they are the plan pane's
+                             mirror of the closed step's thirteen — tab stops with
+                             nothing on screen, and now that they are live,
+                             pointer targets with nothing on screen too. -->
+                        <div tabindex="{{ cardTab }}" style="display: inline-flex; flex: none; white-space: nowrap; align-items: center; gap: 6px; height: 36px; padding: 0 12px; font: 600 14px/24px 'Open Sans', sans-serif; color: #ffffff; background: #2b7fe4; border-radius: 8px; cursor: pointer; outline: none; pointer-events: {{ cardPE }}; transition: background 160ms cubic-bezier(0.2, 0, 0.2, 1);" style-hover="background: #4d97ea;" style-active="background: #2b5f9e;" style-focus="box-shadow: 0 0 0 3px rgba(43, 127, 228, 0.32);"><i class="ph ph-check" style="font-size: 14px;"></i>Agree</div>
+                        <div tabindex="{{ cardTab }}" style="display: inline-flex; flex: none; white-space: nowrap; align-items: center; gap: 6px; height: 36px; padding: 0 12px; font: 600 14px/24px 'Open Sans', sans-serif; color: #c3cdd7; background: transparent; border: 1px solid #26313d; border-radius: 8px; cursor: pointer; outline: none; pointer-events: {{ cardPE }}; transition: all 160ms cubic-bezier(0.2, 0, 0.2, 1);" style-hover="border-color: #4d97ea; background: #131c24; color: #f5f9fc;" style-focus="box-shadow: 0 0 0 3px rgba(43, 127, 228, 0.32);"><i class="ph ph-chat-teardrop-text" style="font-size: 14px;"></i>Comment further</div>
                         <div style="flex: 1;"></div>
-                        <div style="font: 400 12px/16px 'Open Sans', sans-serif; color: #8b98a5; white-space: nowrap;">One question to settle first. Agreeing then builds two things — forty seconds.</div>
+                        <div style="font: 400 12px/16px 'Open Sans', sans-serif; color: #8b98a5; white-space: nowrap;">One question still to settle before I build it.</div>
                       </div>
 
                     </div>
@@ -406,7 +449,24 @@
                 </div>
               </div>
               <div style="display: grid; grid-template-columns: {{ exCols }}; flex: none; transition: grid-template-columns {{ moveDur }} {{ moveEase }};">
-                <div style="overflow: hidden; min-width: 0; white-space: nowrap; display: flex; align-items: center; gap: 4px; color: #8b98a5; padding-top: 3px; cursor: pointer; opacity: {{ exOp }}; transition: opacity {{ exOpDur }} {{ moveEase }} {{ exOpDl }}, color 160ms cubic-bezier(0.2, 0, 0.2, 1);" style-hover="color: #c3cdd7;"><div style="font: 400 12px/16px 'Open Sans', sans-serif;">Nothing built yet</div><i class="ph ph-caret-right" style="font-size: 10px;"></i></div>
+                <!-- Stacked, not side by side, and the reason is the move rather
+                     than the layout. Beside each other the column is 74px wider,
+                     which is 74px the title has to be narrower than at every
+                     instant — and mid-flight that put the title's real width
+                     (282px at t=167) BELOW its own animating max-width (332px),
+                     so the pane took over deciding where the line broke. That is
+                     the one inequality the simultaneous move rests on. It never
+                     showed as a jump, because the overshoot stayed sub-line; it
+                     showed as box-underrun going 1.4px -> 3.0px. Stacked, the
+                     column is as wide as its widest line and nothing changes.
+                     It also lines up: the build state sits on the title's line,
+                     the open-question count on the description's, so each row's
+                     two lines each get their own fact at the right-hand end.
+                     Two things here and only one is a disclosure — the count has
+                     no caret and no cursor, because a step's open questions are
+                     not behind the resource caret and a hover reaching across
+                     both would say they were. -->
+                <div style="overflow: hidden; min-width: 0; white-space: nowrap; display: flex; flex-direction: column; align-items: flex-end; gap: 6px; padding-top: 3px; opacity: {{ exOp }}; transition: opacity {{ exOpDur }} {{ moveEase }} {{ exOpDl }};"><div style="display: flex; align-items: center; gap: 4px; color: #8b98a5; cursor: pointer; transition: color 160ms cubic-bezier(0.2, 0, 0.2, 1);" style-hover="color: #c3cdd7;"><div style="font: 400 12px/16px 'Open Sans', sans-serif;">Nothing built yet</div><i class="ph ph-caret-right" style="font-size: 10px;"></i></div><div style="font: 400 10px/12px ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; color: #8b98a5;">2 to settle</div></div>
               </div>
             </div>
           </div>
@@ -431,7 +491,7 @@
                 </div>
               </div>
               <div style="display: grid; grid-template-columns: {{ exCols }}; flex: none; transition: grid-template-columns {{ moveDur }} {{ moveEase }};">
-                <div style="overflow: hidden; min-width: 0; white-space: nowrap; display: flex; align-items: center; gap: 4px; color: #8b98a5; padding-top: 3px; cursor: pointer; opacity: {{ exOp }}; transition: opacity {{ exOpDur }} {{ moveEase }} {{ exOpDl }}, color 160ms cubic-bezier(0.2, 0, 0.2, 1);" style-hover="color: #c3cdd7;"><div style="font: 400 12px/16px 'Open Sans', sans-serif;">1 of 2 exists</div><i class="ph ph-caret-right" style="font-size: 10px;"></i></div>
+                <div style="overflow: hidden; min-width: 0; white-space: nowrap; display: flex; flex-direction: column; align-items: flex-end; gap: 6px; padding-top: 3px; opacity: {{ exOp }}; transition: opacity {{ exOpDur }} {{ moveEase }} {{ exOpDl }};"><div style="display: flex; align-items: center; gap: 4px; color: #8b98a5; cursor: pointer; transition: color 160ms cubic-bezier(0.2, 0, 0.2, 1);" style-hover="color: #c3cdd7;"><div style="font: 400 12px/16px 'Open Sans', sans-serif;">1 of 2 exists</div><i class="ph ph-caret-right" style="font-size: 10px;"></i></div><div style="font: 400 10px/12px ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; color: #8b98a5;">1 to settle</div></div>
               </div>
             </div>
           </div>
@@ -553,8 +613,23 @@
                  washes on screen arguing about which of them was the thing that
                  is not agreed. The wash is the step. The stripe is the question. -->
             <div style="background: #101820; border: 1px solid #1c2530; border-left: 3px solid #f2762b; border-radius: 8px; padding: 16px; display: flex; flex-direction: column; gap: 8px;">
+              <!-- A question mark, not a warning. `ph-warning` is the
+                   disagreement: it is on step 3's dot, on its plan chip and in
+                   this step's own "Not agreed" badge 470px above this line.
+                   Wearing it here too made the two kinds of waiting the same mark
+                   in the same orange, on one screen, at the exact moment you need
+                   to tell them apart — one is "I will not do what you asked", the
+                   other is "I do not know what you want". Two meanings, two
+                   glyphs, same rule as caret-right and arrow-right.
+                   `question-mark` and not `question`, because the circled `?` is
+                   the help button in the top bar and that would only move the
+                   collision rather than remove it. The bare mark is also lighter
+                   than the triangle, so an open question does not read as a
+                   second alarm. The orange stays: this is the one open item in
+                   the list, and the stripe beside it is what says nobody has
+                   settled it yet. -->
               <div style="display: flex; align-items: center; gap: 8px;">
-                <div style="width: 20px; height: 20px; flex: none; border-radius: 6px; background: rgba(242, 118, 43, 0.16); display: grid; place-items: center;"><i class="ph ph-warning" style="font-size: 12px; color: #f2762b;"></i></div>
+                <div style="width: 20px; height: 20px; flex: none; border-radius: 6px; background: rgba(242, 118, 43, 0.16); display: grid; place-items: center;"><i class="ph ph-question-mark" style="font-size: 12px; color: #f2762b;"></i></div>
                 <div style="font: 400 10px/12px ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; text-transform: uppercase; letter-spacing: 0.14em; color: #f2985c; flex: none;">Not answered</div>
                 <div style="flex: 1; height: 1px; background: #1c2530;"></div>
                 <div style="font: 400 12px/16px ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; color: #8b98a5; flex: none;">affects the evidence step</div>
@@ -615,10 +690,22 @@
           </div>
 
           <div style="flex: none; max-width: 800px; display: flex; align-items: center; gap: 12px; padding-top: 16px; opacity: {{ dOp }}; transform: {{ dTr }}; transition: opacity {{ dDur }} cubic-bezier(0.2, 0, 0.2, 1) {{ dDl }}, transform {{ dDur }} cubic-bezier(0.2, 0, 0.2, 1) {{ dDl }};">
-            <div style="display: inline-flex; align-items: center; gap: 6px; height: 36px; padding: 0 12px; font: 600 14px/24px 'Open Sans', sans-serif; color: #8b98a5; background: transparent; border: 1px solid #1c2530; border-radius: 8px; cursor: not-allowed;"><i class="ph ph-check" style="font-size: 14px;"></i>Agree and build</div>
-            <div tabindex="0" style="display: inline-flex; align-items: center; gap: 6px; height: 36px; padding: 0 12px; font: 600 14px/24px 'Open Sans', sans-serif; color: #c3cdd7; background: transparent; border: 1px solid #26313d; border-radius: 8px; cursor: pointer; outline: none; transition: all 160ms cubic-bezier(0.2, 0, 0.2, 1);" style-hover="border-color: #4d97ea; background: #131c24; color: #f5f9fc;" style-focus="box-shadow: 0 0 0 3px rgba(43, 127, 228, 0.32);"><i class="ph ph-sparkle" style="font-size: 14px; color: #4d97ea;"></i>You decide the rest</div>
+            <!-- The step's footer is the argument, and only the argument: agree
+                 to the revised shape, or keep arguing about it. The questions are
+                 settled in their own section above, where each one carries its
+                 own way out — so "You decide the rest" has gone. With one
+                 question open, "the rest" and the card's own "You decide this
+                 one" were the same click offered twice, three inches apart, and
+                 the second one had a count above it saying there was only one. -->
+            <!-- flex: none and nowrap, because this pane is narrower than it
+                 looks: the blocks are capped at 800px but the pane only gives
+                 them 674 at the design size, so a shrinkable button lost the
+                 argument with the caption and "Comment further" broke over two
+                 lines, doubling its height. -->
+            <div tabindex="0" style="display: inline-flex; flex: none; white-space: nowrap; align-items: center; gap: 6px; height: 36px; padding: 0 12px; font: 600 14px/24px 'Open Sans', sans-serif; color: #ffffff; background: #2b7fe4; border-radius: 8px; cursor: pointer; outline: none; transition: background 160ms cubic-bezier(0.2, 0, 0.2, 1);" style-hover="background: #4d97ea;" style-active="background: #2b5f9e;" style-focus="box-shadow: 0 0 0 3px rgba(43, 127, 228, 0.32);"><i class="ph ph-check" style="font-size: 14px;"></i>Agree</div>
+            <div tabindex="0" style="display: inline-flex; flex: none; white-space: nowrap; align-items: center; gap: 6px; height: 36px; padding: 0 12px; font: 600 14px/24px 'Open Sans', sans-serif; color: #c3cdd7; background: transparent; border: 1px solid #26313d; border-radius: 8px; cursor: pointer; outline: none; transition: all 160ms cubic-bezier(0.2, 0, 0.2, 1);" style-hover="border-color: #4d97ea; background: #131c24; color: #f5f9fc;" style-focus="box-shadow: 0 0 0 3px rgba(43, 127, 228, 0.32);"><i class="ph ph-chat-teardrop-text" style="font-size: 14px;"></i>Comment further</div>
             <div style="flex: 1;"></div>
-            <div style="font: 400 12px/16px 'Open Sans', sans-serif; color: #8b98a5;">Answer the one above, or hand it to me.</div>
+            <div style="font: 400 12px/16px 'Open Sans', sans-serif; color: #8b98a5;">One question still to settle before I build it.</div>
           </div>
 
           <div style="flex: 1; min-height: 24px;"></div>
