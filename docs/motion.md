@@ -139,10 +139,19 @@ point on the way in.
 
 ### Whatever has no counterpart in the other state still has a SIZE, and the size is not late
 
-The Agreed / You are here / Next headings and the per-step counts can only fade, but the
-76px they occupy belongs to the shape the plan is collapsing into, so that space opens with
-everything else and only the opacity waits. Given a beat of its own it made five rows fly
-up past where they belonged and slide a hundred pixels back down once the rest had settled.
+The group headings and the per-step counts can only fade, but the 76px they occupy belongs to
+the shape the plan is collapsing into, so that space opens with everything else and only the
+opacity waits. Given a beat of its own it made five rows fly up past where they belonged and
+slide a hundred pixels back down once the rest had settled.
+
+Regrouping the plan onto the build axis — three headings down to `Built` / `Not built yet`,
+with step 3's own `Not agreed` eyebrow taking over the word it used to get from the middle
+heading — cost that 76px nothing: the eyebrow is the same 12 + 8 in the same place as the
+heading it replaced. Both pins still read 816 / 812, every row top and left edge is unchanged
+to the pixel, and sampled across the move the pane's `scrollHeight` never exceeds its height
+and no title's real width ever exceeds its own animating cap. When a swap is size-for-size in
+position, nothing here needs re-measuring — but check it rather than assume it, because that
+is the whole failure mode this file exists for.
 
 ### Arrivals do not need a stagger to feel considered
 

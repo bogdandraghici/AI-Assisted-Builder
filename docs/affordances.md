@@ -58,7 +58,9 @@ have, so in the plan state all of them go quiet rather than promise it.
 
 ## One status word per state, across both views
 
-A step is `Not agreed` in the plan chip, in the spine label, in the plan subtitle and in the
-step badge; open decisions are counted as *to settle* in both panes. Two views of one object
-that name it differently read as a change of subject, which is exactly what the one-beat
-transition is built to avoid.
+A step is `Not agreed` on the wide plan's card heading, on its own eyebrow in the spine and in
+the step badge; open decisions are counted as *to settle* in every view. Two views of one
+object that name it differently read as a change of subject, which is exactly what the
+one-beat transition is built to avoid. The plan's *grouping* is a different axis and says a
+different word — `Built` / `Not built yet`, see [waiting.md](waiting.md) — which is what lets
+one step be built and not agreed and still owing an answer without any of the three lying.

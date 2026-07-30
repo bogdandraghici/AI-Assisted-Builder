@@ -569,13 +569,27 @@
                          owes an answer as well: one step got one bucket and the
                          argument won the tiebreak. So the four questions were
                          counted nowhere in the plan, and "waiting on you" was a
-                         third word for what the step pane calls "to settle". -->
-                    <div style="overflow: hidden; min-width: 0; white-space: nowrap; font: 400 12px/16px 'Open Sans', sans-serif; color: #8b98a5; opacity: {{ exOp }}; transition: opacity {{ exOpDur }} {{ moveEase }} {{ exOpDl }};">Two of five built · one not agreed · <i class="ph ph-question-mark" style="font-size: 10px;"></i> four to settle</div>
+                         third word for what the step pane calls "to settle".
+                         Three, not two. The count used to agree with the grouping
+                         and disagree with everything else: step 3's own workflow
+                         exists as of build 2, the run goes straight through it,
+                         and the state's description said in one breath that two
+                         steps were built and that the check was built at 09:37.
+                         The clauses no longer partition anything — the first is
+                         the build, the second the argument, the third the
+                         questions — which is the point: they are three axes and
+                         one step can sit on all three. -->
+                    <div style="overflow: hidden; min-width: 0; white-space: nowrap; font: 400 12px/16px 'Open Sans', sans-serif; color: #8b98a5; opacity: {{ exOp }}; transition: opacity {{ exOpDur }} {{ moveEase }} {{ exOpDl }};">Three of five built · one not agreed · <i class="ph ph-question-mark" style="font-size: 10px;"></i> four to settle</div>
                   </div>
                 </div>
                 <div style="display: grid; grid-template-rows: {{ rmRows }}; transition: grid-template-rows {{ moveDur }} {{ moveEase }};">
                   <div style="overflow: hidden; min-height: 0; opacity: {{ rmOp }}; transition: opacity {{ rmOpDur }} {{ moveEase }} {{ rmOpDl }};">
-                    <div style="font: 400 12px/16px ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; color: #4a5764; white-space: nowrap;">5 steps · 2 agreed</div>
+                    <!-- It repeats the wide line's first clause now instead of
+                         introducing a second word for the same partition. `2
+                         agreed` counted an axis the spine no longer groups by, so
+                         the two states of one header disagreed about both the unit
+                         and the number. -->
+                    <div style="font: 400 12px/16px ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; color: #4a5764; white-space: nowrap;">5 steps · 3 built</div>
                   </div>
                 </div>
               </div>
@@ -583,9 +597,21 @@
 
             <div style="flex: 1; display: flex; flex-direction: column; min-height: 0;">
 
+              <!-- Two headings, and the axis is the build. It used to be three —
+                   Agreed / Not agreed / Next — which grouped the plan by whether
+                   the plan itself was settled, and put the contested step in a
+                   bucket of its own on a boundary the run strip draws somewhere
+                   else. Step 3 IS built: merchantCheck.integrationWorkflow
+                   exists as of build 2 at 09:37, the run goes straight through
+                   it, and you can only ask to drop something that exists. So it
+                   sits here with 1 and 2, the boundary below is exactly the run
+                   strip's wall, and the argument is left to the one object it
+                   belongs to — the card. Orange leaves the group headings
+                   entirely, which is stricter rationing than before, not looser:
+                   it is now the settle tags, step 3's dot and the wash. -->
               <div style="display: grid; grid-template-rows: {{ rmRows }}; transition: grid-template-rows {{ moveDur }} {{ moveEase }};">
                 <div style="overflow: hidden; min-height: 0; opacity: {{ rmOp }}; transition: opacity {{ rmOpDur }} {{ moveEase }} {{ rmOpDl }};">
-                  <div style="padding-bottom: 8px; font: 400 10px/12px ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; text-transform: uppercase; letter-spacing: 0.14em; color: #2ea86a; white-space: nowrap;">Agreed</div>
+                  <div style="padding-bottom: 8px; font: 400 10px/12px ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; text-transform: uppercase; letter-spacing: 0.14em; color: #2ea86a; white-space: nowrap;">Built</div>
                 </div>
               </div>
 
@@ -666,14 +692,16 @@
                 </div>
               </div>
 
-              <div style="display: grid; grid-template-rows: {{ rmRows }}; transition: grid-template-rows {{ moveDur }} {{ moveEase }};">
-                <div style="overflow: hidden; min-height: 0; opacity: {{ rmOp }}; transition: opacity {{ rmOpDur }} {{ moveEase }} {{ rmOpDl }};">
-                  <div style="padding-bottom: 8px; font: 400 10px/12px ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; text-transform: uppercase; letter-spacing: 0.14em; color: #f2762b; white-space: nowrap;">Not agreed</div>
-                </div>
-              </div>
-
+              <!-- No heading here. This step is built, so it belongs under the one
+                   above; what it does not have is agreement, and that is the
+                   card's business, not the grouping's. -->
               <div style="position: relative; display: flex; gap: {{ rowGap }}; align-items: stretch; transition: gap {{ moveDur }} {{ moveEase }};">
                 <div style="width: {{ gutterW }}; flex: none; display: flex; flex-direction: column; align-items: center; transition: width {{ moveDur }} {{ moveEase }};">
+                  <!-- Orange and a ph-warning under a green `Built` heading, and
+                       the two do not fight: the heading says what exists, the dot
+                       says there is an argument about this one. Rows 1 and 2 carry
+                       a green check because there is nothing to argue about, not
+                       because they are more built than this. -->
                   <div style="position: absolute; left: 0; top: 0; width: {{ dotSize }}; height: {{ dotSize }}; border-radius: 99px; background: #f2762b; display: grid; place-items: center; transition: width {{ moveDur }} {{ moveEase }}, height {{ moveDur }} {{ moveEase }};"><i class="ph ph-warning" style="font-size: {{ iconSize }}; color: #ffffff; opacity: {{ exOp }}; transition: font-size {{ wrDur }} {{ wrEase }}, opacity {{ exOpDur }} {{ moveEase }} {{ exOpDl }};"></i></div>
                   <div style="position: absolute; left: {{ connL }}; top: {{ connT }}; right: {{ connR }}; bottom: {{ connB }}; background: {{ c3Bg }}; border: 0 dashed #26313d; border-left-width: {{ c3VW }}; transition: left {{ moveDur }} {{ moveEase }}, top {{ moveDur }} {{ moveEase }}, right {{ moveDur }} {{ moveEase }}, bottom {{ moveDur }} {{ moveEase }}, background-color {{ moveDur }} {{ moveEase }}, border-left-width {{ moveDur }} {{ moveEase }};"></div>
                 </div>
@@ -701,6 +729,31 @@
                     <div style="position: absolute; inset: 0; border-radius: 12px; background: linear-gradient(180deg, rgba(242, 118, 43, 0.14), rgba(242, 118, 43, 0.06) 45%, rgba(242, 118, 43, 0.025)); border: 1px solid rgba(242, 118, 43, 0.30); opacity: {{ rmOp }}; pointer-events: none; transition: opacity {{ rmOpDur }} {{ moveEase }} {{ rmOpDl }};"></div>
 
                     <div style="position: relative; flex: 1; min-width: 0; display: flex; flex-direction: column; gap: 2px;">
+                      <!-- The word the spine's wash needs. In the wide plan the
+                           argument is a card below the row and the card carries
+                           this heading; in the spine the card clips to nothing and
+                           the wash falls back onto this block, so it used to take
+                           its word from the `Not agreed` group heading above it.
+                           With the grouping on the build axis that heading is
+                           gone, and a wash with no word beside it leaves the
+                           colour saying which kind of waiting this is — which it
+                           is never allowed to do. Same word as the card's heading
+                           and the step pane's eyebrow: one status word per state,
+                           in all three views.
+                           Wrapped with the title in a gap-0 box rather than
+                           dropped into the column beside it, because a 0fr grid
+                           still pays that column's 2px gap — which in the wide
+                           plan would push this title 2px below its own dot while
+                           the other four sit level with theirs.
+                           The 8px reads as exactly 8px: the title row's -6px
+                           margin and its own 6px padding-top cancel, so the pad
+                           here is the gap, and it is the group headings' 8. -->
+                      <div style="display: flex; flex-direction: column; gap: 0;">
+                        <div style="display: grid; grid-template-rows: {{ rmRows }}; transition: grid-template-rows {{ moveDur }} {{ moveEase }};">
+                          <div style="overflow: hidden; min-height: 0; opacity: {{ rmOp }}; transition: opacity {{ rmOpDur }} {{ moveEase }} {{ rmOpDl }};">
+                            <div style="padding-bottom: 8px; font: 400 10px/12px ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; text-transform: uppercase; letter-spacing: 0.14em; color: #f2762b; white-space: nowrap;">Not agreed</div>
+                          </div>
+                        </div>
                       <!-- Opens the step; it does not close it. Once the plan is a
                            spine the arrow and the tag are gone, so there is nothing
                            left here to say what a click would do — and a hover wash
@@ -712,8 +765,8 @@
                            plan this row is not washed, and an orange hover on an
                            unwashed row is the colour saying "your move" about a
                            disclosure. -->
-                      <div onClick="{{ openStep }}" tabindex="{{ cardTab }}" style="display: flex; align-items: baseline; gap: 8px; cursor: pointer; margin: -6px -8px 0; padding: 6px 8px 0; border-radius: 8px; outline: none; pointer-events: {{ cardPE }}; transition: background 160ms cubic-bezier(0.2, 0, 0.2, 1);" style-hover="background: #131c24;" style-focus="box-shadow: 0 0 0 3px rgba(43, 127, 228, 0.32);">
-                        <div style="min-height: {{ tlA }}; font-family: 'Open Sans', sans-serif; font-weight: 600; font-size: {{ titleSize }}; line-height: {{ titleLh }}; max-width: {{ cardTitleMax }}; color: #f5f9fc; text-wrap: pretty; transition: min-height {{ ldDur }} {{ ldEase }}, font-size {{ wrDur }} {{ wrEase }}, line-height {{ wrDur }} {{ wrEase }}, max-width {{ wrDur }} {{ wrEase }};">We check with the merchant before asking for evidence</div>
+                        <div onClick="{{ openStep }}" tabindex="{{ cardTab }}" style="display: flex; align-items: baseline; gap: 8px; cursor: pointer; margin: -6px -8px 0; padding: 6px 8px 0; border-radius: 8px; outline: none; pointer-events: {{ cardPE }}; transition: background 160ms cubic-bezier(0.2, 0, 0.2, 1);" style-hover="background: #131c24;" style-focus="box-shadow: 0 0 0 3px rgba(43, 127, 228, 0.32);">
+                          <div style="min-height: {{ tlA }}; font-family: 'Open Sans', sans-serif; font-weight: 600; font-size: {{ titleSize }}; line-height: {{ titleLh }}; max-width: {{ cardTitleMax }}; color: #f5f9fc; text-wrap: pretty; transition: min-height {{ ldDur }} {{ ldEase }}, font-size {{ wrDur }} {{ wrEase }}, line-height {{ wrDur }} {{ wrEase }}, max-width {{ wrDur }} {{ wrEase }};">We check with the merchant before asking for evidence</div>
                         <!-- An arrow, not a caret. Two glyphs, two meanings, no
                              overlap: caret-right is a disclosure that opens in the
                              pane you are already in (the step pane's technical
@@ -721,7 +774,8 @@
                              holds one), arrow-right changes what you are looking
                              at. The title and the button below it do the same
                              thing, so they carry the same glyph. -->
-                        <i class="ph ph-arrow-right" style="font-size: {{ caretSize }}; color: #f2985c; flex: none; opacity: {{ exOp }}; transition: font-size {{ wrDur }} {{ wrEase }}, opacity {{ exOpDur }} {{ moveEase }} {{ exOpDl }};"></i>
+                          <i class="ph ph-arrow-right" style="font-size: {{ caretSize }}; color: #f2985c; flex: none; opacity: {{ exOp }}; transition: font-size {{ wrDur }} {{ wrEase }}, opacity {{ exOpDur }} {{ moveEase }} {{ exOpDl }};"></i>
+                        </div>
                       </div>
 
                       <!-- The line the row never had, because the card used to be
@@ -735,30 +789,34 @@
 
                       <div style="display: grid; grid-template-rows: {{ rmRows }}; transition: grid-template-rows {{ moveDur }} {{ moveEase }};">
                         <div style="overflow: hidden; min-height: 0; opacity: {{ rmOp }}; transition: opacity {{ rmOpDur }} {{ moveEase }} {{ rmOpDl }};">
-                          <!-- The one wrapping thing the spine carries. Pinned to
-                               the column's final measure so the two chips are
-                               already stacked when they arrive: left to the live
-                               width they broke onto a second line 20ms before the
-                               dock landed, which threw the two rows below it down
-                               26px in one frame. Same rule as the titles, same
-                               number. -->
-                          <!-- A grey question mark marks a MENTION of a question;
+                          <!-- One chip, and it says the same thing the wide row's
+                               tag says, so the two views agree chip for chip. A
+                               `2 not built` sat beside it — this step's own
+                               resource count, two of its five — and under a green
+                               `Built` heading that reads as a flat contradiction
+                               even though both are true. It counted the agent's
+                               output in a unit only the resource table can make
+                               sense of, and the table lists both rows with `no`
+                               against them, so nothing was lost by dropping it.
+                               With one chip nothing wraps, so the 194px pin that
+                               kept the pair from breaking onto a second line 20ms
+                               before the dock landed — and throwing the rows below
+                               down 26px in one frame — has gone with it.
+                               A grey question mark marks a MENTION of a question;
                                the orange one marks the question itself, where you
                                answer it. Same rule as the wash: the glyph says
                                which kind, the colour only ever says "your move". It
-                               takes the count's own colour, never one of its own. -->
-                          <div style="max-width: 194px; padding-top: 8px; display: flex; flex-wrap: wrap; gap: 6px;">
-                            <!-- Neutral, and the spine is the one view where that
-                                 still holds. The settle tag beside this title is
-                                 orange in the wide plan like every other row's,
-                                 because the wide plan's row carries no wash of its
-                                 own. Here it does — under a "Not agreed" heading —
-                                 so a third orange thing meaning something else
-                                 entirely would be the two kinds of waiting wearing
-                                 one colour on one card. Same chip as "2 not built"
-                                 beside it: both are counts. -->
+                               takes the count's own colour, never one of its own.
+                               Neutral, and the spine is the one view where that
+                               still holds. The settle tag beside this title is
+                               orange in the wide plan like every other row's,
+                               because the wide plan's row carries no wash of its
+                               own. Here it does, under this block's own `Not
+                               agreed`, so a third orange thing meaning something
+                               else entirely would be the two kinds of waiting
+                               wearing one colour on one card. -->
+                          <div style="padding-top: 8px; display: flex; gap: 6px;">
                             <div style="display: inline-flex; align-items: center; gap: 4px; height: 18px; padding: 0 6px; border-radius: 4px; background: #131c24; border: 1px solid #26313d; color: #8b98a5; font: 400 10px/12px ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;"><i class="ph ph-question-mark" style="font-size: 10px;"></i>1 to settle</div>
-                            <div style="display: inline-flex; align-items: center; height: 18px; padding: 0 6px; border-radius: 4px; background: #131c24; border: 1px solid #26313d; color: #8b98a5; font: 400 10px/12px ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;">2 not built</div>
                           </div>
                         </div>
                       </div>
@@ -872,7 +930,12 @@
 
               <div style="display: grid; grid-template-rows: {{ rmRows }}; transition: grid-template-rows {{ moveDur }} {{ moveEase }};">
                 <div style="overflow: hidden; min-height: 0; opacity: {{ rmOp }}; transition: opacity {{ rmOpDur }} {{ moveEase }} {{ rmOpDl }};">
-                  <div style="padding-bottom: 8px; font: 400 10px/12px ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; text-transform: uppercase; letter-spacing: 0.14em; color: #5c6975; white-space: nowrap;">Next</div>
+                  <!-- `Next` said where these were in a queue, which is the one
+                       thing the reader can already see from the order. This says
+                       what they are, and it is the same boundary the run strip's
+                       wall draws — the dashed dots and connectors below were
+                       always saying it in paint. -->
+                  <div style="padding-bottom: 8px; font: 400 10px/12px ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; text-transform: uppercase; letter-spacing: 0.14em; color: #5c6975; white-space: nowrap;">Not built yet</div>
                 </div>
               </div>
 
@@ -973,11 +1036,18 @@
                  act, which belongs to the run rather than to either side. -->
             <div style="position: absolute; left: calc((100% - 16px) * 0.6); top: 16px; bottom: 60px; width: 0; border-left: 2px solid #26313d;"></div>
 
+            <!-- The plan's own two headings, lying down. Three of them here — 2 +
+                 1 + 2 — spent a heading naming the middle column's argument, and
+                 that column already carries the whole of it below: an orange dot,
+                 a washed card and the two acts. Merging the first two into a
+                 flex 3 leaves every column boundary where it was, spacer
+                 included, so the wall at 0.6 still lands on the seam it names.
+                 Which is the reason to say it this way: the wall IS this
+                 boundary, and it always was. -->
             <div style="flex: none; display: flex; align-items: flex-end; padding-bottom: 8px;">
-              <div style="flex: 2 1 0px; min-width: 0; font: 400 10px/12px ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; text-transform: uppercase; letter-spacing: 0.14em; color: #2ea86a;">Agreed</div>
-              <div style="flex: 1 1 0px; min-width: 0; font: 400 10px/12px ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; text-transform: uppercase; letter-spacing: 0.14em; color: #f2762b;">Not agreed</div>
+              <div style="flex: 3 1 0px; min-width: 0; font: 400 10px/12px ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; text-transform: uppercase; letter-spacing: 0.14em; color: #2ea86a;">Built</div>
               <div style="width: 16px; flex: none;"></div>
-              <div style="flex: 2 1 0px; min-width: 0; font: 400 10px/12px ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; text-transform: uppercase; letter-spacing: 0.14em; color: #5c6975;">Next</div>
+              <div style="flex: 2 1 0px; min-width: 0; font: 400 10px/12px ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; text-transform: uppercase; letter-spacing: 0.14em; color: #5c6975;">Not built yet</div>
             </div>
 
             <div style="flex: none; display: flex; align-items: flex-start;">
@@ -1019,7 +1089,10 @@
                 </div>
                 <div tabindex="-1" style="margin: 8px 8px 0 0; padding: 12px; border-radius: 12px; border: 1px solid transparent; display: flex; flex-direction: column; gap: 4px; outline-offset: 3px; pointer-events: none;">
                   <div style="min-height: 3lh; font: 600 12px/18px 'Open Sans', sans-serif; color: #c3cdd7; text-wrap: pretty;">We ask for evidence, only what the reason needs</div>
-                  <div style="display: flex; align-items: center; gap: 4px; font: 400 12px/16px ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; color: #5c6975;">not built</div>
+                  <!-- `not built` sat above this and is now the heading over the
+                       column, said twice on the same card. One caption per card
+                       either way: `ran · …` on the three that exist, what is owed
+                       on the two that do not. -->
                   <div style="display: flex; align-items: center; gap: 4px; font: 400 12px/16px ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; color: #5c6975;"><i class="ph ph-question-mark" style="font-size: 10px;"></i>2 to settle</div>
                 </div>
               </div>
@@ -1030,7 +1103,6 @@
                 </div>
                 <div tabindex="-1" style="margin: 8px 8px 0 0; padding: 12px; border-radius: 12px; border: 1px solid transparent; display: flex; flex-direction: column; gap: 4px; outline-offset: 3px; pointer-events: none;">
                   <div style="min-height: 3lh; font: 600 12px/18px 'Open Sans', sans-serif; color: #f5f9fc; text-wrap: pretty;">We send the biggest disputes to a person</div>
-                  <div style="display: flex; align-items: center; gap: 4px; font: 400 12px/16px ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; color: #5c6975;">not built</div>
                   <div style="display: flex; align-items: center; gap: 4px; font: 400 12px/16px ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; color: #5c6975;"><i class="ph ph-question-mark" style="font-size: 10px;"></i>1 to settle</div>
                 </div>
               </div>
@@ -1095,11 +1167,14 @@
           <div style="flex: none; max-width: 800px; display: flex; flex-direction: column; gap: 8px; padding-bottom: 12px; opacity: {{ dOp }}; transform: {{ dTr }}; transition: opacity {{ dDur }} cubic-bezier(0.2, 0, 0.2, 1) {{ dDl }}, transform {{ dDur }} cubic-bezier(0.2, 0, 0.2, 1) {{ dDl }};">
             <div style="display: inline-flex; align-self: flex-start; align-items: center; gap: 6px; color: #f2762b;">
               <i class="ph ph-warning" style="font-size: 12px;"></i>
-              <!-- Same status word the chip and the spine label use. It was
-                   "waiting on you" here, "Not agreed" on the chip, "You are
-                   here" on the spine and "being argued about" in the plan
-                   subtitle: four names for one state, across a transition that
-                   is supposed to be one thing changing shape. -->
+              <!-- Same status word the card's heading and step 3's own eyebrow in
+                   the spine use — three views, one word. It was "waiting on you"
+                   here, "Not agreed" on the chip, "You are here" on the spine and
+                   "being argued about" in the plan subtitle: four names for one
+                   state, across a transition that is supposed to be one thing
+                   changing shape. It survived the plan's regrouping onto the build
+                   axis unchanged, because agreement is not what that axis is
+                   about and this pane's whole subject is the argument. -->
               <div style="font: 400 10px/12px ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; text-transform: uppercase; letter-spacing: 0.14em;">Not agreed · step 3 of 5</div>
             </div>
             <div style="font: 700 24px/38px 'Open Sans', sans-serif; color: #f5f9fc;">We check with the merchant before asking for evidence</div>
@@ -1782,15 +1857,15 @@ class Component extends DCLogic {
       stepPad: on ? '10px' : '0px',
 
       // ── The labels the spine alone carries ───────────────────────────────
-      // Agreed / You are here / Next, the step counts, and "5 steps · 2 agreed"
-      // have no counterpart in the wide plan, so they can only fade — but the
-      // SPACE they need is part of the shape the plan is collapsing into, so it
-      // opens with everything else and only the fade is late. Given a beat of
-      // its own it made five rows fly up past where they belonged and slide a
-      // hundred pixels back down once the rest had settled.
+      // Built / Not built yet, step 3's own `Not agreed`, the step counts and
+      // "5 steps · 3 built" have no counterpart in the wide plan, so they can
+      // only fade — but the SPACE they need is part of the shape the plan is
+      // collapsing into, so it opens with everything else and only the fade is
+      // late. Given a beat of its own it made five rows fly up past where they
+      // belonged and slide a hundred pixels back down once the rest had settled.
       //
-      // Nothing in here reflows: every label is nowrap and the one wrapping
-      // thing, the pair of chips, is pinned to the card's final measure.
+      // Nothing in here reflows: every label is nowrap, and the chip row that
+      // needed a pin to stop it breaking mid-flight is a single chip now.
       rmRows: on ? '1fr' : '0fr',
       rmOp: on ? '1' : '0',
       rmOpDur: on ? '200ms' : '100ms',
