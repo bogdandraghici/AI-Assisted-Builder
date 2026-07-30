@@ -56,19 +56,23 @@ own orange edge underneath, because selection and "your move" are orthogonal and
 stack. Selection exists only in the spine state — the wide plan never shows it, because
 nothing is open there.
 
-**A previewed customer screen gets its own light palette, and it stays inside the bezel.**
+**A previewed customer screen gets its own light palette, and it stays inside the frame.**
 Ground `#ffffff`, surface `#f4f6f8`, text `#1a2129`, secondary `#5c6975`, hairline `#dfe5ea`,
 action `#2b7fe4`, radius 8 — the same type ladder and the same family, so it is recognisably
 built here without being mistaken for here. It is a *different product*, and the one
 confusion a test screen cannot afford is the app reading as another pane of the tool. When
 the tool has to speak over the app it does so in the dark palette, and that is what makes it
 legible as the tool: white is the thing you built, dark is the thing that built it. The
-light values never leave the bezel — not into the rail, the chat or the chrome.
+light values never leave the frame — not into the strip, the chat or the chrome.
 
-**The phone's bezel radius is hardware, not chrome.** 32px, outside the radius scale, the
-same way the icon sizes sit outside the type ladder. It is the only off-scale radius in the
-repo and it exists because a 360px slab at 12px does not read as a phone. There is still no
-shadow under it — the bezel's own hairline is the whole separation it needs.
+The frame itself is chrome, so it takes the system's own 12px radius and needs no exemption.
+There is still no shadow under it — its hairline is the whole separation it needs.
+
+**The previewed app's layout is its own, not the tool's, and not another platform's.** A web
+app gets two columns where a phone would stack, a table where a phone would list, and 24/38
+where a phone would use 18/28 — because a narrow column stretched across 1030px is the mobile
+layout in a bigger window, which tests a layout nobody designed. The reverse holds too. What
+the *run* is shown to have done stays identical either way; only the app changes.
 
 **Two question marks, one rule.** A grey `ph-question-mark` marks a *mention* of a
 question — the "N to settle" counts, the chip, the captions — and takes the colour of

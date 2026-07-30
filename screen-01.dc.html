@@ -1158,13 +1158,14 @@ class Component extends DCLogic {
       runUpPE: 'auto',
       runExitTab: '0',
 
-      // What the phone cannot say about itself. Mono, because it is the product
-      // talking about the run rather than the plan talking.
-      stageCap: this.state.at === 1
-        ? 'step 1 · they picked one of twelve'
-        : this.state.at === 2
-          ? 'step 2 · twenty-two words, then Continue'
-          : 'step 3 · the check ran behind this screen · unseen · 3s'
+      // The URL is the web app's own way of saying which screen you are on, so
+      // it replaces the caption the phone needed under its bezel. At the edge it
+      // still reads `what-happened`, which is the run never having advanced,
+      // said by the app rather than about it. `example` is the reserved TLD —
+      // a placeholder that reads as one.
+      stageUrl: this.state.at === 1
+        ? 'bank.example/dispute/which-payment'
+        : 'bank.example/dispute/what-happened'
     };
   }
 }

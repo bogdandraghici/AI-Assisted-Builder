@@ -897,7 +897,7 @@
       <div style="font: 400 12px/16px ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; color: #8b98a5; flex: none;">1440 × 900 · live</div>
     </div>
     <div style="font: 400 14px/24px 'Open Sans', sans-serif; color: #a9b6c3; max-width: 104ch; text-wrap: pretty;">Two of five steps are built, so this run cannot finish — which makes the edge, not the preview, the subject. The check you asked to drop was built at 09:37, two minutes before you objected, so the run goes straight through it: unseen, three seconds, never in the customer's way. Then it stops, because the merchant's answer has nowhere to go until the evidence step exists.</div>
-    <div style="font: 400 14px/24px 'Open Sans', sans-serif; color: #a9b6c3; max-width: 104ch; text-wrap: pretty;">So the run is the argument's evidence, and the act comes with it: step 3 keeps the wash and carries <strong style="font-weight: 600; color: #f5f9fc;">Agree</strong> here, where you have just watched the disputed step run. <strong style="font-weight: 600; color: #f5f9fc;">Click the first two rows</strong> to scrub the run back — the rest cannot be looked at, because nothing of them exists to show.</div>
+    <div style="font: 400 14px/24px 'Open Sans', sans-serif; color: #a9b6c3; max-width: 104ch; text-wrap: pretty;">So the run is the argument's evidence, and the act comes with it: step 3 keeps the wash and carries <strong style="font-weight: 600; color: #f5f9fc;">Agree</strong> here, where you have just watched the disputed step run. The plan lies down beneath the app because a run reads left to right — which turns the boundary into a wall across its path. <strong style="font-weight: 600; color: #f5f9fc;">Click the first two nodes</strong> to scrub the run back; the last two cannot be looked at, because nothing of them exists to show.</div>
   </div>
 
   <div data-screen-label="02" style="width: 1440px; height: 900px; background: #0b1218; border: 1px solid #26313d; border-radius: 12px; overflow: hidden; display: flex; flex-direction: column; flex: none; color: #f5f9fc;">
@@ -1030,269 +1030,255 @@
         </div>
       </div>
 
-      <!-- The plan, in run terms — and it IS the plan, not a companion to a
-           wider one, so its rows take the plan's own 14/22 title role rather
-           than the spine's compressed 12/18. Same name, same subtitle, same
-           dash bar as the wide plan, because a third name for one object reads
-           as a change of subject.
-           Two channels per row and neither is the other's colour: the dot says
-           agreement state, the mono line under the title says what the run did.
-           The mono is STACKED under the title and never beside it, for the same
-           reason the plan's counts are — a column beside the title is width the
-           title has to do without. -->
-      <div style="width: 440px; flex: none; background: #0b1218; border-right: 1px solid #18212a; display: flex; flex-direction: column; min-height: 0; padding: 20px 24px 16px;">
+      <!-- A run reads left to right, so the plan lies down beside the app rather
+           than beside the chat, and the boundary becomes a WALL across the run's
+           path instead of a rule under it — which is a far stronger image of
+           "it stops here" than the vertical version could manage.
+           The strip is `flex: none` and the app frame takes what is left, so a
+           title that wraps to a third line costs the app height rather than
+           clipping the strip. Nothing here animates, so nothing needs pinning.
+           1032 across: five nodes over 1016 at `flex: 1 1 0px`, and the labels
+           and the boundary sentence share that denominator (2:1:2 and 3:2) so
+           every row lines up on the same column edges without a grid. -->
+      <div style="flex: 1; min-width: 0; background: #0e161d; display: flex; flex-direction: column; padding: 24px;">
 
-        <div style="flex: none; display: flex; flex-direction: column; gap: 6px; padding-bottom: 16px;">
-          <div style="font: 700 18px/28px 'Open Sans', sans-serif; color: #f5f9fc;">The plan</div>
-          <div style="display: flex; align-items: center; gap: 3px;">
-            <div style="width: 18px; height: 3px; border-radius: 2px; background: #2ea86a;"></div>
-            <div style="width: 18px; height: 3px; border-radius: 2px; background: #2ea86a;"></div>
-            <div style="width: 18px; height: 3px; border-radius: 2px; background: #f2762b;"></div>
-            <div style="width: 18px; height: 3px; border-radius: 2px; background: #33404d;"></div>
-            <div style="width: 18px; height: 3px; border-radius: 2px; background: #33404d;"></div>
-          </div>
-          <div style="font: 400 12px/16px 'Open Sans', sans-serif; color: #8b98a5;">Two of five built · one not agreed · <i class="ph ph-question-mark" style="font-size: 10px;"></i> four to settle</div>
-        </div>
+        <!-- A browser window, not a phone: chrome is chrome, so the frame takes
+             the system's own 12px radius and the off-scale bezel exemption the
+             phone needed is gone. Still no shadow. -->
+        <div style="flex: 1; min-height: 0; background: #ffffff; border: 1px solid #26313d; border-radius: 12px; overflow: hidden; position: relative; display: flex; flex-direction: column;">
 
-        <div style="flex: none; padding-bottom: 8px; font: 400 10px/12px ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; text-transform: uppercase; letter-spacing: 0.14em; color: #2ea86a;">Agreed</div>
-
-        <div style="flex: none; display: flex; gap: 16px; align-items: stretch;">
-          <div style="width: 20px; flex: none; display: flex; flex-direction: column; align-items: center;">
-            <div style="width: 20px; height: 20px; flex: none; border-radius: 99px; background: #2ea86a; display: grid; place-items: center;"><i class="ph ph-check" style="font-size: 11px; color: #ffffff;"></i></div>
-            <div style="flex: 1; width: 2px; background: #26313d; margin-top: 4px;"></div>
-          </div>
-          <!-- The click target and the blue edge are the same element, so
-               selection and the way to select are one object. -->
-          <div style="flex: 1; min-width: 0; padding-bottom: 20px;">
-            <div onClick="{{ goTo1 }}" tabindex="0" style="margin: -6px -8px 0; padding: 6px 8px; border-radius: 8px; cursor: pointer; outline: 1px solid {{ selRow1 }}; outline-offset: 3px; display: flex; flex-direction: column; gap: 2px; transition: background 160ms cubic-bezier(0.2, 0, 0.2, 1), outline-color 160ms cubic-bezier(0.2, 0, 0.2, 1);" style-hover="background: #131c24;" style-focus="box-shadow: 0 0 0 3px rgba(43, 127, 228, 0.32);">
-            <div style="font: 600 14px/22px 'Open Sans', sans-serif; color: #f5f9fc; text-wrap: pretty;">The customer picks the transaction they do not recognise</div>
-              <div style="font: 400 12px/16px ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; color: #8b98a5;">ran · picked 1 of 12</div>
+          <div style="flex: none; height: 36px; background: #f4f6f8; border-bottom: 1px solid #dfe5ea; display: flex; align-items: center; gap: 12px; padding: 0 12px;">
+            <div style="display: flex; align-items: center; gap: 6px; flex: none;">
+              <div style="width: 8px; height: 8px; border-radius: 99px; background: #dfe5ea;"></div>
+              <div style="width: 8px; height: 8px; border-radius: 99px; background: #dfe5ea;"></div>
+              <div style="width: 8px; height: 8px; border-radius: 99px; background: #dfe5ea;"></div>
             </div>
+            <div style="flex: none; width: 420px; height: 22px; background: #ffffff; border: 1px solid #dfe5ea; border-radius: 6px; display: flex; align-items: center; padding: 0 8px; font: 400 12px/16px ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; color: #5c6975;">{{ stageUrl }}</div>
           </div>
-        </div>
 
-        <div style="flex: none; display: flex; gap: 16px; align-items: stretch;">
-          <div style="width: 20px; flex: none; display: flex; flex-direction: column; align-items: center;">
-            <div style="width: 20px; height: 20px; flex: none; border-radius: 99px; background: #2ea86a; display: grid; place-items: center;"><i class="ph ph-check" style="font-size: 11px; color: #ffffff;"></i></div>
-            <div style="flex: 1; width: 2px; background: #26313d; margin-top: 4px;"></div>
+          <div style="flex: none; height: 56px; border-bottom: 1px solid #dfe5ea; display: flex; align-items: center; justify-content: space-between; padding: 0 32px;">
+            <div style="font: 600 14px/22px 'Open Sans', sans-serif; color: #1a2129;">Dispute a payment</div>
+            <div style="font: 600 12px/18px 'Open Sans', sans-serif; color: #2b7fe4;">Save and exit</div>
           </div>
-          <div style="flex: 1; min-width: 0; padding-bottom: 20px;">
-            <div onClick="{{ goTo2 }}" tabindex="0" style="margin: -6px -8px 0; padding: 6px 8px; border-radius: 8px; cursor: pointer; outline: 1px solid {{ selRow2 }}; outline-offset: 3px; display: flex; flex-direction: column; gap: 2px; transition: background 160ms cubic-bezier(0.2, 0, 0.2, 1), outline-color 160ms cubic-bezier(0.2, 0, 0.2, 1);" style-hover="background: #131c24;" style-focus="box-shadow: 0 0 0 3px rgba(43, 127, 228, 0.32);">
-            <div style="font: 600 14px/22px 'Open Sans', sans-serif; color: #f5f9fc; text-wrap: pretty;">We ask what happened, in their words</div>
-              <div style="font: 400 12px/16px ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; color: #8b98a5;">ran · 22 words</div>
-            </div>
-          </div>
-        </div>
 
-        <div style="flex: none; padding-bottom: 8px; font: 400 10px/12px ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; text-transform: uppercase; letter-spacing: 0.14em; color: #f2762b;">Not agreed</div>
-
-        <div style="flex: none; display: flex; gap: 16px; align-items: stretch;">
-          <div style="width: 20px; flex: none; display: flex; flex-direction: column; align-items: center;">
-            <div style="width: 20px; height: 20px; flex: none; border-radius: 99px; background: #f2762b; display: grid; place-items: center;"><i class="ph ph-warning" style="font-size: 11px; color: #ffffff;"></i></div>
-            <div style="flex: 1; width: 0; border-left: 2px dashed #26313d; margin-top: 4px;"></div>
-          </div>
-          <!-- The one wash on this screen, on the same object the plan washes.
-               It is washed HERE because this is where you now have the best
-               reason to answer: you have just watched the disputed step run
-               without touching the customer. Wash it where the reply is given.
-               No style-hover on the card: it already carries two live buttons,
-               and a hover wash over a card whose interior is the affordance
-               says the whole card does something else. -->
-          <div style="flex: 1; min-width: 0; padding-bottom: 20px;">
-            <div onClick="{{ goTo3 }}" tabindex="0" style="background: linear-gradient(180deg, rgba(242, 118, 43, 0.14), rgba(242, 118, 43, 0.06) 45%, rgba(242, 118, 43, 0.025)); border: 1px solid rgba(242, 118, 43, 0.30); border-radius: 12px; padding: 16px; cursor: pointer; outline: 1px solid {{ selRow3 }}; outline-offset: 3px; display: flex; flex-direction: column; gap: 6px; transition: outline-color 160ms cubic-bezier(0.2, 0, 0.2, 1);" style-focus="box-shadow: 0 0 0 3px rgba(43, 127, 228, 0.32);">
-            <div style="font: 600 14px/22px 'Open Sans', sans-serif; color: #f5f9fc; text-wrap: pretty;">We check with the merchant before asking for evidence</div>
-            <!-- The claim under dispute was "it slows the customer down". This
-                 line is that claim observed instead of argued: the drawing's
-                 `unseen · 3s` is now what happened. -->
-            <div style="font: 400 12px/16px ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; color: #8b98a5;">ran · unseen · 3s</div>
-            <div style="height: 1px; background: rgba(242, 118, 43, 0.16); margin: 6px 0;"></div>
-            <!-- The same pair, the same size, the same glyphs and the same
-                 caption as the plan card and the step pane's pinned footer. A
-                 third view of one object says the same thing in the same words,
-                 or it reads as a change of subject. -->
-            <div style="display: flex; align-items: center; gap: 12px;">
-              <div tabindex="0" style="display: inline-flex; flex: none; white-space: nowrap; align-items: center; gap: 6px; height: 36px; padding: 0 12px; font: 600 14px/24px 'Open Sans', sans-serif; color: #ffffff; background: #2b7fe4; border-radius: 8px; cursor: pointer; outline: none; transition: background 160ms cubic-bezier(0.2, 0, 0.2, 1);" style-hover="background: #4d97ea;" style-active="background: #2b5f9e;" style-focus="box-shadow: 0 0 0 3px rgba(43, 127, 228, 0.32);"><i class="ph ph-check" style="font-size: 14px;"></i>Agree</div>
-              <div tabindex="0" style="display: inline-flex; flex: none; white-space: nowrap; align-items: center; gap: 6px; height: 36px; padding: 0 12px; font: 600 14px/24px 'Open Sans', sans-serif; color: #c3cdd7; background: transparent; border: 1px solid #26313d; border-radius: 8px; cursor: pointer; outline: none; transition: all 160ms cubic-bezier(0.2, 0, 0.2, 1);" style-hover="border-color: #4d97ea; background: #131c24; color: #f5f9fc;" style-focus="box-shadow: 0 0 0 3px rgba(43, 127, 228, 0.32);"><i class="ph ph-chat-teardrop-text" style="font-size: 14px;"></i>Comment further</div>
-            </div>
-              <div style="display: flex; align-items: center; gap: 4px; font: 400 12px/16px 'Open Sans', sans-serif; color: #8b98a5;"><i class="ph ph-question-mark" style="font-size: 10px;"></i>One question still to settle before I build it.</div>
-            </div>
-          </div>
-        </div>
-
-        <!-- Grey, never orange: it is a fact about the build, not your move. And
-             it names no resource — the mapper that would carry the answer on is
-             behind a disclosure on screen 01 and stays there. -->
-        <div style="flex: none; display: flex; flex-direction: column; gap: 8px; padding-bottom: 24px;">
-          <div style="display: flex; align-items: center; gap: 8px;">
-            <div style="font: 400 10px/12px ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; text-transform: uppercase; letter-spacing: 0.14em; color: #5c6975; flex: none;">What exists ends here</div>
-            <div style="flex: 1; height: 1px; background: #26313d;"></div>
-          </div>
-          <div style="font: 400 12px/18px 'Open Sans', sans-serif; color: #8b98a5; text-wrap: pretty;">The merchant's answer has nowhere to go until the evidence step exists.</div>
-        </div>
-
-        <div style="flex: none; padding-bottom: 8px; font: 400 10px/12px ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; text-transform: uppercase; letter-spacing: 0.14em; color: #5c6975;">Next</div>
-
-        <!-- Nothing of these two exists to show, so nothing here may offer to
-             show it: no onClick, no cursor, no hover, no outline, and the
-             pointer and the tabindex withdrawn together so the keyboard cannot
-             reach what the mouse cannot. -->
-        <div style="flex: none; display: flex; gap: 16px; align-items: stretch;">
-          <div style="width: 20px; flex: none; display: flex; flex-direction: column; align-items: center;">
-            <div style="width: 20px; height: 20px; flex: none; border-radius: 99px; background: #0b1218; border: 1px dashed #8b98a5;"></div>
-            <div style="flex: 1; width: 0; border-left: 2px dashed #26313d; margin-top: 4px;"></div>
-          </div>
-          <div tabindex="{{ rowTab4 }}" style="flex: 1; min-width: 0; padding-bottom: 20px; pointer-events: {{ rowPE4 }}; display: flex; flex-direction: column; gap: 2px;">
-            <div style="font: 600 14px/22px 'Open Sans', sans-serif; color: #c3cdd7; text-wrap: pretty;">We ask for evidence, only what the reason needs</div>
-            <div style="font: 400 12px/16px ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; color: #5c6975;">not built</div>
-            <div style="display: flex; align-items: center; gap: 4px; font: 400 10px/12px ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; color: #5c6975;"><i class="ph ph-question-mark" style="font-size: 10px;"></i>2 to settle</div>
-          </div>
-        </div>
-
-        <div style="flex: none; display: flex; gap: 16px; align-items: stretch;">
-          <div style="width: 20px; flex: none; display: flex; flex-direction: column; align-items: center;">
-            <div style="width: 20px; height: 20px; flex: none; border-radius: 99px; background: #0b1218; border: 1px solid #8b98a5; display: grid; place-items: center;"><i class="ph ph-user" style="font-size: 11px; color: #c3cdd7;"></i></div>
-            <div style="flex: 1; width: 0; border-left: 2px dashed #26313d; margin-top: 4px;"></div>
-          </div>
-          <div tabindex="{{ rowTab4 }}" style="flex: 1; min-width: 0; padding-bottom: 20px; pointer-events: {{ rowPE4 }}; display: flex; flex-direction: column; gap: 2px;">
-            <div style="font: 600 14px/22px 'Open Sans', sans-serif; color: #f5f9fc; text-wrap: pretty;">Disputes over {{ threshold }} go to a person</div>
-            <div style="font: 400 12px/16px ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; color: #5c6975;">not built</div>
-            <div style="display: flex; align-items: center; gap: 4px; font: 400 10px/12px ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; color: #5c6975;"><i class="ph ph-question-mark" style="font-size: 10px;"></i>1 to settle</div>
-          </div>
-        </div>
-
-        <div style="flex: none; display: flex; gap: 16px; align-items: flex-start;">
-          <div style="width: 20px; flex: none; display: flex; justify-content: center; padding-top: 5px;">
-            <div style="width: 8px; height: 8px; border-radius: 99px; border: 1px dashed #8b98a5;"></div>
-          </div>
-          <div style="flex: 1; min-width: 0; font: 400 12px/18px 'Open Sans', sans-serif; color: #8b98a5; text-wrap: pretty;">Two more steps will be needed — how the reviewer decides, and what the customer is told. I have not written them yet.</div>
-        </div>
-
-        <div style="flex: 1;"></div>
-      </div>
-
-      <!-- The side-pane shade rather than the ground: this is the one pane
-           holding an object instead of a list, and the shade separates the
-           phone from the chrome without spending a border on it. `flex: 1` so a
-           viewport wider than 1440 gives the extra room here, which is what
-           screen 01's step pane does. -->
-      <div style="flex: 1; min-width: 0; background: #0e161d; display: flex; align-items: center; justify-content: center; padding: 24px 0;">
-        <div style="flex: none; display: flex; flex-direction: column; gap: 12px;">
-          <!-- The app renders in its own light palette so it is unmistakably
-               NOT another pane of the tool, which is the one confusion this
-               screen cannot afford. The palette is confined to the inside of
-               this bezel and never touches the rail, the chat or the chrome.
-               The 32px radius is hardware geometry, not the UI radius scale —
-               the same exemption the icon sizes get from the type ladder. It is
-               the only off-scale radius here, and it exists because a 360px slab
-               at 12px does not read as a phone. Still no shadow: the bezel's own
-               hairline is the whole separation it needs. -->
-          <div style="width: 360px; height: 760px; flex: none; background: #ffffff; border: 1px solid #26313d; border-radius: 32px; overflow: hidden; position: relative; display: flex; flex-direction: column;">
-
-            <div style="flex: none; height: 44px; padding: 0 24px; display: flex; align-items: center; justify-content: space-between; font: 600 12px/16px 'Open Sans', sans-serif; color: #1a2129;">
-              <div>09:46</div>
-              <div style="display: flex; align-items: center; gap: 6px;"><i class="ph ph-cell-signal-full" style="font-size: 12px;"></i><i class="ph ph-wifi-high" style="font-size: 12px;"></i><i class="ph ph-battery-full" style="font-size: 12px;"></i></div>
-            </div>
-
-            <!-- Three genuinely different screens, not one thing changing shape,
-                 so `sc-if` is right here and the swap is instant. Nothing on
-                 this screen animates, which is the condition that makes it
-                 legal at all.
-                 In each one exactly ONE control is live — whatever the run's
-                 next move was. The rest are stills with no hover, no cursor and
-                 no tabindex: a hoverable Continue on a screen you cannot drive
-                 would be the phone lying, which is the plan card's
-                 pointer-events rule applied to a picture of an app. -->
 <sc-if value="{{ at1 }}" hint-placeholder-val="{{ false }}">
-            <div style="flex: 1; min-height: 0; padding: 8px 20px 20px; display: flex; flex-direction: column; gap: 16px;">
-              <div style="font: 700 18px/28px 'Open Sans', sans-serif; color: #1a2129;">Which payment?</div>
+          <div style="flex: 1; min-height: 0; overflow: hidden; padding: 24px 32px; display: flex; flex-direction: column; gap: 16px;">
+            <div style="flex: none; display: flex; flex-direction: column; gap: 4px;">
+              <div style="font: 700 24px/38px 'Open Sans', sans-serif; color: #1a2129;">Which payment?</div>
               <div style="font: 400 14px/22px 'Open Sans', sans-serif; color: #5c6975;">Pick the one you do not recognise.</div>
-              <div style="display: flex; flex-direction: column; gap: 8px;">
-                <div onClick="{{ goTo2 }}" tabindex="0" style="display: flex; align-items: center; justify-content: space-between; gap: 12px; padding: 12px; background: #f4f6f8; border: 1px solid #2b7fe4; border-radius: 8px; cursor: pointer; outline: none; transition: background 160ms cubic-bezier(0.2, 0, 0.2, 1);" style-hover="background: #ffffff;" style-focus="box-shadow: 0 0 0 3px rgba(43, 127, 228, 0.32);">
-                  <div style="min-width: 0;">
-                    <div style="font: 600 14px/22px 'Open Sans', sans-serif; color: #1a2129;">NORTHGATE SUPPLY CO</div>
-                    <div style="font: 400 12px/18px 'Open Sans', sans-serif; color: #5c6975;">24 July · card ending 4417</div>
-                  </div>
-                  <div style="font: 600 14px/22px 'Open Sans', sans-serif; color: #1a2129; flex: none;">£248.00</div>
-                </div>
-                <div style="display: flex; align-items: center; justify-content: space-between; gap: 12px; padding: 12px; background: #ffffff; border: 1px solid #dfe5ea; border-radius: 8px;">
-                  <div style="min-width: 0;">
-                    <div style="font: 600 14px/22px 'Open Sans', sans-serif; color: #1a2129;">CAFE MARGUERITE</div>
-                    <div style="font: 400 12px/18px 'Open Sans', sans-serif; color: #5c6975;">24 July · card ending 4417</div>
-                  </div>
-                  <div style="font: 600 14px/22px 'Open Sans', sans-serif; color: #1a2129; flex: none;">£6.40</div>
-                </div>
-                <div style="display: flex; align-items: center; justify-content: space-between; gap: 12px; padding: 12px; background: #ffffff; border: 1px solid #dfe5ea; border-radius: 8px;">
-                  <div style="min-width: 0;">
-                    <div style="font: 600 14px/22px 'Open Sans', sans-serif; color: #1a2129;">TFL TRAVEL</div>
-                    <div style="font: 400 12px/18px 'Open Sans', sans-serif; color: #5c6975;">23 July · card ending 4417</div>
-                  </div>
-                  <div style="font: 600 14px/22px 'Open Sans', sans-serif; color: #1a2129; flex: none;">£4.80</div>
-                </div>
-                <div style="display: flex; align-items: center; justify-content: space-between; gap: 12px; padding: 12px; background: #ffffff; border: 1px solid #dfe5ea; border-radius: 8px;">
-                  <div style="min-width: 0;">
-                    <div style="font: 600 14px/22px 'Open Sans', sans-serif; color: #1a2129;">NORTHGATE SUPPLY CO</div>
-                    <div style="font: 400 12px/18px 'Open Sans', sans-serif; color: #5c6975;">19 July · card ending 4417</div>
-                  </div>
-                  <div style="font: 600 14px/22px 'Open Sans', sans-serif; color: #1a2129; flex: none;">£31.50</div>
-                </div>
-                <div style="display: flex; align-items: center; justify-content: space-between; gap: 12px; padding: 12px; background: #ffffff; border: 1px solid #dfe5ea; border-radius: 8px;">
-                  <div style="min-width: 0;">
-                    <div style="font: 600 14px/22px 'Open Sans', sans-serif; color: #1a2129;">SAINSBURYS 4102</div>
-                    <div style="font: 400 12px/18px 'Open Sans', sans-serif; color: #5c6975;">18 July · card ending 4417</div>
-                  </div>
-                  <div style="font: 600 14px/22px 'Open Sans', sans-serif; color: #1a2129; flex: none;">£42.18</div>
-                </div>
-                <div style="display: flex; align-items: center; justify-content: space-between; gap: 12px; padding: 12px; background: #ffffff; border: 1px solid #dfe5ea; border-radius: 8px;">
-                  <div style="min-width: 0;">
-                    <div style="font: 600 14px/22px 'Open Sans', sans-serif; color: #1a2129;">TFL TRAVEL</div>
-                    <div style="font: 400 12px/18px 'Open Sans', sans-serif; color: #5c6975;">18 July · card ending 4417</div>
-                  </div>
-                  <div style="font: 600 14px/22px 'Open Sans', sans-serif; color: #1a2129; flex: none;">£2.80</div>
-                </div>
-              </div>
-              <!-- The step's own description from the plan, said the way the app
-                   would say it: the run showing that the plan kept its word. -->
-              <div style="font: 400 12px/18px 'Open Sans', sans-serif; color: #5c6975;">Showing the last ninety days.</div>
             </div>
+            <!-- A table, because the width is there for one. Twelve rows is what
+                 the run's `picked 1 of 12` claims, and a web app can very nearly
+                 show them all — the footer says how many, so the count is not a
+                 claim you have to take on trust. -->
+            <div style="flex: none; display: flex; flex-direction: column;">
+              <div style="display: flex; align-items: center; gap: 16px; padding: 0 12px 8px; border-bottom: 1px solid #dfe5ea;">
+                <div style="flex: 1; min-width: 0; font: 400 10px/12px ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; text-transform: uppercase; letter-spacing: 0.14em; color: #5c6975;">Merchant</div>
+                <div style="width: 100px; flex: none; font: 400 10px/12px ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; text-transform: uppercase; letter-spacing: 0.14em; color: #5c6975;">Date</div>
+                <div style="width: 140px; flex: none; font: 400 10px/12px ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; text-transform: uppercase; letter-spacing: 0.14em; color: #5c6975;">Card</div>
+                <div style="width: 100px; flex: none; font: 400 10px/12px ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; text-transform: uppercase; letter-spacing: 0.14em; color: #5c6975; text-align: right;">Amount</div>
+                <div style="width: 16px; flex: none;"></div>
+              </div>
+              <div onClick="{{ goTo2 }}" tabindex="0" style="display: flex; align-items: center; gap: 16px; height: 41px; padding: 0 12px; background: #f4f6f8; border-bottom: 1px solid #dfe5ea; cursor: pointer; outline: none; transition: background 160ms cubic-bezier(0.2, 0, 0.2, 1);" style-hover="background: #ffffff;" style-focus="box-shadow: 0 0 0 3px rgba(43, 127, 228, 0.32);">
+                <div style="flex: 1; min-width: 0; font: 600 14px/22px 'Open Sans', sans-serif; color: #1a2129;">NORTHGATE SUPPLY CO</div>
+                <div style="width: 100px; flex: none; font: 400 14px/22px 'Open Sans', sans-serif; color: #5c6975;">24 July</div>
+                <div style="width: 140px; flex: none; font: 400 14px/22px ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; color: #5c6975;">•••• 4417</div>
+                <div style="width: 100px; flex: none; font: 600 14px/22px 'Open Sans', sans-serif; color: #1a2129; text-align: right;">£248.00</div>
+                <div style="width: 16px; flex: none; display: grid; place-items: center;"><i class="ph ph-arrow-right" style="font-size: 12px; color: #2b7fe4;"></i></div>
+              </div>
+              <div style="display: flex; align-items: center; gap: 16px; height: 41px; padding: 0 12px; border-bottom: 1px solid #dfe5ea;">
+                <div style="flex: 1; min-width: 0; font: 400 14px/22px 'Open Sans', sans-serif; color: #1a2129;">CAFE MARGUERITE</div>
+                <div style="width: 100px; flex: none; font: 400 14px/22px 'Open Sans', sans-serif; color: #5c6975;">24 July</div>
+                <div style="width: 140px; flex: none; font: 400 14px/22px ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; color: #5c6975;">•••• 4417</div>
+                <div style="width: 100px; flex: none; font: 400 14px/22px 'Open Sans', sans-serif; color: #1a2129; text-align: right;">£6.40</div>
+                <div style="width: 16px; flex: none;"></div>
+              </div>
+              <div style="display: flex; align-items: center; gap: 16px; height: 41px; padding: 0 12px; border-bottom: 1px solid #dfe5ea;">
+                <div style="flex: 1; min-width: 0; font: 400 14px/22px 'Open Sans', sans-serif; color: #1a2129;">TFL TRAVEL</div>
+                <div style="width: 100px; flex: none; font: 400 14px/22px 'Open Sans', sans-serif; color: #5c6975;">23 July</div>
+                <div style="width: 140px; flex: none; font: 400 14px/22px ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; color: #5c6975;">•••• 4417</div>
+                <div style="width: 100px; flex: none; font: 400 14px/22px 'Open Sans', sans-serif; color: #1a2129; text-align: right;">£4.80</div>
+                <div style="width: 16px; flex: none;"></div>
+              </div>
+              <div style="display: flex; align-items: center; gap: 16px; height: 41px; padding: 0 12px; border-bottom: 1px solid #dfe5ea;">
+                <div style="flex: 1; min-width: 0; font: 400 14px/22px 'Open Sans', sans-serif; color: #1a2129;">NORTHGATE SUPPLY CO</div>
+                <div style="width: 100px; flex: none; font: 400 14px/22px 'Open Sans', sans-serif; color: #5c6975;">19 July</div>
+                <div style="width: 140px; flex: none; font: 400 14px/22px ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; color: #5c6975;">•••• 4417</div>
+                <div style="width: 100px; flex: none; font: 400 14px/22px 'Open Sans', sans-serif; color: #1a2129; text-align: right;">£31.50</div>
+                <div style="width: 16px; flex: none;"></div>
+              </div>
+              <div style="display: flex; align-items: center; gap: 16px; height: 41px; padding: 0 12px; border-bottom: 1px solid #dfe5ea;">
+                <div style="flex: 1; min-width: 0; font: 400 14px/22px 'Open Sans', sans-serif; color: #1a2129;">SAINSBURYS 4102</div>
+                <div style="width: 100px; flex: none; font: 400 14px/22px 'Open Sans', sans-serif; color: #5c6975;">18 July</div>
+                <div style="width: 140px; flex: none; font: 400 14px/22px ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; color: #5c6975;">•••• 4417</div>
+                <div style="width: 100px; flex: none; font: 400 14px/22px 'Open Sans', sans-serif; color: #1a2129; text-align: right;">£42.18</div>
+                <div style="width: 16px; flex: none;"></div>
+              </div>
+              <div style="display: flex; align-items: center; gap: 16px; height: 41px; padding: 0 12px; border-bottom: 1px solid #dfe5ea;">
+                <div style="flex: 1; min-width: 0; font: 400 14px/22px 'Open Sans', sans-serif; color: #1a2129;">TFL TRAVEL</div>
+                <div style="width: 100px; flex: none; font: 400 14px/22px 'Open Sans', sans-serif; color: #5c6975;">18 July</div>
+                <div style="width: 140px; flex: none; font: 400 14px/22px ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; color: #5c6975;">•••• 4417</div>
+                <div style="width: 100px; flex: none; font: 400 14px/22px 'Open Sans', sans-serif; color: #1a2129; text-align: right;">£2.80</div>
+                <div style="width: 16px; flex: none;"></div>
+              </div>
+            </div>
+            <div style="flex: none; font: 400 12px/18px 'Open Sans', sans-serif; color: #5c6975;">Showing 12 payments from the last ninety days.</div>
+          </div>
 </sc-if>
 <sc-if value="{{ at2 }}" hint-placeholder-val="{{ false }}">
-            <div style="flex: 1; min-height: 0; padding: 8px 20px 20px; display: flex; flex-direction: column; gap: 16px;">
-              <div style="font: 700 18px/28px 'Open Sans', sans-serif; color: #1a2129;">What happened?</div>
-              <div style="font: 400 14px/22px 'Open Sans', sans-serif; color: #5c6975;">In your own words. We will work out the rest.</div>
+          <div style="flex: 1; min-height: 0; overflow: hidden; padding: 24px 32px; display: flex; gap: 32px; align-items: flex-start;">
+            <!-- Two columns, because a web app has the width for them: the form
+                 and, beside it, the payment it is about. The phone had to stack
+                 these; stretching one narrow column across 1030px would have
+                 been the mobile layout in a bigger window. -->
+            <div style="flex: 1; min-width: 0; max-width: 620px; display: flex; flex-direction: column; gap: 16px;">
+              <div style="display: flex; flex-direction: column; gap: 4px;">
+                <div style="font: 700 24px/38px 'Open Sans', sans-serif; color: #1a2129;">What happened?</div>
+                <div style="font: 400 14px/22px 'Open Sans', sans-serif; color: #5c6975;">In your own words. We will work out the rest.</div>
+              </div>
               <div style="flex: none; min-height: 120px; padding: 12px; background: #ffffff; border: 1px solid #2b7fe4; border-radius: 8px; font: 400 14px/22px 'Open Sans', sans-serif; color: #1a2129;">I ordered a parcel from them on the 24th and it never turned up. They stopped replying to my emails after the second one.</div>
-              <div style="font: 400 12px/18px 'Open Sans', sans-serif; color: #5c6975;">NORTHGATE SUPPLY CO · £248.00 · 24 July</div>
-              <div style="flex: 1;"></div>
-              <div onClick="{{ goTo3 }}" tabindex="0" style="flex: none; height: 44px; border-radius: 8px; background: #2b7fe4; color: #ffffff; display: grid; place-items: center; font: 600 14px/22px 'Open Sans', sans-serif; cursor: pointer; outline: none; transition: background 160ms cubic-bezier(0.2, 0, 0.2, 1);" style-hover="background: #4d97ea;" style-focus="box-shadow: 0 0 0 3px rgba(43, 127, 228, 0.32);">Continue</div>
+              <div onClick="{{ goTo3 }}" tabindex="0" style="flex: none; width: 180px; height: 44px; border-radius: 8px; background: #2b7fe4; color: #ffffff; display: grid; place-items: center; font: 600 14px/22px 'Open Sans', sans-serif; cursor: pointer; outline: none; transition: background 160ms cubic-bezier(0.2, 0, 0.2, 1);" style-hover="background: #4d97ea;" style-focus="box-shadow: 0 0 0 3px rgba(43, 127, 228, 0.32);">Continue</div>
             </div>
+            <div style="width: 300px; flex: none; background: #f4f6f8; border: 1px solid #dfe5ea; border-radius: 8px; padding: 16px; display: flex; flex-direction: column; gap: 6px;">
+              <div style="font: 400 10px/12px ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; text-transform: uppercase; letter-spacing: 0.14em; color: #5c6975;">The payment</div>
+              <div style="font: 600 14px/22px 'Open Sans', sans-serif; color: #1a2129;">NORTHGATE SUPPLY CO</div>
+              <div style="font: 700 18px/28px 'Open Sans', sans-serif; color: #1a2129;">£248.00</div>
+              <div style="font: 400 12px/18px 'Open Sans', sans-serif; color: #5c6975;">24 July · card ending 4417</div>
+            </div>
+          </div>
 </sc-if>
 <sc-if value="{{ at3 }}" hint-placeholder-val="{{ true }}">
-            <div style="flex: 1; min-height: 0; padding: 8px 20px 20px; display: flex; flex-direction: column; gap: 16px;">
-              <div style="font: 700 18px/28px 'Open Sans', sans-serif; color: #1a2129;">What happened?</div>
-              <div style="font: 400 14px/22px 'Open Sans', sans-serif; color: #5c6975;">In your own words. We will work out the rest.</div>
+          <div style="flex: 1; min-height: 0; overflow: hidden; padding: 24px 32px; display: flex; gap: 32px; align-items: flex-start;">
+            <!-- Two columns, because a web app has the width for them: the form
+                 and, beside it, the payment it is about. The phone had to stack
+                 these; stretching one narrow column across 1030px would have
+                 been the mobile layout in a bigger window. -->
+            <div style="flex: 1; min-width: 0; max-width: 620px; display: flex; flex-direction: column; gap: 16px;">
+              <div style="display: flex; flex-direction: column; gap: 4px;">
+                <div style="font: 700 24px/38px 'Open Sans', sans-serif; color: #1a2129;">What happened?</div>
+                <div style="font: 400 14px/22px 'Open Sans', sans-serif; color: #5c6975;">In your own words. We will work out the rest.</div>
+              </div>
               <div style="flex: none; min-height: 120px; padding: 12px; background: #ffffff; border: 1px solid #2b7fe4; border-radius: 8px; font: 400 14px/22px 'Open Sans', sans-serif; color: #1a2129;">I ordered a parcel from them on the 24th and it never turned up. They stopped replying to my emails after the second one.</div>
-              <div style="font: 400 12px/18px 'Open Sans', sans-serif; color: #5c6975;">NORTHGATE SUPPLY CO · £248.00 · 24 July</div>
-              <div style="flex: 1;"></div>
-              <!-- Pressed already, and there is nowhere for it to go: no
-                   onClick and no cursor. -->
-              <div style="flex: none; height: 44px; border-radius: 8px; background: #2b7fe4; color: #ffffff; display: grid; place-items: center; font: 600 14px/22px 'Open Sans', sans-serif;">Continue</div>
+              <!-- Pressed already, and there is nowhere for it to go: no onClick,
+                   no cursor, no tab stop. -->
+              <div style="flex: none; width: 180px; height: 44px; border-radius: 8px; background: #2b7fe4; color: #ffffff; display: grid; place-items: center; font: 600 14px/22px 'Open Sans', sans-serif;">Continue</div>
             </div>
-            <!-- The tool drawing over the app. Dark inside a white app on
-                 purpose: white is the thing you built, dark is the tool
-                 speaking, and that is what makes this legible as the tool and
-                 not as a screen someone designed. It carries NO wash — it is a
-                 fact about the build, not your move — and no way forward,
-                 because there is not one. -->
-            <div style="position: absolute; inset: 0; background: rgba(11, 18, 24, 0.28); display: flex; align-items: center; justify-content: center; padding: 32px;">
-              <div style="width: 100%; background: #101820; border: 1px solid #26313d; border-radius: 12px; padding: 16px; display: flex; flex-direction: column; gap: 8px;">
-                <div style="font: 400 10px/12px ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; text-transform: uppercase; letter-spacing: 0.14em; color: #8b98a5;">What exists ends here</div>
-                <div style="font: 400 12px/18px 'Open Sans', sans-serif; color: #c3cdd7; text-wrap: pretty;">The customer would go on to send a receipt. That step is not built.</div>
+            <div style="width: 300px; flex: none; background: #f4f6f8; border: 1px solid #dfe5ea; border-radius: 8px; padding: 16px; display: flex; flex-direction: column; gap: 6px;">
+              <div style="font: 400 10px/12px ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; text-transform: uppercase; letter-spacing: 0.14em; color: #5c6975;">The payment</div>
+              <div style="font: 600 14px/22px 'Open Sans', sans-serif; color: #1a2129;">NORTHGATE SUPPLY CO</div>
+              <div style="font: 700 18px/28px 'Open Sans', sans-serif; color: #1a2129;">£248.00</div>
+              <div style="font: 400 12px/18px 'Open Sans', sans-serif; color: #5c6975;">24 July · card ending 4417</div>
+            </div>
+          </div>
+          <!-- The tool drawing over the app. Dark inside a white app on purpose:
+               white is the thing you built, dark is the tool speaking, and that
+               is what makes this legible as the tool rather than as a screen
+               somebody designed. No wash — it is a fact about the build, not
+               your move — and no way forward, because there is not one. -->
+          <div style="position: absolute; inset: 0; background: rgba(11, 18, 24, 0.28); display: flex; align-items: flex-end; justify-content: flex-start; padding: 32px;">
+            <div style="width: 100%; max-width: 480px; background: #101820; border: 1px solid #26313d; border-radius: 12px; padding: 16px; display: flex; flex-direction: column; gap: 8px;">
+              <div style="font: 400 10px/12px ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; text-transform: uppercase; letter-spacing: 0.14em; color: #8b98a5;">What exists ends here</div>
+              <div style="font: 400 12px/18px 'Open Sans', sans-serif; color: #c3cdd7; text-wrap: pretty;">The customer would go on to send a receipt. That step is not built.</div>
+            </div>
+          </div>
+</sc-if>
+        </div>
+
+        <!-- The run strip. Same object as the plan, same words, lying down. -->
+        <div style="flex: none; position: relative; margin-top: 16px; padding-top: 16px; border-top: 1px solid #18212a; display: flex; flex-direction: column;">
+
+          <!-- The wall. Solid and perpendicular, so it cannot be mistaken for a
+               connector even though it shares its colour: the connectors run
+               with the journey and this one runs across it. It stops above the
+               act, which belongs to the run rather than to either side. -->
+          <div style="position: absolute; left: calc((100% - 16px) * 0.6); top: 16px; bottom: 60px; width: 0; border-left: 2px solid #26313d;"></div>
+
+          <div style="flex: none; display: flex; align-items: flex-end; padding-bottom: 8px;">
+            <div style="flex: 2 1 0px; min-width: 0; font: 400 10px/12px ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; text-transform: uppercase; letter-spacing: 0.14em; color: #2ea86a;">Agreed</div>
+            <div style="flex: 1 1 0px; min-width: 0; font: 400 10px/12px ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; text-transform: uppercase; letter-spacing: 0.14em; color: #f2762b;">Not agreed</div>
+            <div style="width: 16px; flex: none;"></div>
+            <div style="flex: 2 1 0px; min-width: 0; font: 400 10px/12px ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; text-transform: uppercase; letter-spacing: 0.14em; color: #5c6975;">Next</div>
+          </div>
+
+          <div style="flex: none; display: flex; align-items: flex-start;">
+            <div style="flex: 1 1 0px; min-width: 0; display: flex; flex-direction: column;">
+              <div style="display: flex; align-items: center; height: 20px;">
+                <div style="width: 20px; height: 20px; flex: none; border-radius: 99px; background: #2ea86a; display: grid; place-items: center;"><i class="ph ph-check" style="font-size: 11px; color: #ffffff;"></i></div>
+                <div style="flex: 1; height: 2px; background: #26313d;"></div>
+              </div>
+              <div onClick="{{ goTo1 }}" tabindex="0" style="margin: 8px 8px 0 0; padding: 12px; border-radius: 12px; border: 1px solid transparent; outline: 1px solid {{ selRow1 }}; outline-offset: 3px; display: flex; flex-direction: column; gap: 4px; outline-offset: 3px; cursor: pointer; transition: background 160ms cubic-bezier(0.2, 0, 0.2, 1), outline-color 160ms cubic-bezier(0.2, 0, 0.2, 1);" style-hover="background: #131c24;" style-focus="box-shadow: 0 0 0 3px rgba(43, 127, 228, 0.32);">
+                <div style="font: 600 12px/18px 'Open Sans', sans-serif; color: #f5f9fc; text-wrap: pretty;">The customer picks the transaction they do not recognise</div>
+                <div style="display: flex; align-items: center; gap: 4px; font: 400 12px/16px ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; color: #8b98a5;">ran · picked 1 of 12</div>
               </div>
             </div>
-</sc-if>
+            <div style="flex: 1 1 0px; min-width: 0; display: flex; flex-direction: column;">
+              <div style="display: flex; align-items: center; height: 20px;">
+                <div style="width: 20px; height: 20px; flex: none; border-radius: 99px; background: #2ea86a; display: grid; place-items: center;"><i class="ph ph-check" style="font-size: 11px; color: #ffffff;"></i></div>
+                <div style="flex: 1; height: 2px; background: #26313d;"></div>
+              </div>
+              <div onClick="{{ goTo2 }}" tabindex="0" style="margin: 8px 8px 0 0; padding: 12px; border-radius: 12px; border: 1px solid transparent; outline: 1px solid {{ selRow2 }}; outline-offset: 3px; display: flex; flex-direction: column; gap: 4px; outline-offset: 3px; cursor: pointer; transition: background 160ms cubic-bezier(0.2, 0, 0.2, 1), outline-color 160ms cubic-bezier(0.2, 0, 0.2, 1);" style-hover="background: #131c24;" style-focus="box-shadow: 0 0 0 3px rgba(43, 127, 228, 0.32);">
+                <div style="font: 600 12px/18px 'Open Sans', sans-serif; color: #f5f9fc; text-wrap: pretty;">We ask what happened, in their words</div>
+                <div style="display: flex; align-items: center; gap: 4px; font: 400 12px/16px ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; color: #8b98a5;">ran · 22 words</div>
+              </div>
+            </div>
+            <div style="flex: 1 1 0px; min-width: 0; display: flex; flex-direction: column;">
+              <div style="display: flex; align-items: center; height: 20px;">
+                <div style="width: 20px; height: 20px; flex: none; border-radius: 99px; background: #f2762b; display: grid; place-items: center;"><i class="ph ph-warning" style="font-size: 11px; color: #ffffff;"></i></div>
+                <div style="flex: 1; height: 2px; background: #26313d;"></div>
+              </div>
+              <div onClick="{{ goTo3 }}" tabindex="0" style="margin: 8px 8px 0 0; padding: 12px; border-radius: 12px; border: 1px solid rgba(242, 118, 43, 0.30); background: linear-gradient(180deg, rgba(242, 118, 43, 0.14), rgba(242, 118, 43, 0.06) 45%, rgba(242, 118, 43, 0.025)); outline: 1px solid {{ selRow3 }}; outline-offset: 3px; display: flex; flex-direction: column; gap: 4px; outline-offset: 3px; cursor: pointer; transition: background 160ms cubic-bezier(0.2, 0, 0.2, 1), outline-color 160ms cubic-bezier(0.2, 0, 0.2, 1);" style-focus="box-shadow: 0 0 0 3px rgba(43, 127, 228, 0.32);">
+                <div style="font: 600 12px/18px 'Open Sans', sans-serif; color: #f5f9fc; text-wrap: pretty;">We check with the merchant before asking for evidence</div>
+                <div style="display: flex; align-items: center; gap: 4px; font: 400 12px/16px ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; color: #8b98a5;">ran · unseen · 3s</div>
+              </div>
+            </div>
+            <div style="width: 16px; flex: none;"></div>
+            <div style="flex: 1 1 0px; min-width: 0; display: flex; flex-direction: column;">
+              <div style="display: flex; align-items: center; height: 20px;">
+                <div style="width: 20px; height: 20px; flex: none; border-radius: 99px; background: #0b1218; border: 1px dashed #8b98a5;"></div>
+                <div style="flex: 1; height: 0; border-top: 2px dashed #26313d;"></div>
+              </div>
+              <div tabindex="{{ rowTab4 }}" style="margin: 8px 8px 0 0; padding: 12px; border-radius: 12px; border: 1px solid transparent; display: flex; flex-direction: column; gap: 4px; outline-offset: 3px; pointer-events: {{ rowPE4 }};">
+                <div style="font: 600 12px/18px 'Open Sans', sans-serif; color: #c3cdd7; text-wrap: pretty;">We ask for evidence, only what the reason needs</div>
+                <div style="display: flex; align-items: center; gap: 4px; font: 400 12px/16px ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; color: #5c6975;">not built</div>
+                <div style="display: flex; align-items: center; gap: 4px; font: 400 12px/16px ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; color: #5c6975;"><i class="ph ph-question-mark" style="font-size: 10px;"></i>2 to settle</div>
+              </div>
+            </div>
+            <div style="flex: 1 1 0px; min-width: 0; display: flex; flex-direction: column;">
+              <div style="display: flex; align-items: center; height: 20px;">
+                <div style="width: 20px; height: 20px; flex: none; border-radius: 99px; background: #0b1218; border: 1px solid #8b98a5; display: grid; place-items: center;"><i class="ph ph-user" style="font-size: 11px; color: #c3cdd7;"></i></div>
+                <div style="flex: 1; height: 0; border-top: 2px dashed #26313d;"></div>
+              </div>
+              <div tabindex="{{ rowTab4 }}" style="margin: 8px 8px 0 0; padding: 12px; border-radius: 12px; border: 1px solid transparent; display: flex; flex-direction: column; gap: 4px; outline-offset: 3px; pointer-events: {{ rowPE4 }};">
+                <div style="font: 600 12px/18px 'Open Sans', sans-serif; color: #f5f9fc; text-wrap: pretty;">Disputes over {{ threshold }} go to a person</div>
+                <div style="display: flex; align-items: center; gap: 4px; font: 400 12px/16px ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; color: #5c6975;">not built</div>
+                <div style="display: flex; align-items: center; gap: 4px; font: 400 12px/16px ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; color: #5c6975;"><i class="ph ph-question-mark" style="font-size: 10px;"></i>1 to settle</div>
+              </div>
+            </div>
           </div>
-          <!-- What the phone cannot say about itself. Mono, because it is the
-               product talking about the run rather than the plan talking. -->
-          <div style="font: 400 12px/16px ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; color: #8b98a5;">{{ stageCap }}</div>
+
+          <!-- Under the region it describes, starting at the wall. Grey, never
+               orange: a fact about the build, not your move. And it names no
+               resource — the mapper that would carry the answer on is behind a
+               disclosure on screen 01 and stays there. -->
+          <div style="flex: none; display: flex; align-items: baseline; padding-top: 12px;">
+            <div style="flex: 3 1 0px; min-width: 0;"></div>
+            <div style="width: 16px; flex: none;"></div>
+            <div style="flex: 2 1 0px; min-width: 0; display: flex; flex-direction: column; gap: 4px;">
+              <div style="font: 400 10px/12px ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; text-transform: uppercase; letter-spacing: 0.14em; color: #5c6975;">What exists ends here</div>
+              <div style="font: 400 12px/18px 'Open Sans', sans-serif; color: #8b98a5; text-wrap: pretty;">The merchant's answer has nowhere to go until the evidence step exists. Two more steps after these are not written yet.</div>
+            </div>
+          </div>
+
+          <!-- Pinned under the run, buttons left and caption right — the exact
+               shape the step pane's footer already has, for the same reason: the
+               act may not be the thing that scrolls or crowds. Same pair, same
+               size, same glyphs, same caption as the plan card and the step. -->
+          <div style="flex: none; display: flex; align-items: center; gap: 12px; padding-top: 12px;">
+            <div tabindex="0" style="display: inline-flex; flex: none; white-space: nowrap; align-items: center; gap: 6px; height: 36px; padding: 0 12px; font: 600 14px/24px 'Open Sans', sans-serif; color: #ffffff; background: #2b7fe4; border-radius: 8px; cursor: pointer; outline: none; transition: background 160ms cubic-bezier(0.2, 0, 0.2, 1);" style-hover="background: #4d97ea;" style-active="background: #2b5f9e;" style-focus="box-shadow: 0 0 0 3px rgba(43, 127, 228, 0.32);"><i class="ph ph-check" style="font-size: 14px;"></i>Agree</div>
+            <div tabindex="0" style="display: inline-flex; flex: none; white-space: nowrap; align-items: center; gap: 6px; height: 36px; padding: 0 12px; font: 600 14px/24px 'Open Sans', sans-serif; color: #c3cdd7; background: transparent; border: 1px solid #26313d; border-radius: 8px; cursor: pointer; outline: none; transition: all 160ms cubic-bezier(0.2, 0, 0.2, 1);" style-hover="border-color: #4d97ea; background: #131c24; color: #f5f9fc;" style-focus="box-shadow: 0 0 0 3px rgba(43, 127, 228, 0.32);"><i class="ph ph-chat-teardrop-text" style="font-size: 14px;"></i>Comment further</div>
+            <div style="flex: 1;"></div>
+            <div style="display: inline-flex; align-items: center; gap: 4px; font: 400 12px/16px 'Open Sans', sans-serif; color: #8b98a5; white-space: nowrap;"><i class="ph ph-question-mark" style="font-size: 10px;"></i>One question still to settle before I build it.</div>
+          </div>
         </div>
       </div>
 
@@ -1575,13 +1561,14 @@ class Component extends DCLogic {
       runUpPE: 'auto',
       runExitTab: '0',
 
-      // What the phone cannot say about itself. Mono, because it is the product
-      // talking about the run rather than the plan talking.
-      stageCap: this.state.at === 1
-        ? 'step 1 · they picked one of twelve'
-        : this.state.at === 2
-          ? 'step 2 · twenty-two words, then Continue'
-          : 'step 3 · the check ran behind this screen · unseen · 3s'
+      // The URL is the web app's own way of saying which screen you are on, so
+      // it replaces the caption the phone needed under its bezel. At the edge it
+      // still reads `what-happened`, which is the run never having advanced,
+      // said by the app rather than about it. `example` is the reserved TLD —
+      // a placeholder that reads as one.
+      stageUrl: this.state.at === 1
+        ? 'bank.example/dispute/which-payment'
+        : 'bank.example/dispute/what-happened'
     };
   }
 }
