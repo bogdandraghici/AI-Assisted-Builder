@@ -103,6 +103,13 @@ Inside the wash the cool ladder goes flat neutral — ground `#141414`, lifted `
 grey is the answer, not a warmer grey. Blue stays cool and means taken, so hover lifts the ground
 and never takes the border.
 
+The card's drawing is a window, not the plan: one step either side of the change, `···` for the
+rest, so its width does not depend on the plan's length. Chips are hairline-only at h32 — never the
+filled box a choice row uses. Orange marks the change (dashed = not there yet, struck = goes).
+Ceiling is one fork of two arms, one level, drawn as a bracketed column with the condition in mono
+at `76px`. Past that the card stops drawing and lists the change — `+` / `−` / `~`, name in 600
+14/22, note in mono — with **See it in the plan** as the way to the real picture.
+
 The owed card is three bands — head, reply, acts — split by full-bleed
 `1px solid rgba(242,118,43,.16)`, at `12/16` · `14/16` · `10/16`. Prose caps at `62ch`, the
 proposal badge pins right, and the eyebrow's meta right-aligns with no rule between.
