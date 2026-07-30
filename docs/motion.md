@@ -156,6 +156,13 @@ records only the worst single backward STEP called it 5.3px and looked survivabl
 the reversal was nineteen small frames rather than one big one. Sum the backward deltas per
 row, or a slow drift the whole length of the tail reads as noise.
 
+The absolute figures above are rig-specific: a probe that steps `getAnimations()`
+`currentTime` reads per-row opening back-totals up to ~5.5px on this same build, against
+the unchanged one, with zero variance across repeated runs. So the gate is a same-rig
+before/after comparison — this build against the last known-good one — never these prose
+numbers taken cold on a different machine. Box-underrun (1.4px opening, 2.0px closing) is
+the figure that does reproduce across rigs.
+
 ## How to measure it
 
 To check smoothness, don't look — measure.

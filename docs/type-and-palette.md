@@ -58,6 +58,7 @@ nothing is open there.
 
 **Two question marks, one rule.** A grey `ph-question-mark` marks a *mention* of a
 question — the "N to settle" counts, the chip, the captions — and takes the colour of
-the count it precedes (`#8b98a5` or `#5c6975`), never one of its own. The orange one
-marks the question itself, on the one card where you answer it, and nowhere else. Same
-rule as the wash: the glyph says which kind, the colour only ever says "your move".
+the count or caption it precedes (`#8b98a5` or `#5c6975`), never one of its own. The
+orange one marks the question itself, on the one card where you answer it, and nowhere
+else. Same rule as the wash: the glyph says which kind, the colour only ever says
+"your move".
