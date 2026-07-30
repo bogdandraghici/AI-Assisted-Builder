@@ -22,20 +22,20 @@ pseudo-class attributes, `DCLogic` and React.
 - **One status word per state, across both views.**
 - **Pick a role from the type ladder; never invent a size.** No elevation shadows.
 
-## The docs
+## The notes
 
-Those lines are the whole of what this file says. The reasoning, the measurements and the
-mistakes that produced them live in `docs/` — read the doc before changing what it covers, and
-put what you learn there rather than here.
-
-- [motion.md](docs/motion.md) — the one-beat move: pins, easing, proving it does not judder
-- [affordances.md](docs/affordances.md) — withdrawing a control, `{{ }}` interpolation, glyphs
-- [waiting.md](docs/waiting.md) — the two kinds of waiting, and what may carry the wash
-- [type-and-palette.md](docs/type-and-palette.md) — ladder, spacing, families, palette
-- [build-and-preview.md](docs/build-and-preview.md) — `build-screens.py`, serving, publishing
+[docs/notes.md](docs/notes.md) holds the measured values and the traps — motion pins, easing,
+how to prove the move does not judder, the wash and the two kinds of waiting, the type ladder
+and palette, `build-screens.py`. It is **reference, not a log**: read the section you are about
+to touch, and only write back when a measured number changes or a new trap bites. Do not
+narrate changes into it.
 
 ## Working here
 
+- This is a design prototype. Bias to speed — make the change, run the build, look at it.
+  Prose about the change is not part of the change.
+- Specs and plans only for large features — anything that restructures a screen or touches the
+  transition. Tweaks, copy and single-state changes go straight to the source doc.
 - Preview over HTTP: `python3 -m http.server 8765 --bind 127.0.0.1`. Opening `file://` breaks
   `support.js` and the local fonts.
 - **Never push unless I explicitly ask** — the repo is public and gets indexed. Commit freely;
