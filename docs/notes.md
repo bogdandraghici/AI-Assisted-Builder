@@ -38,8 +38,8 @@ CSS transitions over interpolated inline styles (`style="flex-basis: {{ planBasi
 | Row `min-width` pins @1440 | **838 / 838 / 860 / 979 / 860 / 860 / 1015** |
 | Title `max-width` final (row) | `300 − 32 pad − 8 dot − 12 gap − 24 gap = 224` |
 | Title `max-width` final (card) | `248 − 2 border − 20 pad − 24 gap − 8 gap = 194` |
-| `tlA` / `tlB` reservations | 3 / 2 / 3 / 2 / 2 |
-| Spine's real title line counts | 2 / 1 / 2 / 2 / 2 (under the reservation, deliberately) |
+| `titleLines` reservation | **2lh, one value for all five** (`1lh` in the wide plan) |
+| Spine's real title line counts | 2 / 1 / 2 / 2 / 2 |
 | `planPinH` | 816 / 812 — *available* height, viewport less `planPad`; not a content measurement |
 | Box-underrun at rest | 1.4px opening, 2.0px closing |
 | Full-screen frame | 1032 × 491 → 1392 × 804, chat and strip collapsing together |
@@ -49,8 +49,16 @@ CSS transitions over interpolated inline styles (`style="flex-basis: {{ planBasi
   and all seven are invalid.** The fourth (979) is on the contested step's **card**, not its
   contents: the card has an edge its contents would burst through first.
 - **`max-width` finals must include gaps** — a collapsed sibling still occupies its flex `gap`.
-- **Over-reserving is the safe direction.** Tightening the two loose reservations takes 36px out of
-  the collapsed plan and gives the rows below that much further to travel in the same 340ms.
+- **Over-reserving is the safe direction only while it is unmeasured, and it is not free.** Rows 1
+  and 3 reserved 3lh; the sweep says nothing passes 2 lines at any instant either way, so the third
+  line was slack, and step 3's 18px of it sat between its title and its count and made that one row
+  look differently spaced. One 2lh value for all five now. The 36px that came out gives rows 4 and 5
+  that much further to travel in the same 340ms — distance, not discontinuity; nothing changed about
+  when anything rests.
+- **The price of the tightening is a transient, and it is in the same band as what was already
+  there:** early in the close, the reserved box interpolates down a shade faster than the text
+  un-wraps — worst 0.16 of a line (2.9px) on row 3 at ~51ms, against 0.07 (1.3px) on row 4 and 0.02
+  on row 5, which predate it. A clip of a few px for ~50ms, not a gained line.
 - **A wider counts column is a motion change.** It narrows the title at every instant, and a title
   narrower than its own animating `max-width` hands wrapping back to the pane.
 - **Why `ldDur` closes at 240:** at 340 the panes rested ~300ms while 32px of reserved box was
@@ -73,6 +81,21 @@ together in 16.7ms increments, read `getBoundingClientRect().top` out with `--du
   called a 19px reversal 5.3px).
 - **Box-underrun:** per frame, worst `scrollHeight − min-height` over the five titles. ~2px = no
   title gained a line. Past 18px the jumps are back.
+
+### Sweeping a reservation without animating
+
+To ask "does this title ever need another line", don't chase mid-flight frames — headless cannot
+step them. Rebuild the curves in JS instead (`cubic-bezier` inverted by Newton on x) and, with
+transitions off, set the real element's `max-width`, `font-size` and `line-height` to each sampled
+instant's values, lift `min-height` to 0, and count line boxes. Compare against the reservation
+interpolated on its *own* curve and duration — `ldEase`/`ldDur`, not the wrap's. Both directions:
+the closing curves differ from the opening ones and the shortfalls all live at the start of the
+close.
+
+- **Sample the element, not a clone**, and remember `lh` is relative to the element's *animating*
+  line-height, so the reservation in px changes under you.
+- **Report the shortfall as a fraction of a line.** Whole-line counts hide a 3px clip, and 3px for
+  50ms is a different animal from a gained line.
 
 ### Traps
 
@@ -158,6 +181,13 @@ the same as unimplemented chrome — the bell, kebab and undo pair hover and do 
 
 - **Gate with `pointer-events` in the interpolated `style`.** `style-hover`/`-active`/`-focus`
   reach `pseudoClass()` verbatim (`support.js:428`) and take **no** `{{ }}`.
+- **Withdraw the focus ring too — blur on the act, not on the control.** `pointer-events` and
+  `tabindex` interpolate; `style-focus` does not (support.js writes one static `:focus` rule per
+  control), so an act that withdraws its own control leaves a 3px ring on something nothing can
+  reach or dismiss — clicking the plan's step-3 title left two blues in one 248px box, and Escape
+  did not clear it either. `leave(patch)` blurs `currentTarget` and then sets state; Escape has no
+  target, so it blurs `activeElement` (safe — nothing on this screen holds text). Only acts that
+  withdraw *themselves* take it: `toggleFull` stays live in both states.
 - **Withdraw the `tabindex` with it**, and never leave a pointer target the keyboard cannot reach.
   A clipped pane does both at once via `visibility` (inherits, discrete, cannot judder), hidden on
   a delay equal to the content's fade-out.

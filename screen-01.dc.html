@@ -616,7 +616,7 @@
                 </div>
                 <div style="flex: 1; min-width: 0; padding-bottom: {{ rowPb }}; display: flex; gap: 24px; align-items: flex-start; transition: padding-bottom {{ moveDur }} {{ moveEase }};">
                   <div style="flex: 1; min-width: 0; display: flex; flex-direction: column; gap: 2px;">
-                    <div style="min-height: {{ tlA }}; font-family: 'Open Sans', sans-serif; font-weight: 600; font-size: {{ titleSize }}; line-height: {{ titleLh }}; max-width: {{ titleMax }}; color: #f5f9fc; text-wrap: pretty; transition: min-height {{ ldDur }} {{ ldEase }}, font-size {{ wrDur }} {{ wrEase }}, line-height {{ wrDur }} {{ wrEase }}, max-width {{ wrDur }} {{ wrEase }};">We show the payments they could dispute</div>
+                    <div style="min-height: {{ titleLines }}; font-family: 'Open Sans', sans-serif; font-weight: 600; font-size: {{ titleSize }}; line-height: {{ titleLh }}; max-width: {{ titleMax }}; color: #f5f9fc; text-wrap: pretty; transition: min-height {{ ldDur }} {{ ldEase }}, font-size {{ wrDur }} {{ wrEase }}, line-height {{ wrDur }} {{ wrEase }}, max-width {{ wrDur }} {{ wrEase }};">We show the payments they could dispute</div>
                     <div style="display: grid; grid-template-rows: {{ exRows }}; transition: grid-template-rows {{ moveDur }} {{ moveEase }};">
                       <div style="overflow: hidden; min-height: 0; opacity: {{ exOp }}; transition: opacity {{ exOpDur }} {{ moveEase }} {{ exOpDl }};">
                         <!-- Pinned so the pane can narrow over it without changing
@@ -673,7 +673,7 @@
                 </div>
                 <div style="flex: 1; min-width: 0; padding-bottom: {{ rowPb }}; display: flex; gap: 24px; align-items: flex-start; transition: padding-bottom {{ moveDur }} {{ moveEase }};">
                   <div style="flex: 1; min-width: 0; display: flex; flex-direction: column; gap: 2px;">
-                    <div style="min-height: {{ tlB }}; font-family: 'Open Sans', sans-serif; font-weight: 600; font-size: {{ titleSize }}; line-height: {{ titleLh }}; max-width: {{ titleMax }}; color: #f5f9fc; text-wrap: pretty; transition: min-height {{ ldDur }} {{ ldEase }}, font-size {{ wrDur }} {{ wrEase }}, line-height {{ wrDur }} {{ wrEase }}, max-width {{ wrDur }} {{ wrEase }};">We ask what happened, in their words</div>
+                    <div style="min-height: {{ titleLines }}; font-family: 'Open Sans', sans-serif; font-weight: 600; font-size: {{ titleSize }}; line-height: {{ titleLh }}; max-width: {{ titleMax }}; color: #f5f9fc; text-wrap: pretty; transition: min-height {{ ldDur }} {{ ldEase }}, font-size {{ wrDur }} {{ wrEase }}, line-height {{ wrDur }} {{ wrEase }}, max-width {{ wrDur }} {{ wrEase }};">We ask what happened, in their words</div>
                     <div style="display: grid; grid-template-rows: {{ exRows }}; transition: grid-template-rows {{ moveDur }} {{ moveEase }};">
                       <div style="overflow: hidden; min-height: 0; opacity: {{ exOp }}; transition: opacity {{ exOpDur }} {{ moveEase }} {{ exOpDl }};">
                         <div style="min-width: 838px; font: 400 12px/18px 'Open Sans', sans-serif; color: #8b98a5;">The customer describes it however they like, and we file it under a reason the scheme accepts — they never pick one.</div>
@@ -785,7 +785,7 @@
                            unwashed row is the colour saying "your move" about a
                            disclosure. -->
                         <div onClick="{{ openStep }}" tabindex="{{ cardTab }}" style="display: flex; align-items: baseline; gap: 8px; cursor: pointer; margin: -6px -8px 0; padding: 6px 8px 0; border-radius: 8px; outline: none; pointer-events: {{ cardPE }}; transition: background 160ms cubic-bezier(0.2, 0, 0.2, 1);" style-hover="background: #131c24;" style-focus="box-shadow: 0 0 0 3px rgba(43, 127, 228, 0.32);">
-                          <div style="min-height: {{ tlA }}; font-family: 'Open Sans', sans-serif; font-weight: 600; font-size: {{ titleSize }}; line-height: {{ titleLh }}; max-width: {{ cardTitleMax }}; color: #f5f9fc; text-wrap: pretty; transition: min-height {{ ldDur }} {{ ldEase }}, font-size {{ wrDur }} {{ wrEase }}, line-height {{ wrDur }} {{ wrEase }}, max-width {{ wrDur }} {{ wrEase }};">We check with the merchant before asking for evidence</div>
+                          <div style="min-height: {{ titleLines }}; font-family: 'Open Sans', sans-serif; font-weight: 600; font-size: {{ titleSize }}; line-height: {{ titleLh }}; max-width: {{ cardTitleMax }}; color: #f5f9fc; text-wrap: pretty; transition: min-height {{ ldDur }} {{ ldEase }}, font-size {{ wrDur }} {{ wrEase }}, line-height {{ wrDur }} {{ wrEase }}, max-width {{ wrDur }} {{ wrEase }};">We check with the merchant before asking for evidence</div>
                         <!-- An arrow, not a caret. Two glyphs, two meanings, no
                              overlap: caret-right is a disclosure that opens in the
                              pane you are already in (the step pane's technical
@@ -970,7 +970,7 @@
                 </div>
                 <div style="flex: 1; min-width: 0; padding-bottom: {{ rowPb }}; display: flex; gap: 24px; align-items: flex-start; transition: padding-bottom {{ moveDur }} {{ moveEase }};">
                   <div style="flex: 1; min-width: 0; display: flex; flex-direction: column; gap: 2px;">
-                    <div style="min-height: {{ tlB }}; font-family: 'Open Sans', sans-serif; font-weight: 600; font-size: {{ titleSize }}; line-height: {{ titleLh }}; max-width: {{ titleMax }}; color: #c3cdd7; text-wrap: pretty; transition: min-height {{ ldDur }} {{ ldEase }}, font-size {{ wrDur }} {{ wrEase }}, line-height {{ wrDur }} {{ wrEase }}, max-width {{ wrDur }} {{ wrEase }};">We ask for evidence, only what the reason needs</div>
+                    <div style="min-height: {{ titleLines }}; font-family: 'Open Sans', sans-serif; font-weight: 600; font-size: {{ titleSize }}; line-height: {{ titleLh }}; max-width: {{ titleMax }}; color: #c3cdd7; text-wrap: pretty; transition: min-height {{ ldDur }} {{ ldEase }}, font-size {{ wrDur }} {{ wrEase }}, line-height {{ wrDur }} {{ wrEase }}, max-width {{ wrDur }} {{ wrEase }};">We ask for evidence, only what the reason needs</div>
                     <div style="display: grid; grid-template-rows: {{ exRows }}; transition: grid-template-rows {{ moveDur }} {{ moveEase }};">
                       <div style="overflow: hidden; min-height: 0; opacity: {{ exOp }}; transition: opacity {{ exOpDur }} {{ moveEase }} {{ exOpDl }};">
                         <div style="min-width: 860px; font: 400 12px/18px 'Open Sans', sans-serif; color: #8b98a5;">The customer sends the one document their reason needs, and nothing at all when the reason needs none.</div>
@@ -1006,7 +1006,7 @@
                 </div>
                 <div style="flex: 1; min-width: 0; padding-bottom: {{ rowPb }}; display: flex; gap: 24px; align-items: flex-start; transition: padding-bottom {{ moveDur }} {{ moveEase }};">
                   <div style="flex: 1; min-width: 0; display: flex; flex-direction: column; gap: 2px;">
-                    <div style="min-height: {{ tlB }}; font-family: 'Open Sans', sans-serif; font-weight: 600; font-size: {{ titleSize }}; line-height: {{ titleLh }}; max-width: {{ titleMax }}; color: #f5f9fc; text-wrap: pretty; transition: min-height {{ ldDur }} {{ ldEase }}, font-size {{ wrDur }} {{ wrEase }}, line-height {{ wrDur }} {{ wrEase }}, max-width {{ wrDur }} {{ wrEase }};">We send the biggest disputes to a person</div>
+                    <div style="min-height: {{ titleLines }}; font-family: 'Open Sans', sans-serif; font-weight: 600; font-size: {{ titleSize }}; line-height: {{ titleLh }}; max-width: {{ titleMax }}; color: #f5f9fc; text-wrap: pretty; transition: min-height {{ ldDur }} {{ ldEase }}, font-size {{ wrDur }} {{ wrEase }}, line-height {{ wrDur }} {{ wrEase }}, max-width {{ wrDur }} {{ wrEase }};">We send the biggest disputes to a person</div>
                     <div style="display: grid; grid-template-rows: {{ exRows }}; transition: grid-template-rows {{ moveDur }} {{ moveEase }};">
                       <div style="overflow: hidden; min-height: 0; opacity: {{ exOp }}; transition: opacity {{ exOpDur }} {{ moveEase }} {{ exOpDl }};">
                         <!-- #8b98a5, the same grey as the other three descriptions. It
@@ -1582,6 +1582,14 @@ class Component extends DCLogic {
   componentDidMount() {
     this.onKey = e => {
       if (e.key !== 'Escape') return;
+      // Escape is the one way out with no control of its own, so it has no
+      // currentTarget to blur — but the thing it leaves may well have been
+      // reached by tab, and whatever ring is up belongs to a control this key is
+      // about to withdraw. Blur wherever focus is: nothing on this screen holds
+      // text, so there is no state to lose, and Escape meaning "out of here"
+      // covers the ring as well as the pane.
+      const act = document.activeElement;
+      if (act && act !== document.body && act.blur) act.blur();
       // Most modal first, and each Escape leaves exactly one thing. Full screen
       // is the innermost; then the run; then a step. The run and a step are
       // never both open, so the order between those two is a formality — but it
@@ -1601,6 +1609,26 @@ class Component extends DCLogic {
     const on   = this.state.step;   // step open  =>  plan minimal
     const run  = this.state.run;    // run open   =>  plan lying down
     const full = this.state.full;   // only ever inside a run
+
+    // ── A withdrawn control's focus ring goes with it ──────────────────────
+    // `pointer-events` and `tabindex` are interpolated; `style-focus` is not —
+    // support.js writes one static `:focus` rule per control (`support.js:1581`)
+    // and nothing in it can be gated. So an act that withdraws its own control
+    // leaves a 3px ring painted on something neither the pointer nor the
+    // keyboard can reach again, and nothing will ever dismiss it: click the
+    // plan's step-3 title and that ring sits inside the spine's selection ring,
+    // two blues in one 248px box saying two different things.
+    // Blurring is the third part of the withdrawal, beside the tabindex and the
+    // pointer, and it goes on the ACT rather than on the control because each of
+    // these acts has three or four controls. Only the acts that withdraw
+    // themselves take it: `toggleFull` stays live in both of its states, so
+    // blurring it would take a ring off a control still standing there.
+    const leave = patch => e => {
+      const el = e && e.currentTarget;
+      if (el && el.blur) el.blur();
+      this.setState(patch);
+    };
+
     return {
       threshold: this.props.threshold ?? '£500',
 
@@ -1610,15 +1638,15 @@ class Component extends DCLogic {
       closed: !this.state.tech,
       toggle: () => this.setState(p => ({ tech: !p.tech })),
 
-      openStep: () => this.setState({ step: true }),
-      closeStep: () => this.setState({ step: false }),
+      openStep: leave({ step: true }),
+      closeStep: leave({ step: false }),
 
       // Entering a run closes any step, so the plan is always wide when it lies
       // down; leaving one is `goBack`, which is the arrow, the crumb and Esc all
       // being the same act at three sizes. It leaves whichever of the two things
       // is on top of the plan, and there is only ever one.
-      openRun: () => this.setState({ run: true, step: false, full: false }),
-      goBack: () => this.setState({ run: false, step: false }),
+      openRun: leave({ run: true, step: false, full: false }),
+      goBack: leave({ run: false, step: false }),
       // Keyed on the run alone, not on `on || run`. With a step open you are also
       // looking at one, so the more specific sentence would arguably fit there
       // too — but that is a change to the plan screen's copy and not this job.
@@ -1792,12 +1820,27 @@ class Component extends DCLogic {
       // smaller, and the check for that is the box-underrun trace in
       // docs/notes.md, not the ratio of the two durations.
       //
-      // 3lh and 2lh are how many lines each title takes at the spine measure,
-      // in line units so they follow the type ladder rather than pixels. If
-      // copy ever makes one wrong, that title degrades to a jump — the layout
-      // does not break.
-      tlA: on ? '3lh' : '1lh',
-      tlB: on ? '2lh' : '1lh',
+      // 2lh is how many lines a title takes at the spine measure, in line units
+      // so it follows the type ladder rather than pixels. If copy ever makes it
+      // wrong, that title degrades to a jump — the layout does not break.
+      //
+      // One value for all five, where rows 1 and 3 used to reserve 3. Nothing
+      // needs the third line: swept across both directions of the move — the
+      // real max-width, font-size and line-height curves, counting line boxes
+      // rather than reading a height that the reservation itself was hiding — no
+      // title passes 2 lines at any instant, and rows 1 and 3 peak at 2 mid-move
+      // (mw=242 and mw=327). Over-reserving is the safe direction, so the slack
+      // was left there while it was unmeasured; measured, it is just slack.
+      // Its cost was visible in exactly one place, which is what makes this a fix
+      // and not a tidy-up: step 3 is the only loose row with anything under its
+      // title in the spine, so its 18px of dead line sat between the title and
+      // its count and made that one row look differently spaced from the other
+      // four. Row 1's 18px was invisible, at the bottom of its own block.
+      // 36px comes out of the collapsed plan with them, so rows 4 and 5 travel
+      // that much further in the same 340ms. That is distance, not discontinuity:
+      // nothing changes when anything rests, and reversals come from things
+      // resting at different times.
+      titleLines: on ? '2lh' : '1lh',
       ldDur: on ? '200ms' : '240ms',
       ldEase: on ? 'cubic-bezier(0, 0, 0.4, 0.8)' : 'cubic-bezier(0.3, 0, 0.5, 1)',
 
