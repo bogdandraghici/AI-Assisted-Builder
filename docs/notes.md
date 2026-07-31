@@ -90,7 +90,10 @@ pixel-identical.
   `{{ }}`. Every other attribute interpolates (`support.js:441`).
 - Withdraw a control with `pointer-events` **and** `tabindex` in the interpolated style, and blur on
   the act — a static `:focus` rule cannot be gated, so a control that withdraws itself keeps a ring
-  nothing can dismiss. `leave(patch)` blurs `currentTarget`; Escape blurs `activeElement`.
+  nothing can dismiss. `leave(patch)` blurs `currentTarget`; Escape blurs `activeElement`. Only
+  withdrawal earns the blur: a choice row stays live, so it keeps its focus and `Apply` stays a tab
+  away instead of a trip back through the document. A synthetic `click()` does not focus what a
+  pointer would, so a probe can only assert focus did not *leave*.
 - A clipped pane withdraws both at once via `visibility` — inherits, discrete, cannot judder.
 - Glyphs: `ph-warning` for negotiation, `ph-question-mark` for a missing detail (*not*
   `ph-question`, the top bar's help). `caret-right` discloses here, `arrow-right` changes what you
@@ -121,17 +124,21 @@ at `76px`. Past that the card stops drawing and lists the change — `+` / `−`
 
 A settled card being changed stays on the settled ground and takes no orange at all: rows
 `#131c24` on `#26313d`, hover lifting to `#1c2632` only, taken `#161f28` on `#4d97ea`, and the
-proposal's badge going flat grey. `Change` is a disclosure, so the row is the only commit and every
-early exit is the same act. Open, the head drops its answer half — the taken row is saying it. Two
-may be open at once; `shut` is for leaving the step, not for opening a sibling.
+proposal's badge going flat grey. Open, the head drops its answer half — the taken row is saying it.
+Two may be open at once; `shut` is for leaving the step, not for opening a sibling.
 
-A card wearing the wash commits on **Apply**, not on the row: answering it changes the plan, and the
-card is drawing what that would do, so the row and the drawing get read against each other first.
-`sel` is the chosen row and `-1` withdraws Apply — pointer and tabindex together, `#242424` quiet /
-`#2b7fe4` armed. Choosing is free: pick another, or walk away, and nothing has happened. Applying
-`Something else` spends the selection and leaves the card owed. A settled card has no Apply, because
-changing one is a swap and the row is the whole act. Apply sits in the acts band the cards already
-had, beside `Comment` — width, not height, which is why the plan's 16px of slack never came into it.
+Every card that asks you to choose commits on **Apply**, not on the row: answering changes the plan
+and the card is drawing what that would do, so the row and the drawing get read against each other
+first. `sel` is the chosen row, and *nothing to commit* is one test on both grounds —
+`sel === pick`, which on a card never answered is `sel === -1`. Withdrawn by pointer-events and
+tabindex together; quiet border is the card's own outline so it sits a step under `Comment`,
+`#242424` on the wash and `#1c2530` settled, `#2b7fe4` armed either way. Choosing is free: pick
+another, or walk away, and nothing has happened. Applying `Something else` spends only the
+selection — the card stays owed on the wash, unchanged when settled — and Apply always closes the
+card, which an owed one has nothing to close. Opening a settled card seeds `sel` from `pick`, and
+that seeding is the only rule the selection needs: closed, nobody reads it, so no exit clears it.
+Apply sits in the acts band the cards already had, beside `Comment` — width, not height, which is
+why the plan's 16px of slack never came into it.
 
 Applied, the plan's copy of the argument goes: `sc-if` on the card, which only relaxes the column.
 Left alone in that pass, and still wrong once C is answered: the spine's `Not agreed` over step 3
@@ -147,7 +154,9 @@ never moves. The grey `proposed` tag rides the taken row, so going your own way 
 
 `probe-change.html` drives all of it, `?t=` picking the sheet or `screen-01.dc.html?step=3`, and it
 asserts the invariant the sheet cannot: with a card open the plan is unchanged, not a word and
-nothing newly dashed or struck.
+nothing newly dashed or struck. `?shot=1` parks a settled card with its selection moved and its
+sibling with it still on the answer — armed and quiet Apply in one frame. Its assertions mutate the
+answers as they go, so a still must pick its row by reading which one is blue, not by index.
 
 The owed card is three bands — head, reply, acts — split by full-bleed
 `1px solid rgba(242,118,43,.16)`, at `12/16` · `14/16` · `10/16`. Prose caps at `62ch`, the

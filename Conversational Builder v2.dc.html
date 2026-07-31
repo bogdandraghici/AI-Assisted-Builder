@@ -1070,7 +1070,12 @@
                         </div>
                       </sc-if>
                     </div>
+                    <!-- The same two acts, in the same order, as a card that is asking:
+                         Apply then Comment. Withdrawn, it borrows the card's own outline
+                         and so sits a step under Comment — the same recession the wash
+                         card has at its own two values. -->
                     <div style="padding: 10px 16px; display: flex; align-items: center; gap: 8px;">
+                      <div onClick="{{ c.apply.act }}" tabindex="{{ c.apply.tab }}" style="display: inline-flex; align-items: center; gap: 6px; height: 28px; padding: 0 8px; border-radius: 6px; border: 1px solid {{ c.apply.border }}; background: {{ c.apply.bg }}; color: {{ c.apply.color }}; font: 600 12px/16px 'Open Sans', sans-serif; cursor: {{ c.apply.cursor }}; outline: none; pointer-events: {{ c.apply.pe }}; transition: all 160ms cubic-bezier(0.2, 0, 0.2, 1);" style-hover="background: #4d97ea; border-color: #4d97ea;" style-focus="box-shadow: 0 0 0 3px rgba(43, 127, 228, 0.32);"><i class="ph ph-check" style="font-size: 12px;"></i>Apply</div>
                       <div tabindex="0" style="display: inline-flex; align-items: center; gap: 6px; height: 28px; padding: 0 8px; border-radius: 6px; border: 1px solid #26313d; background: transparent; color: #c3cdd7; font: 600 12px/16px 'Open Sans', sans-serif; cursor: pointer; outline: none; transition: all 160ms cubic-bezier(0.2, 0, 0.2, 1);" style-hover="border-color: #4d97ea; background: #161f28; color: #f5f9fc;" style-focus="box-shadow: 0 0 0 3px rgba(43, 127, 228, 0.32);"><i class="ph ph-chat-teardrop-text" style="font-size: 12px;"></i>Comment</div>
                     </div>
                   </div>
@@ -1120,6 +1125,7 @@
                     </sc-if>
                   </div>
                   <div style="padding: 10px 16px; display: flex; align-items: center; gap: 8px;">
+                    <div onClick="{{ c.apply.act }}" tabindex="{{ c.apply.tab }}" style="display: inline-flex; align-items: center; gap: 6px; height: 28px; padding: 0 8px; border-radius: 6px; border: 1px solid {{ c.apply.border }}; background: {{ c.apply.bg }}; color: {{ c.apply.color }}; font: 600 12px/16px 'Open Sans', sans-serif; cursor: {{ c.apply.cursor }}; outline: none; pointer-events: {{ c.apply.pe }}; transition: all 160ms cubic-bezier(0.2, 0, 0.2, 1);" style-hover="background: #4d97ea; border-color: #4d97ea;" style-focus="box-shadow: 0 0 0 3px rgba(43, 127, 228, 0.32);"><i class="ph ph-check" style="font-size: 12px;"></i>Apply</div>
                     <div tabindex="0" style="display: inline-flex; align-items: center; gap: 6px; height: 28px; padding: 0 8px; border-radius: 6px; border: 1px solid #26313d; background: transparent; color: #c3cdd7; font: 600 12px/16px 'Open Sans', sans-serif; cursor: pointer; outline: none; transition: all 160ms cubic-bezier(0.2, 0, 0.2, 1);" style-hover="border-color: #4d97ea; background: #161f28; color: #f5f9fc;" style-focus="box-shadow: 0 0 0 3px rgba(43, 127, 228, 0.32);"><i class="ph ph-chat-teardrop-text" style="font-size: 12px;"></i>Comment</div>
                   </div>
                 </div>
@@ -1240,11 +1246,12 @@ class Component extends DCLogic {
       whyA: false, whyB: false, whyC: false, whyD: false,
       pickA: 1, pickB: 0, pickC: -1, pickD: -1,
       mineA: true, mineB: false, mineC: false, mineD: false,
-      // A row taken on a card still wearing the wash is a selection, not an answer:
-      // answering it changes the plan, and the card draws what that would do, so the
-      // row and the drawing get to be looked at together before `Apply` lands it.
-      // `-1` is nothing selected, which is what withdraws `Apply`.
-      selC: -1, selD: -1
+      // A row taken on a card is a selection, not an answer: answering changes the
+      // plan, so the row and what it would do get to be looked at together before
+      // `Apply` lands it. One `sel` per decision, owed or settled — on an owed card
+      // the baseline is `-1`, and on a settled one it is the row already taken, which
+      // is what `open` seeds it to. Closed, it means nothing.
+      selA: -1, selB: -1, selC: -1, selD: -1
     };
   })();
 
@@ -1364,10 +1371,13 @@ class Component extends DCLogic {
     // pane and the plan both live in this markup.
     // Per card, never `shut`: two cards may be open at once, because nothing queues
     // what nobody is waiting on. `shut` is for leaving the step, where they both go.
+    // Opening seeds the selection with the row that is taken — one blue on the card, and
+    // `Apply` withdrawn because there is nothing yet to commit. That seeding is the only
+    // rule the selection needs: closed, nobody reads it, so no exit has to clear it.
     const disclose = key => e => {
       const el = e && e.currentTarget;
       const want = !this.state['open' + key];
-      this.setState({ ['open' + key]: want, ['why' + key]: false }, () => {
+      this.setState({ ['open' + key]: want, ['why' + key]: false, ['sel' + key]: this.state['pick' + key] }, () => {
         if (!want) return;
         const card = el && el.closest && el.closest('[data-card="' + key + '"]');
         const row = card && card.querySelector('[data-row="' + this.state['pick' + key] + '"]');
@@ -1375,30 +1385,26 @@ class Component extends DCLogic {
       });
     };
 
-    // The row withdraws itself, so it blurs before it goes — and from an owed card it
-    // takes the whole wash with it. Answering is the same act whether the card was
-    // owed or settled: set `pick`, and it is yours from then on.
-    const take = (key, i, settles) => e => {
-      const el = e && e.currentTarget;
-      if (el && el.blur) el.blur();
-      const patch = { ['open' + key]: false, ['why' + key]: false };
-      if (settles) { patch['pick' + key] = i; patch['mine' + key] = true; }
-      this.setState(patch);
-    };
+    // Taking a row is the same act on both grounds: it moves the selection and nothing
+    // else. Free and reversible — pick another, or leave, and nothing has happened.
+    // It keeps its focus, unlike every other act here: a row that selects does not
+    // withdraw itself, so the ring is still on a live control — and blurring would put
+    // `Apply` a tab away from the top of the document, which is no way to reach the
+    // commit. Ring over a blue border is what opening the card already does.
+    const choose = (key, i) => () => this.setState({ ['sel' + key]: i });
 
     const owed = key => this.state['pick' + key] === -1;
     const mine = key => this.state['mine' + key];
 
-    // The rows of a card still wearing the wash. Selecting is free and reversible —
-    // pick another, or leave without applying and nothing has happened. Blue still
-    // means taken, and the blue badge goes the moment you take one: the proposal has
-    // done its work, and two blues on one row would be arguing with themselves.
+    // The rows of a card still wearing the wash. Blue still means taken, and the blue
+    // badge goes the moment you take one: the proposal has done its work, and two blues
+    // on one row would be arguing with themselves.
     const washRows = key => Component.CARDS[key].rows.map((r, i) => {
       const on = i === this.state['sel' + key];
       return {
         label: r.label,
         idx: String(i),
-        take: e => { const el = e && e.currentTarget; if (el && el.blur) el.blur(); this.setState({ ['sel' + key]: i }); },
+        take: choose(key, i),
         bg: on ? '#181818' : '#141414',
         border: on ? '#4d97ea' : '#2a2a2a',
         color: on ? '#f5f9fc' : '#c3cdd7',
@@ -1410,25 +1416,29 @@ class Component extends DCLogic {
 
     // `Apply` is the commit, and it offers nothing until there is something to commit:
     // withdrawn by `pointer-events` and `tabindex` together, never a live control that
-    // looks dead. On the plan's copy of the card it is withdrawn behind an open step
-    // as well, along with everything else on that card.
-    const applyAct = (key, live) => {
+    // looks dead. Nothing to commit is one test on both grounds — the selection is still
+    // the row that was already taken, `-1` on an owed card and `pick` on a settled one.
+    // `quiet` is the withdrawn border, the only thing the two grounds disagree about; on
+    // the plan's copy of the card `live` withdraws it behind an open step as well.
+    const applyAct = (key, live, quiet) => {
       const i = this.state['sel' + key];
-      const armed = i !== -1 && live;
+      const armed = i !== -1 && i !== this.state['pick' + key] && live;
       return {
         pe: armed ? 'auto' : 'none',
         tab: armed ? '0' : '-1',
         bg: armed ? '#2b7fe4' : 'transparent',
-        border: armed ? '#2b7fe4' : '#242424',
+        border: armed ? '#2b7fe4' : quiet,
         color: armed ? '#ffffff' : '#8b98a5',
         cursor: armed ? 'pointer' : 'not-allowed',
         // A row with no answer behind it is a handoff, not a choice: applying
-        // `Something else` says the reply is coming in prose, so the card keeps
-        // waiting and only the selection is spent.
+        // `Something else` says the reply is coming in prose, so the answer stays
+        // whatever it was — owed on the wash, unchanged on a settled card — and only
+        // the selection is spent. Either way the card is done being looked at, so it
+        // closes; an owed one has nothing open to close.
         act: e => {
           const el = e && e.currentTarget;
           if (el && el.blur) el.blur();
-          const patch = { ['sel' + key]: -1 };
+          const patch = { ['sel' + key]: -1, ['open' + key]: false, ['why' + key]: false };
           if (Component.CARDS[key].rows[i].answer !== undefined) {
             patch['pick' + key] = i;
             patch['mine' + key] = true;
@@ -1458,12 +1468,16 @@ class Component extends DCLogic {
         toggleWhy: () => this.setState(p => ({ ['why' + key]: !p['why' + key] })),
         because: card.because,
         source: card.source,
+        // Changing one is the same two acts as answering one: the row chooses and
+        // `Apply` commits. Open, the selection starts on the answer that is already
+        // there, so moving it is what gives `Apply` something to do.
+        apply: applyAct(key, true, '#1c2530'),
         rows: card.rows.map((r, i) => {
-          const taken = i === pick;
+          const taken = i === this.state['sel' + key];
           return {
             label: r.label,
             idx: String(i),
-            take: take(key, i, r.answer !== undefined),
+            take: choose(key, i),
             // The cool ladder, not the wash's flat neutral: this card never goes
             // orange. Blue is the only colour it needs, and it means taken.
             bg: taken ? '#161f28' : '#131c24',
@@ -1496,11 +1510,11 @@ class Component extends DCLogic {
       anyOwed: owed('C') || owed('D'),
       rowsC: washRows('C'),
       rowsD: washRows('D'),
-      applyC: applyAct('C', true),
-      applyD: applyAct('D', true),
+      applyC: applyAct('C', true, '#242424'),
+      applyD: applyAct('D', true, '#242424'),
       // The plan's copy of card C is the same decision: one `selC`, so a row taken
       // in the plan is taken in the step pane too.
-      planApply: applyAct('C', !(on || run)),
+      planApply: applyAct('C', !(on || run), '#242424'),
 
       threshold: this.props.threshold ?? '£500',
 

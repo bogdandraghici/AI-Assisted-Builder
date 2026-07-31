@@ -260,7 +260,7 @@
       <div>rule rgba(242,118,43,.16) full-bleed · prose 62ch</div>
       <div>word 10/12 +.14em · title 18/28 · prose 14/24</div>
       <div>choice row 8 / 12 · ring 14 · button 28 · radius 6</div>
-      <div>Apply #2b7fe4 → #4d97ea · withdrawn on #242424</div>
+      <div>Apply #2b7fe4 → #4d97ea · withdrawn #242424 / #1c2530</div>
       <div>wash rgba(242,118,43,.14 → .025) on .30</div>
       <div>thumb 96 · gap 12 · label 600 12/16</div>
       <div>step chip 32 · gap 14 · new = dashed .45</div>
@@ -343,9 +343,10 @@
   </div>
 
   <!-- 03 — Being changed. Live, because the whole claim is about what happens when you
-       do nothing: Change discloses and the row commits, so there is no pending state to
-       abandon. No animation here, which is what makes the sc-if legal — the collapse is
-       a beat that belongs to the builder page, not to this sheet. -->
+       do nothing: Change discloses, the row chooses and Apply commits, so leaving early
+       abandons a selection and never an answer. No animation here, which is what makes
+       the sc-if legal — the collapse is a beat that belongs to the builder page, not to
+       this sheet. -->
   <div style="display: flex; flex-direction: column; gap: 18px;">
     <div style="display: flex; align-items: baseline; gap: 16px;">
       <div style="font: 400 10px/12px ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; text-transform: uppercase; letter-spacing: 0.14em; color: #8b98a5; flex: none;">03 — Being changed · click it</div>
@@ -389,6 +390,7 @@
                   </sc-if>
                 </div>
                 <div style="padding: 10px 16px; display: flex; align-items: center; gap: 8px;">
+                  <div onClick="{{ applyA.act }}" tabindex="{{ applyA.tab }}" style="display: inline-flex; align-items: center; gap: 6px; height: 28px; padding: 0 8px; border-radius: 6px; border: 1px solid {{ applyA.border }}; background: {{ applyA.bg }}; color: {{ applyA.color }}; font: 600 12px/16px 'Open Sans', sans-serif; cursor: {{ applyA.cursor }}; outline: none; pointer-events: {{ applyA.pe }}; transition: all 160ms cubic-bezier(0.2, 0, 0.2, 1);" style-hover="background: #4d97ea; border-color: #4d97ea;" style-focus="box-shadow: 0 0 0 3px rgba(43, 127, 228, 0.32);"><i class="ph ph-check" style="font-size: 12px;"></i>Apply</div>
                   <div tabindex="0" style="display: inline-flex; align-items: center; gap: 6px; height: 28px; padding: 0 8px; border-radius: 6px; border: 1px solid #26313d; background: transparent; color: #c3cdd7; font: 600 12px/16px 'Open Sans', sans-serif; cursor: pointer; outline: none; transition: all 160ms cubic-bezier(0.2, 0, 0.2, 1);" style-hover="border-color: #4d97ea; background: #161f28; color: #f5f9fc;" style-focus="box-shadow: 0 0 0 3px rgba(43, 127, 228, 0.32);"><i class="ph ph-chat-teardrop-text" style="font-size: 12px;"></i>Comment</div>
                 </div>
               </div>
@@ -425,6 +427,7 @@
                   </sc-if>
                 </div>
                 <div style="padding: 10px 16px; display: flex; align-items: center; gap: 8px;">
+                  <div onClick="{{ applyB.act }}" tabindex="{{ applyB.tab }}" style="display: inline-flex; align-items: center; gap: 6px; height: 28px; padding: 0 8px; border-radius: 6px; border: 1px solid {{ applyB.border }}; background: {{ applyB.bg }}; color: {{ applyB.color }}; font: 600 12px/16px 'Open Sans', sans-serif; cursor: {{ applyB.cursor }}; outline: none; pointer-events: {{ applyB.pe }}; transition: all 160ms cubic-bezier(0.2, 0, 0.2, 1);" style-hover="background: #4d97ea; border-color: #4d97ea;" style-focus="box-shadow: 0 0 0 3px rgba(43, 127, 228, 0.32);"><i class="ph ph-check" style="font-size: 12px;"></i>Apply</div>
                   <div tabindex="0" style="display: inline-flex; align-items: center; gap: 6px; height: 28px; padding: 0 8px; border-radius: 6px; border: 1px solid #26313d; background: transparent; color: #c3cdd7; font: 600 12px/16px 'Open Sans', sans-serif; cursor: pointer; outline: none; transition: all 160ms cubic-bezier(0.2, 0, 0.2, 1);" style-hover="border-color: #4d97ea; background: #161f28; color: #f5f9fc;" style-focus="box-shadow: 0 0 0 3px rgba(43, 127, 228, 0.32);"><i class="ph ph-chat-teardrop-text" style="font-size: 12px;"></i>Comment</div>
                 </div>
               </div>
@@ -434,8 +437,8 @@
 
       </div>
       <div style="display: flex; flex-direction: column; gap: 14px;">
-        <div style="font: 400 12px/18px 'Open Sans', sans-serif; color: #8b98a5;">Change is a disclosure, not a commit — the row is the commit. So there is nothing to abandon: leave it open, press Escape, click the handle again, and the answer you had is the answer you keep.</div>
-        <div style="font: 400 12px/18px 'Open Sans', sans-serif; color: #8b98a5;"><span style="font: 400 12px/16px ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; color: #c3cdd7;">Something else — I will tell you</span> was never an answer. It closes the card unchanged and puts focus in the chat. The wash comes back only on a new card, once I have something to say about what you told me.</div>
+        <div style="font: 400 12px/18px 'Open Sans', sans-serif; color: #8b98a5;">Change is a disclosure, not a commit — and neither is the row. It opens with the selection on the answer already there, so <span style="font: 400 12px/16px ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; color: #c3cdd7;">Apply</span> offers nothing until you move it, and what you move is a selection: leave it open, press Escape, click the handle again, and the answer you had is the answer you keep. Same two acts as a card that is asking, because it is the same decision being made twice.</div>
+        <div style="font: 400 12px/18px 'Open Sans', sans-serif; color: #8b98a5;"><span style="font: 400 12px/16px ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; color: #c3cdd7;">Something else — I will tell you</span> was never an answer. Applying it closes the card unchanged and puts focus in the chat. The wash comes back only on a new card, once I have something to say about what you told me.</div>
         <div style="font: 400 12px/18px 'Open Sans', sans-serif; color: #8b98a5;">The label over the list is a rule, not a state. <span style="font: 400 12px/16px ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; color: #c3cdd7;">What I chose for you</span> is the queue of things you never answered, so any row you take on the second card empties it into <span style="font: 400 12px/16px ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; color: #c3cdd7;">Answered by you</span> — including the one I proposed. Agreeing with me is still answering; the way to leave it mine is to leave it alone.</div>
         <div style="font: 400 12px/18px 'Open Sans', sans-serif; color: #8b98a5;">No orange anywhere. The plan behind an open card is identical to the plan behind a closed one — nothing dashed, nothing struck — and it counts nowhere as waiting on you. Both cards may be open at once, because there is no queue for something nobody is waiting on.</div>
         <div style="height: 1px; background: #18212a;"></div>
@@ -501,7 +504,7 @@
             <div style="display: inline-flex; align-items: center; gap: 6px; height: 28px; padding: 0 8px; border-radius: 6px; border: 1px solid #242424; background: transparent; color: #8b98a5; font: 600 12px/16px 'Open Sans', sans-serif; cursor: not-allowed;"><i class="ph ph-chat-teardrop-text" style="font-size: 12px;"></i>Comment</div>
           </div>
         </div>
-        <div style="font: 400 12px/18px 'Open Sans', sans-serif; color: #8b98a5;">Two acts on a card that asks you to choose: Apply, then Comment, in that order because the first is the one it wants. Apply is withdrawn until a row is chosen — pointer and keyboard together, never a live control that looks dead. It exists here and not on a settled card because answering this changes the plan, and the card is drawing what that would do: the row and the drawing get to be read against each other before it lands. Changing something already settled is a swap, so there the row is still the whole act. A card gets a third only where it has a way out its rows do not cover, like the file card's <span style="font: 400 12px/16px ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; color: #c3cdd7;">Go on without it</span>. The fourth here is not disabled but withdrawn: in the plan behind an open step, <span style="font: 400 12px/16px ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; color: #c3cdd7;">pointer-events</span> and <span style="font: 400 12px/16px ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; color: #c3cdd7;">tabindex</span> go together.</div>
+        <div style="font: 400 12px/18px 'Open Sans', sans-serif; color: #8b98a5;">Two acts on a card that asks you to choose: Apply, then Comment, in that order because the first is the one it wants. Apply is withdrawn until a row is chosen — pointer and keyboard together, never a live control that looks dead. Every card that asks you to choose has it, settled ones included: answering changes the plan and the card is drawing what that would do, so the row and the drawing get to be read against each other before it lands. Nothing to commit is one test on both grounds — the selection is still the row that was already taken, which on a card that has never been answered is no row at all. A card gets a third only where it has a way out its rows do not cover, like the file card's <span style="font: 400 12px/16px ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; color: #c3cdd7;">Go on without it</span>. The fourth here is not disabled but withdrawn: in the plan behind an open step, <span style="font: 400 12px/16px ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; color: #c3cdd7;">pointer-events</span> and <span style="font: 400 12px/16px ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; color: #c3cdd7;">tabindex</span> go together.</div>
       </div>
 
       <div style="grid-column: 1 / -1; display: flex; flex-direction: column; gap: 18px;">
@@ -597,14 +600,14 @@
 </div>
 </x-dc>
 <script type="text/x-dc" data-dc-script>
-// Only section 03 has logic. A settled card being changed holds no pending answer —
-// the row is the commit and there is no confirm — so every way of leaving it early
-// is the same act: close, keep what was there.
+// Only section 03 has logic. A settled card being changed holds a pending selection and
+// no pending answer — the row chooses, `Apply` commits — so every way of leaving it
+// early is still the same act: close, keep what was there.
 class Component extends DCLogic {
   // `answer` is the second half of the settled sentence. A row without one is not an
-  // answer at all: `Something else` hands the reply to the chat, so it closes the card
-  // and changes nothing. `proposal` is the row I would have taken, and it is what
-  // decides the label over the list.
+  // answer at all: applying `Something else` hands the reply to the chat, so it closes
+  // the card and changes nothing. `proposal` is the row I would have taken, and it is
+  // what decides the label over the list.
   static CARDS = {
     A: {
       proposal: -1,
@@ -627,9 +630,12 @@ class Component extends DCLogic {
   // `mine` is whether YOU answered it, and it is a fact of its own rather than a
   // comparison against what I proposed — taking the row I badged is still you
   // answering, and `What I chose for you` is a review queue that reviewing empties.
+  // `sel` is the row chosen but not yet applied. Open seeds it with `pick`, which is what
+  // makes `Apply` offer nothing until the selection has actually moved; closed, nobody
+  // reads it, so no exit has to clear it.
   state = {
     openA: false, openB: false, whyA: false, whyB: false,
-    pickA: 1, pickB: 0, mineA: true, mineB: false
+    pickA: 1, pickB: 0, mineA: true, mineB: false, selA: 1, selB: 0
   };
 
   componentDidMount() {
@@ -656,7 +662,7 @@ class Component extends DCLogic {
     const toggle = key => e => {
       const el = e && e.currentTarget;
       const open = !this.state['open' + key];
-      this.setState({ ['open' + key]: open, ['why' + key]: false }, () => {
+      this.setState({ ['open' + key]: open, ['why' + key]: false, ['sel' + key]: this.state['pick' + key] }, () => {
         if (!open) return;
         const card = el && el.closest && el.closest('[data-card="' + key + '"]');
         const row = card && card.querySelector('[data-row="' + this.state['pick' + key] + '"]');
@@ -664,22 +670,44 @@ class Component extends DCLogic {
       });
     };
 
-    // The row withdraws itself, so it blurs before it goes — a static `:focus` rule
-    // cannot be gated, and an unreachable ring is worse than none.
-    const take = (key, i, settles) => e => {
-      const el = e && e.currentTarget;
-      if (el && el.blur) el.blur();
-      const patch = { ['open' + key]: false, ['why' + key]: false };
-      if (settles) { patch['pick' + key] = i; patch['mine' + key] = true; }
-      this.setState(patch);
+    // Taking a row moves the selection and nothing else, and it keeps its focus: a row
+    // that selects does not withdraw itself, so the ring is still on a live control —
+    // and blurring would put `Apply` a tab away from the top of the document.
+    const choose = (key, i) => () => this.setState({ ['sel' + key]: i });
+
+    // `Apply` is the commit, withdrawn until the selection has moved off the answer that
+    // is already there — pointer and keyboard together, never a live control that looks
+    // dead. Applying a row with no answer behind it is a handoff: the card closes and
+    // keeps what it had, and only the selection is spent.
+    const apply = key => {
+      const i = this.state['sel' + key];
+      const armed = i !== this.state['pick' + key];
+      return {
+        pe: armed ? 'auto' : 'none',
+        tab: armed ? '0' : '-1',
+        bg: armed ? '#2b7fe4' : 'transparent',
+        border: armed ? '#2b7fe4' : '#1c2530',
+        color: armed ? '#ffffff' : '#8b98a5',
+        cursor: armed ? 'pointer' : 'not-allowed',
+        act: e => {
+          const el = e && e.currentTarget;
+          if (el && el.blur) el.blur();
+          const patch = { ['open' + key]: false, ['why' + key]: false };
+          if (Component.CARDS[key].rows[i].answer !== undefined) {
+            patch['pick' + key] = i;
+            patch['mine' + key] = true;
+          }
+          this.setState(patch);
+        }
+      };
     };
 
     const dress = key => Component.CARDS[key].rows.map((r, i) => {
-      const taken = i === this.state['pick' + key];
+      const taken = i === this.state['sel' + key];
       return {
         label: r.label,
         idx: String(i),
-        take: take(key, i, r.answer !== undefined),
+        take: choose(key, i),
         bg: taken ? '#161f28' : '#131c24',
         border: taken ? '#4d97ea' : '#26313d',
         color: taken ? '#f5f9fc' : '#c3cdd7',
@@ -705,6 +733,7 @@ class Component extends DCLogic {
         ['caret' + key]: open ? '90deg' : '0deg',
         ['rule' + key]: open ? '1px solid #1c2530' : '0',
         ['toggle' + key]: toggle(key),
+        ['apply' + key]: apply(key),
         ['why' + key]: this.state['why' + key],
         ['caretWhy' + key]: this.state['why' + key] ? '90deg' : '0deg',
         ['toggleWhy' + key]: () => this.setState(p => ({ ['why' + key]: !p['why' + key] }))
