@@ -122,9 +122,14 @@ A settled card being changed stays on the settled ground and takes no orange at 
 `#131c24` on `#26313d`, hover lifting to `#1c2632` only, taken `#161f28` on `#4d97ea`, and the
 proposal's badge going flat grey. `Change` is a disclosure, so the row is the only commit and every
 early exit is the same act. Open, the head drops its answer half — the taken row is saying it. Two
-may be open at once; `shut` is for leaving the step, not for opening a sibling. Whose a settled
-thing is is a fact about the pick, so the card is rendered into whichever of the two lists that
-makes true — it walks from `What I chose for you` to `Answered by you` and the label never moves.
+may be open at once; `shut` is for leaving the step, not for opening a sibling.
+
+Owed and settled are one card at two values of `pick`, `-1` being the one that wears the wash —
+answering is a change of `pick`, not of species, so the same rows, the same `Something else` and the
+same `proposal` serve both. `mine` is a bit of its own, never `pick === proposal`: taking the row I
+badged is still you answering, and `What I chose for you` is a review queue that reviewing empties.
+The card is rendered into whichever list that makes true, so it walks between them and the label
+never moves. The grey `proposed` tag rides the taken row, so going your own way leaves no badge.
 
 `probe-change.html` drives all of it, `?t=` picking the sheet or `screen-01.dc.html?step=3`, and it
 asserts the invariant the sheet cannot: with a card open the plan is unchanged, not a word and

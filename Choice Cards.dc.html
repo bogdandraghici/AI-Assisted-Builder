@@ -431,7 +431,7 @@
       <div style="display: flex; flex-direction: column; gap: 14px;">
         <div style="font: 400 12px/18px 'Open Sans', sans-serif; color: #8b98a5;">Change is a disclosure, not a commit — the row is the commit. So there is nothing to abandon: leave it open, press Escape, click the handle again, and the answer you had is the answer you keep.</div>
         <div style="font: 400 12px/18px 'Open Sans', sans-serif; color: #8b98a5;"><span style="font: 400 12px/16px ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; color: #c3cdd7;">Something else — I will tell you</span> was never an answer. It closes the card unchanged and puts focus in the chat. The wash comes back only on a new card, once I have something to say about what you told me.</div>
-        <div style="font: 400 12px/18px 'Open Sans', sans-serif; color: #8b98a5;">The label over the list is a rule, not a state. Take the row I proposed and the second card stays <span style="font: 400 12px/16px ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; color: #c3cdd7;">What I chose for you</span>; take any other and it becomes <span style="font: 400 12px/16px ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; color: #c3cdd7;">Answered by you</span>.</div>
+        <div style="font: 400 12px/18px 'Open Sans', sans-serif; color: #8b98a5;">The label over the list is a rule, not a state. <span style="font: 400 12px/16px ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; color: #c3cdd7;">What I chose for you</span> is the queue of things you never answered, so any row you take on the second card empties it into <span style="font: 400 12px/16px ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; color: #c3cdd7;">Answered by you</span> — including the one I proposed. Agreeing with me is still answering; the way to leave it mine is to leave it alone.</div>
         <div style="font: 400 12px/18px 'Open Sans', sans-serif; color: #8b98a5;">No orange anywhere. The plan behind an open card is identical to the plan behind a closed one — nothing dashed, nothing struck — and it counts nowhere as waiting on you. Both cards may be open at once, because there is no queue for something nobody is waiting on.</div>
         <div style="height: 1px; background: #18212a;"></div>
         <div style="font: 400 12px/16px ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; color: #6b7783;">rows #131c24 on #26313d · hover lifts to #1c2632</div>
@@ -614,7 +614,13 @@ class Component extends DCLogic {
     }
   };
 
-  state = { openA: false, openB: false, whyA: false, whyB: false, pickA: 1, pickB: 0 };
+  // `mine` is whether YOU answered it, and it is a fact of its own rather than a
+  // comparison against what I proposed — taking the row I badged is still you
+  // answering, and `What I chose for you` is a review queue that reviewing empties.
+  state = {
+    openA: false, openB: false, whyA: false, whyB: false,
+    pickA: 1, pickB: 0, mineA: true, mineB: false
+  };
 
   componentDidMount() {
     // Escape closes one card at a time, innermost first: a disclosed argument before
@@ -654,7 +660,7 @@ class Component extends DCLogic {
       const el = e && e.currentTarget;
       if (el && el.blur) el.blur();
       const patch = { ['open' + key]: false, ['why' + key]: false };
-      if (settles) patch['pick' + key] = i;
+      if (settles) { patch['pick' + key] = i; patch['mine' + key] = true; }
       this.setState(patch);
     };
 
@@ -684,7 +690,7 @@ class Component extends DCLogic {
         // Open, the head keeps the subject and gives up the answer: the taken row is
         // saying it a line below, and the sentence is what the rows fold back into.
         ['tail' + key]: open ? '' : ' — ' + Component.CARDS[key].rows[pick].answer,
-        ['label' + key]: pick === Component.CARDS[key].proposal ? 'What I chose for you' : 'Answered by you',
+        ['label' + key]: this.state['mine' + key] ? 'Answered by you' : 'What I chose for you',
         ['handle' + key]: open ? '#4d97ea' : '#8b98a5',
         ['caret' + key]: open ? '90deg' : '0deg',
         ['rule' + key]: open ? '1px solid #1c2530' : '0',
