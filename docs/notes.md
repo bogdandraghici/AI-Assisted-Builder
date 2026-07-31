@@ -65,6 +65,9 @@ increments, read `getBoundingClientRect().top` out with `--dump-dom`.
   non-zero. Fail loudly on zero geometry — PASS over zero rects is worse than no check.
 - Measure with webfonts loaded. Give a click a turn to render. Check the target's own `style` for
   `{{`, not `document.body.innerHTML`.
+- Colours must be read **computed**, never out of the inline `style`: React sets them through the
+  style object, so the attribute comes back `rgb(77, 151, 234)` and a probe grepping `#4d97ea`
+  silently finds nothing. Lengths and `grid-template-*` survive as authored.
 - To read a pin, lift every `min-width` to 0 at once and take the floor.
 - A reserved line box hides its line count — count line boxes with `createRange()` +
   `selectNodeContents`, collapsing `getClientRects()` by `top`, on the element itself.
@@ -114,6 +117,11 @@ filled box a choice row uses. Orange marks the change (dashed = not there yet, s
 Ceiling is one fork of two arms, one level, drawn as a bracketed column with the condition in mono
 at `76px`. Past that the card stops drawing and lists the change — `+` / `−` / `~`, name in 600
 14/22, note in mono — with **See it in the plan** as the way to the real picture.
+
+A settled card being changed stays on the settled ground and takes no orange at all: rows
+`#131c24` on `#26313d`, hover lifting to `#1c2632` only, taken `#161f28` on `#4d97ea`, and the
+proposal's badge going flat grey. `Change` is a disclosure, so the row is the only commit and every
+early exit is the same act. Open, the head drops its answer half — the taken row is saying it.
 
 The owed card is three bands — head, reply, acts — split by full-bleed
 `1px solid rgba(242,118,43,.16)`, at `12/16` · `14/16` · `10/16`. Prose caps at `62ch`, the

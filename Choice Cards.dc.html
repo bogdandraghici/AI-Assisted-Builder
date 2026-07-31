@@ -28,7 +28,7 @@
     <div style="display: flex; flex-direction: column; gap: 10px;">
       <div style="font: 400 10px/12px ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; text-transform: uppercase; letter-spacing: 0.14em; color: #8b98a5;">System sheet · conversational builder v2</div>
       <div style="font: 700 24px/38px 'Open Sans', sans-serif; color: #f5f9fc;">The choice cards</div>
-      <div style="font: 400 14px/24px 'Open Sans', sans-serif; color: #a9b6c3; max-width: 96ch; text-wrap: pretty;">Two grounds and nothing between them: the wash means this is waiting on your reply, the quiet outlined card means it is settled. Which reply is owed comes from the glyph and the word, never the colour.</div>
+      <div style="font: 400 14px/24px 'Open Sans', sans-serif; color: #a9b6c3; max-width: 96ch; text-wrap: pretty;">Two grounds and nothing between them: the wash means this is waiting on your reply, the quiet outlined card means it is settled. Which reply is owed comes from the glyph and the word, never the colour. Changing something already settled stays on the settled ground — nothing is owed, so nothing washes.</div>
     </div>
     <div style="display: flex; flex-direction: column; gap: 6px; text-align: right; font: 400 12px/16px ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; color: #8b98a5; flex: none;">
       <div>2 grounds</div>
@@ -276,7 +276,7 @@
           <div style="font: 400 10px/12px ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; text-transform: uppercase; letter-spacing: 0.14em; color: #8b98a5;">Answered by you</div>
           <div style="background: #101820; border: 1px solid #1c2530; border-radius: 8px; padding: 12px 16px; display: flex; align-items: baseline; gap: 12px;">
             <div style="flex: 1; min-width: 0; font: 400 14px/22px 'Open Sans', sans-serif; color: #c3cdd7; text-wrap: pretty;"><span style="font-weight: 600;">Which disputes we check</span> — only the four reasons where a merchant can help</div>
-            <div tabindex="0" style="font: 600 12px/16px 'Open Sans', sans-serif; color: #8b98a5; cursor: pointer; outline: none; flex: none; transition: color 160ms cubic-bezier(0.2, 0, 0.2, 1);" style-hover="color: #4d97ea;">Change</div>
+            <div tabindex="0" style="display: inline-flex; align-items: center; gap: 6px; font: 600 12px/16px 'Open Sans', sans-serif; color: #8b98a5; cursor: pointer; outline: none; flex: none; transition: color 160ms cubic-bezier(0.2, 0, 0.2, 1);" style-hover="color: #4d97ea;">Change<i class="ph ph-caret-right" style="font-size: 12px;"></i></div>
           </div>
         </div>
 
@@ -284,7 +284,7 @@
           <div style="font: 400 10px/12px ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; text-transform: uppercase; letter-spacing: 0.14em; color: #8b98a5;">What I chose for you</div>
           <div style="background: #101820; border: 1px solid #1c2530; border-radius: 8px; padding: 12px 16px; display: flex; align-items: baseline; gap: 12px;">
             <div style="flex: 1; min-width: 0; font: 400 14px/22px 'Open Sans', sans-serif; color: #c3cdd7; text-wrap: pretty;"><span style="font-weight: 600;">What we tell the merchant</span> — the payment only, never the customer's own words</div>
-            <div tabindex="0" style="font: 600 12px/16px 'Open Sans', sans-serif; color: #8b98a5; cursor: pointer; outline: none; flex: none; transition: color 160ms cubic-bezier(0.2, 0, 0.2, 1);" style-hover="color: #4d97ea;">Change</div>
+            <div tabindex="0" style="display: inline-flex; align-items: center; gap: 6px; font: 600 12px/16px 'Open Sans', sans-serif; color: #8b98a5; cursor: pointer; outline: none; flex: none; transition: color 160ms cubic-bezier(0.2, 0, 0.2, 1);" style-hover="color: #4d97ea;">Change<i class="ph ph-caret-right" style="font-size: 12px;"></i></div>
           </div>
           <div style="background: #101820; border: 1px solid #1c2530; border-radius: 8px; padding: 12px 16px; display: flex; flex-direction: column; gap: 4px; font: 400 14px/24px 'Open Sans', sans-serif; color: #c3cdd7;">
           <div>Give the merchant <span tabindex="0" style="font: 400 14px/22px ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; color: #f5f9fc; border-bottom: 1px dashed #8b98a5; cursor: pointer; outline: none; transition: border-color 160ms cubic-bezier(0.2, 0, 0.2, 1);" style-hover="border-color: #4d97ea;" style-focus="border-color: #4d97ea; box-shadow: 0 0 0 3px rgba(43, 127, 228, 0.32);">4 seconds</span> to answer, then try <span tabindex="0" style="font: 400 14px/22px ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; color: #f5f9fc; border-bottom: 1px dashed #8b98a5; cursor: pointer; outline: none; transition: border-color 160ms cubic-bezier(0.2, 0, 0.2, 1);" style-hover="border-color: #4d97ea;" style-focus="border-color: #4d97ea; box-shadow: 0 0 0 3px rgba(43, 127, 228, 0.32);">once</span> more.</div>
@@ -292,20 +292,158 @@
           </div>
         </div>
 
+        <div style="display: flex; flex-direction: column; gap: 8px;">
+          <div style="font: 400 10px/12px ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; text-transform: uppercase; letter-spacing: 0.14em; color: #8b98a5;">What each owed card settles into</div>
+          <div style="display: flex; flex-direction: column;">
+
+            <div style="display: flex; flex-direction: column; gap: 2px; padding: 10px 0; border-bottom: 1px solid #18212a;">
+              <div style="font: 400 12px/16px ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; color: #6b7783;">Not agreed · You asked me to drop the merchant check</div>
+              <div style="font: 400 14px/22px 'Open Sans', sans-serif; color: #c3cdd7; text-wrap: pretty;"><span style="font-weight: 600;">The merchant check</span> — kept, as I have drawn it</div>
+            </div>
+
+            <div style="display: flex; flex-direction: column; gap: 2px; padding: 10px 0; border-bottom: 1px solid #18212a;">
+              <div style="font: 400 12px/16px ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; color: #6b7783;">Not answered · If the merchant does not answer, what happens?</div>
+              <div style="font: 400 14px/22px 'Open Sans', sans-serif; color: #c3cdd7; text-wrap: pretty;"><span style="font-weight: 600;">When the merchant goes quiet</span> — carry on without it, and tell the reviewer why</div>
+            </div>
+
+            <div style="display: flex; flex-direction: column; gap: 2px; padding: 10px 0; border-bottom: 1px solid #18212a;">
+              <div style="font: 400 12px/16px ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; color: #6b7783;">Not picked · Pick a shape for the four steps</div>
+              <div style="font: 400 14px/22px 'Open Sans', sans-serif; color: #c3cdd7; text-wrap: pretty;"><span style="font-weight: 600;">How the four steps sit</span> — a side rail</div>
+            </div>
+
+            <div style="display: flex; flex-direction: column; gap: 2px; padding: 10px 0; border-bottom: 1px solid #18212a;">
+              <div style="font: 400 12px/16px ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; color: #6b7783;">Needs a file · Have the letter you send today?</div>
+              <div style="font: 400 14px/22px 'Open Sans', sans-serif; color: #c3cdd7; text-wrap: pretty;"><span style="font-weight: 600;">The letter you send today</span> — read from the pack you gave me</div>
+            </div>
+
+            <div style="display: flex; flex-direction: column; gap: 2px; padding: 10px 0;">
+              <div style="font: 400 12px/16px ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; color: #6b7783;">Needs a system · Where do the customer&#39;s past orders come from?</div>
+              <div style="font: 400 14px/22px 'Open Sans', sans-serif; color: #c3cdd7; text-wrap: pretty;"><span style="font-weight: 600;">Where past orders come from</span> — stand-in rows for now</div>
+            </div>
+
+          </div>
+        </div>
+
       </div>
       <div style="display: flex; flex-direction: column; gap: 14px;">
         <div style="font: 400 12px/18px 'Open Sans', sans-serif; color: #8b98a5;">No eyebrows on a settled card. Whose answer it is is a label over the list, and every card under it is the same shape.</div>
-        <div style="font: 400 12px/18px 'Open Sans', sans-serif; color: #8b98a5;">Third shape holds no decision — the settings the step runs on, edited in place.</div>
+        <div style="font: 400 12px/18px 'Open Sans', sans-serif; color: #8b98a5;">Third shape holds no decision — the settings the step runs on, edited in place. It has no Change verb at all, which is the whole system's answer to revising something settled: you do it where it sits.</div>
+        <div style="font: 400 12px/18px 'Open Sans', sans-serif; color: #8b98a5;">The bold half of every sentence is the decision's subject, and it is the one line the owed card does not already carry — so it is authored per card, not derived from the title.</div>
         <div style="height: 1px; background: #18212a;"></div>
         <div style="font: 400 12px/16px ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; color: #6b7783;">#101820 on #1c2530 · padding 12 / 16 · label gap 8</div>
         <div style="font: 400 12px/16px ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; color: #6b7783;">sentence 14/22 · Change 600 12/16 → #4d97ea</div>
+        <div style="font: 400 12px/16px ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; color: #6b7783;">caret 12 · rotates 90° open · pair rows 10 / hairline</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 03 — Being changed. Live, because the whole claim is about what happens when you
+       do nothing: Change discloses and the row commits, so there is no pending state to
+       abandon. No animation here, which is what makes the sc-if legal — the collapse is
+       a beat that belongs to the builder page, not to this sheet. -->
+  <div style="display: flex; flex-direction: column; gap: 18px;">
+    <div style="display: flex; align-items: baseline; gap: 16px;">
+      <div style="font: 400 10px/12px ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; text-transform: uppercase; letter-spacing: 0.14em; color: #8b98a5; flex: none;">03 — Being changed · click it</div>
+      <div style="flex: 1; height: 1px; background: #18212a;"></div>
+    </div>
+    <div style="display: grid; grid-template-columns: 800px 1fr; gap: 40px; align-items: start;">
+      <div style="display: flex; flex-direction: column; gap: 24px;">
+
+        <div style="display: flex; flex-direction: column; gap: 8px;">
+          <div style="font: 400 10px/12px ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; text-transform: uppercase; letter-spacing: 0.14em; color: #8b98a5;">{{ labelA }}</div>
+          <div data-card="A" style="background: #101820; border: 1px solid #1c2530; border-radius: 8px; display: flex; flex-direction: column;">
+            <div style="padding: 12px 16px; display: flex; align-items: baseline; gap: 12px; border-bottom: {{ ruleA }};">
+              <div style="flex: 1; min-width: 0; font: 400 14px/22px 'Open Sans', sans-serif; color: #c3cdd7; text-wrap: pretty;"><span style="font-weight: 600;">Which disputes we check</span>{{ tailA }}</div>
+              <div onClick="{{ toggleA }}" tabindex="0" style="display: inline-flex; align-items: center; gap: 6px; font: 600 12px/16px 'Open Sans', sans-serif; color: {{ handleA }}; cursor: pointer; outline: none; flex: none; transition: color 160ms cubic-bezier(0.2, 0, 0.2, 1);" style-hover="color: #4d97ea;" style-focus="box-shadow: 0 0 0 3px rgba(43, 127, 228, 0.32);">Change<i class="ph ph-caret-right" style="font-size: 12px; transform: rotate({{ caretA }}); transition: transform 160ms cubic-bezier(0.2, 0, 0.2, 1);"></i></div>
+            </div>
+            <sc-if value="{{ openA }}" hint-placeholder-val="{{ true }}">
+              <div>
+                <div style="padding: 14px 16px; display: flex; flex-direction: column; gap: 8px; border-bottom: 1px solid #1c2530;">
+                  <sc-for list="{{ rowsA }}" as="r" hint-placeholder-count="3">
+                  <div data-row="{{ r.idx }}" onClick="{{ r.take }}" tabindex="0" style="display: flex; align-items: center; gap: 10px; padding: 8px 12px; background: {{ r.bg }}; border: 1px solid {{ r.border }}; border-radius: 8px; cursor: pointer; outline: none; color: {{ r.color }}; transition: background 160ms cubic-bezier(0.2, 0, 0.2, 1);" style-hover="background: #1c2632;" style-focus="box-shadow: 0 0 0 3px rgba(43, 127, 228, 0.32);">
+                    <div style="width: 14px; height: 14px; flex: none; border-radius: 99px; border: 1px solid {{ r.ring }}; display: grid; place-items: center;">
+                      <div style="width: 6px; height: 6px; border-radius: 99px; background: {{ r.dot }};"></div>
+                    </div>
+                    <div style="font: 400 14px/22px 'Open Sans', sans-serif;">{{ r.label }}</div>
+                    <sc-if value="{{ r.tag }}" hint-placeholder-val="{{ false }}">
+                    <div style="display: inline-flex; align-items: center; height: 18px; padding: 0 6px; border-radius: 4px; background: #131c24; border: 1px solid #26313d; color: #8b98a5; font: 400 10px/12px ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; text-transform: uppercase; letter-spacing: 0.14em; flex: none; margin-left: auto;">proposed</div>
+                    </sc-if>
+                  </div>
+                  </sc-for>
+                </div>
+                <div style="padding: 12px 16px; display: flex; flex-direction: column; gap: 8px; border-bottom: 1px solid #1c2530;">
+                  <div onClick="{{ toggleWhyA }}" tabindex="0" style="display: inline-flex; align-self: flex-start; align-items: center; gap: 6px; font: 400 12px/16px ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; color: #8b98a5; cursor: pointer; outline: none; transition: color 160ms cubic-bezier(0.2, 0, 0.2, 1);" style-hover="color: #c3cdd7;" style-focus="box-shadow: 0 0 0 3px rgba(43, 127, 228, 0.32);"><i class="ph ph-caret-right" style="font-size: 12px; transform: rotate({{ caretWhyA }}); transition: transform 160ms cubic-bezier(0.2, 0, 0.2, 1);"></i>Why I asked</div>
+                  <sc-if value="{{ whyA }}" hint-placeholder-val="{{ true }}">
+                    <div style="display: flex; flex-direction: column; gap: 6px;">
+                      <div style="font: 400 14px/24px 'Open Sans', sans-serif; color: #a9b6c3; max-width: 62ch; text-wrap: pretty;">The scheme only lets a merchant help on four of the reasons. On the rest there is nobody to ask, so the step would sit waiting for an answer that cannot come.</div>
+                      <div style="display: inline-flex; align-self: flex-start; align-items: center; gap: 8px; cursor: pointer; color: #8b98a5; transition: color 160ms cubic-bezier(0.2, 0, 0.2, 1);" style-hover="color: #f5f9fc;">
+                        <i class="ph ph-book-open-text" style="font-size: 14px; color: #8b98a5;"></i>
+                        <div style="font: 400 12px/16px ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;">Scheme rules §4.2</div>
+                      </div>
+                    </div>
+                  </sc-if>
+                </div>
+                <div style="padding: 10px 16px; display: flex; align-items: center; gap: 8px;">
+                  <div tabindex="0" style="display: inline-flex; align-items: center; gap: 6px; height: 28px; padding: 0 8px; border-radius: 6px; border: 1px solid #26313d; background: transparent; color: #c3cdd7; font: 600 12px/16px 'Open Sans', sans-serif; cursor: pointer; outline: none; transition: all 160ms cubic-bezier(0.2, 0, 0.2, 1);" style-hover="border-color: #4d97ea; background: #161f28; color: #f5f9fc;" style-focus="box-shadow: 0 0 0 3px rgba(43, 127, 228, 0.32);"><i class="ph ph-chat-teardrop-text" style="font-size: 12px;"></i>Comment</div>
+                </div>
+              </div>
+            </sc-if>
+          </div>
+        </div>
+
+        <div style="display: flex; flex-direction: column; gap: 8px;">
+          <div style="font: 400 10px/12px ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; text-transform: uppercase; letter-spacing: 0.14em; color: #8b98a5;">{{ labelB }}</div>
+          <div data-card="B" style="background: #101820; border: 1px solid #1c2530; border-radius: 8px; display: flex; flex-direction: column;">
+            <div style="padding: 12px 16px; display: flex; align-items: baseline; gap: 12px; border-bottom: {{ ruleB }};">
+              <div style="flex: 1; min-width: 0; font: 400 14px/22px 'Open Sans', sans-serif; color: #c3cdd7; text-wrap: pretty;"><span style="font-weight: 600;">What we tell the merchant</span>{{ tailB }}</div>
+              <div onClick="{{ toggleB }}" tabindex="0" style="display: inline-flex; align-items: center; gap: 6px; font: 600 12px/16px 'Open Sans', sans-serif; color: {{ handleB }}; cursor: pointer; outline: none; flex: none; transition: color 160ms cubic-bezier(0.2, 0, 0.2, 1);" style-hover="color: #4d97ea;" style-focus="box-shadow: 0 0 0 3px rgba(43, 127, 228, 0.32);">Change<i class="ph ph-caret-right" style="font-size: 12px; transform: rotate({{ caretB }}); transition: transform 160ms cubic-bezier(0.2, 0, 0.2, 1);"></i></div>
+            </div>
+            <sc-if value="{{ openB }}" hint-placeholder-val="{{ false }}">
+              <div>
+                <div style="padding: 14px 16px; display: flex; flex-direction: column; gap: 8px; border-bottom: 1px solid #1c2530;">
+                  <sc-for list="{{ rowsB }}" as="r" hint-placeholder-count="3">
+                  <div data-row="{{ r.idx }}" onClick="{{ r.take }}" tabindex="0" style="display: flex; align-items: center; gap: 10px; padding: 8px 12px; background: {{ r.bg }}; border: 1px solid {{ r.border }}; border-radius: 8px; cursor: pointer; outline: none; color: {{ r.color }}; transition: background 160ms cubic-bezier(0.2, 0, 0.2, 1);" style-hover="background: #1c2632;" style-focus="box-shadow: 0 0 0 3px rgba(43, 127, 228, 0.32);">
+                    <div style="width: 14px; height: 14px; flex: none; border-radius: 99px; border: 1px solid {{ r.ring }}; display: grid; place-items: center;">
+                      <div style="width: 6px; height: 6px; border-radius: 99px; background: {{ r.dot }};"></div>
+                    </div>
+                    <div style="font: 400 14px/22px 'Open Sans', sans-serif;">{{ r.label }}</div>
+                    <sc-if value="{{ r.tag }}" hint-placeholder-val="{{ false }}">
+                    <div style="display: inline-flex; align-items: center; height: 18px; padding: 0 6px; border-radius: 4px; background: #131c24; border: 1px solid #26313d; color: #8b98a5; font: 400 10px/12px ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; text-transform: uppercase; letter-spacing: 0.14em; flex: none; margin-left: auto;">proposed</div>
+                    </sc-if>
+                  </div>
+                  </sc-for>
+                </div>
+                <div style="padding: 12px 16px; display: flex; flex-direction: column; gap: 8px; border-bottom: 1px solid #1c2530;">
+                  <div onClick="{{ toggleWhyB }}" tabindex="0" style="display: inline-flex; align-self: flex-start; align-items: center; gap: 6px; font: 400 12px/16px ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; color: #8b98a5; cursor: pointer; outline: none; transition: color 160ms cubic-bezier(0.2, 0, 0.2, 1);" style-hover="color: #c3cdd7;" style-focus="box-shadow: 0 0 0 3px rgba(43, 127, 228, 0.32);"><i class="ph ph-caret-right" style="font-size: 12px; transform: rotate({{ caretWhyB }}); transition: transform 160ms cubic-bezier(0.2, 0, 0.2, 1);"></i>Why I asked</div>
+                  <sc-if value="{{ whyB }}" hint-placeholder-val="{{ false }}">
+                    <div style="font: 400 14px/24px 'Open Sans', sans-serif; color: #a9b6c3; max-width: 62ch; text-wrap: pretty;">The merchant is a third party. What the customer said happened is theirs, and the scheme does not need it to place the dispute — the payment on its own is enough.</div>
+                  </sc-if>
+                </div>
+                <div style="padding: 10px 16px; display: flex; align-items: center; gap: 8px;">
+                  <div tabindex="0" style="display: inline-flex; align-items: center; gap: 6px; height: 28px; padding: 0 8px; border-radius: 6px; border: 1px solid #26313d; background: transparent; color: #c3cdd7; font: 600 12px/16px 'Open Sans', sans-serif; cursor: pointer; outline: none; transition: all 160ms cubic-bezier(0.2, 0, 0.2, 1);" style-hover="border-color: #4d97ea; background: #161f28; color: #f5f9fc;" style-focus="box-shadow: 0 0 0 3px rgba(43, 127, 228, 0.32);"><i class="ph ph-chat-teardrop-text" style="font-size: 12px;"></i>Comment</div>
+                </div>
+              </div>
+            </sc-if>
+          </div>
+        </div>
+
+      </div>
+      <div style="display: flex; flex-direction: column; gap: 14px;">
+        <div style="font: 400 12px/18px 'Open Sans', sans-serif; color: #8b98a5;">Change is a disclosure, not a commit — the row is the commit. So there is nothing to abandon: leave it open, press Escape, click the handle again, and the answer you had is the answer you keep.</div>
+        <div style="font: 400 12px/18px 'Open Sans', sans-serif; color: #8b98a5;"><span style="font: 400 12px/16px ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; color: #c3cdd7;">Something else — I will tell you</span> was never an answer. It closes the card unchanged and puts focus in the chat. The wash comes back only on a new card, once I have something to say about what you told me.</div>
+        <div style="font: 400 12px/18px 'Open Sans', sans-serif; color: #8b98a5;">The label over the list is a rule, not a state. Take the row I proposed and the second card stays <span style="font: 400 12px/16px ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; color: #c3cdd7;">What I chose for you</span>; take any other and it becomes <span style="font: 400 12px/16px ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; color: #c3cdd7;">Answered by you</span>.</div>
+        <div style="font: 400 12px/18px 'Open Sans', sans-serif; color: #8b98a5;">No orange anywhere. The plan behind an open card is identical to the plan behind a closed one — nothing dashed, nothing struck — and it counts nowhere as waiting on you. Both cards may be open at once, because there is no queue for something nobody is waiting on.</div>
+        <div style="height: 1px; background: #18212a;"></div>
+        <div style="font: 400 12px/16px ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; color: #6b7783;">rows #131c24 on #26313d · hover lifts to #1c2632</div>
+        <div style="font: 400 12px/16px ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; color: #6b7783;">taken #161f28 on #4d97ea · ring 14 · dot 6</div>
+        <div style="font: 400 12px/16px ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; color: #6b7783;">proposed tag #131c24 on #26313d · bands 12 · 14 · 12 · 10</div>
       </div>
     </div>
   </div>
 
   <div style="display: flex; flex-direction: column; gap: 18px;">
     <div style="display: flex; align-items: baseline; gap: 16px;">
-      <div style="font: 400 10px/12px ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; text-transform: uppercase; letter-spacing: 0.14em; color: #8b98a5; flex: none;">03 — Controls, every state</div>
+      <div style="font: 400 10px/12px ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; text-transform: uppercase; letter-spacing: 0.14em; color: #8b98a5; flex: none;">04 — Controls, every state</div>
       <div style="flex: 1; height: 1px; background: #18212a;"></div>
     </div>
     <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 28px 12px; align-items: start;">
@@ -449,8 +587,116 @@
 </div>
 </x-dc>
 <script type="text/x-dc" data-dc-script>
+// Only section 03 has logic. A settled card being changed holds no pending answer —
+// the row is the commit and there is no confirm — so every way of leaving it early
+// is the same act: close, keep what was there.
 class Component extends DCLogic {
-  renderVals() { return {}; }
+  // `answer` is the second half of the settled sentence. A row without one is not an
+  // answer at all: `Something else` hands the reply to the chat, so it closes the card
+  // and changes nothing. `proposal` is the row I would have taken, and it is what
+  // decides the label over the list.
+  static CARDS = {
+    A: {
+      proposal: -1,
+      rows: [
+        { label: 'Every chargeback reason the scheme lists', answer: 'every chargeback reason the scheme lists' },
+        { label: 'Only the four where a merchant can help', answer: 'only the four reasons where a merchant can help' },
+        { label: 'Something else — I will tell you' }
+      ]
+    },
+    B: {
+      proposal: 0,
+      rows: [
+        { label: "The payment only, never the customer's own words", answer: "the payment only, never the customer's own words" },
+        { label: 'The payment and what the customer said happened', answer: 'the payment and what the customer said happened' },
+        { label: 'Something else — I will tell you' }
+      ]
+    }
+  };
+
+  state = { openA: false, openB: false, whyA: false, whyB: false, pickA: 1, pickB: 0 };
+
+  componentDidMount() {
+    // Escape closes one card at a time, innermost first: a disclosed argument before
+    // the card holding it. Nothing here holds text, so blurring loses no state.
+    this.onKey = e => {
+      if (e.key !== 'Escape') return;
+      const act = document.activeElement;
+      if (act && act !== document.body && act.blur) act.blur();
+      if (this.state.whyA || this.state.whyB) { this.setState({ whyA: false, whyB: false }); return; }
+      if (this.state.openA || this.state.openB) this.setState({ openA: false, openB: false });
+    };
+    document.addEventListener('keydown', this.onKey);
+  }
+
+  componentWillUnmount() {
+    document.removeEventListener('keydown', this.onKey);
+  }
+
+  renderVals() {
+    // Opening moves focus to the row that is taken, so Escape and the tab order start
+    // where the answer is. Scoped through the handle's own card rather than by id —
+    // this page is linked, not embedded, but the sheet should not depend on that.
+    const toggle = key => e => {
+      const el = e && e.currentTarget;
+      const open = !this.state['open' + key];
+      this.setState({ ['open' + key]: open, ['why' + key]: false }, () => {
+        if (!open) return;
+        const card = el && el.closest && el.closest('[data-card="' + key + '"]');
+        const row = card && card.querySelector('[data-row="' + this.state['pick' + key] + '"]');
+        if (row) row.focus();
+      });
+    };
+
+    // The row withdraws itself, so it blurs before it goes — a static `:focus` rule
+    // cannot be gated, and an unreachable ring is worse than none.
+    const take = (key, i, settles) => e => {
+      const el = e && e.currentTarget;
+      if (el && el.blur) el.blur();
+      const patch = { ['open' + key]: false, ['why' + key]: false };
+      if (settles) patch['pick' + key] = i;
+      this.setState(patch);
+    };
+
+    const dress = key => Component.CARDS[key].rows.map((r, i) => {
+      const taken = i === this.state['pick' + key];
+      return {
+        label: r.label,
+        idx: String(i),
+        take: take(key, i, r.answer !== undefined),
+        bg: taken ? '#161f28' : '#131c24',
+        border: taken ? '#4d97ea' : '#26313d',
+        color: taken ? '#f5f9fc' : '#c3cdd7',
+        ring: taken ? '#4d97ea' : '#8b98a5',
+        dot: taken ? '#4d97ea' : 'transparent',
+        // The badge that said `I would do this` on the wash is a flat grey tag once
+        // the row is taken, and it only appears on the row I actually proposed.
+        tag: taken && i === Component.CARDS[key].proposal
+      };
+    });
+
+    const card = key => {
+      const open = this.state['open' + key];
+      const pick = this.state['pick' + key];
+      return {
+        ['open' + key]: open,
+        ['rows' + key]: dress(key),
+        // Open, the head keeps the subject and gives up the answer: the taken row is
+        // saying it a line below, and the sentence is what the rows fold back into.
+        ['tail' + key]: open ? '' : ' — ' + Component.CARDS[key].rows[pick].answer,
+        ['label' + key]: pick === Component.CARDS[key].proposal ? 'What I chose for you' : 'Answered by you',
+        ['handle' + key]: open ? '#4d97ea' : '#8b98a5',
+        ['caret' + key]: open ? '90deg' : '0deg',
+        ['rule' + key]: open ? '1px solid #1c2530' : '0',
+        ['toggle' + key]: toggle(key),
+        ['why' + key]: this.state['why' + key],
+        ['caretWhy' + key]: this.state['why' + key] ? '90deg' : '0deg',
+        ['toggleWhy' + key]: () => this.setState(p => ({ ['why' + key]: !p['why' + key] }))
+      };
+    };
+
+    return { ...card('A'), ...card('B') };
+  }
 }
 </script>
 </body>
