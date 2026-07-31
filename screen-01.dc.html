@@ -1016,10 +1016,45 @@
                  `Change` rides the sentence, because the sentence is what it changes. -->
             <div style="display: flex; flex-direction: column; gap: 8px; padding-top: 12px;">
               <div style="font: 400 10px/12px ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; text-transform: uppercase; letter-spacing: 0.14em; color: #8b98a5;">Answered by you</div>
-              <div style="background: #101820; border: 1px solid #1c2530; border-radius: 8px; padding: 12px 16px; display: flex; align-items: baseline; gap: 12px;">
-                <div style="flex: 1; min-width: 0; font: 400 14px/22px 'Open Sans', sans-serif; color: #c3cdd7; text-wrap: pretty;"><span style="font-weight: 600;">Which disputes we check</span> — only the four reasons where a merchant can help</div>
-                <div tabindex="0" style="font: 600 12px/16px 'Open Sans', sans-serif; color: #8b98a5; cursor: pointer; outline: none; flex: none; transition: color 160ms cubic-bezier(0.2, 0, 0.2, 1);" style-hover="color: #4d97ea;">Change</div>
+              <!-- The list is whichever settled things are yours, so a card I chose for you
+                   arrives here the moment you take a row other than the one I proposed. -->
+              <sc-for list="{{ answered }}" as="c" hint-placeholder-count="1">
+              <div data-card="{{ c.key }}" style="background: #101820; border: 1px solid #1c2530; border-radius: 8px; display: flex; flex-direction: column;">
+                <div style="padding: 12px 16px; display: flex; align-items: baseline; gap: 12px; border-bottom: {{ c.rule }};">
+                  <div style="flex: 1; min-width: 0; font: 400 14px/22px 'Open Sans', sans-serif; color: #c3cdd7; text-wrap: pretty;"><span style="font-weight: 600;">{{ c.subject }}</span>{{ c.tail }}</div>
+                  <div onClick="{{ c.toggle }}" tabindex="0" style="display: inline-flex; align-items: center; gap: 6px; font: 600 12px/16px 'Open Sans', sans-serif; color: {{ c.handle }}; cursor: pointer; outline: none; flex: none; transition: color 160ms cubic-bezier(0.2, 0, 0.2, 1);" style-hover="color: #4d97ea;" style-focus="box-shadow: 0 0 0 3px rgba(43, 127, 228, 0.32);">Change<i class="ph ph-caret-right" style="font-size: 12px; transform: rotate({{ c.caret }}); transition: transform 160ms cubic-bezier(0.2, 0, 0.2, 1);"></i></div>
+                </div>
+                <sc-if value="{{ c.open }}" hint-placeholder-val="{{ false }}">
+                  <div>
+                    <div style="padding: 14px 16px; display: flex; flex-direction: column; gap: 8px; border-bottom: 1px solid #1c2530;">
+                      <sc-for list="{{ c.rows }}" as="r" hint-placeholder-count="3">
+                      <div data-row="{{ r.idx }}" onClick="{{ r.take }}" tabindex="0" style="display: flex; align-items: center; gap: 10px; padding: 8px 12px; background: {{ r.bg }}; border: 1px solid {{ r.border }}; border-radius: 8px; cursor: pointer; outline: none; color: {{ r.color }}; transition: background 160ms cubic-bezier(0.2, 0, 0.2, 1);" style-hover="background: #1c2632;" style-focus="box-shadow: 0 0 0 3px rgba(43, 127, 228, 0.32);">
+                        <div style="width: 14px; height: 14px; flex: none; border-radius: 99px; border: 1px solid {{ r.ring }}; display: grid; place-items: center;"><div style="width: 6px; height: 6px; border-radius: 99px; background: {{ r.dot }};"></div></div>
+                        <div style="font: 400 14px/22px 'Open Sans', sans-serif;">{{ r.label }}</div>
+                        <sc-if value="{{ r.tag }}" hint-placeholder-val="{{ false }}">
+                        <div style="display: inline-flex; align-items: center; height: 18px; padding: 0 6px; border-radius: 4px; background: #131c24; border: 1px solid #26313d; color: #8b98a5; font: 400 10px/12px ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; text-transform: uppercase; letter-spacing: 0.14em; flex: none; margin-left: auto;">proposed</div>
+                        </sc-if>
+                      </div>
+                      </sc-for>
+                    </div>
+                    <div style="padding: 12px 16px; display: flex; flex-direction: column; gap: 8px; border-bottom: 1px solid #1c2530;">
+                      <div onClick="{{ c.toggleWhy }}" tabindex="0" style="display: inline-flex; align-self: flex-start; align-items: center; gap: 6px; font: 400 12px/16px ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; color: #8b98a5; cursor: pointer; outline: none; transition: color 160ms cubic-bezier(0.2, 0, 0.2, 1);" style-hover="color: #c3cdd7;" style-focus="box-shadow: 0 0 0 3px rgba(43, 127, 228, 0.32);"><i class="ph ph-caret-right" style="font-size: 12px; transform: rotate({{ c.caretWhy }}); transition: transform 160ms cubic-bezier(0.2, 0, 0.2, 1);"></i>Why I asked</div>
+                      <sc-if value="{{ c.why }}" hint-placeholder-val="{{ false }}">
+                        <div style="display: flex; flex-direction: column; gap: 6px;">
+                          <div style="font: 400 14px/24px 'Open Sans', sans-serif; color: #a9b6c3; max-width: 62ch; text-wrap: pretty;">{{ c.because }}</div>
+                          <sc-if value="{{ c.source }}" hint-placeholder-val="{{ false }}">
+                          <div style="display: inline-flex; align-self: flex-start; align-items: center; gap: 8px; cursor: pointer; color: #8b98a5; transition: color 160ms cubic-bezier(0.2, 0, 0.2, 1);" style-hover="color: #f5f9fc;"><i class="ph ph-book-open-text" style="font-size: 14px; color: #8b98a5;"></i><div style="font: 400 12px/16px ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;">{{ c.source }}</div></div>
+                          </sc-if>
+                        </div>
+                      </sc-if>
+                    </div>
+                    <div style="padding: 10px 16px; display: flex; align-items: center; gap: 8px;">
+                      <div tabindex="0" style="display: inline-flex; align-items: center; gap: 6px; height: 28px; padding: 0 8px; border-radius: 6px; border: 1px solid #26313d; background: transparent; color: #c3cdd7; font: 600 12px/16px 'Open Sans', sans-serif; cursor: pointer; outline: none; transition: all 160ms cubic-bezier(0.2, 0, 0.2, 1);" style-hover="border-color: #4d97ea; background: #161f28; color: #f5f9fc;" style-focus="box-shadow: 0 0 0 3px rgba(43, 127, 228, 0.32);"><i class="ph ph-chat-teardrop-text" style="font-size: 12px;"></i>Comment</div>
+                    </div>
+                  </div>
+                </sc-if>
               </div>
+              </sc-for>
             </div>
 
           </div>
@@ -1030,10 +1065,45 @@
                  provenance is not a difference in what you can do about it. The label
                  above the list is whose these are, so no eyebrows and no stripes.
                  One verb across every settled thing on the screen: `Change`. -->
-            <div style="background: #101820; border: 1px solid #1c2530; border-radius: 8px; padding: 12px 16px; display: flex; align-items: baseline; gap: 12px;">
-              <div style="flex: 1; min-width: 0; font: 400 14px/22px 'Open Sans', sans-serif; color: #c3cdd7; text-wrap: pretty;"><span style="font-weight: 600;">What we tell the merchant</span> — the payment only, never the customer's own words</div>
-              <div tabindex="0" style="font: 600 12px/16px 'Open Sans', sans-serif; color: #8b98a5; cursor: pointer; outline: none; flex: none; transition: color 160ms cubic-bezier(0.2, 0, 0.2, 1);" style-hover="color: #4d97ea;">Change</div>
+            <!-- Same card, same template. It leaves this list for the one above the moment
+                 the row you take is not the row I proposed. -->
+            <sc-for list="{{ chosen }}" as="c" hint-placeholder-count="1">
+            <div data-card="{{ c.key }}" style="background: #101820; border: 1px solid #1c2530; border-radius: 8px; display: flex; flex-direction: column;">
+              <div style="padding: 12px 16px; display: flex; align-items: baseline; gap: 12px; border-bottom: {{ c.rule }};">
+                <div style="flex: 1; min-width: 0; font: 400 14px/22px 'Open Sans', sans-serif; color: #c3cdd7; text-wrap: pretty;"><span style="font-weight: 600;">{{ c.subject }}</span>{{ c.tail }}</div>
+                <div onClick="{{ c.toggle }}" tabindex="0" style="display: inline-flex; align-items: center; gap: 6px; font: 600 12px/16px 'Open Sans', sans-serif; color: {{ c.handle }}; cursor: pointer; outline: none; flex: none; transition: color 160ms cubic-bezier(0.2, 0, 0.2, 1);" style-hover="color: #4d97ea;" style-focus="box-shadow: 0 0 0 3px rgba(43, 127, 228, 0.32);">Change<i class="ph ph-caret-right" style="font-size: 12px; transform: rotate({{ c.caret }}); transition: transform 160ms cubic-bezier(0.2, 0, 0.2, 1);"></i></div>
+              </div>
+              <sc-if value="{{ c.open }}" hint-placeholder-val="{{ false }}">
+                <div>
+                  <div style="padding: 14px 16px; display: flex; flex-direction: column; gap: 8px; border-bottom: 1px solid #1c2530;">
+                    <sc-for list="{{ c.rows }}" as="r" hint-placeholder-count="3">
+                    <div data-row="{{ r.idx }}" onClick="{{ r.take }}" tabindex="0" style="display: flex; align-items: center; gap: 10px; padding: 8px 12px; background: {{ r.bg }}; border: 1px solid {{ r.border }}; border-radius: 8px; cursor: pointer; outline: none; color: {{ r.color }}; transition: background 160ms cubic-bezier(0.2, 0, 0.2, 1);" style-hover="background: #1c2632;" style-focus="box-shadow: 0 0 0 3px rgba(43, 127, 228, 0.32);">
+                      <div style="width: 14px; height: 14px; flex: none; border-radius: 99px; border: 1px solid {{ r.ring }}; display: grid; place-items: center;"><div style="width: 6px; height: 6px; border-radius: 99px; background: {{ r.dot }};"></div></div>
+                      <div style="font: 400 14px/22px 'Open Sans', sans-serif;">{{ r.label }}</div>
+                      <sc-if value="{{ r.tag }}" hint-placeholder-val="{{ false }}">
+                      <div style="display: inline-flex; align-items: center; height: 18px; padding: 0 6px; border-radius: 4px; background: #131c24; border: 1px solid #26313d; color: #8b98a5; font: 400 10px/12px ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; text-transform: uppercase; letter-spacing: 0.14em; flex: none; margin-left: auto;">proposed</div>
+                      </sc-if>
+                    </div>
+                    </sc-for>
+                  </div>
+                  <div style="padding: 12px 16px; display: flex; flex-direction: column; gap: 8px; border-bottom: 1px solid #1c2530;">
+                    <div onClick="{{ c.toggleWhy }}" tabindex="0" style="display: inline-flex; align-self: flex-start; align-items: center; gap: 6px; font: 400 12px/16px ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; color: #8b98a5; cursor: pointer; outline: none; transition: color 160ms cubic-bezier(0.2, 0, 0.2, 1);" style-hover="color: #c3cdd7;" style-focus="box-shadow: 0 0 0 3px rgba(43, 127, 228, 0.32);"><i class="ph ph-caret-right" style="font-size: 12px; transform: rotate({{ c.caretWhy }}); transition: transform 160ms cubic-bezier(0.2, 0, 0.2, 1);"></i>Why I asked</div>
+                    <sc-if value="{{ c.why }}" hint-placeholder-val="{{ false }}">
+                      <div style="display: flex; flex-direction: column; gap: 6px;">
+                        <div style="font: 400 14px/24px 'Open Sans', sans-serif; color: #a9b6c3; max-width: 62ch; text-wrap: pretty;">{{ c.because }}</div>
+                        <sc-if value="{{ c.source }}" hint-placeholder-val="{{ false }}">
+                        <div style="display: inline-flex; align-self: flex-start; align-items: center; gap: 8px; cursor: pointer; color: #8b98a5; transition: color 160ms cubic-bezier(0.2, 0, 0.2, 1);" style-hover="color: #f5f9fc;"><i class="ph ph-book-open-text" style="font-size: 14px; color: #8b98a5;"></i><div style="font: 400 12px/16px ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;">{{ c.source }}</div></div>
+                        </sc-if>
+                      </div>
+                    </sc-if>
+                  </div>
+                  <div style="padding: 10px 16px; display: flex; align-items: center; gap: 8px;">
+                    <div tabindex="0" style="display: inline-flex; align-items: center; gap: 6px; height: 28px; padding: 0 8px; border-radius: 6px; border: 1px solid #26313d; background: transparent; color: #c3cdd7; font: 600 12px/16px 'Open Sans', sans-serif; cursor: pointer; outline: none; transition: all 160ms cubic-bezier(0.2, 0, 0.2, 1);" style-hover="border-color: #4d97ea; background: #161f28; color: #f5f9fc;" style-focus="box-shadow: 0 0 0 3px rgba(43, 127, 228, 0.32);"><i class="ph ph-chat-teardrop-text" style="font-size: 12px;"></i>Comment</div>
+                  </div>
+                </div>
+              </sc-if>
             </div>
+            </sc-for>
 
             <!-- 4px between the lines: three settings, not a paragraph. -->
             <div style="background: #101820; border: 1px solid #1c2530; border-radius: 8px; padding: 12px 16px; display: flex; flex-direction: column; gap: 4px; font: 400 14px/24px 'Open Sans', sans-serif; color: #c3cdd7;">
@@ -1138,9 +1208,42 @@ class Component extends DCLogic {
       tech: false,
       run,
       at: Math.min(3, Math.max(1, parseInt(q.get('at'), 10) || 3)),
-      full: q.get('full') === '1'
+      full: q.get('full') === '1',
+      // A settled card being changed. `Change` discloses and the row commits, so
+      // there is no half-made answer to hold: every way of leaving early drops
+      // `open` and keeps `pick`.
+      openA: false, openB: false, whyA: false, whyB: false, pickA: 1, pickB: 0
     };
   })();
+
+  // The two settled cards in the step pane. `answer` is the second half of the
+  // sentence; a row without one is not an answer — `Something else` hands the reply
+  // to the chat and changes nothing. `proposal` is the row I would have taken, and
+  // it is what decides which of the two lists the card sits in.
+  static CARDS = {
+    A: {
+      subject: 'Which disputes we check',
+      proposal: -1,
+      because: 'The scheme only lets a merchant help on four of the reasons. On the rest there is nobody to ask, so the step would sit waiting for an answer that cannot come.',
+      source: 'Scheme rules §4.2',
+      rows: [
+        { label: 'Every chargeback reason the scheme lists', answer: 'every chargeback reason the scheme lists' },
+        { label: 'Only the four where a merchant can help', answer: 'only the four reasons where a merchant can help' },
+        { label: 'Something else — I will tell you' }
+      ]
+    },
+    B: {
+      subject: 'What we tell the merchant',
+      proposal: 0,
+      because: 'The merchant is a third party. What the customer said happened is theirs, and the scheme does not need it to place the dispute — the payment on its own is enough.',
+      source: '',
+      rows: [
+        { label: "The payment only, never the customer's own words", answer: "the payment only, never the customer's own words" },
+        { label: 'The payment and what the customer said happened', answer: 'the payment and what the customer said happened' },
+        { label: 'Something else — I will tell you' }
+      ]
+    }
+  };
 
   componentDidMount() {
     this.onKey = e => {
@@ -1150,10 +1253,13 @@ class Component extends DCLogic {
       // Nothing on this screen holds text, so blurring focus loses no state.
       const act = document.activeElement;
       if (act && act !== document.body && act.blur) act.blur();
-      // Most modal first, and each Escape leaves exactly one thing. Full screen
-      // is the innermost; then the run; then a step. The run and a step are
-      // never both open, so the order between those two is a formality — but it
-      // is written down rather than relied upon.
+      // Most modal first, and each Escape leaves exactly one thing. A disclosed
+      // argument is innermost of all, then the card holding it, then full screen;
+      // then the run; then a step. The run and a step are never both open, so the
+      // order between those two is a formality — but it is written down rather
+      // than relied upon. A card being changed is only ever inside a step.
+      if (this.state.whyA || this.state.whyB) { this.setState({ whyA: false, whyB: false }); return; }
+      if (this.state.openA || this.state.openB) { this.setState({ openA: false, openB: false }); return; }
       if (this.state.full) { this.setState({ full: false }); return; }
       if (this.state.run)  { this.setState({ run: false }); return; }
       if (this.state.step) this.setState({ step: false });
@@ -1183,7 +1289,89 @@ class Component extends DCLogic {
       this.setState(patch);
     };
 
+    // ── The settled cards, and changing one ────────────────────────────────
+    // Leaving the step takes any open card with it: the pane goes `visibility:
+    // hidden`, so a card left open would be an unreachable control holding the
+    // pane's height. Nothing is lost by it — `pick` is the answer, and `open`
+    // never held one.
+    const shut = { openA: false, openB: false, whyA: false, whyB: false };
+
+    // Opening moves focus to the row that is taken, so the tab order and Escape
+    // start where the answer is. Scoped through the handle's own card: the step
+    // pane and the plan both live in this markup.
+    // Per card, never `shut`: two cards may be open at once, because nothing queues
+    // what nobody is waiting on. `shut` is for leaving the step, where they both go.
+    const disclose = key => e => {
+      const el = e && e.currentTarget;
+      const want = !this.state['open' + key];
+      this.setState({ ['open' + key]: want, ['why' + key]: false }, () => {
+        if (!want) return;
+        const card = el && el.closest && el.closest('[data-card="' + key + '"]');
+        const row = card && card.querySelector('[data-row="' + this.state['pick' + key] + '"]');
+        if (row) row.focus();
+      });
+    };
+
+    // The row withdraws itself, so it blurs before it goes.
+    const take = (key, i, settles) => e => {
+      const el = e && e.currentTarget;
+      if (el && el.blur) el.blur();
+      const patch = { ['open' + key]: false, ['why' + key]: false };
+      if (settles) patch['pick' + key] = i;
+      this.setState(patch);
+    };
+
+    const mine = key => this.state['pick' + key] !== Component.CARDS[key].proposal;
+
+    const settled = key => {
+      const card = Component.CARDS[key];
+      const isOpen = this.state['open' + key];
+      const pick = this.state['pick' + key];
+      return {
+        key,
+        subject: card.subject,
+        // Open, the head gives up its answer half: the taken row is saying it a
+        // line below, and the sentence is what the rows fold back into.
+        tail: isOpen ? '' : ' — ' + card.rows[pick].answer,
+        open: isOpen,
+        rule: isOpen ? '1px solid #1c2530' : '0',
+        handle: isOpen ? '#4d97ea' : '#8b98a5',
+        caret: isOpen ? '90deg' : '0deg',
+        toggle: disclose(key),
+        why: this.state['why' + key],
+        caretWhy: this.state['why' + key] ? '90deg' : '0deg',
+        toggleWhy: () => this.setState(p => ({ ['why' + key]: !p['why' + key] })),
+        because: card.because,
+        source: card.source,
+        rows: card.rows.map((r, i) => {
+          const taken = i === pick;
+          return {
+            label: r.label,
+            idx: String(i),
+            take: take(key, i, r.answer !== undefined),
+            // The cool ladder, not the wash's flat neutral: this card never goes
+            // orange. Blue is the only colour it needs, and it means taken.
+            bg: taken ? '#161f28' : '#131c24',
+            border: taken ? '#4d97ea' : '#26313d',
+            color: taken ? '#f5f9fc' : '#c3cdd7',
+            ring: taken ? '#4d97ea' : '#8b98a5',
+            dot: taken ? '#4d97ea' : 'transparent',
+            // The badge that read `I would do this` on the wash is a flat grey
+            // tag once taken, and only on the row I actually proposed.
+            tag: taken && i === card.proposal
+          };
+        })
+      };
+    };
+
+    const which = want => ['A', 'B'].filter(k => mine(k) === want).map(settled);
+
     return {
+      // Whose the settled thing is is a fact about the pick, so the card is in
+      // whichever list that makes true rather than carrying a label of its own.
+      answered: which(true),
+      chosen: which(false),
+
       threshold: this.props.threshold ?? '£500',
 
       // The technical-detail disclosure, unchanged. It does not animate, so it
@@ -1192,15 +1380,15 @@ class Component extends DCLogic {
       closed: !this.state.tech,
       toggle: () => this.setState(p => ({ tech: !p.tech })),
 
-      openStep: leave({ step: true }),
-      closeStep: leave({ step: false }),
+      openStep: leave({ step: true, ...shut }),
+      closeStep: leave({ step: false, ...shut }),
 
       // Entering a run closes any step, so the plan is always wide when it lies
       // down; leaving one is `goBack`, which is the arrow, the crumb and Esc all
       // being the same act at three sizes. It leaves whichever of the two things
       // is on top of the plan, and there is only ever one.
-      openRun: leave({ run: true, step: false, full: false }),
-      goBack: leave({ run: false, step: false }),
+      openRun: leave({ run: true, step: false, full: false, ...shut }),
+      goBack: leave({ run: false, step: false, ...shut }),
       // Keyed on the run alone, not on `on || run`. With a step open you are also
       // looking at one, so the more specific sentence would arguably fit there
       // too — but that is a change to the plan screen's copy and not this job.

@@ -121,7 +121,14 @@ at `76px`. Past that the card stops drawing and lists the change — `+` / `−`
 A settled card being changed stays on the settled ground and takes no orange at all: rows
 `#131c24` on `#26313d`, hover lifting to `#1c2632` only, taken `#161f28` on `#4d97ea`, and the
 proposal's badge going flat grey. `Change` is a disclosure, so the row is the only commit and every
-early exit is the same act. Open, the head drops its answer half — the taken row is saying it.
+early exit is the same act. Open, the head drops its answer half — the taken row is saying it. Two
+may be open at once; `shut` is for leaving the step, not for opening a sibling. Whose a settled
+thing is is a fact about the pick, so the card is rendered into whichever of the two lists that
+makes true — it walks from `What I chose for you` to `Answered by you` and the label never moves.
+
+`probe-change.html` drives all of it, `?t=` picking the sheet or `screen-01.dc.html?step=3`, and it
+asserts the invariant the sheet cannot: with a card open the plan is unchanged, not a word and
+nothing newly dashed or struck.
 
 The owed card is three bands — head, reply, acts — split by full-bleed
 `1px solid rgba(242,118,43,.16)`, at `12/16` · `14/16` · `10/16`. Prose caps at `62ch`, the
