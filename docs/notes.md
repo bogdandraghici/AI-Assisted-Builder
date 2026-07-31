@@ -16,8 +16,8 @@ CSS transitions over interpolated inline styles; `support.js` re-resolves them e
 | Chat pane | fixed 360px, takes no part in the move |
 | Step pane content | `min-width: 780px` |
 | Row `min-width` pins @1440 | **838 / 838 / 860 / 979 / 860 / 860** |
-| Plan slack @1440×900 | **16px** — the filler at the end of the plan column |
-| Title `max-width` final (row) | 224 · (card) 194 — gaps included |
+| Plan slack @1440×900 | **12px** — the filler at the end of the plan column |
+| Title `max-width` final | **194**, one value for all five rows — gaps included |
 | `titleLines` | 2lh, one value for all five |
 | `planPinH` | 816 / 812 — *available* height, viewport less `planPad` |
 | Full-screen pins | chat 360, strip titles `3lh`, boundary `2lh` |
@@ -30,12 +30,20 @@ CSS transitions over interpolated inline styles; `support.js` re-resolves them e
 - The pins are a function of the chat's width and the counts column — move either and all six
   are invalid. The fourth (979) is on the contested step's **card**. A wider counts column is
   a motion change.
-- The plan does not scroll; anything added to the contested card comes out of the 16px slack.
+- The plan does not scroll; anything added to it comes out of the 12px slack. The open-me arrow
+  on every row cost 4 of the original 16 — its line box, on the four rows that had none.
+- The five rows are ONE `sc-for`, keyed by index (`support.js:639`): the list may never change
+  length or order, or the element has nothing to travel from. So building a step does not move
+  it between `Built` and `Not built yet` — it changes its word.
+- 194 is swept against `2lh` with **each** of the five as the open card, and the four that are
+  not open get the same 194: below the space either way, and one measure instead of two.
 
 ## Measuring
 
 Toggle, `document.getAnimations()`, `pause()` all, step every `currentTime` together in 16.7ms
-increments, read rects out with `--dump-dom`. Probes: `probe-*.html`.
+increments, read rects out with `--dump-dom`. Probes: `probe-*.html`, gitignored — `probe-build`
+settles every card and asserts Build arms at both grains, `probe-sweep` re-runs the `2lh` sweep
+with each step open and reports the slack.
 
 - Gate on hydration: `.sc-placeholder` gone, `sc-dc-streaming` off, tops non-zero. Fail loudly
   on zero geometry.
@@ -46,6 +54,12 @@ increments, read rects out with `--dump-dom`. Probes: `probe-*.html`.
   box hides its line count.
 - Absolute judder figures are rig-specific; gate on a same-rig before/after. Box-underrun
   (~2px fine, 18px+ bad) is the one figure that reproduces.
+- The browser folds `grid-row: 2; grid-column: 1` into `grid-area: 2 / 1`, so a probe that
+  matches the written attribute finds nothing — read the resolved placement.
+- The plan's filler is the **first** empty `flex: 1` div in the pane. Searching backwards
+  finds the run strip's 2px connectors, which live in the same pane and read as 2px of slack.
+- Matching a control by its label needs the DEEPEST match: when Build is live its gate
+  sentence is gone, which leaves the act region's own text equal to the label.
 
 ## Mechanics
 
@@ -55,6 +69,9 @@ increments, read rects out with `--dump-dom`. Probes: `probe-*.html`.
   `:focus` rule cannot be gated.
 - `Design System.dc.html` is the palette authority. One trap: warming the greys inside the
   wash goes mustard — flat grey is the answer, not a warmer grey.
+- The plan carries **arguments** only. A detail keeps its card in its own step's pane — three
+  wash cards in that column is the plan overflowing, and it does not scroll.
+- `Building` is grey. Orange is the wash, and a step being built is not waiting on you.
 
 ## Build
 
