@@ -24,15 +24,11 @@ pseudo-class attributes, `DCLogic` and React.
 
 ## Working here
 
-- This is a design prototype. Bias to speed — make the change, run the build, look at it.
-  Prose about the change is not part of the change.
-- **Don't document much, and don't read much.** [docs/notes.md](docs/notes.md) holds the numbers
-  that cost real measurement. Open it when you are about to touch the transition or a pin;
-  otherwise go straight to the source doc. Write back only when a measured number changes or a
-  new trap bites — a line or two, never the reasoning that got there. Same for comments in the
-  source doc: state the value, don't justify it.
-- Specs and plans only for large features — anything that restructures a screen or touches the
-  transition. Tweaks, copy and single-state changes go straight to the source doc.
+- This is a design prototype with a handful of screens. Make the change, run the build, look
+  at it. No specs, no plans, no write-ups — prose about the change is not part of the change.
+- **Don't read or write documentation.** The `.dc.html` sources are the truth; go straight to
+  them. The one exception is [docs/notes.md](docs/notes.md): open it only when touching the
+  transition or a pin, and write back only a changed measured number — one line, no reasoning.
 - Preview over HTTP: `python3 -m http.server 8765 --bind 127.0.0.1`. Opening `file://` breaks
   `support.js` and the local fonts.
 - **Never push unless I explicitly ask** — the repo is public and gets indexed. Commit freely;
