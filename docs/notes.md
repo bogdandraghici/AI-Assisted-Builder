@@ -65,9 +65,10 @@ increments, read `getBoundingClientRect().top` out with `--dump-dom`.
   non-zero. Fail loudly on zero geometry — PASS over zero rects is worse than no check.
 - Measure with webfonts loaded. Give a click a turn to render. Check the target's own `style` for
   `{{`, not `document.body.innerHTML`.
-- Colours must be read **computed**, never out of the inline `style`: React sets them through the
-  style object, so the attribute comes back `rgb(77, 151, 234)` and a probe grepping `#4d97ea`
-  silently finds nothing. Lengths and `grid-template-*` survive as authored.
+- Read state off the **inline** `style`, never computed — computed gives whatever the transition is
+  part-way through, and right after a click that is still the old value. A row with
+  `transition: all` reads as unselected for 160ms. Colours in the attribute come back
+  `rgb(77, 151, 234)`, so grep the rgb triple, not `#4d97ea`; lengths survive as authored.
 - To read a pin, lift every `min-width` to 0 at once and take the floor.
 - A reserved line box hides its line count — count line boxes with `createRange()` +
   `selectNodeContents`, collapsing `getClientRects()` by `top`, on the element itself.
@@ -123,6 +124,19 @@ A settled card being changed stays on the settled ground and takes no orange at 
 proposal's badge going flat grey. `Change` is a disclosure, so the row is the only commit and every
 early exit is the same act. Open, the head drops its answer half — the taken row is saying it. Two
 may be open at once; `shut` is for leaving the step, not for opening a sibling.
+
+A card wearing the wash commits on **Apply**, not on the row: answering it changes the plan, and the
+card is drawing what that would do, so the row and the drawing get read against each other first.
+`sel` is the chosen row and `-1` withdraws Apply — pointer and tabindex together, `#242424` quiet /
+`#2b7fe4` armed. Choosing is free: pick another, or walk away, and nothing has happened. Applying
+`Something else` spends the selection and leaves the card owed. A settled card has no Apply, because
+changing one is a swap and the row is the whole act. Apply sits in the acts band the cards already
+had, beside `Comment` — width, not height, which is why the plan's 16px of slack never came into it.
+
+Applied, the plan's copy of the argument goes: `sc-if` on the card, which only relaxes the column.
+Left alone in that pass, and still wrong once C is answered: the spine's `Not agreed` over step 3
+(it lives inside the `rmRows` collapse, so it cannot be `sc-if`-ed) and the counts chips, which are
+the counts column and therefore a motion change.
 
 Owed and settled are one card at two values of `pick`, `-1` being the one that wears the wash —
 answering is a change of `pick`, not of species, so the same rows, the same `Something else` and the
