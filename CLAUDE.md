@@ -11,7 +11,8 @@ and `Choice Cards.dc.html` are reference docs. All are static HTML rendered clie
 - This is a design prototype. Make the change and look at it. No specs, no plans, no
 write-ups — prose about the change is not part of the change.
 - **That rule covers the side doors too**, which is where it keeps getting broken: commit
-messages are one line, comments name a trap rather than narrate the change, `docs/notes.md`
+messages are one line, code comments are one short line that names a trap rather than
+narrating the change, `docs/notes.md`
 takes measured numbers and traps and never a story, and no new `.md` file appears unless I
 ask for one.
 - **Don't report back at length.** I read the diff and look at the screen. Say what changed
