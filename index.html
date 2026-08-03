@@ -1610,17 +1610,25 @@ class Component extends DCLogic {
     // A slot being left: open until the beat starts, shut for the whole of it, and
     // withdrawn the moment it starts closing — nothing offers what it cannot do, and
     // a card on its way out cannot take an answer.
-    // `gone` is this copy having been picked up by the flyer. It goes over the hold, under
-    // the flyer and against the sentence coming up in it — the same wash, the same box, so
-    // what you see is the question turning into its answer and not one card over another.
+    // `gone` is this copy having been picked up by the flyer: the flyer is the same pixels
+    // in the same place, so this one goes at once rather than fading beside itself.
+    //
+    // Off the beat every duration here is ZERO, and that is not tidiness. `sc-for` keys by
+    // index (`support.js:639`), so the card that unmounts at the end of the beat hands its
+    // node to whatever was under it in the list — and arguments sort first, so a settling
+    // argument hands the surviving question a node that is folded shut and blank. On a
+    // duration it spent 640ms animating back open, which took 360px out of the pane in one
+    // frame and read as the page reloading. At `0s` the inherited node snaps to what the
+    // survivor already was, the leaving slot cost nothing to unmount, and the total height
+    // does not change — so the handover is invisible, which is the whole idea.
     const leaves = (k, gap, gone) => {
       const s = st(k);
       return {
         box: s ? '0fr' : '1fr', pull: s ? (-gap) + 'px' : '0px', fade: s ? '0' : '1',
         pe: s ? 'none' : 'auto', tab: s ? '-1' : '0',
         ring: '#1c2530', ringDur: '0s',
-        dur: sDur,
-        fadeDur: gone ? '0s' : outFade, fadeDl: gone ? '0s' : outDl
+        dur: s ? sDur : '0s',
+        fadeDur: (gone || !s) ? '0s' : outFade, fadeDl: (gone || !s) ? '0s' : outDl
       };
     };
     // A slot being landed in: shut for the first render of the beat only.

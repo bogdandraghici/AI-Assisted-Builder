@@ -31,11 +31,21 @@ constrained by what, and what a wrong choice looked like.
 - The flyer closes its OFFSET from the landing card, never the gap to it: the slot it is heading for
   is still opening, so interpolating towards the live rect sends it 130px past and back up. Read the
   target every frame and land is exact; the swap at the end costs no pixels.
+- Every duration in the beat is **`0s` off the beat**, and that is load-bearing, not tidiness.
+  `sc-for` keys by index (`support.js:639`), so the card that unmounts at the end hands its node to
+  whatever was under it in the list — and arguments sort first, so a settling argument hands the
+  surviving question a node that is folded shut and blank. On a duration the survivor spent 640ms
+  animating back open: **670k pixels in one frame**, 32% of the screen, which is what read as the
+  page reloading. At `0s` it snaps to what it already was and the handover is invisible.
+  Sorting the settling card last instead only moves the jump to the front of the beat, where the
+  survivor teleports up into its place — the durations are the fix, not the order.
 - The two ends still carry fades for the paths with no flyer — the plan's ground, a shut step,
   reduced motion — out at **180 / 400**, in at **60 / 360**. They may not share one: faded together
-  they cross at half, both ghosts, and the beat reads as a delete plus a jump. And the landing card
-  is blank for a flight and up **instantly** when it ends — 360ms of a landed answer nobody sees is
-  the bug that hid here for a while.
+  they cross at half, both ghosts, and the beat reads as a delete plus a jump.
+- A beat that looks right in stills can still be wrong. Diff consecutive **screencast** frames
+  (`Page.startScreencast` over CDP, not `screenshot` — 80ms apart misses a one-frame flash) and read
+  the pixel count. Every jump found here was invisible to `getBoundingClientRect` on the elements
+  anyone would think to probe.
 - The plan's 12px of slack is a budget. The open-me arrow cost 4 of the original 16, and the
   write field's 44 is why the plan's copy of the card drops the `because`. The plan's wrapper is
   `overflow: hidden`, so an overrun clips silently — measure the underrun, never `scrollHeight`.
