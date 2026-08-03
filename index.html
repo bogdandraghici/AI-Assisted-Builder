@@ -187,7 +187,7 @@
             <div style="width: 22px; height: 22px; flex: none; border-radius: 99px; background: #2b7fe4; color: #ffffff; display: grid; place-items: center; font: 700 10px/12px 'Open Sans', sans-serif;">LC</div>
             <div style="flex: 1; min-width: 0; display: flex; flex-direction: column; gap: 4px;">
               <div style="font: 600 12px/16px 'Open Sans', sans-serif; color: #8b98a5;">You <span style="font-weight: 400;">· 09:48</span></div>
-              <div style="font: 400 14px/24px 'Open Sans', sans-serif; color: #c3cdd7; text-wrap: pretty;">Drop the merchant check — it slows the customer down.</div>
+              <div style="font: 400 14px/24px 'Open Sans', sans-serif; color: #c3cdd7; text-wrap: pretty;">Drop the merchant check.</div>
             </div>
           </div>
           </div>
@@ -212,12 +212,12 @@
             <div style="width: 22px; height: 22px; flex: none; border-radius: 99px; background: rgba(139, 152, 165, 0.16); display: grid; place-items: center;"><img src="assets/flowx-mark-white.svg" alt="Agent" style="height: 11px; width: auto; flex: none;" /></div>
             <div style="flex: 1; min-width: 0; display: flex; flex-direction: column; gap: 8px;">
               <div style="font: 600 12px/16px 'Open Sans', sans-serif; color: #8b98a5;">Agent <span style="font-weight: 400;">· 09:49</span></div>
-              <div style="font: 400 14px/24px 'Open Sans', sans-serif; color: #f5f9fc; text-wrap: pretty;">That changes the plan — without a merchant attempt first, the chargeback is out of scope.</div>
-              <div style="display: flex; flex-direction: column; gap: 8px; margin-top: 4px;">
-                <div tabindex="0" style="display: flex; align-items: center; gap: 8px; height: 36px; padding: 0 12px; border-radius: 8px; border: 1px solid #26313d; background: #101820; color: #f5f9fc; font: 600 12px/16px 'Open Sans', sans-serif; cursor: pointer; outline: none; transition: all 160ms cubic-bezier(0.2, 0, 0.2, 1);" style-hover="border-color: #4d97ea; background: #161f28;" style-focus="box-shadow: 0 0 0 3px rgba(43, 127, 228, 0.32);">
+              <div style="font: 400 14px/24px 'Open Sans', sans-serif; color: #f5f9fc; text-wrap: pretty;">That changes the plan. A chargeback counts only after the merchant has had its chance to put it right — drop the check and every dispute we file is out of scope.</div>
+              <div style="display: flex; flex-direction: column; gap: 8px;">
+                <div tabindex="0" style="display: flex; align-items: center; gap: 8px; height: 32px; padding: 0 12px; border-radius: 8px; border: 1px solid #26313d; background: #101820; color: #f5f9fc; font: 600 12px/16px 'Open Sans', sans-serif; cursor: pointer; outline: none; transition: all 160ms cubic-bezier(0.2, 0, 0.2, 1);" style-hover="border-color: #4d97ea; background: #161f28;" style-focus="box-shadow: 0 0 0 3px rgba(43, 127, 228, 0.32);">
                   <i class="ph ph-check" style="font-size: 12px; color: #4d97ea; flex: none;"></i>Keep it, out of the customer's way
                 </div>
-                <div onClick="{{ segPlanAct }}" tabindex="0" style="display: flex; align-items: center; gap: 8px; height: 36px; padding: 0 12px; border-radius: 8px; border: 1px solid rgba(242, 118, 43, 0.30); background: rgba(242, 118, 43, 0.06); color: #f5f9fc; font: 600 12px/16px 'Open Sans', sans-serif; cursor: pointer; outline: none; transition: all 160ms cubic-bezier(0.2, 0, 0.2, 1);" style-hover="border-color: rgba(242, 118, 43, 0.60); background: rgba(242, 118, 43, 0.12);" style-focus="box-shadow: 0 0 0 3px rgba(43, 127, 228, 0.32);">
+                <div onClick="{{ segPlanAct }}" tabindex="0" style="display: flex; align-items: center; gap: 8px; height: 32px; padding: 0 12px; border-radius: 8px; border: 1px solid rgba(242, 118, 43, 0.30); background: rgba(242, 118, 43, 0.06); color: #f5f9fc; font: 600 12px/16px 'Open Sans', sans-serif; cursor: pointer; outline: none; transition: all 160ms cubic-bezier(0.2, 0, 0.2, 1);" style-hover="border-color: rgba(242, 118, 43, 0.60); background: rgba(242, 118, 43, 0.12);" style-focus="box-shadow: 0 0 0 3px rgba(43, 127, 228, 0.32);">
                   <div style="width: 8px; height: 8px; flex: none; border-radius: 99px; background: #f2762b;"></div>Answer it on the plan<i class="ph ph-arrow-right" style="font-size: 12px; margin-left: auto; color: #f2985c;"></i>
                 </div>
               </div>
@@ -1870,7 +1870,7 @@ class Component extends DCLogic {
       aa: fold(S.replied),
       // One text element interpolated, per the rule below. The composer only stages the one
       // scripted request, and only while a run is up with nothing already asked.
-      compText: S.draft ? 'Drop the merchant check — it slows the customer down.' : 'Reply to the agent',
+      compText: S.draft ? 'Drop the merchant check.' : 'Reply to the agent',
       compColor: S.draft ? '#f5f9fc' : '#7b8896',
       compAct: () => { if (ranLive && !S.ask && !S.draft) this.setState({ draft: true }); },
       sendPE: S.draft ? 'auto' : 'none',
