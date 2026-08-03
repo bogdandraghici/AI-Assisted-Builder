@@ -24,6 +24,7 @@
   /* A placeholder cannot be coloured inline. */
   ::placeholder { color: #6b7783; opacity: 1; }
   @keyframes run-spin { to { transform: rotate(360deg); } }
+  @keyframes ask-think { 0%, 60%, 100% { opacity: 0.25; } 30% { opacity: 1; } }
   @media (prefers-reduced-motion: reduce) {
     * { transition-duration: 0s !important; transition-delay: 0s !important; animation: none !important; }
   }
@@ -178,10 +179,10 @@
           </div>
           </div>
 
-<!-- The mid-run ask. The card is on the plan, which the run hides — so the reply carries both ways out. -->
-          <div style="display: grid; grid-template-rows: {{ ax.rows }}; margin-top: {{ ax.mt }}; transition: grid-template-rows {{ moveDur }} {{ moveEase }}, margin-top {{ moveDur }} {{ moveEase }};">
-          <div style="overflow: hidden; min-height: 0; opacity: {{ ax.op }}; transition: opacity {{ ax.opDur }} {{ moveEase }} {{ ax.opDl }};">
-          <div style="display: flex; flex-direction: column; gap: 24px;">
+<!-- The mid-run ask. The card is on the plan, which the run hides — so the reply carries both ways out.
+     Three boxes on their own folds: the sent message, the thinking beat, the reply that replaces it. -->
+          <div style="display: grid; grid-template-rows: {{ au.rows }}; margin-top: {{ au.mt }}; transition: grid-template-rows {{ moveDur }} {{ moveEase }}, margin-top {{ moveDur }} {{ moveEase }};">
+          <div style="overflow: hidden; min-height: 0; opacity: {{ au.op }}; transition: opacity {{ au.opDur }} {{ moveEase }} {{ au.opDl }};">
           <div style="display: flex; gap: 12px;">
             <div style="width: 22px; height: 22px; flex: none; border-radius: 99px; background: #2b7fe4; color: #ffffff; display: grid; place-items: center; font: 700 10px/12px 'Open Sans', sans-serif;">LC</div>
             <div style="flex: 1; min-width: 0; display: flex; flex-direction: column; gap: 4px;">
@@ -189,7 +190,24 @@
               <div style="font: 400 14px/24px 'Open Sans', sans-serif; color: #c3cdd7; text-wrap: pretty;">Drop the merchant check — it slows the customer down.</div>
             </div>
           </div>
+          </div>
+          </div>
 
+          <div style="display: grid; grid-template-rows: {{ th.rows }}; margin-top: {{ th.mt }}; transition: grid-template-rows {{ moveDur }} {{ moveEase }}, margin-top {{ moveDur }} {{ moveEase }};">
+          <div style="overflow: hidden; min-height: 0; opacity: {{ th.op }}; transition: opacity {{ th.opDur }} {{ moveEase }} {{ th.opDl }};">
+          <div style="display: flex; gap: 12px;">
+            <div style="width: 22px; height: 22px; flex: none; border-radius: 99px; background: rgba(139, 152, 165, 0.16); display: grid; place-items: center;"><img src="assets/flowx-mark-white.svg" alt="Agent" style="height: 11px; width: auto; flex: none;" /></div>
+            <div style="display: flex; align-items: center; gap: 4px; height: 22px;">
+              <div style="width: 5px; height: 5px; border-radius: 99px; background: #8b98a5; animation: ask-think 1200ms ease-in-out infinite;"></div>
+              <div style="width: 5px; height: 5px; border-radius: 99px; background: #8b98a5; animation: ask-think 1200ms ease-in-out 150ms infinite;"></div>
+              <div style="width: 5px; height: 5px; border-radius: 99px; background: #8b98a5; animation: ask-think 1200ms ease-in-out 300ms infinite;"></div>
+            </div>
+          </div>
+          </div>
+          </div>
+
+          <div style="display: grid; grid-template-rows: {{ aa.rows }}; margin-top: {{ aa.mt }}; transition: grid-template-rows {{ moveDur }} {{ moveEase }}, margin-top {{ moveDur }} {{ moveEase }};">
+          <div style="overflow: hidden; min-height: 0; opacity: {{ aa.op }}; transition: opacity {{ aa.opDur }} {{ moveEase }} {{ aa.opDl }};">
           <div style="display: flex; gap: 12px;">
             <div style="width: 22px; height: 22px; flex: none; border-radius: 99px; background: rgba(139, 152, 165, 0.16); display: grid; place-items: center;"><img src="assets/flowx-mark-white.svg" alt="Agent" style="height: 11px; width: auto; flex: none;" /></div>
             <div style="flex: 1; min-width: 0; display: flex; flex-direction: column; gap: 8px;">
@@ -204,7 +222,6 @@
                 </div>
               </div>
             </div>
-          </div>
           </div>
           </div>
           </div>
@@ -935,6 +952,8 @@ class Component extends DCLogic {
     return {
       step,
       ask,
+      // The reply lags the ask by a thinking beat; ?replied=0 holds that beat for looking at.
+      replied: ask && q.get('replied') !== '0',
       // The staged request sitting in the composer, not yet sent. Send turns it into `ask`.
       draft: false,
       // `run` is which view; `live` is whether a run is playing in it. Stop keeps the view.
@@ -1846,7 +1865,9 @@ class Component extends DCLogic {
       // run-time exchange in. Reached by URL (?ask=1) or by the composer during a live run.
       mx: fold(!S.ask),
       md: fold(S.ask),
-      ax: fold(S.ask),
+      au: fold(S.ask),
+      th: fold(S.ask && !S.replied),
+      aa: fold(S.replied),
       // One text element interpolated, per the rule below. The composer only stages the one
       // scripted request, and only while a run is up with nothing already asked.
       compText: S.draft ? 'Drop the merchant check — it slows the customer down.' : 'Reply to the agent',
@@ -1856,7 +1877,12 @@ class Component extends DCLogic {
       sendTab: S.draft ? '0' : '-1',
       sendColor: S.draft ? '#4d97ea' : '#5c6975',
       sendCursor: S.draft ? 'pointer' : 'default',
-      sendAct: leave({ ask: true, draft: false }),
+      sendAct: e => {
+        const el = e && e.currentTarget;
+        if (el && el.blur) el.blur();
+        this.setState({ ask: true, draft: false });
+        this.timers.push(setTimeout(() => this.setState({ replied: true }), 2200));
+      },
 
       // Keyed on the live run alone, not on `on || run`.
       composerCap: ranLive
