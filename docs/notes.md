@@ -21,11 +21,21 @@ constrained by what, and what a wrong choice looked like.
   that scrolls, the held scroll stops existing and the browser clamps. A front-loaded curve puts
   a third of that in 100ms and reads as the page reloading — which is why the beat has 640ms and
   an easing of its own instead of the move's.
-- The two ends of that beat may not share one fade. Faded together they cross at half, where the
-  question is a ghost at full height and the answer is a ghost too, and the beat reads as a delete
-  plus a jump. Out is **180 / 400** and in is **60 / 360** against the 640, so the answer is solid
-  from ~420ms while the question still has a third of its height left — that overlap is the only
-  thing on screen that says one became the other.
+- That easing is **symmetric** — `cubic-bezier(0.65, 0, 0.35, 1)`, half the fold at half the beat.
+  Any ease-out is a trap at this size: `0.4, 0, 0.2, 1` put nine tenths of a 336px fold into the
+  first 375ms and left 265ms to travel the last 40, which reads as snapping shut and then hanging.
+  Measure the fold in the browser before believing a curve; the numbers are not what they look like.
+- What travels is `cloneNode` of the card's own node, not a redrawing of it, so there is nothing to
+  crossfade at the start. Its own border comes off — the flyer draws that one — and the settled
+  ground washes in **over** the clone, never under, where it would only darken the wash.
+- The flyer closes its OFFSET from the landing card, never the gap to it: the slot it is heading for
+  is still opening, so interpolating towards the live rect sends it 130px past and back up. Read the
+  target every frame and land is exact; the swap at the end costs no pixels.
+- The two ends still carry fades for the paths with no flyer — the plan's ground, a shut step,
+  reduced motion — out at **180 / 400**, in at **60 / 360**. They may not share one: faded together
+  they cross at half, both ghosts, and the beat reads as a delete plus a jump. And the landing card
+  is blank for a flight and up **instantly** when it ends — 360ms of a landed answer nobody sees is
+  the bug that hid here for a while.
 - The plan's 12px of slack is a budget. The open-me arrow cost 4 of the original 16, and the
   write field's 44 is why the plan's copy of the card drops the `because`. The plan's wrapper is
   `overflow: hidden`, so an overrun clips silently — measure the underrun, never `scrollHeight`.
