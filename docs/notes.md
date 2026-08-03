@@ -24,17 +24,14 @@ CSS transitions over interpolated inline styles; `support.js` re-resolves them e
 | Easing (settle beat) | `cubic-bezier(0.4, 0, 0.2, 1)`, **520ms** — its own |
 | Settle beat | 520ms both ends; fade 360ms at +60 |
 | Settle beat, blue drain | **480ms**, and it drains only — never fills |
-| Settle beat, timers | p:1 → p:2 at **20ms**, unmount at **560ms** |
+| Settle beat, timers | p:1 → p:2 at **20ms**, unmount at `SETTLE + 40` |
 | Jolt ceiling | **324px** of scroll clamp when applying from the bottom of the pane |
 | Write field | **44px** (36 field + 8 gap); the dropped `because` returns **54** (48 + 6 gap) |
 
 - Never `sc-if` anything that animates — unmounted, it has nothing to transition from.
-- Collapse with `grid-template-rows: 1fr → 0fr` on a wrapper whose child is `min-height: 0`.
-  **The clip goes on the WRAPPER, not the child**: a `<flex>` track resolves twice, so the
-  container gets `f × H` and the track inside it `f × f × H` — at `f = 0.5` a child that clips
-  cuts the content to a quarter while the wrapper still holds half, and the difference is dead
-  air. `minmax(0, Xfr)`, `min-height: 0` on the wrapper and `align-content` change nothing.
-  The plan's own collapses clip on the child by design; the settle beat is where it shows.
+- Collapse with `grid-template-rows: 1fr → 0fr` on a wrapper whose child is `min-height: 0`, and
+  **clip the WRAPPER, not the child** — clipping the child leaves dead air, and `minmax(0, Xfr)`,
+  `min-height: 0` and `align-content` do not fix it. The plan clips on the child by design.
 - A collapsed wrapper still costs its column's `gap`. Cancel it on the same transition —
   `-12px` in the pane's lists, `-8px` inside `Answered by you`.
 - Never nest two collapses: a `1fr` track inside a closed track resolves to nothing and does not
@@ -61,40 +58,6 @@ CSS transitions over interpolated inline styles; `support.js` re-resolves them e
   `Not built yet`.
 - 194 is swept against `2lh` with **each** of the five as the open card, and the four that are
   not open take the same 194.
-
-## Measuring
-
-Toggle, `document.getAnimations()`, `pause()` all, step every `currentTime` together in 16.7ms
-increments, read rects out with `--dump-dom`.
-
-- `--virtual-time-budget` jumps the clock, so a real `wait` cannot land inside a transition — a
-  finished one is off `getAnimations()` and can no longer be posed. Step `currentTime` to read;
-  to screenshot, hold the beat's own timers (patch `setTimeout` by delay) and never fire the
-  unmount.
-- A posed frame can paint stale: a hand-stepped opacity leaves the composited layer at its OLD
-  size with its NEW alpha. Hold the opacity at 0 and the geometry paints as measured.
-- Gate on hydration: `.sc-placeholder` gone, `sc-dc-streaming` off, tops non-zero. Fail loudly
-  on zero geometry.
-- Read state off the **inline** `style`, never computed. Colours come back `rgb(...)`, not hex.
-- To read a pin, lift every `min-width` to 0 at once and take the floor.
-- Count line boxes with `createRange()` + `getClientRects()` collapsed by `top` — a reserved box
-  hides its line count.
-- `support.js` swallows a logic throw into `.sc-placeholder-error` and recovers, a flash on
-  screen. Hook the PAGE's own `console.error` and `onerror` to catch it.
-- Absolute judder figures are rig-specific; gate on same-rig before/after. Box-underrun (~2px
-  fine, 18px+ bad) is the one that reproduces.
-- The browser folds `grid-row: 2; grid-column: 1` into `grid-area: 2 / 1` — read the resolved
-  placement, not the written attribute.
-- The plan's filler is the **first** empty `flex: 1` div in the pane; searching backwards finds
-  the run strip's 2px connectors.
-- Match a control by its label on the DEEPEST match: when Build is live its gate sentence is
-  gone, leaving the act region's own text equal to the label.
-- `requestAnimationFrame` stops when headless stops painting, so anything ticking on it hangs
-  after the first interaction — race it against a timeout.
-- Typing into a controlled input from outside needs the prototype `value` setter plus a bubbling
-  `input` event; `el.value` alone leaves React's state behind.
-- The wide plan clips by design, so a clip census only means something as a diff against the
-  same page one interaction earlier.
 
 ## Mechanics
 
