@@ -23,10 +23,7 @@
   a:hover { color: #7db3f2; text-decoration: underline; }
   /* A placeholder cannot be coloured inline. */
   ::placeholder { color: #6b7783; opacity: 1; }
-  @keyframes run-pulse {
-    0%   { box-shadow: 0 0 0 0 rgba(46, 168, 106, 0.45); }
-    100% { box-shadow: 0 0 0 12px rgba(46, 168, 106, 0); }
-  }
+  @keyframes run-spin { to { transform: rotate(360deg); } }
   @media (prefers-reduced-motion: reduce) {
     * { transition-duration: 0s !important; transition-delay: 0s !important; animation: none !important; }
   }
@@ -376,23 +373,20 @@
   </sc-if>
           </div>
   </sc-if>
-<!-- The loader IS the run happening: the plan's own dots, walked one per beat to the wall at 3. -->
+<!-- Preparing, not running: the ring spins smoothly and the captions cross-fade per beat. -->
   <sc-if value="{{ runLoading }}" hint-placeholder-val="{{ false }}">
-          <div style="flex: 1; min-height: 0; border: 1px dashed #26313d; border-radius: 12px; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 24px;">
-            <div style="display: flex; align-items: center;">
-              <sc-for list="{{ loadDots }}" as="d" hint-placeholder-count="5">
-              <div style="display: flex; align-items: center;">
-                <div style="width: {{ d.connW }}; height: {{ d.connH }}; background: {{ d.connBg }}; border-top: {{ d.connBT }};"></div>
-                <div style="width: 20px; height: 20px; border-radius: 99px; background: {{ d.bg }}; border: {{ d.border }}; display: grid; place-items: center; animation: {{ d.anim }}; transition: background-color 260ms cubic-bezier(0.2, 0, 0.2, 1), border-color 260ms cubic-bezier(0.2, 0, 0.2, 1);">
-                  <i class="ph {{ d.glyph }}" style="grid-area: 1 / 1; font-size: 11px; color: {{ d.glyphColor }};"></i>
-                  <div style="grid-area: 1 / 1; width: {{ d.coreW }}; height: {{ d.coreW }}; border-radius: 99px; background: #2ea86a; transition: width 260ms cubic-bezier(0.2, 0, 0.2, 1), height 260ms cubic-bezier(0.2, 0, 0.2, 1);"></div>
-                </div>
-              </div>
-              </sc-for>
+          <div style="flex: 1; min-height: 0; border: 1px dashed #26313d; border-radius: 12px; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 20px;">
+            <div style="width: 48px; height: 48px; position: relative; display: grid; place-items: center; color: #8b98a5;">
+              <div style="position: absolute; inset: 0; border-radius: 99px; border: 2px solid #1c2632; border-top-color: #2ea86a; animation: run-spin 900ms linear infinite;"></div>
+              <i class="ph ph-play" style="font-size: 16px;"></i>
             </div>
             <div style="display: flex; flex-direction: column; align-items: center; gap: 4px; text-align: center;">
-              <div style="font: 600 14px/22px 'Open Sans', sans-serif; color: #f5f9fc;">Running what exists</div>
-              <div style="height: 18px; font: 400 12px/18px 'Open Sans', sans-serif; color: #8b98a5;">{{ loadCap }}</div>
+              <div style="font: 600 14px/22px 'Open Sans', sans-serif; color: #f5f9fc;">Preparing the run</div>
+              <div style="display: grid; place-items: center; height: 18px;">
+                <sc-for list="{{ loadCaps }}" as="c" hint-placeholder-count="4">
+                <div style="grid-area: 1 / 1; white-space: nowrap; font: 400 12px/18px 'Open Sans', sans-serif; color: #8b98a5; opacity: {{ c.op }}; transition: opacity 300ms cubic-bezier(0.2, 0, 0.2, 1);">{{ c.t }}</div>
+                </sc-for>
+              </div>
             </div>
           </div>
   </sc-if>
@@ -1946,28 +1940,11 @@ class Component extends DCLogic {
       runLive: S.live,
       runLoading: S.loading,
       runEmpty: !S.live && !S.loading,
-      loadCap: ['Showing the payments they could dispute…',
-                'Asking what happened, in their words…',
-                'Sending the merchant check on its way…',
-                'It stops here — nothing past it is built.'][S.loadAt],
-      // The loader speaks the plan's dot language: green is done, a pulse is being walked,
-      // dashed does not exist, the person is the person.
-      loadDots: NS.map(n => {
-        const done = n <= S.loadAt;
-        const walk = S.loading && n === S.loadAt + 1 && n <= 3;
-        return {
-          connW: n === 1 ? '0px' : '28px',
-          connH: n <= 3 ? '2px' : '0px',
-          connBg: n <= 3 ? '#26313d' : 'transparent',
-          connBT: n <= 3 ? 'none' : '2px dashed #33404d',
-          bg: done ? '#2ea86a' : '#0b1218',
-          border: done ? '0' : (walk ? '1px solid #2ea86a' : (n === 5 ? '1px solid #8b98a5' : '1px dashed #8b98a5')),
-          glyph: done ? 'ph-check' : (n === 5 ? 'ph-user' : ''),
-          glyphColor: done ? '#ffffff' : '#c3cdd7',
-          coreW: walk ? '6px' : '0px',
-          anim: walk ? 'run-pulse 900ms cubic-bezier(0, 0, 0.4, 1) infinite' : 'none'
-        };
-      }),
+      // All four captions stay mounted, stacked on one grid cell, so the swap is a cross-fade.
+      loadCaps: ['Setting up a place to run…',
+                 'Loading the built steps…',
+                 'Signing in as a sample customer…',
+                 'Opening the app…'].map((t, i) => ({ t, op: S.loadAt === i ? '1' : '0' })),
       headPb: on ? '16px' : '16px',
       headSize: on ? '12px' : '24px',
       headLh: on ? '18px' : '38px',
