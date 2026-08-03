@@ -119,8 +119,11 @@
             <div style="flex: 1; height: 1px; background: #18212a;"></div>
           </div>
 
-<!-- ask=1 swaps this exchange for the same request made mid-run, below. Set at load, never toggled: sc-if is legal. -->
-  <sc-if value="{{ askOff }}" hint-placeholder-val="{{ true }}">
+<!-- ask folds this exchange into its own divider — the same request re-made mid-run, below. Gap is the
+     parent's 24; a collapsed box cancels its own with margin-top, so the rhythm never doubles. -->
+          <div style="display: grid; grid-template-rows: {{ mx.rows }}; margin-top: {{ mx.mt }}; transition: grid-template-rows {{ moveDur }} {{ moveEase }}, margin-top {{ moveDur }} {{ moveEase }};">
+          <div style="overflow: hidden; min-height: 0; opacity: {{ mx.op }}; transition: opacity {{ mx.opDur }} {{ moveEase }} {{ mx.opDl }};">
+          <div style="display: flex; flex-direction: column; gap: 24px;">
           <div style="display: flex; gap: 12px;">
             <div style="width: 22px; height: 22px; flex: none; border-radius: 99px; background: #2b7fe4; color: #ffffff; display: grid; place-items: center; font: 700 10px/12px 'Open Sans', sans-serif;">LC</div>
             <div style="flex: 1; min-width: 0; display: flex; flex-direction: column; gap: 4px;">
@@ -149,7 +152,18 @@
               <div style="font: 400 14px/24px 'Open Sans', sans-serif; color: #c3cdd7; text-wrap: pretty;">Fine. Keep it, but the customer never waits on it.</div>
             </div>
           </div>
-  </sc-if>
+          </div>
+          </div>
+          </div>
+
+          <div style="display: grid; grid-template-rows: {{ md.rows }}; margin-top: {{ md.mt }}; transition: grid-template-rows {{ moveDur }} {{ moveEase }}, margin-top {{ moveDur }} {{ moveEase }};">
+          <div style="overflow: hidden; min-height: 0; opacity: {{ md.op }}; transition: opacity {{ md.opDur }} {{ moveEase }} {{ md.opDl }};">
+          <div style="display: flex; align-items: center; gap: 12px; color: #8b98a5; padding-left: 34px;">
+            <div style="font: 400 12px/16px 'Open Sans', sans-serif; cursor: pointer; flex: none; transition: color 160ms cubic-bezier(0.2, 0, 0.2, 1);" style-hover="color: #c3cdd7;">3 turns about the merchant check</div>
+            <div style="flex: 1; height: 1px; background: #18212a;"></div>
+          </div>
+          </div>
+          </div>
 
 <!-- No scroller: 723px budget vs 676px content — if the copy grows, shorten it. Collapses 1fr -> 0fr, not sc-if. -->
           <div style="display: grid; grid-template-rows: {{ runRows }}; transition: grid-template-rows {{ moveDur }} {{ moveEase }};">
@@ -165,12 +179,14 @@
           </div>
 
 <!-- The mid-run ask. The card is on the plan, which the run hides — so the reply carries both ways out. -->
-  <sc-if value="{{ askOn }}" hint-placeholder-val="{{ false }}">
+          <div style="display: grid; grid-template-rows: {{ ax.rows }}; margin-top: {{ ax.mt }}; transition: grid-template-rows {{ moveDur }} {{ moveEase }}, margin-top {{ moveDur }} {{ moveEase }};">
+          <div style="overflow: hidden; min-height: 0; opacity: {{ ax.op }}; transition: opacity {{ ax.opDur }} {{ moveEase }} {{ ax.opDl }};">
+          <div style="display: flex; flex-direction: column; gap: 24px;">
           <div style="display: flex; gap: 12px;">
             <div style="width: 22px; height: 22px; flex: none; border-radius: 99px; background: #2b7fe4; color: #ffffff; display: grid; place-items: center; font: 700 10px/12px 'Open Sans', sans-serif;">LC</div>
             <div style="flex: 1; min-width: 0; display: flex; flex-direction: column; gap: 4px;">
               <div style="font: 600 12px/16px 'Open Sans', sans-serif; color: #8b98a5;">You <span style="font-weight: 400;">· 09:48</span></div>
-              <div style="font: 400 14px/24px 'Open Sans', sans-serif; color: #c3cdd7; text-wrap: pretty;">Drop the merchant check. It slows the customer down and we already have the transaction.</div>
+              <div style="font: 400 14px/24px 'Open Sans', sans-serif; color: #c3cdd7; text-wrap: pretty;">Drop the merchant check — it slows the customer down.</div>
             </div>
           </div>
 
@@ -178,7 +194,7 @@
             <div style="width: 22px; height: 22px; flex: none; border-radius: 99px; background: rgba(139, 152, 165, 0.16); display: grid; place-items: center;"><img src="assets/flowx-mark-white.svg" alt="Agent" style="height: 11px; width: auto; flex: none;" /></div>
             <div style="flex: 1; min-width: 0; display: flex; flex-direction: column; gap: 8px;">
               <div style="font: 600 12px/16px 'Open Sans', sans-serif; color: #8b98a5;">Agent <span style="font-weight: 400;">· 09:49</span></div>
-              <div style="font: 400 14px/24px 'Open Sans', sans-serif; color: #f5f9fc; text-wrap: pretty;">That changes the plan. The scheme needs a merchant attempt first, or the chargeback is out of scope — but it does not have to slow anyone down.</div>
+              <div style="font: 400 14px/24px 'Open Sans', sans-serif; color: #f5f9fc; text-wrap: pretty;">That changes the plan — without a merchant attempt first, the chargeback is out of scope.</div>
               <div style="display: flex; flex-direction: column; gap: 8px; margin-top: 4px;">
                 <div tabindex="0" style="display: flex; align-items: center; gap: 8px; height: 36px; padding: 0 12px; border-radius: 8px; border: 1px solid #26313d; background: #101820; color: #f5f9fc; font: 600 12px/16px 'Open Sans', sans-serif; cursor: pointer; outline: none; transition: all 160ms cubic-bezier(0.2, 0, 0.2, 1);" style-hover="border-color: #4d97ea; background: #161f28;" style-focus="box-shadow: 0 0 0 3px rgba(43, 127, 228, 0.32);">
                   <i class="ph ph-check" style="font-size: 12px; color: #4d97ea; flex: none;"></i>Keep it, out of the customer's way
@@ -189,14 +205,16 @@
               </div>
             </div>
           </div>
-  </sc-if>
+          </div>
+          </div>
+          </div>
 
         </div>
 
         <div style="min-width: 359px; flex: none; padding: 16px 24px 24px; display: flex; flex-direction: column; gap: 8px;">
-          <div style="display: flex; align-items: center; gap: 12px; padding: 8px 12px; background: #101820; border: 1px solid #26313d; border-radius: 8px; cursor: text; transition: border-color 160ms cubic-bezier(0.2, 0, 0.2, 1);" style-hover="border-color: #3a4653;">
-            <div style="flex: 1; min-width: 0; font: 400 14px/24px 'Open Sans', sans-serif; color: #7b8896;">Reply to the agent</div>
-            <div style="font: 600 12px/16px 'Open Sans', sans-serif; color: #5c6975; flex: none;">Send</div>
+          <div onClick="{{ compAct }}" style="display: flex; align-items: center; gap: 12px; padding: 8px 12px; background: #101820; border: 1px solid #26313d; border-radius: 8px; cursor: text; transition: border-color 160ms cubic-bezier(0.2, 0, 0.2, 1);" style-hover="border-color: #3a4653;">
+            <div style="flex: 1; min-width: 0; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; font: 400 14px/24px 'Open Sans', sans-serif; color: {{ compColor }};">{{ compText }}</div>
+            <div onClick="{{ sendAct }}" tabindex="{{ sendTab }}" style="font: 600 12px/16px 'Open Sans', sans-serif; color: {{ sendColor }}; flex: none; cursor: {{ sendCursor }}; pointer-events: {{ sendPE }}; outline: none; transition: color 160ms cubic-bezier(0.2, 0, 0.2, 1);" style-hover="color: #4d97ea;" style-focus="box-shadow: 0 0 0 3px rgba(43, 127, 228, 0.32);">Send</div>
           </div>
 
           <!-- One element with an interpolated string, never two behind an sc-if. -->
@@ -917,6 +935,8 @@ class Component extends DCLogic {
     return {
       step,
       ask,
+      // The staged request sitting in the composer, not yet sent. Send turns it into `ask`.
+      draft: false,
       // `run` is which view; `live` is whether a run is playing in it. Stop keeps the view.
       live: !loading && q.get('live') !== '0',
       loading,
@@ -1213,6 +1233,7 @@ class Component extends DCLogic {
           [k, { ...cards[k], open: false, why: false }])) });
         return;
       }
+      if (this.state.draft) { this.setState({ draft: false }); return; }
       if (this.state.run && (this.state.live || this.state.loading)) { this.setState({ live: false, loading: false }); return; }
       if (this.state.run)  { this.setState({ run: false }); return; }
       if (this.state.step) this.setState({ step: 0 });
@@ -1262,6 +1283,16 @@ class Component extends DCLogic {
       if (el && el.blur) el.blur();
       this.setState(patch);
     };
+
+    // ── A chat block folding in or out ─────────────────────────────────────
+    // Rows and the gap-cancelling margin ride the move curve; opacity is out fast, in late.
+    const fold = open => ({
+      rows: open ? '1fr' : '0fr',
+      mt: open ? '0px' : '-24px',
+      op: open ? '1' : '0',
+      opDur: open ? '200ms' : '70ms',
+      opDl: open ? '180ms' : '0ms'
+    });
 
     // ── The cards ──────────────────────────────────────────────────────────
     const owed = k => S.cards[k].pick === -1;
@@ -1810,9 +1841,22 @@ class Component extends DCLogic {
 
       // `goBack` leaves whichever of the two is on top of the plan, and there is only ever one.
       goBack: leave({ run: false, step: 0, cards: allShut() }),
-      // The mid-run ask swaps which merchant exchange the chat carries. Set at load, never toggled.
-      askOn: S.ask,
-      askOff: !S.ask,
+      // ── The mid-run ask ──────────────────────────────────────────────────
+      // Send folds three boxes as one beat: the plan-time exchange out, its divider in, the
+      // run-time exchange in. Reached by URL (?ask=1) or by the composer during a live run.
+      mx: fold(!S.ask),
+      md: fold(S.ask),
+      ax: fold(S.ask),
+      // One text element interpolated, per the rule below. The composer only stages the one
+      // scripted request, and only while a run is up with nothing already asked.
+      compText: S.draft ? 'Drop the merchant check — it slows the customer down.' : 'Reply to the agent',
+      compColor: S.draft ? '#f5f9fc' : '#7b8896',
+      compAct: () => { if (ranLive && !S.ask && !S.draft) this.setState({ draft: true }); },
+      sendPE: S.draft ? 'auto' : 'none',
+      sendTab: S.draft ? '0' : '-1',
+      sendColor: S.draft ? '#4d97ea' : '#5c6975',
+      sendCursor: S.draft ? 'pointer' : 'default',
+      sendAct: leave({ ask: true, draft: false }),
 
       // Keyed on the live run alone, not on `on || run`.
       composerCap: ranLive
