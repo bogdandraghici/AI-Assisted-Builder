@@ -504,7 +504,7 @@
                       <sc-if value="{{ s.arg }}" hint-placeholder-val="{{ false }}">
 <!-- The settle beat, on the plan's ground: the card folds away rather than being deleted.
      The 8px it sits on is INSIDE the collapsing box, so it folds with the card. -->
-                      <div style="display: grid; grid-template-rows: {{ s.arg.box }}; overflow: hidden; opacity: {{ s.arg.fade }}; transition: grid-template-rows 340ms cubic-bezier(0.2, 0, 0.2, 1), opacity 240ms cubic-bezier(0.2, 0, 0.2, 1) 40ms;">
+                      <div style="display: grid; grid-template-rows: {{ s.arg.box }}; overflow: hidden; opacity: {{ s.arg.fade }}; transition: grid-template-rows {{ s.arg.dur }} cubic-bezier(0.4, 0, 0.2, 1), opacity {{ s.arg.fadeDur }} cubic-bezier(0.4, 0, 0.2, 1) {{ s.arg.fadeDl }};">
                       <div style="min-height: 0;">
                       <div data-plan-owed="{{ s.arg.key }}" style="min-width: 979px; margin-top: 8px; background: linear-gradient(180deg, rgba(242, 118, 43, 0.14), rgba(242, 118, 43, 0.06) 45%, rgba(242, 118, 43, 0.025)); border: 1px solid rgba(242, 118, 43, 0.30); border-radius: 12px; display: flex; flex-direction: column;">
                         <div style="padding: 12px 16px 14px; display: flex; flex-direction: column; gap: 10px; border-bottom: 1px solid rgba(242, 118, 43, 0.16);">
@@ -676,7 +676,7 @@
 <!-- Not `sc-if`: the heading leaves with the last card under it, on the same beat, so it
      collapses instead of unmounting. The negative margin eats the column's 12px gap as
      it goes, which is the same trick every card in this list plays. -->
-            <div style="display: grid; grid-template-rows: {{ owedHeadBox }}; overflow: hidden; margin-bottom: {{ owedHeadPull }}; transition: grid-template-rows {{ beatDur }} cubic-bezier(0.2, 0, 0.2, 1), margin-bottom {{ beatDur }} cubic-bezier(0.2, 0, 0.2, 1);">
+            <div style="display: grid; grid-template-rows: {{ owedHeadBox }}; overflow: hidden; margin-bottom: {{ owedHeadPull }}; transition: grid-template-rows {{ beatDur }} cubic-bezier(0.4, 0, 0.2, 1), margin-bottom {{ beatDur }} cubic-bezier(0.4, 0, 0.2, 1);">
             <div style="min-height: 0;">
             <div style="display: flex; align-items: baseline; justify-content: space-between; gap: 16px;">
               <div style="font: 400 10px/12px ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; text-transform: uppercase; letter-spacing: 0.14em; color: #8b98a5;">What I need from you</div>
@@ -693,7 +693,7 @@
      Applied, the card does not vanish: the wrapper folds it away over one beat while the
      settled card opens under `Answered by you` on the same one. -->
             <sc-for list="{{ owedList }}" as="o" hint-placeholder-count="2">
-            <div style="display: grid; grid-template-rows: {{ o.box }}; overflow: hidden; margin-bottom: {{ o.pull }}; opacity: {{ o.fade }}; transition: grid-template-rows 340ms cubic-bezier(0.2, 0, 0.2, 1), margin-bottom 340ms cubic-bezier(0.2, 0, 0.2, 1), opacity 240ms cubic-bezier(0.2, 0, 0.2, 1) 40ms;">
+            <div style="display: grid; grid-template-rows: {{ o.box }}; overflow: hidden; margin-bottom: {{ o.pull }}; opacity: {{ o.fade }}; transition: grid-template-rows {{ o.dur }} cubic-bezier(0.4, 0, 0.2, 1), margin-bottom {{ o.dur }} cubic-bezier(0.4, 0, 0.2, 1), opacity {{ o.fadeDur }} cubic-bezier(0.4, 0, 0.2, 1) {{ o.fadeDl }};">
             <div style="min-height: 0;">
             <div data-owed="{{ o.key }}" style="background: linear-gradient(180deg, rgba(242, 118, 43, 0.14), rgba(242, 118, 43, 0.06) 45%, rgba(242, 118, 43, 0.025)); border: 1px solid rgba(242, 118, 43, 0.30); border-radius: 8px; display: flex; flex-direction: column;">
               <div style="padding: 12px 16px 14px; display: flex; flex-direction: column; gap: 10px; border-bottom: 1px solid rgba(242, 118, 43, 0.16);">
@@ -768,7 +768,7 @@
      settings at the end of it are things I chose.
      Collapsed rather than `sc-if`-ed, because the first answer to land here has to be
      seen landing: the heading opens over it on the same beat the card opens on. -->
-            <div style="display: grid; grid-template-rows: {{ ansBox }}; overflow: hidden; margin-top: {{ ansPull }}; transition: grid-template-rows {{ beatDur }} cubic-bezier(0.2, 0, 0.2, 1), margin-top {{ beatDur }} cubic-bezier(0.2, 0, 0.2, 1);">
+            <div style="display: grid; grid-template-rows: {{ ansBox }}; overflow: hidden; margin-top: {{ ansPull }}; transition: grid-template-rows {{ beatDur }} cubic-bezier(0.4, 0, 0.2, 1), margin-top {{ beatDur }} cubic-bezier(0.4, 0, 0.2, 1);">
             <div style="min-height: 0;">
             <div style="display: flex; flex-direction: column; gap: 8px; padding-top: 12px;">
               <div style="font: 400 10px/12px ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; text-transform: uppercase; letter-spacing: 0.14em; color: #8b98a5;">Answered by you</div>
@@ -776,9 +776,9 @@
 <!-- The other end of the settle beat. The card opens from nothing wearing the commit's
      blue, and the blue drains once it has arrived. -->
               <sc-for list="{{ answered }}" as="c" hint-placeholder-count="1">
-              <div style="display: grid; grid-template-rows: {{ c.box }}; overflow: hidden; margin-top: {{ c.pull }}; opacity: {{ c.fade }}; transition: grid-template-rows 340ms cubic-bezier(0.2, 0, 0.2, 1), margin-top 340ms cubic-bezier(0.2, 0, 0.2, 1), opacity 240ms cubic-bezier(0.2, 0, 0.2, 1) 40ms;">
+              <div style="display: grid; grid-template-rows: {{ c.box }}; overflow: hidden; margin-top: {{ c.pull }}; opacity: {{ c.fade }}; transition: grid-template-rows {{ c.dur }} cubic-bezier(0.4, 0, 0.2, 1), margin-top {{ c.dur }} cubic-bezier(0.4, 0, 0.2, 1), opacity {{ c.fadeDur }} cubic-bezier(0.4, 0, 0.2, 1) {{ c.fadeDl }};">
               <div style="min-height: 0;">
-              <div data-card="{{ c.key }}" style="background: #101820; border: 1px solid {{ c.ring }}; border-radius: 8px; display: flex; flex-direction: column; transition: border-color {{ c.ringDur }} cubic-bezier(0.2, 0, 0.2, 1);">
+              <div data-card="{{ c.key }}" style="background: #101820; border: 1px solid {{ c.ring }}; border-radius: 8px; display: flex; flex-direction: column; transition: border-color {{ c.ringDur }} cubic-bezier(0.4, 0, 0.2, 1);">
                 <div style="padding: 12px 16px; display: flex; align-items: baseline; gap: 12px; border-bottom: {{ c.rule }};">
                   <div style="flex: 1; min-width: 0; font: 400 14px/22px 'Open Sans', sans-serif; color: #c3cdd7; text-wrap: pretty;"><span style="font-weight: 600;">{{ c.subject }}</span>{{ c.tail }}</div>
                   <div onClick="{{ c.toggle }}" tabindex="{{ c.tab }}" style="display: inline-flex; align-items: center; gap: 6px; font: 600 12px/16px 'Open Sans', sans-serif; color: {{ c.handle }}; cursor: pointer; outline: none; flex: none; pointer-events: {{ c.pe }}; transition: color 160ms cubic-bezier(0.2, 0, 0.2, 1);" style-hover="color: #4d97ea;" style-focus="box-shadow: 0 0 0 3px rgba(43, 127, 228, 0.32);">Change<i class="ph ph-caret-right" style="font-size: 12px; transform: rotate({{ c.caret }}); transition: transform 160ms cubic-bezier(0.2, 0, 0.2, 1);"></i></div>
@@ -835,7 +835,7 @@
 <!-- This list empties by being reviewed: taking a row on one of these is you answering it,
      so it leaves for `Answered by you` — the same beat, from the other end. -->
             <sc-for list="{{ chosen }}" as="c" hint-placeholder-count="1">
-            <div style="display: grid; grid-template-rows: {{ c.box }}; overflow: hidden; margin-bottom: {{ c.pull }}; opacity: {{ c.fade }}; transition: grid-template-rows 340ms cubic-bezier(0.2, 0, 0.2, 1), margin-bottom 340ms cubic-bezier(0.2, 0, 0.2, 1), opacity 240ms cubic-bezier(0.2, 0, 0.2, 1) 40ms;">
+            <div style="display: grid; grid-template-rows: {{ c.box }}; overflow: hidden; margin-bottom: {{ c.pull }}; opacity: {{ c.fade }}; transition: grid-template-rows {{ c.dur }} cubic-bezier(0.4, 0, 0.2, 1), margin-bottom {{ c.dur }} cubic-bezier(0.4, 0, 0.2, 1), opacity {{ c.fadeDur }} cubic-bezier(0.4, 0, 0.2, 1) {{ c.fadeDl }};">
             <div style="min-height: 0;">
             <div data-card="{{ c.key }}" style="background: #101820; border: 1px solid {{ c.ring }}; border-radius: 8px; display: flex; flex-direction: column;">
               <div style="padding: 12px 16px; display: flex; align-items: baseline; gap: 12px; border-bottom: {{ c.rule }};">
@@ -1387,7 +1387,13 @@ class Component extends DCLogic {
     // opens it. `from` is the list being left, and it has to be caught here, before
     // the pick lands — settled is settled, and `owed` and `chosen` both read false
     // the moment it does.
-    const SETTLE = 340;
+    // The beat is SLOWER and SOFTER than the move, and on its own easing, because it is
+    // not a move: folding 350px out of a pane that scrolls drags everything above the card
+    // down to fill — up to 268px of it, if you were reading at the bottom when you
+    // committed. That travel is honest, the pane really is shorter, but on the move's
+    // front-loaded curve a third of it lands in the first 100ms and reads as the page
+    // reloading rather than as a scroll. 520ms on a gentler ease-out reads as a scroll.
+    const SETTLE = 520;
     const settleFrom = k => owed(k) ? 'owed' : (S.cards[k].mine ? '' : 'chosen');
     const beginSettle = k => {
       const from = settleFrom(k);
@@ -1409,9 +1415,15 @@ class Component extends DCLogic {
         put({ p: 2, from: from });
       }, 20));
       this.timers.push(setTimeout(() => put(null), SETTLE + 40));
+      // The blue drains after the beat, not during it.
+
     };
 
     const st = k => S.settling[k];
+    const sDur = SETTLE + 'ms';
+    // The fade trails the fold: the card stays solid while it is still big, and goes as
+    // it becomes a sliver. Same on the way in.
+    const sFade = '360ms', sFadeDl = '60ms';
     // A slot being left: open until the beat starts, shut for the whole of it, and
     // withdrawn the moment it starts closing — nothing offers what it cannot do, and
     // a card on its way out cannot take an answer.
@@ -1420,7 +1432,8 @@ class Component extends DCLogic {
       return {
         box: s ? '0fr' : '1fr', pull: s ? (-gap) + 'px' : '0px', fade: s ? '0' : '1',
         pe: s ? 'none' : 'auto', tab: s ? '-1' : '0',
-        ring: '#1c2530', ringDur: '0s'
+        ring: '#1c2530', ringDur: '0s',
+        dur: sDur, fadeDur: sFade, fadeDl: sFadeDl
       };
     };
     // A slot being landed in: shut for the first render of the beat only.
@@ -1441,7 +1454,8 @@ class Component extends DCLogic {
         // rather than pushing it down; a colour that transitioned in would ramp up to the
         // blue from whatever that node was wearing, which is the wrong way round.
         ring: s ? '#4d97ea' : '#1c2530',
-        ringDur: s ? '0s' : '400ms'
+        ringDur: s ? '0s' : '480ms',
+        dur: sDur, fadeDur: sFade, fadeDl: sFadeDl
       };
     };
 
@@ -1589,6 +1603,7 @@ class Component extends DCLogic {
       return {
         key: k,
         box: box.box, pull: box.pull, fade: box.fade,
+        dur: box.dur, fadeDur: box.fadeDur, fadeDl: box.fadeDl,
         // Two things withdraw this card's controls and they are one value, because a
         // control cannot be half-withdrawn: the plan's copy behind an open step, and
         // either copy on its way out of the list.
@@ -1867,7 +1882,7 @@ class Component extends DCLogic {
       // another step is not a settle: a heading collapsing over a step it never
       // belonged to is a heading that lies for 340ms. So the duration is the beat's
       // own, and zero at every other time.
-      beatDur: Object.keys(S.settling).length ? '340ms' : '0s',
+      beatDur: Object.keys(S.settling).length ? SETTLE + 'ms' : '0s',
       paneHasArg: argsOwed(paneN).length > 0,
       paneHasQ: qsOwed(paneN).length > 0,
       paneQWord: qsOwed(paneN).length === 1

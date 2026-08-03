@@ -21,9 +21,10 @@ CSS transitions over interpolated inline styles; `support.js` re-resolves them e
 | `titleLines` | 2lh, one value for all five |
 | `planPinH` | 816 / 812 — *available* height, viewport less `planPad` |
 | Full-screen pins | chat 360, strip titles `3lh`, boundary `2lh` |
-| Settle beat | **340ms** on the move easing, both ends; fade 240ms at +40 |
-| Settle beat, blue drain | **400ms**, and it drains only — never fills |
-| Settle beat, timers | p:1 → p:2 at **20ms**, unmount at **380ms** |
+| Easing (settle beat) | `cubic-bezier(0.4, 0, 0.2, 1)`, **520ms** — its own, and why is below |
+| Settle beat | 520ms both ends; fade 360ms at +60 |
+| Settle beat, blue drain | **480ms**, and it drains only — never fills |
+| Settle beat, timers | p:1 → p:2 at **20ms**, unmount at **560ms** |
 
 - Never `sc-if` anything that animates — unmounted, it has nothing to transition from.
 - Collapse with `grid-template-rows: 1fr → 0fr` on a wrapper whose child is `min-height: 0`, and
@@ -42,6 +43,14 @@ CSS transitions over interpolated inline styles; `support.js` re-resolves them e
   and does not recover when the outer one opens. So the first answer to land in an empty list lets
   the LIST open and is up itself from the first frame; only a card landing in a list already up
   opens on its own.
+- The settle beat is slower and softer than the move, and on an easing of its own, because it is
+  not a move. Folding ~350px out of a pane that scrolls drags everything above the card down to
+  fill: at a normal scroll position anchoring holds the content still, but committed from the
+  bottom of the pane the scroll it was holding stops existing and the browser clamps it — up to
+  **324px** of travel, all of it honest. On the move's front-loaded curve a third of that lands in
+  the first 100ms and reads as the page reloading. 520ms on a plain ease-out reads as a scroll.
+  `probe-jolt` bounds it: where the scroll survives the beat the content may not move, and where
+  it does not, the pane lands exactly on the clamp and never a pixel past it.
 - A transition needs a computed value to come from. Two renders inside one frame leave a slot that
   mounted shut with nothing to open from, so the beat's second half reads `document.body.offsetHeight`
   before it opens anything — the frame is forced, not hoped for.
@@ -73,8 +82,9 @@ with each step open and reports the slack, `probe-write` drives the write field 
 and asserts the plan neither overruns nor clips, `probe-doc` does the same to section 03 of
 `Choice Cards`, `probe-settle` steps the settle beat and asserts both ends move and the column's
 height is monotone through it, `probe-fr` is the five-case `<flex>` track reading above,
-`probe-pose` stops the beat at one millisecond for `--screenshot`, `probe-shot` only poses a
-state for `--screenshot`.
+`probe-pose` stops the beat at one millisecond for `--screenshot`, `probe-jolt` rules out the two
+ways the beat could look like a reload and bounds the third, `probe-shot` only poses a state for
+`--screenshot`.
 
 - `--virtual-time-budget` advances the clock in jumps of its own, so a real `wait` is not a way to
   land inside a transition: it can finish, and a finished transition is off `getAnimations()` and
@@ -91,6 +101,9 @@ state for `--screenshot`.
 - To read a pin, lift every `min-width` to 0 at once and take the floor.
 - Count line boxes with `createRange()` + `getClientRects()` collapsed by `top` — a reserved
   box hides its line count.
+- `support.js` swallows a logic throw into an error placeholder and recovers, which on the screen
+  is a flash and in the DOM is `.sc-placeholder-error` — so a probe that cares whether the page
+  stayed up has to hook the PAGE's own `console.error` and `onerror`, not the harness's.
 - Absolute judder figures are rig-specific; gate on a same-rig before/after. Box-underrun
   (~2px fine, 18px+ bad) is the one figure that reproduces.
 - The browser folds `grid-row: 2; grid-column: 1` into `grid-area: 2 / 1`, so a probe that
