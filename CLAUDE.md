@@ -22,6 +22,9 @@ pseudo-class attributes, `DCLogic` and React.
   commit — Apply, Agree, Build; green is the machine — built, running.
 - **The wash means exactly one thing: this is waiting on your reply.** Which reply it is comes
   from the glyph and the word, never the colour. Selection is blue.
+- **Nothing appears or vanishes where you were looking.** A card that moves between lists is
+  mounted at both ends for one beat: the slot it left closes while the slot it lands in opens,
+  and what lands wears the commit's blue until the beat is over.
 - **One status word per state, across both views.**
 - **Pick a role from the type ladder; never invent a size.** No elevation shadows.
 

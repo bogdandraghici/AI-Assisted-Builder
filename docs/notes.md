@@ -21,10 +21,30 @@ CSS transitions over interpolated inline styles; `support.js` re-resolves them e
 | `titleLines` | 2lh, one value for all five |
 | `planPinH` | 816 / 812 — *available* height, viewport less `planPad` |
 | Full-screen pins | chat 360, strip titles `3lh`, boundary `2lh` |
+| Settle beat | **340ms** on the move easing, both ends; fade 240ms at +40 |
+| Settle beat, blue drain | **400ms**, and it drains only — never fills |
+| Settle beat, timers | p:1 → p:2 at **20ms**, unmount at **380ms** |
 
 - Never `sc-if` anything that animates — unmounted, it has nothing to transition from.
-- Collapse with `grid-template-rows: 1fr → 0fr` on a wrapper whose child is `overflow: hidden;
-  min-height: 0`, and pin the collapsing content.
+- Collapse with `grid-template-rows: 1fr → 0fr` on a wrapper whose child is `min-height: 0`, and
+  pin the collapsing content. **The clip goes on the WRAPPER, not the child.** A `<flex>` track is
+  resolved twice: the container gets `f × H`, and then the track inside that now-definite height
+  gets `f × f × H`. At `f = 0.5` the inner box is a quarter of the content while the wrapper still
+  holds half — and if the inner box is the one clipping, the content is cut short of the space it
+  occupies and the difference is dead air on the screen. `probe-fr` is five lines of that, measured.
+  `minmax(0, Xfr)`, `min-height: 0` on the wrapper and `align-content` change nothing.
+  The plan's own collapses still clip on the child; they were measured that way, and the plan clips
+  by design. The settle beat is the one place the difference is visible, so it is the one that moved.
+- A collapsed wrapper still costs its column's `gap`. Cancel it with a negative margin on the same
+  transition — `-12px` in the pane's lists, `-8px` inside `Answered by you` — and the unmount at the
+  end of the beat then costs no pixels.
+- Never nest two collapses. A `1fr` track inside a track that is still closed resolves to nothing
+  and does not recover when the outer one opens. So the first answer to land in an empty list lets
+  the LIST open and is up itself from the first frame; only a card landing in a list already up
+  opens on its own.
+- A transition needs a computed value to come from. Two renders inside one frame leave a slot that
+  mounted shut with nothing to open from, so the beat's second half reads `document.body.offsetHeight`
+  before it opens anything — the frame is forced, not hoped for.
 - `max-width` must be smaller than the space at every instant; reserve the line box in `lh`,
   leading the measure opening and lagging it closing. Include flex `gap`s in the final.
 - The pins are a function of the chat's width and the counts column — move either and all six
@@ -51,7 +71,18 @@ increments, read rects out with `--dump-dom`. Probes: `probe-*.html`, gitignored
 settles every card and asserts Build arms at both grains, `probe-sweep` re-runs the `2lh` sweep
 with each step open and reports the slack, `probe-write` drives the write field on both grounds
 and asserts the plan neither overruns nor clips, `probe-doc` does the same to section 03 of
-`Choice Cards`, `probe-shot` only poses a state for `--screenshot`.
+`Choice Cards`, `probe-settle` steps the settle beat and asserts both ends move and the column's
+height is monotone through it, `probe-fr` is the five-case `<flex>` track reading above,
+`probe-pose` stops the beat at one millisecond for `--screenshot`, `probe-shot` only poses a
+state for `--screenshot`.
+
+- `--virtual-time-budget` advances the clock in jumps of its own, so a real `wait` is not a way to
+  land inside a transition: it can finish, and a finished transition is off `getAnimations()` and
+  can no longer be posed. Step `currentTime` for the reading; for a screenshot, hold the beat's
+  own timers instead (patch the iframe's `setTimeout` by delay) and never fire the unmount.
+- A posed frame can paint stale: stepping an opacity transition by hand leaves the composited
+  layer at its OLD size with its NEW alpha, which reads as a ghost overlapping what is below it.
+  Hold the opacity at 0 (`probe-pose?nofade=1`) and the geometry paints as measured.
 
 - Gate on hydration: `.sc-placeholder` gone, `sc-dc-streaming` off, tops non-zero. Fail loudly
   on zero geometry.
@@ -93,6 +124,13 @@ and asserts the plan neither overruns nor clips, `probe-doc` does the same to se
   — one `::placeholder` rule in the helmet, `#6b7783`, and it reads on both grounds.
 - Two states, not one: `text` is the draft and dies with the card, `written` is the answer and
   outlives it. Both seed on open, the way `sel` seeds off `pick`.
+- `Answered by you` reads in the order answers LANDED, not the step's card order, and it has to:
+  the list is one `sc-for` keyed by index, so a card landing anywhere but the end renames the node
+  that was already there and the node that opens is the wrong one. `order` is appended once per
+  card — changing an answer you already gave is not a new one.
+- Applying keeps `sel` where you put it instead of clearing it to `-1`. The card spends the next
+  beat closing in front of you, and a row that de-selects itself on the way out is a flicker.
+  Closed, nobody reads `sel`, and opening seeds it off `pick` — which is now the same row.
 - The settled sentence reads through one function, so a card can never be shown settled on words
   nothing can find. A row with no `answer` is the field; that is the only test in the logic.
 

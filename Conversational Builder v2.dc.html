@@ -502,6 +502,10 @@
                     <div style="overflow: hidden; min-height: 0; opacity: {{ exOp }}; transition: opacity {{ exOpDur }} {{ moveEase }} {{ exOpDl }};">
 
                       <sc-if value="{{ s.arg }}" hint-placeholder-val="{{ false }}">
+<!-- The settle beat, on the plan's ground: the card folds away rather than being deleted.
+     The 8px it sits on is INSIDE the collapsing box, so it folds with the card. -->
+                      <div style="display: grid; grid-template-rows: {{ s.arg.box }}; overflow: hidden; opacity: {{ s.arg.fade }}; transition: grid-template-rows 340ms cubic-bezier(0.2, 0, 0.2, 1), opacity 240ms cubic-bezier(0.2, 0, 0.2, 1) 40ms;">
+                      <div style="min-height: 0;">
                       <div data-plan-owed="{{ s.arg.key }}" style="min-width: 979px; margin-top: 8px; background: linear-gradient(180deg, rgba(242, 118, 43, 0.14), rgba(242, 118, 43, 0.06) 45%, rgba(242, 118, 43, 0.025)); border: 1px solid rgba(242, 118, 43, 0.30); border-radius: 12px; display: flex; flex-direction: column;">
                         <div style="padding: 12px 16px 14px; display: flex; flex-direction: column; gap: 10px; border-bottom: 1px solid rgba(242, 118, 43, 0.16);">
                           <div style="display: flex; align-items: center; gap: 8px;">
@@ -515,7 +519,7 @@
                             <div style="font: 400 14px/24px 'Open Sans', sans-serif; color: #a9b6c3; max-width: 62ch; text-wrap: pretty;">{{ s.arg.because }}</div>
                             </sc-if>
                             <sc-if value="{{ s.arg.source }}" hint-placeholder-val="{{ true }}">
-                            <div style="display: inline-flex; align-self: flex-start; align-items: center; gap: 8px; margin-top: 2px; cursor: pointer; color: #f2985c; pointer-events: {{ washPE }}; transition: color 160ms cubic-bezier(0.2, 0, 0.2, 1);" style-hover="color: #f5f9fc;">
+                            <div style="display: inline-flex; align-self: flex-start; align-items: center; gap: 8px; margin-top: 2px; cursor: pointer; color: #f2985c; pointer-events: {{ s.arg.pe }}; transition: color 160ms cubic-bezier(0.2, 0, 0.2, 1);" style-hover="color: #f5f9fc;">
                               <i class="ph ph-book-open-text" style="font-size: 14px; color: #f2762b;"></i>
                               <div style="font: 400 12px/16px ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;">{{ s.arg.source }}</div>
                             </div>
@@ -525,7 +529,7 @@
                         <div style="padding: 14px 16px; display: flex; flex-direction: column; gap: 8px; border-bottom: 1px solid rgba(242, 118, 43, 0.16);">
                           <sc-for list="{{ s.arg.rows }}" as="w" hint-placeholder-count="3">
                           <div style="display: flex; flex-direction: column; gap: 8px;">
-                          <div data-plan-row="{{ w.idx }}" onClick="{{ w.take }}" tabindex="{{ washTab }}" style="display: flex; align-items: center; gap: 10px; padding: 8px 12px; background: {{ w.bg }}; border: 1px solid {{ w.border }}; border-radius: 8px; cursor: pointer; outline: none; color: {{ w.color }}; pointer-events: {{ washPE }}; transition: all 160ms cubic-bezier(0.2, 0, 0.2, 1);" style-hover="background: #1d1d1d;" style-focus="box-shadow: 0 0 0 3px rgba(43, 127, 228, 0.32);">
+                          <div data-plan-row="{{ w.idx }}" onClick="{{ w.take }}" tabindex="{{ s.arg.tab }}" style="display: flex; align-items: center; gap: 10px; padding: 8px 12px; background: {{ w.bg }}; border: 1px solid {{ w.border }}; border-radius: 8px; cursor: pointer; outline: none; color: {{ w.color }}; pointer-events: {{ s.arg.pe }}; transition: all 160ms cubic-bezier(0.2, 0, 0.2, 1);" style-hover="background: #1d1d1d;" style-focus="box-shadow: 0 0 0 3px rgba(43, 127, 228, 0.32);">
                             <div style="width: 14px; height: 14px; flex: none; border-radius: 99px; border: 1px solid {{ w.ring }}; display: grid; place-items: center;"><div style="width: 6px; height: 6px; border-radius: 99px; background: {{ w.dot }};"></div></div>
                             <div style="font: 400 14px/22px 'Open Sans', sans-serif;">{{ w.label }}</div>
                             <sc-if value="{{ w.badge }}" hint-placeholder-val="{{ false }}">
@@ -533,7 +537,7 @@
                             </sc-if>
                           </div>
                           <sc-if value="{{ w.write }}" hint-placeholder-val="{{ false }}">
-                          <input data-write="{{ w.idx }}" value="{{ w.field.text }}" onChange="{{ w.field.type }}" onKeyDown="{{ w.field.keys }}" placeholder="Tell me what it should be" tabindex="{{ washTab }}" style="margin-left: 24px; padding: 6px 10px; background: #0d0d0d; border: 1px solid #2a2a2a; border-radius: 6px; font: 400 14px/22px 'Open Sans', sans-serif; color: #f5f9fc; outline: none; pointer-events: {{ washPE }};" style-hover="border-color: #383838;" style-focus="border-color: #4d97ea; box-shadow: 0 0 0 3px rgba(43, 127, 228, 0.32);">
+                          <input data-write="{{ w.idx }}" value="{{ w.field.text }}" onChange="{{ w.field.type }}" onKeyDown="{{ w.field.keys }}" placeholder="Tell me what it should be" tabindex="{{ s.arg.tab }}" style="margin-left: 24px; padding: 6px 10px; background: #0d0d0d; border: 1px solid #2a2a2a; border-radius: 6px; font: 400 14px/22px 'Open Sans', sans-serif; color: #f5f9fc; outline: none; pointer-events: {{ s.arg.pe }};" style-hover="border-color: #383838;" style-focus="border-color: #4d97ea; box-shadow: 0 0 0 3px rgba(43, 127, 228, 0.32);">
                           </sc-if>
                           </div>
                           </sc-for>
@@ -541,8 +545,10 @@
 
                         <div style="padding: 10px 16px; display: flex; align-items: center; gap: 8px;">
                           <div onClick="{{ s.arg.apply.act }}" tabindex="{{ s.arg.apply.tab }}" style="display: inline-flex; align-items: center; gap: 6px; height: 28px; padding: 0 8px; border-radius: 6px; border: 1px solid {{ s.arg.apply.border }}; background: {{ s.arg.apply.bg }}; color: {{ s.arg.apply.color }}; font: 600 12px/16px 'Open Sans', sans-serif; cursor: {{ s.arg.apply.cursor }}; outline: none; pointer-events: {{ s.arg.apply.pe }}; transition: all 160ms cubic-bezier(0.2, 0, 0.2, 1);" style-hover="background: #4d97ea; border-color: #4d97ea;" style-focus="box-shadow: 0 0 0 3px rgba(43, 127, 228, 0.32);"><i class="ph ph-check" style="font-size: 12px;"></i>Apply</div>
-                          <div tabindex="{{ washTab }}" style="display: inline-flex; align-items: center; gap: 6px; height: 28px; padding: 0 8px; border-radius: 6px; border: 1px solid #383838; background: transparent; color: #c3cdd7; font: 600 12px/16px 'Open Sans', sans-serif; cursor: pointer; outline: none; pointer-events: {{ washPE }}; transition: all 160ms cubic-bezier(0.2, 0, 0.2, 1);" style-hover="border-color: #4d97ea; background: #1d1d1d; color: #f5f9fc;" style-focus="box-shadow: 0 0 0 3px rgba(43, 127, 228, 0.32);"><i class="ph ph-chat-teardrop-text" style="font-size: 12px;"></i>Comment</div>
+                          <div tabindex="{{ s.arg.tab }}" style="display: inline-flex; align-items: center; gap: 6px; height: 28px; padding: 0 8px; border-radius: 6px; border: 1px solid #383838; background: transparent; color: #c3cdd7; font: 600 12px/16px 'Open Sans', sans-serif; cursor: pointer; outline: none; pointer-events: {{ s.arg.pe }}; transition: all 160ms cubic-bezier(0.2, 0, 0.2, 1);" style-hover="border-color: #4d97ea; background: #1d1d1d; color: #f5f9fc;" style-focus="box-shadow: 0 0 0 3px rgba(43, 127, 228, 0.32);"><i class="ph ph-chat-teardrop-text" style="font-size: 12px;"></i>Comment</div>
                         </div>
+                      </div>
+                      </div>
                       </div>
                       </sc-if>
                     </div>
@@ -667,7 +673,11 @@
 
           <div style="flex: none; max-width: 800px; display: flex; flex-direction: column; gap: 12px; padding-bottom: 24px; opacity: {{ dOp }}; transform: {{ dTr }}; transition: opacity {{ dDur }} cubic-bezier(0.2, 0, 0.2, 1) {{ dDl }}, transform {{ dDur }} cubic-bezier(0.2, 0, 0.2, 1) {{ dDl }};">
 
-            <sc-if value="{{ anyOwed }}" hint-placeholder-val="{{ true }}">
+<!-- Not `sc-if`: the heading leaves with the last card under it, on the same beat, so it
+     collapses instead of unmounting. The negative margin eats the column's 12px gap as
+     it goes, which is the same trick every card in this list plays. -->
+            <div style="display: grid; grid-template-rows: {{ owedHeadBox }}; overflow: hidden; margin-bottom: {{ owedHeadPull }}; transition: grid-template-rows {{ beatDur }} cubic-bezier(0.2, 0, 0.2, 1), margin-bottom {{ beatDur }} cubic-bezier(0.2, 0, 0.2, 1);">
+            <div style="min-height: 0;">
             <div style="display: flex; align-items: baseline; justify-content: space-between; gap: 16px;">
               <div style="font: 400 10px/12px ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; text-transform: uppercase; letter-spacing: 0.14em; color: #8b98a5;">What I need from you</div>
 
@@ -675,11 +685,16 @@
      other. Glyph and word carry which kind — never the colour. -->
               <div style="display: inline-flex; align-items: center; gap: 8px; font: 400 12px/16px 'Open Sans', sans-serif; color: #8b98a5;"><sc-if value="{{ paneHasArg }}" hint-placeholder-val="{{ true }}"><span style="display: inline-flex; align-items: center; gap: 4px;"><i class="ph ph-warning" style="font-size: 10px;"></i>Not agreed</span></sc-if><sc-if value="{{ paneHasQ }}" hint-placeholder-val="{{ true }}"><span style="display: inline-flex; align-items: center; gap: 4px;"><i class="ph ph-question-mark" style="font-size: 10px;"></i>{{ paneQWord }}</span></sc-if></div>
             </div>
-            </sc-if>
+            </div>
+            </div>
 
 <!-- ONE card shape for both kinds of waiting. Arguments sort first — an argument is what
-     the rest of the step is waiting behind — and only one of them carries a drawing. -->
+     the rest of the step is waiting behind — and only one of them carries a drawing.
+     Applied, the card does not vanish: the wrapper folds it away over one beat while the
+     settled card opens under `Answered by you` on the same one. -->
             <sc-for list="{{ owedList }}" as="o" hint-placeholder-count="2">
+            <div style="display: grid; grid-template-rows: {{ o.box }}; overflow: hidden; margin-bottom: {{ o.pull }}; opacity: {{ o.fade }}; transition: grid-template-rows 340ms cubic-bezier(0.2, 0, 0.2, 1), margin-bottom 340ms cubic-bezier(0.2, 0, 0.2, 1), opacity 240ms cubic-bezier(0.2, 0, 0.2, 1) 40ms;">
+            <div style="min-height: 0;">
             <div data-owed="{{ o.key }}" style="background: linear-gradient(180deg, rgba(242, 118, 43, 0.14), rgba(242, 118, 43, 0.06) 45%, rgba(242, 118, 43, 0.025)); border: 1px solid rgba(242, 118, 43, 0.30); border-radius: 8px; display: flex; flex-direction: column;">
               <div style="padding: 12px 16px 14px; display: flex; flex-direction: column; gap: 10px; border-bottom: 1px solid rgba(242, 118, 43, 0.16);">
                 <div style="display: flex; align-items: center; gap: 8px;">
@@ -693,7 +708,7 @@
                   <div style="font: 700 18px/28px 'Open Sans', sans-serif; color: #f5f9fc; text-wrap: pretty;">{{ o.headline }}</div>
                   <div style="font: 400 14px/24px 'Open Sans', sans-serif; color: #a9b6c3; max-width: 62ch; text-wrap: pretty;">{{ o.because }}</div>
                   <sc-if value="{{ o.source }}" hint-placeholder-val="{{ true }}">
-                  <div style="display: inline-flex; align-self: flex-start; align-items: center; gap: 8px; margin-top: 2px; cursor: pointer; color: #f2985c; transition: color 160ms cubic-bezier(0.2, 0, 0.2, 1);" style-hover="color: #f5f9fc;">
+                  <div style="display: inline-flex; align-self: flex-start; align-items: center; gap: 8px; margin-top: 2px; cursor: pointer; color: #f2985c; pointer-events: {{ o.pe }}; transition: color 160ms cubic-bezier(0.2, 0, 0.2, 1);" style-hover="color: #f5f9fc;">
                     <i class="ph ph-book-open-text" style="font-size: 14px; color: #f2762b;"></i>
                     <div style="font: 400 12px/16px ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;">{{ o.source }}</div>
                   </div>
@@ -726,7 +741,7 @@
               <div style="padding: 14px 16px; display: flex; flex-direction: column; gap: 8px; border-bottom: 1px solid rgba(242, 118, 43, 0.16);">
                 <sc-for list="{{ o.rows }}" as="w" hint-placeholder-count="3">
                 <div style="display: flex; flex-direction: column; gap: 8px;">
-                <div data-owed-row="{{ w.idx }}" onClick="{{ w.take }}" tabindex="0" style="display: flex; align-items: center; gap: 10px; padding: 8px 12px; background: {{ w.bg }}; border: 1px solid {{ w.border }}; border-radius: 8px; cursor: pointer; outline: none; color: {{ w.color }}; transition: all 160ms cubic-bezier(0.2, 0, 0.2, 1);" style-hover="background: #1d1d1d;" style-focus="box-shadow: 0 0 0 3px rgba(43, 127, 228, 0.32);">
+                <div data-owed-row="{{ w.idx }}" onClick="{{ w.take }}" tabindex="{{ o.tab }}" style="display: flex; align-items: center; gap: 10px; padding: 8px 12px; background: {{ w.bg }}; border: 1px solid {{ w.border }}; border-radius: 8px; cursor: pointer; outline: none; color: {{ w.color }}; pointer-events: {{ o.pe }}; transition: all 160ms cubic-bezier(0.2, 0, 0.2, 1);" style-hover="background: #1d1d1d;" style-focus="box-shadow: 0 0 0 3px rgba(43, 127, 228, 0.32);">
                   <div style="width: 14px; height: 14px; flex: none; border-radius: 99px; border: 1px solid {{ w.ring }}; display: grid; place-items: center;"><div style="width: 6px; height: 6px; border-radius: 99px; background: {{ w.dot }};"></div></div>
                   <div style="font: 400 14px/22px 'Open Sans', sans-serif;">{{ w.label }}</div>
                   <sc-if value="{{ w.badge }}" hint-placeholder-val="{{ false }}">
@@ -734,30 +749,39 @@
                   </sc-if>
                 </div>
                 <sc-if value="{{ w.write }}" hint-placeholder-val="{{ false }}">
-                <input data-write="{{ w.idx }}" value="{{ w.field.text }}" onChange="{{ w.field.type }}" onKeyDown="{{ w.field.keys }}" placeholder="Tell me what it should be" tabindex="0" style="margin-left: 24px; padding: 6px 10px; background: #0d0d0d; border: 1px solid #2a2a2a; border-radius: 6px; font: 400 14px/22px 'Open Sans', sans-serif; color: #f5f9fc; outline: none;" style-hover="border-color: #383838;" style-focus="border-color: #4d97ea; box-shadow: 0 0 0 3px rgba(43, 127, 228, 0.32);">
+                <input data-write="{{ w.idx }}" value="{{ w.field.text }}" onChange="{{ w.field.type }}" onKeyDown="{{ w.field.keys }}" placeholder="Tell me what it should be" tabindex="{{ o.tab }}" style="margin-left: 24px; padding: 6px 10px; background: #0d0d0d; border: 1px solid #2a2a2a; border-radius: 6px; font: 400 14px/22px 'Open Sans', sans-serif; color: #f5f9fc; outline: none; pointer-events: {{ o.pe }};" style-hover="border-color: #383838;" style-focus="border-color: #4d97ea; box-shadow: 0 0 0 3px rgba(43, 127, 228, 0.32);">
                 </sc-if>
                 </div>
                 </sc-for>
               </div>
               <div style="padding: 10px 16px; display: flex; align-items: center; gap: 8px;">
                 <div onClick="{{ o.apply.act }}" tabindex="{{ o.apply.tab }}" style="display: inline-flex; align-items: center; gap: 6px; height: 28px; padding: 0 8px; border-radius: 6px; border: 1px solid {{ o.apply.border }}; background: {{ o.apply.bg }}; color: {{ o.apply.color }}; font: 600 12px/16px 'Open Sans', sans-serif; cursor: {{ o.apply.cursor }}; outline: none; pointer-events: {{ o.apply.pe }}; transition: all 160ms cubic-bezier(0.2, 0, 0.2, 1);" style-hover="background: #4d97ea; border-color: #4d97ea;" style-focus="box-shadow: 0 0 0 3px rgba(43, 127, 228, 0.32);"><i class="ph ph-check" style="font-size: 12px;"></i>Apply</div>
-                <div tabindex="0" style="display: inline-flex; align-items: center; gap: 6px; height: 28px; padding: 0 8px; border-radius: 6px; border: 1px solid #383838; background: transparent; color: #c3cdd7; font: 600 12px/16px 'Open Sans', sans-serif; cursor: pointer; outline: none; transition: all 160ms cubic-bezier(0.2, 0, 0.2, 1);" style-hover="border-color: #4d97ea; background: #1d1d1d; color: #f5f9fc;" style-focus="box-shadow: 0 0 0 3px rgba(43, 127, 228, 0.32);"><i class="ph ph-chat-teardrop-text" style="font-size: 12px;"></i>Comment</div>
+                <div tabindex="{{ o.tab }}" style="display: inline-flex; align-items: center; gap: 6px; height: 28px; padding: 0 8px; border-radius: 6px; border: 1px solid #383838; background: transparent; color: #c3cdd7; font: 600 12px/16px 'Open Sans', sans-serif; cursor: pointer; outline: none; pointer-events: {{ o.pe }}; transition: all 160ms cubic-bezier(0.2, 0, 0.2, 1);" style-hover="border-color: #4d97ea; background: #1d1d1d; color: #f5f9fc;" style-focus="box-shadow: 0 0 0 3px rgba(43, 127, 228, 0.32);"><i class="ph ph-chat-teardrop-text" style="font-size: 12px;"></i>Comment</div>
               </div>
+            </div>
+            </div>
             </div>
             </sc-for>
 
 <!-- A heading with nothing under it is a heading that lies: a step nobody has answered
      anything on has no `Answered by you`. `What I chose for you` is never empty — the
-     settings at the end of it are things I chose. -->
-            <sc-if value="{{ hasAnswered }}" hint-placeholder-val="{{ true }}">
+     settings at the end of it are things I chose.
+     Collapsed rather than `sc-if`-ed, because the first answer to land here has to be
+     seen landing: the heading opens over it on the same beat the card opens on. -->
+            <div style="display: grid; grid-template-rows: {{ ansBox }}; overflow: hidden; margin-top: {{ ansPull }}; transition: grid-template-rows {{ beatDur }} cubic-bezier(0.2, 0, 0.2, 1), margin-top {{ beatDur }} cubic-bezier(0.2, 0, 0.2, 1);">
+            <div style="min-height: 0;">
             <div style="display: flex; flex-direction: column; gap: 8px; padding-top: 12px;">
               <div style="font: 400 10px/12px ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; text-transform: uppercase; letter-spacing: 0.14em; color: #8b98a5;">Answered by you</div>
 
+<!-- The other end of the settle beat. The card opens from nothing wearing the commit's
+     blue, and the blue drains once it has arrived. -->
               <sc-for list="{{ answered }}" as="c" hint-placeholder-count="1">
-              <div data-card="{{ c.key }}" style="background: #101820; border: 1px solid #1c2530; border-radius: 8px; display: flex; flex-direction: column;">
+              <div style="display: grid; grid-template-rows: {{ c.box }}; overflow: hidden; margin-top: {{ c.pull }}; opacity: {{ c.fade }}; transition: grid-template-rows 340ms cubic-bezier(0.2, 0, 0.2, 1), margin-top 340ms cubic-bezier(0.2, 0, 0.2, 1), opacity 240ms cubic-bezier(0.2, 0, 0.2, 1) 40ms;">
+              <div style="min-height: 0;">
+              <div data-card="{{ c.key }}" style="background: #101820; border: 1px solid {{ c.ring }}; border-radius: 8px; display: flex; flex-direction: column; transition: border-color {{ c.ringDur }} cubic-bezier(0.2, 0, 0.2, 1);">
                 <div style="padding: 12px 16px; display: flex; align-items: baseline; gap: 12px; border-bottom: {{ c.rule }};">
                   <div style="flex: 1; min-width: 0; font: 400 14px/22px 'Open Sans', sans-serif; color: #c3cdd7; text-wrap: pretty;"><span style="font-weight: 600;">{{ c.subject }}</span>{{ c.tail }}</div>
-                  <div onClick="{{ c.toggle }}" tabindex="0" style="display: inline-flex; align-items: center; gap: 6px; font: 600 12px/16px 'Open Sans', sans-serif; color: {{ c.handle }}; cursor: pointer; outline: none; flex: none; transition: color 160ms cubic-bezier(0.2, 0, 0.2, 1);" style-hover="color: #4d97ea;" style-focus="box-shadow: 0 0 0 3px rgba(43, 127, 228, 0.32);">Change<i class="ph ph-caret-right" style="font-size: 12px; transform: rotate({{ c.caret }}); transition: transform 160ms cubic-bezier(0.2, 0, 0.2, 1);"></i></div>
+                  <div onClick="{{ c.toggle }}" tabindex="{{ c.tab }}" style="display: inline-flex; align-items: center; gap: 6px; font: 600 12px/16px 'Open Sans', sans-serif; color: {{ c.handle }}; cursor: pointer; outline: none; flex: none; pointer-events: {{ c.pe }}; transition: color 160ms cubic-bezier(0.2, 0, 0.2, 1);" style-hover="color: #4d97ea;" style-focus="box-shadow: 0 0 0 3px rgba(43, 127, 228, 0.32);">Change<i class="ph ph-caret-right" style="font-size: 12px; transform: rotate({{ c.caret }}); transition: transform 160ms cubic-bezier(0.2, 0, 0.2, 1);"></i></div>
                 </div>
                 <sc-if value="{{ c.open }}" hint-placeholder-val="{{ false }}">
                   <div>
@@ -796,20 +820,27 @@
                   </div>
                 </sc-if>
               </div>
+              </div>
+              </div>
               </sc-for>
             </div>
-            </sc-if>
+            </div>
+            </div>
 
           </div>
 
           <div style="flex: none; max-width: 800px; display: flex; flex-direction: column; gap: 12px; opacity: {{ dOp }}; transform: {{ dTr }}; transition: opacity {{ dDur }} cubic-bezier(0.2, 0, 0.2, 1) {{ dDl }}, transform {{ dDur }} cubic-bezier(0.2, 0, 0.2, 1) {{ dDl }};">
             <div style="font: 400 10px/12px ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; text-transform: uppercase; letter-spacing: 0.14em; color: #8b98a5;">What I chose for you</div>
 
+<!-- This list empties by being reviewed: taking a row on one of these is you answering it,
+     so it leaves for `Answered by you` — the same beat, from the other end. -->
             <sc-for list="{{ chosen }}" as="c" hint-placeholder-count="1">
-            <div data-card="{{ c.key }}" style="background: #101820; border: 1px solid #1c2530; border-radius: 8px; display: flex; flex-direction: column;">
+            <div style="display: grid; grid-template-rows: {{ c.box }}; overflow: hidden; margin-bottom: {{ c.pull }}; opacity: {{ c.fade }}; transition: grid-template-rows 340ms cubic-bezier(0.2, 0, 0.2, 1), margin-bottom 340ms cubic-bezier(0.2, 0, 0.2, 1), opacity 240ms cubic-bezier(0.2, 0, 0.2, 1) 40ms;">
+            <div style="min-height: 0;">
+            <div data-card="{{ c.key }}" style="background: #101820; border: 1px solid {{ c.ring }}; border-radius: 8px; display: flex; flex-direction: column;">
               <div style="padding: 12px 16px; display: flex; align-items: baseline; gap: 12px; border-bottom: {{ c.rule }};">
                 <div style="flex: 1; min-width: 0; font: 400 14px/22px 'Open Sans', sans-serif; color: #c3cdd7; text-wrap: pretty;"><span style="font-weight: 600;">{{ c.subject }}</span>{{ c.tail }}</div>
-                <div onClick="{{ c.toggle }}" tabindex="0" style="display: inline-flex; align-items: center; gap: 6px; font: 600 12px/16px 'Open Sans', sans-serif; color: {{ c.handle }}; cursor: pointer; outline: none; flex: none; transition: color 160ms cubic-bezier(0.2, 0, 0.2, 1);" style-hover="color: #4d97ea;" style-focus="box-shadow: 0 0 0 3px rgba(43, 127, 228, 0.32);">Change<i class="ph ph-caret-right" style="font-size: 12px; transform: rotate({{ c.caret }}); transition: transform 160ms cubic-bezier(0.2, 0, 0.2, 1);"></i></div>
+                <div onClick="{{ c.toggle }}" tabindex="{{ c.tab }}" style="display: inline-flex; align-items: center; gap: 6px; font: 600 12px/16px 'Open Sans', sans-serif; color: {{ c.handle }}; cursor: pointer; outline: none; flex: none; pointer-events: {{ c.pe }}; transition: color 160ms cubic-bezier(0.2, 0, 0.2, 1);" style-hover="color: #4d97ea;" style-focus="box-shadow: 0 0 0 3px rgba(43, 127, 228, 0.32);">Change<i class="ph ph-caret-right" style="font-size: 12px; transform: rotate({{ c.caret }}); transition: transform 160ms cubic-bezier(0.2, 0, 0.2, 1);"></i></div>
               </div>
               <sc-if value="{{ c.open }}" hint-placeholder-val="{{ false }}">
                 <div>
@@ -846,6 +877,8 @@
                   </div>
                 </div>
               </sc-if>
+            </div>
+            </div>
             </div>
             </sc-for>
 
@@ -998,9 +1031,20 @@ class Component extends DCLogic {
       // own words — the draft is uncommitted like `sel`, and `written` is part of the
       // answer like `pick`, which is why they are two.
       cards: Object.fromEntries(Object.entries(Component.INIT).map(([k, v]) =>
-        [k, { pick: v.pick, mine: v.mine, open: false, why: false, sel: -1, text: '', written: '' }]))
+        [k, { pick: v.pick, mine: v.mine, open: false, why: false, sel: -1, text: '', written: '' }])),
+      // Which cards are mid-settle, and which half of that beat each one is in. Empty
+      // is the resting state and the only one any screenshot ever poses.
+      settling: {},
+      // The order answers landed in, appended once each. `Answered by you` reads in that
+      // order — the ones already there when we started first, then newest last — and it
+      // has to, because the list is one `sc-for` keyed by index: a card landing anywhere
+      // but the end would rename the node that was already there and the node that
+      // actually opens would be the wrong one. Newest last is also the true reading.
+      order: []
     };
   })();
+
+  timers = [];
 
   // The plan. Everything per-row lives here, including the measured description pins
   // — one place, so the row markup can be one copy. `conn` is which connector this
@@ -1284,6 +1328,7 @@ class Component extends DCLogic {
 
   componentWillUnmount() {
     document.removeEventListener('keydown', this.onKey);
+    this.timers.forEach(clearTimeout);
   }
 
   renderVals() {
@@ -1326,6 +1371,79 @@ class Component extends DCLogic {
     // never runs it, so the focus silently does not land.
     const setCard = (k, patch, done) => this.setState(p =>
       ({ cards: { ...p.cards, [k]: { ...p.cards[k], ...patch } } }), done);
+
+    // ── Settling ───────────────────────────────────────────────────────────
+    // Applying moves a card between two lists, and a card that only ever appears in
+    // its new place is a card you cannot follow. So for one beat BOTH ends are
+    // mounted: the slot it left closes while the slot it lands in opens, on the same
+    // duration and the same easing, and what lands wears the commit's blue until the
+    // beat is over. Blue, not orange — the wash means one thing, and this card has
+    // stopped waiting on you. Same shape as every collapse in this doc: `1fr -> 0fr`
+    // on a wrapper, and a negative margin that eats the column's gap on the way, so
+    // the unmount at the end of the beat costs no pixels.
+    //
+    // `p` is which half of the beat we are in. A landing slot has to MOUNT shut and
+    // open on a LATER render, or it has nothing to open from: `1` mounts it, `2`
+    // opens it. `from` is the list being left, and it has to be caught here, before
+    // the pick lands — settled is settled, and `owed` and `chosen` both read false
+    // the moment it does.
+    const SETTLE = 340;
+    const settleFrom = k => owed(k) ? 'owed' : (S.cards[k].mine ? '' : 'chosen');
+    const beginSettle = k => {
+      const from = settleFrom(k);
+      const put = v => this.setState(p => {
+        const s = { ...p.settling };
+        if (v) s[k] = v; else delete s[k];
+        return { settling: s };
+      });
+      // Appended once, on the first landing: changing an answer you already gave is not
+      // a new one, and moving the card would be a jump nothing asked for.
+      if (S.order.indexOf(k) === -1) this.setState(p => ({ order: p.order.concat([k]) }));
+      put({ p: 1, from: from });
+      this.timers.push(setTimeout(() => {
+        // The shut value has to be USED before it is opened: a transition needs a
+        // computed value to come from, and two renders inside one frame leave the
+        // landing slot with none — it would snap open while the other end folds. The
+        // read forces that, so the beat does not depend on a frame landing inside 20ms.
+        void document.body.offsetHeight;
+        put({ p: 2, from: from });
+      }, 20));
+      this.timers.push(setTimeout(() => put(null), SETTLE + 40));
+    };
+
+    const st = k => S.settling[k];
+    // A slot being left: open until the beat starts, shut for the whole of it, and
+    // withdrawn the moment it starts closing — nothing offers what it cannot do, and
+    // a card on its way out cannot take an answer.
+    const leaves = (k, gap) => {
+      const s = st(k);
+      return {
+        box: s ? '0fr' : '1fr', pull: s ? (-gap) + 'px' : '0px', fade: s ? '0' : '1',
+        pe: s ? 'none' : 'auto', tab: s ? '-1' : '0',
+        ring: '#1c2530', ringDur: '0s'
+      };
+    };
+    // A slot being landed in: shut for the first render of the beat only.
+    // `own` is whether this card opens itself. One collapse at a time, never two nested:
+    // a `1fr` track inside a track that is still closed resolves to nothing and does not
+    // come back when the outer one opens. So the FIRST answer to land in an empty list
+    // lets the list do the opening — the clip is the reveal either way — and only a card
+    // landing in a list that is already up opens on its own.
+    const lands = (k, gap, own) => {
+      const s = st(k);
+      const shut = own && !!s && s.p === 1 && !!s.from;
+      return {
+        box: shut ? '0fr' : '1fr', pull: shut ? (-gap) + 'px' : '0px', fade: shut ? '0' : '1',
+        pe: shut ? 'none' : 'auto', tab: shut ? '-1' : '0',
+        // The commit's colour, held for the beat and drained after it — and it DRAINS
+        // only, never fills. The settled cards are one `sc-for` keyed by index, so an
+        // answer landing at the top of the list renames the node that was already there
+        // rather than pushing it down; a colour that transitioned in would ramp up to the
+        // blue from whatever that node was wearing, which is the wrong way round.
+        ring: s ? '#4d97ea' : '#1c2530',
+        ringDur: s ? '0s' : '400ms'
+      };
+    };
 
     // The second half of the settled sentence, whoever wrote it: mine off the row that
     // was taken, yours out of the field under it. One reader, so nothing on the screen
@@ -1410,10 +1528,15 @@ class Component extends DCLogic {
         // answer, so `written` lands beside `pick` and the card reads them back in the
         // sentence. Either way the card is done being looked at, so it closes; an owed
         // one has nothing open to close.
+        // The selection stays where you put it rather than going back to `-1`: the card
+        // spends the next beat closing in front of you, and a row that un-selects itself
+        // on the way out is a flicker. Closed, nobody reads `sel` anyway, and opening
+        // seeds it off `pick` — which is now the same row.
         act: e => {
           const el = e && e.currentTarget;
           if (el && el.blur) el.blur();
-          const patch = { sel: -1, open: false, why: false };
+          beginSettle(k);
+          const patch = { sel: i, open: false, why: false };
           patch.pick = i;
           patch.mine = true;
           patch.written = writes(k, i) ? said : '';
@@ -1459,11 +1582,18 @@ class Component extends DCLogic {
     // is one more thing the column has no room for — 12px of slack, and it does not
     // scroll. The reason costs 54 of the 44 the field wants, and it is one click away in
     // the step, where the card is up in full and nothing stands down but the drawing.
-    const owedCard = (k, live, quiet, short) => {
+    const owedCard = (k, live, quiet, short, gap) => {
       const ap = applyAct(k, live, quiet);
       const writing = writes(k, S.cards[k].sel);
+      const box = leaves(k, gap);
       return {
         key: k,
+        box: box.box, pull: box.pull, fade: box.fade,
+        // Two things withdraw this card's controls and they are one value, because a
+        // control cannot be half-withdrawn: the plan's copy behind an open step, and
+        // either copy on its way out of the list.
+        pe: (live && box.pe === 'auto') ? 'auto' : 'none',
+        tab: (live && box.pe === 'auto') ? '0' : '-1',
         glyph: isArg(k) ? 'ph-warning' : 'ph-question-mark',
         word: isArg(k) ? 'Not agreed' : 'Not answered',
         headline: CARDS[k].headline,
@@ -1567,6 +1697,12 @@ class Component extends DCLogic {
 
     const paneN = S.last;
     const paneStep = STEPS[paneN - 1];
+    // One reader for the list an answer lands in: whether it exists at all, whether it
+    // was already up before this one arrived, and what order it reads in are the same
+    // fact asked three ways. The ones that were already answered keep the step's own
+    // order; everything you answered since lands after them, in the order you did.
+    const ansKeys = of(paneN).filter(k => !owed(k) && S.cards[k].mine)
+      .sort((a, b) => (S.order.indexOf(a) + 1 || 0.5) - (S.order.indexOf(b) + 1 || 0.5));
     const paneBuilt = S.built[paneN];
     const paneBuilding = S.building[paneN];
 
@@ -1599,7 +1735,9 @@ class Component extends DCLogic {
       act: e => {
         const el = e && e.currentTarget;
         if (el && el.blur) el.blur();
-        setCard(argK, { pick: CARDS[argK].proposal, mine: true, sel: -1, open: false, why: false });
+        beginSettle(argK);
+        setCard(argK, { pick: CARDS[argK].proposal, mine: true,
+          sel: CARDS[argK].proposal, open: false, why: false });
       }
     };
 
@@ -1637,7 +1775,10 @@ class Component extends DCLogic {
       const isOpen = S.step === n;
       const firstOfGroup = n === 1 || groupOf(n) !== groupOf(n - 1);
       const q = qsOwed(n).length;
-      const arg = argsOwed(n)[0];
+      // The plan's copy closes on the same beat as the pane's, so agreeing from here
+      // folds the card away instead of deleting it out from under the cursor.
+      const arg = argsOwed(n)[0]
+        || of(n).filter(k => isArg(k) && st(k) && st(k).from === 'owed')[0];
       // One status word per state, and it must be sayable in both views: the spine says
       // it in the label, the wide plan in the chip. Never orange for `Building` — the
       // wash means one thing, and this is not waiting on you.
@@ -1683,7 +1824,7 @@ class Component extends DCLogic {
         // Only an argument is carried on the plan. A step owing a detail says so with
         // its chip and keeps the card in its own pane — three wash cards in a column
         // with 16px of slack is the plan overflowing, and the plan does not scroll.
-        arg: arg ? owedCard(arg, !(on || run), '#242424', true) : null
+        arg: arg ? owedCard(arg, !(on || run), '#242424', true, 0) : null
       };
     });
 
@@ -1711,9 +1852,22 @@ class Component extends DCLogic {
       stTitle: paneStep.title,
       stDesc: sub(paneStep.desc),
       stCrumb: paneStep.crumb,
-      owedList: of(paneN).filter(k => owed(k)).sort((a, b) => (isArg(b) ? 1 : 0) - (isArg(a) ? 1 : 0))
-        .map(k => owedCard(k, true, '#242424', false)),
+      // A card mid-settle is still in the list it is leaving — that is the whole of the
+      // beat. It leaves for good when the beat ends, at zero height, which costs nothing.
+      owedList: of(paneN).filter(k => owed(k) || (st(k) && st(k).from === 'owed'))
+        .sort((a, b) => (isArg(b) ? 1 : 0) - (isArg(a) ? 1 : 0))
+        .map(k => owedCard(k, true, '#242424', false, 12)),
       anyOwed: of(paneN).some(k => owed(k)),
+      // The heading goes with the last card under it, on the same beat, rather than
+      // popping out from over a card that is still closing.
+      owedHeadBox: of(paneN).some(k => owed(k)) ? '1fr' : '0fr',
+      owedHeadPull: of(paneN).some(k => owed(k)) ? '0px' : '-12px',
+      // The two list wrappers outlive the cards in them, so they are the only things
+      // here that could carry a beat into a state change that is not one. Walking to
+      // another step is not a settle: a heading collapsing over a step it never
+      // belonged to is a heading that lies for 340ms. So the duration is the beat's
+      // own, and zero at every other time.
+      beatDur: Object.keys(S.settling).length ? '340ms' : '0s',
       paneHasArg: argsOwed(paneN).length > 0,
       paneHasQ: qsOwed(paneN).length > 0,
       paneQWord: qsOwed(paneN).length === 1
@@ -1723,9 +1877,15 @@ class Component extends DCLogic {
       // whichever list makes that true rather than carrying a label of its own. A
       // card I chose for you leaves `chosen` the moment you take a row on it — that
       // list is the review queue, and reviewing it is what empties it.
-      answered: of(paneN).filter(k => !owed(k) && S.cards[k].mine).map(settled),
-      chosen: of(paneN).filter(k => !owed(k) && !S.cards[k].mine).map(settled),
-      hasAnswered: of(paneN).some(k => !owed(k) && S.cards[k].mine),
+      answered: ansKeys.map(k => ({ ...settled(k), ...lands(k, 8, ansKeys.length > 1) })),
+      chosen: of(paneN).filter(k => (!owed(k) && !S.cards[k].mine) || (st(k) && st(k).from === 'chosen'))
+        .map(k => ({ ...settled(k), ...leaves(k, 12) })),
+      hasAnswered: ansKeys.length > 0,
+      // The list an answer lands in, collapsed while it holds nothing: a heading with
+      // nothing under it is a heading that lies, and one that appears out of nowhere
+      // over the card that just arrived is a heading you did not see arrive.
+      ansBox: ansKeys.length ? '1fr' : '0fr',
+      ansPull: ansKeys.length ? '0px' : '-12px',
       settings: paneStep.settings.map(x => ({
         pre: x.pre, token: sub(x.token),
         post: /^[.,;]/.test(x.post) ? x.post : ' ' + x.post
@@ -1814,11 +1974,10 @@ class Component extends DCLogic {
       // row's own click belongs to the scrubber, so there it goes.
       cardPE: run ? 'none' : 'auto',
       cardTab: run ? '-1' : '0',
-      // The plan's copy of the argument card, on the other hand, is withdrawn behind
-      // an open step: the pane holds the same card, and one decision may not have two
-      // live sets of controls.
-      washPE: (on || run) ? 'none' : 'auto',
-      washTab: (on || run) ? '-1' : '0',
+      // The plan's copy of the argument card is withdrawn behind an open step — the pane
+      // holds the same card, and one decision may not have two live sets of controls —
+      // and again while it is folding away. Both live on the card itself, as `s.arg.pe`
+      // and `s.arg.tab`: a control cannot be half-withdrawn, so there is one value.
 
       // `Test what exists` is the entry, and the one state it may not act from is
       // a step open: see the markup for why the endpoints for that move do not
