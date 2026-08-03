@@ -1,7 +1,7 @@
 # Notes
 
-Measured numbers for the transition in `Conversational Builder v2.dc.html`, and traps.
-Everything else: read the source doc.
+Measured numbers for the transition in `index.html`, and traps.
+Everything else: read the page.
 
 ## Motion
 
@@ -147,15 +147,14 @@ ways the beat could look like a reload and bounds the third, `probe-shot` only p
 - The settled sentence reads through one function, so a card can never be shown settled on words
   nothing can find. A row with no `answer` is the field; that is the only test in the logic.
 
-## Build
+## Running it
 
 ```
-python3 build-screens.py                          # regenerate index.html
 python3 -m http.server 8765 --bind 127.0.0.1      # preview — always over HTTP
 ```
 
-`file://` breaks `support.js` and the local fonts. `index.html` is the screen itself, so the
-states are URLs on it: `/`, `?step=3`, `?run=1`, `?run=1&at=1`, `?run=1&full=1`. A second
-screen has nowhere to go — the build says so rather than guessing.
+`file://` breaks `support.js` and the local fonts. There is no build: `index.html` is the
+screen, edited directly, and the states are URLs on it — `/`, `?step=3`, `?run=1`,
+`?run=1&at=1`, `?run=1&full=1`.
 
 <https://github.com/bogdandraghici/AI-Assisted-Builder> is **public** — never push unless asked.
