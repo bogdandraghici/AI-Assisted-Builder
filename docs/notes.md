@@ -32,6 +32,12 @@ CSS transitions over interpolated inline styles; `support.js` re-resolves them e
   a motion change.
 - The plan does not scroll; anything added to it comes out of the 12px slack. The open-me arrow
   on every row cost 4 of the original 16 — its line box, on the four rows that had none.
+- The write field under `Something else` costs **44px** — 36 for the field, 8 for the band's gap
+  — and the plan has 12. So the plan's copy of the card drops the `because` while you write,
+  which is **54** (48 of text plus a 6px gap): slack goes 12 → **22**. The pane's copy keeps it
+  and drops only the drawing. Overrunning here does not read as an overrun: the plan's own
+  wrapper is `overflow: hidden`, so it clips 32px silently — measure underrun, not scrollHeight
+  on the column.
 - The five rows are ONE `sc-for`, keyed by index (`support.js:639`): the list may never change
   length or order, or the element has nothing to travel from. So building a step does not move
   it between `Built` and `Not built yet` — it changes its word.
@@ -43,7 +49,9 @@ CSS transitions over interpolated inline styles; `support.js` re-resolves them e
 Toggle, `document.getAnimations()`, `pause()` all, step every `currentTime` together in 16.7ms
 increments, read rects out with `--dump-dom`. Probes: `probe-*.html`, gitignored — `probe-build`
 settles every card and asserts Build arms at both grains, `probe-sweep` re-runs the `2lh` sweep
-with each step open and reports the slack.
+with each step open and reports the slack, `probe-write` drives the write field on both grounds
+and asserts the plan neither overruns nor clips, `probe-doc` does the same to section 03 of
+`Choice Cards`, `probe-shot` only poses a state for `--screenshot`.
 
 - Gate on hydration: `.sc-placeholder` gone, `sc-dc-streaming` off, tops non-zero. Fail loudly
   on zero geometry.
@@ -60,6 +68,12 @@ with each step open and reports the slack.
   finds the run strip's 2px connectors, which live in the same pane and read as 2px of slack.
 - Matching a control by its label needs the DEEPEST match: when Build is live its gate
   sentence is gone, which leaves the act region's own text equal to the label.
+- Headless stops painting once the page is offscreen and `requestAnimationFrame` stops with it,
+  so a probe that ticks on rAF hangs after the first interaction — race it against a timeout.
+- Typing into a controlled input from a probe needs the prototype `value` setter plus a bubbling
+  `input` event; assigning `el.value` alone leaves React's state behind.
+- The wide plan clips by design — every collapsed wrapper is a 0fr box with content in it — so a
+  clip census only means something as a diff against the same page one interaction earlier.
 
 ## Mechanics
 
@@ -72,6 +86,13 @@ with each step open and reports the slack.
 - The plan carries **arguments** only. A detail keeps its card in its own step's pane — three
   wash cards in that column is the plan overflowing, and it does not scroll.
 - `Building` is grey. Orange is the wash, and a step being built is not waiting on you.
+- The write field is `#0d0d0d` on `#2a2a2a` inside the wash, `#0e161d` on `#26313d` on the
+  settled card, inset 24 to hang under its row's label. A placeholder cannot be coloured inline
+  — one `::placeholder` rule in the helmet, `#6b7783`, and it reads on both grounds.
+- Two states, not one: `text` is the draft and dies with the card, `written` is the answer and
+  outlives it. Both seed on open, the way `sel` seeds off `pick`.
+- The settled sentence reads through one function, so a card can never be shown settled on words
+  nothing can find. A row with no `answer` is the field; that is the only test in the logic.
 
 ## Build
 
