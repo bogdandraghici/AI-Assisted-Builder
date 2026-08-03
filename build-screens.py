@@ -1,18 +1,18 @@
 #!/usr/bin/env python3
-"""Generate one full-page, chrome-free .dc.html per screen in the source doc.
+"""Generate index.html — the prototype itself — from the screen in the source doc.
 
-The source file is a design doc: every screen is a 1440x900 card sitting on a
-black canvas, each preceded by a caption block explaining it. That framing is
-right for the doc and wrong for a standalone page, so this strips it:
+The source file is a design doc: the screen is a 1440x900 card sitting on a
+black canvas, preceded by a caption block explaining it. That framing is right
+for the doc and wrong for the prototype, so this strips it:
 
   * the caption block is dropped entirely
   * the page canvas loses its padding and inter-screen gap
   * the screen loses its fixed size, border and radius, and fills the viewport
 
-The result is the screen as it would appear in the real product. Titles and
-descriptions live in index.html, which embeds these pages at 1440x900.
+The result is the screen as it would appear in the real product, and it is where
+the prototype starts — every state is a query string on this one page.
 
-Generated files are overwritten on every run — edit the source, not them.
+index.html is overwritten on every run — edit the source, not it.
 
     python3 build-screens.py
 """
@@ -23,6 +23,8 @@ import re
 import sys
 
 SOURCE = "Conversational Builder v2.dc.html"
+OUTPUT = "index.html"
+TITLE = "Conversational Builder v2 — FlowX AI-assisted builder"
 ROOT = pathlib.Path(__file__).parent
 
 CAPTION_OPEN = '  <div style="width: 1440px; display: flex; flex-direction: column; gap: 14px;">'
@@ -91,15 +93,6 @@ def find_blocks(lines):
     return blocks
 
 
-def caption_title(lines, start, end):
-    """Pull the human label out of a caption block, e.g. 'Screen 01 — ...'."""
-    for line in lines[start:end + 1]:
-        m = re.search(r">(Screen\s+[^<]+)<", line)
-        if m:
-            return html.unescape(m.group(1)).strip()
-    return None
-
-
 def main():
     src = ROOT / SOURCE
     if not src.exists():
@@ -110,53 +103,35 @@ def main():
     screens = [b for b in blocks if b[0] == "screen"]
     if not screens:
         sys.exit("error: no data-screen-label blocks found")
+    # The prototype starts on one page, so one screen is all this can write. A
+    # second screen needs a way in first — decide that, then teach it here.
+    if len(screens) > 1:
+        labels = ", ".join(b[1] for b in screens)
+        sys.exit(
+            f"error: {len(screens)} screens in {SOURCE} ({labels}), and {OUTPUT} is "
+            f"one page — the prototype needs a way to reach a second screen first"
+        )
 
     # Everything before the first block is shared head/helmet/canvas wrapper;
     # everything after the last is the closing wrapper and DCLogic script.
     prefix = apply_edits("".join(lines[:blocks[0][2]]), PREFIX_EDITS, "page shell")
     suffix = "".join(lines[blocks[-1][3] + 1:])
 
-    written = []
-    for block in screens:
-        kind, label, start, end = block
+    _, label, start, end = screens[0]
 
-        # Take the title from the caption we are about to discard.
-        title = None
-        idx = blocks.index(block)
-        if idx > 0 and blocks[idx - 1][0] == "caption":
-            title = caption_title(lines, blocks[idx - 1][2], blocks[idx - 1][3])
-        title = title or f"Screen {label}"
+    head = prefix.replace(
+        '<script src="./support.js"></script>',
+        f'<title>{html.escape(TITLE)}</title>\n<script src="./support.js"></script>',
+        1,
+    )
+    head = head.replace("<!DOCTYPE html>", "<!DOCTYPE html>\n" + BANNER.format(SOURCE), 1)
 
-        head = prefix.replace(
-            '<script src="./support.js"></script>',
-            f'<title>{html.escape(title)}</title>\n<script src="./support.js"></script>',
-            1,
-        )
-        head = head.replace("<!DOCTYPE html>", "<!DOCTYPE html>\n" + BANNER.format(SOURCE), 1)
+    screen = "".join(lines[start:end + 1])
+    open_tag, rest = screen.split(">", 1)
+    screen = apply_edits(open_tag, SCREEN_EDITS, f"screen {label}") + ">" + rest
 
-        screen = "".join(lines[start:end + 1])
-        open_tag, rest = screen.split(">", 1)
-        screen = apply_edits(open_tag, SCREEN_EDITS, f"screen {label}") + ">" + rest
-
-        out = ROOT / f"screen-{label}.dc.html"
-        out.write_text(head + screen + suffix, encoding="utf-8")
-        written.append((out.name, title))
-
-    for name, title in written:
-        print(f"wrote {name}  ({title})")
-
-    # A screen removed from the source used to leave its generated page behind,
-    # still served and still linked. Sweep those, but only ones this script
-    # wrote — the banner is the proof, so a hand-written page is never deleted.
-    kept = {name for name, _ in written}
-    for stale in sorted(ROOT.glob("screen-*.dc.html")):
-        if stale.name in kept:
-            continue
-        if BANNER.format(SOURCE) not in stale.read_text(encoding="utf-8"):
-            print(f"left {stale.name}  (no generated banner — not mine to delete)")
-            continue
-        stale.unlink()
-        print(f"removed {stale.name}  (no longer in {SOURCE})")
+    (ROOT / OUTPUT).write_text(head + screen + suffix, encoding="utf-8")
+    print(f"wrote {OUTPUT}  (screen {label} — {TITLE})")
 
 
 if __name__ == "__main__":

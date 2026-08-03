@@ -150,11 +150,12 @@ ways the beat could look like a reload and bounds the third, `probe-shot` only p
 ## Build
 
 ```
-python3 build-screens.py                          # regenerate screen-NN.dc.html
+python3 build-screens.py                          # regenerate index.html
 python3 -m http.server 8765 --bind 127.0.0.1      # preview — always over HTTP
 ```
 
-`file://` breaks `support.js` and the local fonts. New screen → re-run the build, then add its
-`index.html` section by hand.
+`file://` breaks `support.js` and the local fonts. `index.html` is the screen itself, so the
+states are URLs on it: `/`, `?step=3`, `?run=1`, `?run=1&at=1`, `?run=1&full=1`. A second
+screen has nowhere to go — the build says so rather than guessing.
 
 <https://github.com/bogdandraghici/AI-Assisted-Builder> is **public** — never push unless asked.
