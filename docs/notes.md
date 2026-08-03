@@ -6,7 +6,13 @@ constrained by what, and what a wrong choice looked like.
 - The six row `min-width` pins are a function of the chat's 360 and the counts column. Move
   either and all six are invalid; a wider counts column is a motion change. The fourth (979) is
   on the contested step's **card**, not its row.
-- Above 1440 x 900 the tracks are the region minus **321** (the band) or **300** (the spine), and
+- Above 1440 x 900 the shell **zooms** and the screen is laid out at the viewport divided by it, so
+  the design is only ever larger and never re-proportioned; the axis that does not bind is slack and
+  goes to the tracks. Two traps: `vw` / `vh` inside the zoom are z times too big, so `renderVals`
+  hands `frameW` / `frameH` down instead — and at z = 1 the value must be `normal`, because a
+  `zoom: 1` still takes the zoom path and re-rasterised every glyph in the run, 14.6k pixels off at
+  the design size for a declaration meant to do nothing.
+- The tracks are the region minus **321** (the band) or **300** (the spine), and
   every measure is capped: 1016 the plan's rows, 966 the app inside its frame, 906 the step pane.
   Each cap doubles as the floor of a pin at the design size, so the screen's own `min-width` /
   `min-height` may not move without all of them. A *height* pin may never be a percentage —

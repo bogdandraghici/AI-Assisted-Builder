@@ -33,9 +33,11 @@
 </style>
 </helmet>
 
-<div style="background: #000000; padding: 0; display: flex; flex-direction: column; font-family: 'Open Sans', -apple-system, sans-serif; -webkit-font-smoothing: antialiased;">
+<!-- The zoom is the whole of the large-screen answer: one design, laid out at {{ frameW }} x
+     {{ frameH }} and rendered {{ z }} times bigger. See renderVals — and never `vw`/`vh` below it. -->
+<div style="background: #000000; padding: 0; zoom: {{ z }}; display: flex; flex-direction: column; font-family: 'Open Sans', -apple-system, sans-serif; -webkit-font-smoothing: antialiased;">
 
-  <div data-screen-label="01" style="width: 100%; height: 100vh; min-width: 1440px; min-height: 900px; background: #0b1218; overflow: hidden; display: flex; flex-direction: column; color: #f5f9fc;">
+  <div data-screen-label="01" style="width: {{ frameW }}; height: {{ frameH }}; min-width: 1440px; min-height: 900px; background: #0b1218; overflow: hidden; display: flex; flex-direction: column; color: #f5f9fc;">
 
     <div style="flex: none;">
       <div style="height: 48px; background: #101820; border-bottom: 1px solid #18212a; display: flex; align-items: center; gap: 16px; padding: 0 16px;">
@@ -661,13 +663,10 @@
           <i class="ph ph-x" style="font-size: 12px;"></i>
         </div>
 
-<!-- Pinned at open width so the pane clips instead of reflowing, and the pin has to follow
-     the pane: 100vw - 660 is the column (region - the 300 spine), floored at the 780 it is
-     at 1440 and capped at 906 — 800 of measure plus 106 of padding — because above that the
-     blocks are on their own max-width and a wider pane changes no wrap. The same 906 caps the
-     pane, so it never grows past its own content — the close button hangs off its right edge
-     and would otherwise sit a screen away from what it closes. -->
-        <div style="position: absolute; top: 0; left: 0; bottom: 0; width: 100%; min-width: min(906px, max(780px, calc(100vw - 660px))); max-width: 906px; display: flex; flex-direction: column; overflow-y: auto; padding: 24px 74px 24px 32px;">
+<!-- `detPin` is the pane's open width — see renderVals. The same 906 caps the pane, so it never
+     grows past its own content: the close button hangs off its right edge and would otherwise
+     sit a screen away from what it closes. -->
+        <div style="position: absolute; top: 0; left: 0; bottom: 0; width: 100%; min-width: {{ detPin }}; max-width: 906px; display: flex; flex-direction: column; overflow-y: auto; padding: 24px 74px 24px 32px;">
 
           <div style="flex: none; max-width: 800px; display: flex; flex-direction: column; gap: 8px; padding-bottom: 24px; opacity: {{ dOp }}; transform: {{ dTr }}; transition: opacity {{ dDur }} cubic-bezier(0.2, 0, 0.2, 1) {{ dDl }}, transform {{ dDur }} cubic-bezier(0.2, 0, 0.2, 1) {{ dDl }};">
 
@@ -1331,10 +1330,17 @@ class Component extends DCLogic {
       if (this.state.step) this.setState({ step: 0 });
     };
     document.addEventListener('keydown', this.onKey);
+
+    // The zoom and the size the screen is laid out at are read off the window, so
+    // they have to be re-read when it changes. Nothing is measured here — the state
+    // is only a bump; `renderVals` does the arithmetic off `window` either way.
+    this.onResize = () => this.setState(p => ({ resized: (p.resized || 0) + 1 }));
+    window.addEventListener('resize', this.onResize);
   }
 
   componentWillUnmount() {
     document.removeEventListener('keydown', this.onKey);
+    window.removeEventListener('resize', this.onResize);
     this.timers.forEach(clearTimeout);
   }
 
@@ -1350,6 +1356,25 @@ class Component extends DCLogic {
     const thr = this.props.threshold ?? '£500';
     const sub = t => t.split('{threshold}').join(thr);
     const cap = t => t.charAt(0).toUpperCase() + t.slice(1);
+
+    // ── One design, at whatever size the screen is ─────────────────────────
+    // Everything in this doc is measured at 1440 x 900. On a bigger screen the
+    // answer is not smaller-looking type in more room: it is the SAME design,
+    // larger. So the shell carries a `zoom` and the screen is handed the
+    // viewport DIVIDED by it — 2610 x 1566 becomes 1.74 and a 1500 x 900 screen.
+    // `zoom` re-lays-out, so the type is rendered at size and not a scaled
+    // bitmap; `transform: scale` would blur it and leave the layout at 1440.
+    //
+    // The axis that binds lands exactly on its measure and the other one is
+    // slack, which the tracks below take as width — so nothing letterboxes and
+    // the run still gets the wider frame on a 16:9 screen.
+    //
+    // NEVER `vw` / `vh` inside the zoom: they are the unzoomed viewport, so they
+    // come out `z` times too big. Anything that used them reads these two.
+    // Floored, never rounded: `zoom` renders the screen at W x z, and a fraction over
+    // the viewport is a scrollbar. Under it is a sliver of the body's own ground.
+    const z = Math.max(1, Math.min(window.innerWidth / 1440, window.innerHeight / 900));
+    const W = Math.floor(window.innerWidth / z), H = Math.floor(window.innerHeight / z);
 
     // ── A withdrawn control's focus ring goes with it ──────────────────────
     // `pointer-events` and `tabindex` are interpolated; `style-focus` is one
@@ -2142,9 +2167,9 @@ class Component extends DCLogic {
       // The pin is a height, so it cannot be a percentage: against the cell that is
       // collapsing it would collapse with it and pin nothing. It is the header's 48
       // plus the pane's own vertical padding, which is 20 + 16 in the plan and 24 + 16
-      // as a spine — the old 816 and 812 at a 900 viewport, which is the floor.
+      // as a spine — the old 816 and 812 at a 900 screen, which is the floor.
       planGrow: run ? '0' : '1',
-      planPinH: on ? 'max(812px, calc(100vh - 88px))' : 'max(816px, calc(100vh - 84px))',
+      planPinH: Math.max(on ? 812 : 816, H - (on ? 88 : 84)) + 'px',
       planOp: run ? '0' : '1',
       planOpDur: run ? '70ms' : '200ms',
       planOpDl: run ? '0ms' : '180ms',
@@ -2212,6 +2237,24 @@ class Component extends DCLogic {
       // a step open. Keyed on `on` alone it stayed white, and the bar read as two
       // heres at once.
       planCrumbColor: (on || run) ? '#c3cdd7' : '#ffffff',
+
+      // The shell's zoom, and the size the screen is laid out at. Below the design
+      // size z is 1 and the screen keeps its own min-width / min-height, so it
+      // scrolls at a small window exactly as it did.
+      //
+      // At 1 it is `normal`, NOT the number: a `zoom: 1` still puts the subtree on
+      // the zoom path, and the run — whose app frame scrolls, so it composites —
+      // came back with every glyph re-rasterised. 14.6k pixels off at the design
+      // size, for a declaration that was meant to do nothing.
+      z: z === 1 ? 'normal' : z,
+      frameW: W + 'px',
+      frameH: H + 'px',
+      // The step pane, pinned at its open width so it clips instead of reflowing.
+      // W - 660 is its column: the region (W - the chat's 360) less the 300 spine.
+      // Floored at the 780 it is at 1440, and capped at 906 — 800 of measure plus
+      // 106 of padding — because above that the blocks inside are on their own
+      // max-width and a wider pane changes no wrap.
+      detPin: Math.min(906, Math.max(780, W - 660)) + 'px',
 
       // ── Screen 02: the run, and where it stops ───────────────────────────
       // Three stage states, chosen with sc-if. Legal here and only here: nothing on
