@@ -32,7 +32,7 @@ CSS transitions over interpolated inline styles; `support.js` re-resolves them e
   resolved twice: the container gets `f × H`, and then the track inside that now-definite height
   gets `f × f × H`. At `f = 0.5` the inner box is a quarter of the content while the wrapper still
   holds half — and if the inner box is the one clipping, the content is cut short of the space it
-  occupies and the difference is dead air on the screen. `probe-fr` is five lines of that, measured.
+  occupies and the difference is dead air on the screen — measured, in five cases.
   `minmax(0, Xfr)`, `min-height: 0` on the wrapper and `align-content` change nothing.
   The plan's own collapses still clip on the child; they were measured that way, and the plan clips
   by design. The settle beat is the one place the difference is visible, so it is the one that moved.
@@ -49,8 +49,8 @@ CSS transitions over interpolated inline styles; `support.js` re-resolves them e
   bottom of the pane the scroll it was holding stops existing and the browser clamps it — up to
   **324px** of travel, all of it honest. On the move's front-loaded curve a third of that lands in
   the first 100ms and reads as the page reloading. 520ms on a plain ease-out reads as a scroll.
-  `probe-jolt` bounds it: where the scroll survives the beat the content may not move, and where
-  it does not, the pane lands exactly on the clamp and never a pixel past it.
+  Bounded both ways when it was set: where the scroll survives the beat the content may not move,
+  and where it does not, the pane lands exactly on the clamp and never a pixel past it.
 - A transition needs a computed value to come from. Two renders inside one frame leave a slot that
   mounted shut with nothing to open from, so the beat's second half reads `document.body.offsetHeight`
   before it opens anything — the frame is forced, not hoped for.
@@ -76,15 +76,8 @@ CSS transitions over interpolated inline styles; `support.js` re-resolves them e
 ## Measuring
 
 Toggle, `document.getAnimations()`, `pause()` all, step every `currentTime` together in 16.7ms
-increments, read rects out with `--dump-dom`. Probes: `probe-*.html`, gitignored — `probe-build`
-settles every card and asserts Build arms at both grains, `probe-sweep` re-runs the `2lh` sweep
-with each step open and reports the slack, `probe-write` drives the write field on both grounds
-and asserts the plan neither overruns nor clips, `probe-doc` does the same to section 03 of
-`Choice Cards`, `probe-settle` steps the settle beat and asserts both ends move and the column's
-height is monotone through it, `probe-fr` is the five-case `<flex>` track reading above,
-`probe-pose` stops the beat at one millisecond for `--screenshot`, `probe-jolt` rules out the two
-ways the beat could look like a reload and bounds the third, `probe-shot` only poses a state for
-`--screenshot`.
+increments, read rects out with `--dump-dom`. Nothing in the repo does this now — the numbers
+above were read this way, and the traps below are what the reading cost.
 
 - `--virtual-time-budget` advances the clock in jumps of its own, so a real `wait` is not a way to
   land inside a transition: it can finish, and a finished transition is off `getAnimations()` and
@@ -92,7 +85,7 @@ ways the beat could look like a reload and bounds the third, `probe-shot` only p
   own timers instead (patch the iframe's `setTimeout` by delay) and never fire the unmount.
 - A posed frame can paint stale: stepping an opacity transition by hand leaves the composited
   layer at its OLD size with its NEW alpha, which reads as a ghost overlapping what is below it.
-  Hold the opacity at 0 (`probe-pose?nofade=1`) and the geometry paints as measured.
+  Hold the opacity at 0 and the geometry paints as measured.
 
 - Gate on hydration: `.sc-placeholder` gone, `sc-dc-streaming` off, tops non-zero. Fail loudly
   on zero geometry.
@@ -102,19 +95,19 @@ ways the beat could look like a reload and bounds the third, `probe-shot` only p
 - Count line boxes with `createRange()` + `getClientRects()` collapsed by `top` — a reserved
   box hides its line count.
 - `support.js` swallows a logic throw into an error placeholder and recovers, which on the screen
-  is a flash and in the DOM is `.sc-placeholder-error` — so a probe that cares whether the page
+  is a flash and in the DOM is `.sc-placeholder-error` — so anything that cares whether the page
   stayed up has to hook the PAGE's own `console.error` and `onerror`, not the harness's.
 - Absolute judder figures are rig-specific; gate on a same-rig before/after. Box-underrun
   (~2px fine, 18px+ bad) is the one figure that reproduces.
-- The browser folds `grid-row: 2; grid-column: 1` into `grid-area: 2 / 1`, so a probe that
-  matches the written attribute finds nothing — read the resolved placement.
+- The browser folds `grid-row: 2; grid-column: 1` into `grid-area: 2 / 1`, so matching
+  the written attribute finds nothing — read the resolved placement.
 - The plan's filler is the **first** empty `flex: 1` div in the pane. Searching backwards
   finds the run strip's 2px connectors, which live in the same pane and read as 2px of slack.
 - Matching a control by its label needs the DEEPEST match: when Build is live its gate
   sentence is gone, which leaves the act region's own text equal to the label.
 - Headless stops painting once the page is offscreen and `requestAnimationFrame` stops with it,
-  so a probe that ticks on rAF hangs after the first interaction — race it against a timeout.
-- Typing into a controlled input from a probe needs the prototype `value` setter plus a bubbling
+  so anything ticking on rAF hangs after the first interaction — race it against a timeout.
+- Typing into a controlled input from outside needs the prototype `value` setter plus a bubbling
   `input` event; assigning `el.value` alone leaves React's state behind.
 - The wide plan clips by design — every collapsed wrapper is a 0fr box with content in it — so a
   clip census only means something as a diff against the same page one interaction earlier.
