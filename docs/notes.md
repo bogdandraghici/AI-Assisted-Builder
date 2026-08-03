@@ -81,6 +81,8 @@ and asserts the plan neither overruns nor clips, `probe-doc` does the same to se
   **no** `{{ }}`. Every other attribute interpolates (`support.js:441`).
 - Withdraw a control with `pointer-events` **and** `tabindex`, and blur on the act — a static
   `:focus` rule cannot be gated.
+- Move focus in the `setState` callback, never in a `requestAnimationFrame`: rAF waits on a
+  paint, and an offscreen page is not painted, so the focus silently does not land.
 - `Design System.dc.html` is the palette authority. One trap: warming the greys inside the
   wash goes mustard — flat grey is the answer, not a warmer grey.
 - The plan carries **arguments** only. A detail keeps its card in its own step's pane — three

@@ -1320,8 +1320,12 @@ class Component extends DCLogic {
     const qsOwed   = n => of(n).filter(k => !isArg(k) && owed(k));
     const wash = n => argsOwed(n).length + qsOwed(n).length > 0;
 
-    const setCard = (k, patch) => this.setState(p =>
-      ({ cards: { ...p.cards, [k]: { ...p.cards[k], ...patch } } }));
+    // `done` runs after the commit, which is where anything that has to find a control
+    // in the DOM belongs. Not a `requestAnimationFrame`: that waits on a paint, and a
+    // page the browser is not painting — offscreen, in a background tab, under a probe —
+    // never runs it, so the focus silently does not land.
+    const setCard = (k, patch, done) => this.setState(p =>
+      ({ cards: { ...p.cards, [k]: { ...p.cards[k], ...patch } } }), done);
 
     // The second half of the settled sentence, whoever wrote it: mine off the row that
     // was taken, yours out of the field under it. One reader, so nothing on the screen
@@ -1351,9 +1355,8 @@ class Component extends DCLogic {
     const disclose = k => e => {
       const el = e && e.currentTarget;
       const want = !S.cards[k].open;
-      setCard(k, { open: want, why: false, sel: S.cards[k].pick, text: S.cards[k].written });
-      if (!want) return;
-      window.requestAnimationFrame(() => {
+      setCard(k, { open: want, why: false, sel: S.cards[k].pick, text: S.cards[k].written }, () => {
+        if (!want) return;
         const card = el && el.closest && el.closest('[data-card="' + k + '"]');
         const row = card && card.querySelector('[data-row="' + S.cards[k].pick + '"]');
         if (row) row.focus();
@@ -1374,9 +1377,8 @@ class Component extends DCLogic {
     const writes = (k, i) => i !== -1 && CARDS[k].rows[i].answer === undefined;
     const choose = (k, i) => e => {
       const el = e && e.currentTarget;
-      setCard(k, { sel: i });
-      if (!writes(k, i)) return;
-      window.requestAnimationFrame(() => {
+      setCard(k, { sel: i }, () => {
+        if (!writes(k, i)) return;
         const f = el && el.parentElement && el.parentElement.querySelector('[data-write]');
         if (f) f.focus();
       });
