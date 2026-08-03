@@ -1424,8 +1424,8 @@ class Component extends DCLogic {
     // down to fill — up to 268px of it, if you were reading at the bottom when you
     // committed. That travel is honest, the pane really is shorter, but on the move's
     // front-loaded curve a third of it lands in the first 100ms and reads as the page
-    // reloading rather than as a scroll. 520ms on a gentler ease-out reads as a scroll.
-    const SETTLE = 520;
+    // reloading rather than as a scroll. 640ms on a gentler ease-out reads as a scroll.
+    const SETTLE = 640;
     const settleFrom = k => owed(k) ? 'owed' : (S.cards[k].mine ? '' : 'chosen');
     const beginSettle = k => {
       const from = settleFrom(k);
@@ -1453,9 +1453,15 @@ class Component extends DCLogic {
 
     const st = k => S.settling[k];
     const sDur = SETTLE + 'ms';
-    // The fade trails the fold: the card stays solid while it is still big, and goes as
-    // it becomes a sliver. Same on the way in.
-    const sFade = '360ms', sFadeDl = '60ms';
+    // The fold and the fade are not the same curve, and the two ends do not share one.
+    // Faded together they cross at half, where the question is unreadable and still full
+    // height and the answer is a ghost — the card reads as deleted and the collapse behind
+    // it as a jump. So the one leaving trails its fold: solid while it is big, gone by the
+    // time it is a sliver. The one landing is up before that, which buys a stretch in the
+    // middle where BOTH are legible — the question shrinking, the answer already solid
+    // under it. That overlap is the only thing that says one became the other.
+    const outFade = '400ms', outDl = '180ms';
+    const inFade = '360ms', inDl = '60ms';
     // A slot being left: open until the beat starts, shut for the whole of it, and
     // withdrawn the moment it starts closing — nothing offers what it cannot do, and
     // a card on its way out cannot take an answer.
@@ -1465,7 +1471,7 @@ class Component extends DCLogic {
         box: s ? '0fr' : '1fr', pull: s ? (-gap) + 'px' : '0px', fade: s ? '0' : '1',
         pe: s ? 'none' : 'auto', tab: s ? '-1' : '0',
         ring: '#1c2530', ringDur: '0s',
-        dur: sDur, fadeDur: sFade, fadeDl: sFadeDl
+        dur: sDur, fadeDur: outFade, fadeDl: outDl
       };
     };
     // A slot being landed in: shut for the first render of the beat only.
@@ -1487,7 +1493,7 @@ class Component extends DCLogic {
         // blue from whatever that node was wearing, which is the wrong way round.
         ring: s ? '#4d97ea' : '#1c2530',
         ringDur: s ? '0s' : '480ms',
-        dur: sDur, fadeDur: sFade, fadeDl: sFadeDl
+        dur: sDur, fadeDur: inFade, fadeDl: inDl
       };
     };
 

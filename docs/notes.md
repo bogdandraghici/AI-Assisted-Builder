@@ -19,8 +19,13 @@ constrained by what, and what a wrong choice looked like.
   against the cell that is collapsing it collapses too, and pins nothing.
 - The settle beat's ceiling is **324px** of scroll clamp: committed from the bottom of a pane
   that scrolls, the held scroll stops existing and the browser clamps. A front-loaded curve puts
-  a third of that in 100ms and reads as the page reloading — which is why the beat has 520ms and
+  a third of that in 100ms and reads as the page reloading — which is why the beat has 640ms and
   an easing of its own instead of the move's.
+- The two ends of that beat may not share one fade. Faded together they cross at half, where the
+  question is a ghost at full height and the answer is a ghost too, and the beat reads as a delete
+  plus a jump. Out is **180 / 400** and in is **60 / 360** against the 640, so the answer is solid
+  from ~420ms while the question still has a third of its height left — that overlap is the only
+  thing on screen that says one became the other.
 - The plan's 12px of slack is a budget. The open-me arrow cost 4 of the original 16, and the
   write field's 44 is why the plan's copy of the card drops the `because`. The plan's wrapper is
   `overflow: hidden`, so an overrun clips silently — measure the underrun, never `scrollHeight`.
