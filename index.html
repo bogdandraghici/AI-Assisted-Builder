@@ -224,9 +224,13 @@
               <div style="display: flex; align-items: center; gap: 8px;"><i class="ph ph-shield-check" style="font-size: 14px; color: #5c6975;"></i><div style="font: 400 12px/18px 'Open Sans', sans-serif; color: #5c6975;">Current account</div></div>
             </div>
 
+<!-- The frame is a browser and takes the room it is given; the app inside it is not, so both
+     bodies below hold one 966px column — the measure they have at 1440 — and centre it. A grid
+     rather than a flex column only to get that, and `align-content: start` because auto rows
+     stretch where the column let the slack fall to the bottom. -->
   <sc-if value="{{ at1 }}" hint-placeholder-val="{{ false }}">
 
-            <div style="flex: 1; min-height: 0; overflow-y: auto; padding: 24px 32px; display: flex; flex-direction: column; gap: 16px;">
+            <div style="flex: 1; min-height: 0; overflow-y: auto; padding: 24px 32px; display: grid; grid-template-columns: min(100%, 966px); justify-content: center; align-content: start; gap: 16px;">
                 <div style="flex: none; display: flex; align-items: center; gap: 12px;">
                   <div style="display: flex; align-items: center; gap: 8px;"><div style="width: 16px; height: 16px; flex: none; border-radius: 99px; background: #2b7fe4;"></div><div style="font: 700 12px/18px 'Open Sans', sans-serif; color: #1a2129;">Payment</div></div>
                   <div style="width: 24px; height: 1px; background: #dfe5ea;"></div>
@@ -333,7 +337,7 @@
             </div>
   </sc-if>
   <sc-if value="{{ at23 }}" hint-placeholder-val="{{ true }}">
-            <div style="flex: 1; min-height: 0; overflow-y: auto; padding: 24px 32px; display: flex; flex-direction: column; gap: 16px;">
+            <div style="flex: 1; min-height: 0; overflow-y: auto; padding: 24px 32px; display: grid; grid-template-columns: min(100%, 966px); justify-content: center; align-content: start; gap: 16px;">
                 <div style="flex: none; display: flex; align-items: center; gap: 12px;">
                   <div style="display: flex; align-items: center; gap: 8px;"><div style="width: 16px; height: 16px; flex: none; border-radius: 99px; background: #2b7fe4; display: grid; place-items: center;"><i class="ph ph-check" style="font-size: 9px; color: #ffffff;"></i></div><div style="font: 400 12px/18px 'Open Sans', sans-serif; color: #5c6975;">Payment</div></div>
                   <div style="width: 24px; height: 1px; background: #dfe5ea;"></div>
@@ -389,7 +393,12 @@
 
 <!-- flex-grow to zero, not sc-if; content pinned at open height. The -8px/8px margin pair pushes the clip box past the selection outline. -->
           <div style="flex-grow: {{ planGrow }}; flex-shrink: 0; flex-basis: 0px; margin: 0 -8px; padding: 0 8px; overflow: hidden; min-height: 0; display: flex; flex-direction: column; visibility: {{ planVis }}; opacity: {{ planOp }}; transition: flex-grow {{ moveDur }} {{ moveEase }}, opacity {{ planOpDur }} {{ moveEase }} {{ planOpDl }}, visibility 0s linear {{ planVisDl }};">
-            <div style="min-height: {{ planPinH }}; display: flex; flex-direction: column; flex: 1;">
+<!-- 1016 is the pane's content width at 1440, and the plan does not want more: the row's title
+     and description are both on their own measure, so extra width only pushes the chip away
+     from what it belongs to. Left, never centred — the collapse to the spine is a narrowing,
+     and centring would make it a slide as well. The strip is a SIBLING of this and is meant
+     to stretch. -->
+            <div style="min-height: {{ planPinH }}; max-width: 1016px; display: flex; flex-direction: column; flex: 1;">
 
             <div style="flex: none; display: flex; align-items: flex-start; padding-bottom: {{ headPb }}; transition: padding-bottom {{ moveDur }} {{ moveEase }};">
               <div style="min-width: 0; display: flex; flex-direction: column; gap: 6px;">
@@ -652,7 +661,13 @@
           <i class="ph ph-x" style="font-size: 12px;"></i>
         </div>
 
-        <div style="position: absolute; top: 0; left: 0; bottom: 0; width: 100%; min-width: 780px; display: flex; flex-direction: column; overflow-y: auto; padding: 24px 74px 24px 32px;">
+<!-- Pinned at open width so the pane clips instead of reflowing, and the pin has to follow
+     the pane: 100vw - 660 is the column (region - the 300 spine), floored at the 780 it is
+     at 1440 and capped at 906 — 800 of measure plus 106 of padding — because above that the
+     blocks are on their own max-width and a wider pane changes no wrap. The same 906 caps the
+     pane, so it never grows past its own content — the close button hangs off its right edge
+     and would otherwise sit a screen away from what it closes. -->
+        <div style="position: absolute; top: 0; left: 0; bottom: 0; width: 100%; min-width: min(906px, max(780px, calc(100vw - 660px))); max-width: 906px; display: flex; flex-direction: column; overflow-y: auto; padding: 24px 74px 24px 32px;">
 
           <div style="flex: none; max-width: 800px; display: flex; flex-direction: column; gap: 8px; padding-bottom: 24px; opacity: {{ dOp }}; transform: {{ dTr }}; transition: opacity {{ dDur }} cubic-bezier(0.2, 0, 0.2, 1) {{ dDl }}, transform {{ dDur }} cubic-bezier(0.2, 0, 0.2, 1) {{ dDl }};">
 
@@ -2086,19 +2101,22 @@ class Component extends DCLogic {
       // it is one grid whose tracks carry all three shapes, so nothing is ever
       // re-placed — only the rows and columns move.
       //
-      // MEASURED, at the 1440 x 900 design size, region 1080 x 852:
-      //   rows are  [app] [plan band]  and columns are  [plan] [step].
-      //   plan / step        0 · 852     1080 · 0   and   300 · 780
-      //   run               531 · 321    1080 · 0
-      //   run + full        852 · 0      1440 · 0
-      // 531 is 24 top pad + 491 frame + 16. 321 is 1 border + 16 pad + 20 labels +
-      // 148 tallest node + 64 boundary + 48 act + 24 pad. They sum to 852 exactly and
-      // would gap or overlap rather than fail loudly — re-measure all of them
-      // together, never one.
+      // Rows are [app] [plan band], columns are [plan] [step]. Only TWO of those four
+      // are measured, and both are content: the band is 321 — 1 border + 16 pad + 20
+      // labels + 148 tallest node + 64 boundary + 48 act + 24 pad — and the spine is
+      // 300. Everything else is the region minus one of them, so the app and the step
+      // take whatever the viewport has. At the 1440 x 900 design size that is the old
+      // 531 x 1080 and 780 wide, and 1440 x 900 is the floor the screen holds as a
+      // min-width / min-height. Re-measure 321 and 300 together, never one.
       //
-      // BOTH TRACKS IN A TEMPLATE MUST CARRY THE SAME UNIT. `780px -> 1fr` snaps.
-      gRows: run ? (full ? '852px 0px' : '531px 321px') : '0px 852px',
-      gCols: on ? '300px 780px' : (run && full ? '1440px 0px' : '1080px 0px'),
+      // The run's full-screen column is no longer its own case: the region itself
+      // grew by the chat's 360, so 100% is already the 1440 that used to be written.
+      //
+      // BOTH TRACKS IN A TEMPLATE MUST CARRY THE SAME UNIT. px and % are the same
+      // unit — they blend to a calc, verified at 265.5 / 586.5 half way through the
+      // rows below — and `fr` is the one that snaps.
+      gRows: run ? (full ? '100% 0px' : 'calc(100% - 321px) 321px') : '0px 100%',
+      gCols: on ? '300px calc(100% - 300px)' : '100% 0px',
 
       detVis: on ? 'visible' : 'hidden',
       detVisDl: on ? '0ms' : '120ms',   // == dDur out, so it hides after the fade
@@ -2118,10 +2136,15 @@ class Component extends DCLogic {
       // Everything the plan says that the run does not: its heading, its
       // descriptions, the card's argument. `flex-grow` to zero rather than an
       // sc-if, so it has a height to travel from, and the content pinned at the
-      // height it has when open — 816 in the plan, 812 as a spine — so the
-      // shrink clips it instead of rewrapping it the whole way down.
+      // height it has when open — so the shrink clips it instead of rewrapping it
+      // the whole way down.
+      //
+      // The pin is a height, so it cannot be a percentage: against the cell that is
+      // collapsing it would collapse with it and pin nothing. It is the header's 48
+      // plus the pane's own vertical padding, which is 20 + 16 in the plan and 24 + 16
+      // as a spine — the old 816 and 812 at a 900 viewport, which is the floor.
       planGrow: run ? '0' : '1',
-      planPinH: on ? '812px' : '816px',
+      planPinH: on ? 'max(812px, calc(100vh - 88px))' : 'max(816px, calc(100vh - 84px))',
       planOp: run ? '0' : '1',
       planOpDur: run ? '70ms' : '200ms',
       planOpDl: run ? '0ms' : '180ms',
