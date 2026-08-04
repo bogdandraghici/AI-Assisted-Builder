@@ -1342,7 +1342,7 @@ class Component extends DCLogic {
     [1, 2, 3].forEach(i => this.timers.push(setTimeout(() =>
       this.setState(p => ok(p) ? { loadAt: i } : null), 800 * i)));
     this.timers.push(setTimeout(() =>
-      this.setState(p => ok(p) ? { loading: false, live: true, at: 3, loadAt: 0 } : null), 3400));
+      this.setState(p => ok(p) ? { loading: false, live: true, at: 1, loadAt: 0 } : null), 3400));
   }
 
   // Builds run side by side and each lands on its own clock — the deep one visibly later.
