@@ -26,6 +26,11 @@
   @keyframes run-spin { to { transform: rotate(360deg); } }
   @keyframes ask-think { 0%, 60%, 100% { opacity: 0.25; } 30% { opacity: 1; } }
   @keyframes build-pulse { 0%, 100% { opacity: 0.35; } 50% { opacity: 1; } }
+  @keyframes build-fill { from { width: 0; } to { width: 100%; } }
+  @keyframes check-pop { 0% { transform: scale(0.4); opacity: 0; } 60% { transform: scale(1.18); opacity: 1; } 100% { transform: scale(1); opacity: 1; } }
+  /* Twin fades: swapping the name restarts the animation, which a text change alone never does. */
+  @keyframes note-in-a { from { opacity: 0; transform: translateY(4px); } to { opacity: 1; transform: none; } }
+  @keyframes note-in-b { from { opacity: 0; transform: translateY(4px); } to { opacity: 1; transform: none; } }
   @media (prefers-reduced-motion: reduce) {
     * { transition-duration: 0s !important; transition-delay: 0s !important; animation: none !important; }
   }
@@ -269,17 +274,26 @@
      point, so they narrate rather than just spin. Empty when done, and an empty div holds 0. -->
               <div style="display: flex; flex-direction: column; gap: 6px; padding: 2px 0;">
                 <sc-for list="{{ buildRows }}" as="b" hint-placeholder-count="3">
-                <div style="display: flex; flex-direction: column; gap: 2px;">
+                <div style="display: flex; flex-direction: column;">
                 <div style="display: flex; align-items: center; gap: 8px;">
                   <sc-if value="{{ b.busy }}" hint-placeholder-val="{{ true }}">
-                  <i class="ph ph-circle-dashed" style="font-size: 14px; color: #8b98a5; animation: run-spin 2400ms linear infinite;"></i>
+                  <i class="ph ph-circle-dashed" style="font-size: 14px; color: #4d97ea; animation: run-spin 2400ms linear infinite;"></i>
                   </sc-if>
                   <sc-if value="{{ b.done }}" hint-placeholder-val="{{ false }}">
-                  <i class="ph ph-check-circle" style="font-size: 14px; color: #8ad3ab;"></i>
+                  <i class="ph ph-check-circle" style="font-size: 14px; color: #8ad3ab; animation: check-pop 360ms cubic-bezier(0.2, 0, 0.2, 1) both;"></i>
                   </sc-if>
-                  <div style="font: 400 12px/16px 'Open Sans', sans-serif; color: {{ b.color }};">{{ b.title }}</div>
+                  <div style="font: 400 12px/16px 'Open Sans', sans-serif; color: {{ b.color }}; transition: color 340ms cubic-bezier(0.2, 0, 0.2, 1);">{{ b.title }}</div>
                 </div>
-                <div style="margin-left: 22px; min-width: 0; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; font: 400 12px/16px 'Open Sans', sans-serif; color: #8b98a5;">{{ b.note }}</div>
+<!-- The wait, made legible: a bar that fills over the build's real clock, and under it the note
+     naming what the build is on, each swap fading in. The whole sub-block folds when it lands. -->
+                <div style="display: grid; grid-template-rows: {{ b.sub }}; transition: grid-template-rows 340ms cubic-bezier(0.2, 0, 0.2, 1);">
+                <div style="overflow: hidden; min-height: 0; margin-left: 22px; opacity: {{ b.subOp }}; transition: opacity 200ms cubic-bezier(0.2, 0, 0.2, 1);">
+                  <div style="height: 2px; margin: 7px 0 6px; max-width: 220px; border-radius: 99px; background: rgba(139, 152, 165, 0.16); overflow: hidden;">
+                    <div style="height: 100%; border-radius: 99px; background: #4d97ea; animation: build-fill {{ b.ms }} linear both;"></div>
+                  </div>
+                  <div style="min-width: 0; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; font: 400 12px/16px 'Open Sans', sans-serif; color: #8b98a5; animation: {{ b.noteAnim }} 340ms cubic-bezier(0.2, 0, 0.2, 1) both;">{{ b.note }}</div>
+                </div>
+                </div>
                 </div>
                 </sc-for>
               </div>
@@ -2084,6 +2098,11 @@ class Component extends DCLogic {
         done: S.built[n],
         busy: S.building[n],
         note: S.building[n] ? STEPS[n - 1].build.doing[S.doing[n] || 0] : '',
+        // The twin fades alternate by note index so every swap restarts one of them.
+        noteAnim: (S.doing[n] || 0) % 2 ? 'note-in-b' : 'note-in-a',
+        ms: STEPS[n - 1].build.ms + 'ms',
+        sub: S.building[n] ? '1fr' : '0fr',
+        subOp: S.building[n] ? '1' : '0',
         color: S.built[n] ? '#c3cdd7' : '#8b98a5'
       })),
       ba: fold(S.buildQueue.length > 0 && NS.every(n => S.built[n]), 8),
