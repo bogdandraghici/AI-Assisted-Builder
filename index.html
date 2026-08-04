@@ -849,6 +849,36 @@
             <div style="font: 400 14px/24px 'Open Sans', sans-serif; color: #a9b6c3; text-wrap: pretty;">{{ stDesc }}</div>
           </div>
 
+<!-- How to test: the golden path for this screen, and the run opened right at it. The card
+     wears the run's green, not a section heading — dashed Use this where the screen does not exist. -->
+          <div style="flex: none; max-width: 800px; display: flex; flex-direction: column; padding-bottom: 24px; opacity: {{ dOp }}; transform: {{ dTr }}; transition: opacity {{ dDur }} cubic-bezier(0.2, 0, 0.2, 1) {{ dDl }}, transform {{ dDur }} cubic-bezier(0.2, 0, 0.2, 1) {{ dDl }};">
+            <div style="background: linear-gradient(180deg, rgba(46, 168, 106, 0.10), rgba(46, 168, 106, 0.04) 45%, rgba(46, 168, 106, 0.015)); border: 1px solid rgba(46, 168, 106, 0.26); border-radius: 8px; display: flex; flex-direction: column;">
+              <div onClick="{{ htToggle }}" tabindex="0" style="display: flex; align-items: center; gap: 8px; padding: 10px 16px; cursor: pointer; outline: none; color: #8ad3ab; border-radius: 8px; transition: color 160ms cubic-bezier(0.2, 0, 0.2, 1);" style-hover="color: #b9e4cd;" style-focus="box-shadow: 0 0 0 3px rgba(46, 168, 106, 0.32);">
+                <i class="ph ph-play" style="font-size: 12px; color: #2ea86a; flex: none;"></i>
+                <div style="font: 400 10px/12px ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; text-transform: uppercase; letter-spacing: 0.14em;">How to test this step</div>
+                <i class="ph ph-caret-right" style="font-size: 12px; margin-left: auto; transform: rotate({{ htCaret }}); transition: transform 160ms cubic-bezier(0.2, 0, 0.2, 1);"></i>
+              </div>
+<sc-if value="{{ htOpen }}" hint-placeholder-val="{{ true }}">
+              <div style="padding: 12px 16px; display: flex; flex-direction: column; gap: 6px; border-top: 1px solid rgba(46, 168, 106, 0.16);">
+                <div style="font: 400 10px/12px ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; text-transform: uppercase; letter-spacing: 0.14em; color: #8b98a5;">What to enter</div>
+                <sc-for list="{{ htInputs }}" as="g" hint-placeholder-count="1">
+                <div style="font: 400 14px/24px 'Open Sans', sans-serif; color: #c3cdd7; max-width: 62ch; text-wrap: pretty;">{{ g.pre }} <span style="font: 400 14px/22px ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; color: #f5f9fc;">{{ g.token }}</span>{{ g.post }}</div>
+                </sc-for>
+              </div>
+              <div style="padding: 12px 16px; display: flex; flex-direction: column; gap: 6px; border-top: 1px solid rgba(46, 168, 106, 0.16);">
+                <div style="font: 400 10px/12px ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; text-transform: uppercase; letter-spacing: 0.14em; color: #8b98a5;">What you should see</div>
+                <div style="font: 400 14px/24px 'Open Sans', sans-serif; color: #a9b6c3; max-width: 62ch; text-wrap: pretty;">{{ htSee }}</div>
+              </div>
+              <div style="padding: 10px 16px; display: flex; align-items: center; gap: 12px; border-top: 1px solid rgba(46, 168, 106, 0.16);">
+                <div onClick="{{ htUse }}" tabindex="{{ htTab }}" title="{{ htTitle }}" style="display: inline-flex; align-items: center; gap: 6px; height: 28px; padding: 0 8px; border-radius: 6px; border: 1px {{ htBorderStyle }} {{ htBorder }}; background: {{ htBg }}; color: {{ htColor }}; font: 600 12px/16px 'Open Sans', sans-serif; cursor: {{ htCursor }}; outline: none; pointer-events: {{ htPE }}; transition: all 160ms cubic-bezier(0.2, 0, 0.2, 1);" style-hover="filter: brightness(1.15);" style-focus="box-shadow: 0 0 0 3px rgba(46, 168, 106, 0.32);"><i class="ph ph-play" style="font-size: 12px;"></i>Use this</div>
+                <sc-if value="{{ htGate }}" hint-placeholder-val="{{ false }}">
+                <div style="font: 400 12px/16px 'Open Sans', sans-serif; color: #8b98a5;">Testable once this step is built.</div>
+                </sc-if>
+              </div>
+</sc-if>
+            </div>
+          </div>
+
           <div style="flex: none; max-width: 800px; display: flex; flex-direction: column; gap: 12px; padding-bottom: 24px; opacity: {{ dOp }}; transform: {{ dTr }}; transition: opacity {{ dDur }} cubic-bezier(0.2, 0, 0.2, 1) {{ dDl }}, transform {{ dDur }} cubic-bezier(0.2, 0, 0.2, 1) {{ dDl }};">
 
 <!-- Not sc-if: the heading collapses with the last card, and the negative margin eats the column's 12px gap. -->
@@ -992,40 +1022,6 @@
             </div>
             </div>
 
-          </div>
-
-<!-- How to test: the golden path for this screen, and the run opened right at it. Dashed
-     where the step is not built — the screen Use this would open does not exist yet. -->
-          <div style="flex: none; max-width: 800px; display: flex; flex-direction: column; gap: 12px; padding-bottom: 24px; opacity: {{ dOp }}; transform: {{ dTr }}; transition: opacity {{ dDur }} cubic-bezier(0.2, 0, 0.2, 1) {{ dDl }}, transform {{ dDur }} cubic-bezier(0.2, 0, 0.2, 1) {{ dDl }};">
-            <div onClick="{{ htToggle }}" tabindex="0" style="display: inline-flex; align-self: flex-start; align-items: center; gap: 8px; cursor: pointer; color: #8b98a5; outline: none; transition: color 160ms cubic-bezier(0.2, 0, 0.2, 1);" style-hover="color: #c3cdd7;" style-focus="box-shadow: 0 0 0 3px rgba(43, 127, 228, 0.32);">
-<sc-if value="{{ htClosed }}" hint-placeholder-val="{{ false }}">
-              <i class="ph ph-caret-right" style="font-size: 12px;"></i>
-</sc-if>
-<sc-if value="{{ htOpen }}" hint-placeholder-val="{{ true }}">
-              <i class="ph ph-caret-down" style="font-size: 12px;"></i>
-</sc-if>
-              <div style="font: 400 10px/12px ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; text-transform: uppercase; letter-spacing: 0.14em;">How to test this step</div>
-            </div>
-<sc-if value="{{ htOpen }}" hint-placeholder-val="{{ true }}">
-            <div style="background: #101820; border: 1px solid #1c2530; border-radius: 8px; display: flex; flex-direction: column;">
-              <div style="padding: 12px 16px; display: flex; flex-direction: column; gap: 6px; border-bottom: 1px solid #1c2530;">
-                <div style="font: 400 10px/12px ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; text-transform: uppercase; letter-spacing: 0.14em; color: #8b98a5;">What to enter</div>
-                <sc-for list="{{ htInputs }}" as="g" hint-placeholder-count="1">
-                <div style="font: 400 14px/24px 'Open Sans', sans-serif; color: #c3cdd7; max-width: 62ch; text-wrap: pretty;">{{ g.pre }} <span style="font: 400 14px/22px ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; color: #f5f9fc;">{{ g.token }}</span>{{ g.post }}</div>
-                </sc-for>
-              </div>
-              <div style="padding: 12px 16px; display: flex; flex-direction: column; gap: 6px; border-bottom: 1px solid #1c2530;">
-                <div style="font: 400 10px/12px ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; text-transform: uppercase; letter-spacing: 0.14em; color: #8b98a5;">What you should see</div>
-                <div style="font: 400 14px/24px 'Open Sans', sans-serif; color: #a9b6c3; max-width: 62ch; text-wrap: pretty;">{{ htSee }}</div>
-              </div>
-              <div style="padding: 10px 16px; display: flex; align-items: center; gap: 12px;">
-                <div onClick="{{ htUse }}" tabindex="{{ htTab }}" title="{{ htTitle }}" style="display: inline-flex; align-items: center; gap: 6px; height: 28px; padding: 0 8px; border-radius: 6px; border: 1px {{ htBorderStyle }} {{ htBorder }}; background: {{ htBg }}; color: {{ htColor }}; font: 600 12px/16px 'Open Sans', sans-serif; cursor: {{ htCursor }}; outline: none; pointer-events: {{ htPE }}; transition: all 160ms cubic-bezier(0.2, 0, 0.2, 1);" style-hover="background: #4d97ea; border-color: #4d97ea;" style-focus="box-shadow: 0 0 0 3px rgba(43, 127, 228, 0.32);"><i class="ph ph-play" style="font-size: 12px;"></i>Use this</div>
-                <sc-if value="{{ htGate }}" hint-placeholder-val="{{ false }}">
-                <div style="font: 400 12px/16px 'Open Sans', sans-serif; color: #8b98a5;">Testable once this step is built.</div>
-                </sc-if>
-              </div>
-            </div>
-</sc-if>
           </div>
 
           <div style="flex: none; max-width: 800px; display: flex; flex-direction: column; gap: 12px; opacity: {{ dOp }}; transform: {{ dTr }}; transition: opacity {{ dDur }} cubic-bezier(0.2, 0, 0.2, 1) {{ dDl }}, transform {{ dDur }} cubic-bezier(0.2, 0, 0.2, 1) {{ dDl }};">
@@ -2304,7 +2300,7 @@ class Component extends DCLogic {
       // ── How to test ──────────────────────────────────────────────────────
       // Use this enters the run the way ?at=N does — live, no preparing beat, inputs in place.
       htOpen: S.howTest,
-      htClosed: !S.howTest,
+      htCaret: S.howTest ? '90deg' : '0deg',
       htToggle: () => this.setState(p => ({ howTest: !p.howTest })),
       htInputs: paneStep.test.inputs.map(x => ({
         pre: sub(x.pre), token: sub(x.token),
@@ -2316,8 +2312,8 @@ class Component extends DCLogic {
       htTab: paneBuilt ? '0' : '-1',
       htTitle: paneBuilt ? 'Open the run at this screen, inputs in place' : '',
       htBorderStyle: paneBuilt ? 'solid' : 'dashed',
-      htBorder: paneBuilt ? '#2b7fe4' : '#33404d',
-      htBg: paneBuilt ? '#2b7fe4' : 'transparent',
+      htBorder: paneBuilt ? '#1d9a5c' : '#33404d',
+      htBg: paneBuilt ? '#1d9a5c' : 'transparent',
       htColor: paneBuilt ? '#ffffff' : '#4a5764',
       htCursor: paneBuilt ? 'pointer' : 'not-allowed',
       htGate: !paneBuilt,
