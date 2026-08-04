@@ -25,6 +25,7 @@
   ::placeholder { color: #6b7783; opacity: 1; }
   @keyframes run-spin { to { transform: rotate(360deg); } }
   @keyframes ask-think { 0%, 60%, 100% { opacity: 0.25; } 30% { opacity: 1; } }
+  @keyframes build-pulse { 0%, 100% { opacity: 0.35; } 50% { opacity: 1; } }
   @media (prefers-reduced-motion: reduce) {
     * { transition-duration: 0s !important; transition-delay: 0s !important; animation: none !important; }
   }
@@ -256,13 +257,32 @@
           </div>
           </div>
 
-          <div style="display: grid; grid-template-rows: {{ rd.rows }}; margin-top: {{ rd.mt }}; transition: grid-template-rows {{ moveDur }} {{ moveEase }}, margin-top {{ moveDur }} {{ moveEase }};">
-          <div style="overflow: hidden; min-height: 0; opacity: {{ rd.op }}; transition: opacity {{ rd.opDur }} {{ moveEase }} {{ rd.opDl }};">
+          <div style="display: grid; grid-template-rows: {{ bd.rows }}; margin-top: {{ bd.mt }}; transition: grid-template-rows {{ moveDur }} {{ moveEase }}, margin-top {{ moveDur }} {{ moveEase }};">
+          <div style="overflow: hidden; min-height: 0; opacity: {{ bd.op }}; transition: opacity {{ bd.opDur }} {{ moveEase }} {{ bd.opDl }};">
           <div style="display: flex; gap: 12px;">
             <div style="width: 22px; height: 22px; flex: none; border-radius: 99px; background: rgba(139, 152, 165, 0.16); display: grid; place-items: center;"><img src="assets/flowx-mark-white.svg" alt="Agent" style="height: 11px; width: auto; flex: none;" /></div>
-            <div style="flex: 1; min-width: 0; display: flex; flex-direction: column; gap: 4px;">
+            <div style="flex: 1; min-width: 0; display: flex; flex-direction: column; gap: 8px;">
               <div style="font: 600 12px/16px 'Open Sans', sans-serif; color: #8b98a5;">Agent <span style="font-weight: 400;">· 09:56</span></div>
-              <div style="font: 400 14px/24px 'Open Sans', sans-serif; color: #f5f9fc; text-wrap: pretty;">{{ runDone }}</div>
+              <div style="font: 400 14px/24px 'Open Sans', sans-serif; color: #f5f9fc; text-wrap: pretty;">{{ buildLead }}</div>
+<!-- One live row per step sent to build: a turning ring while it builds, a check when it lands. -->
+              <div style="display: flex; flex-direction: column; gap: 6px; padding: 2px 0;">
+                <sc-for list="{{ buildRows }}" as="b" hint-placeholder-count="3">
+                <div style="display: flex; align-items: center; gap: 8px;">
+                  <sc-if value="{{ b.busy }}" hint-placeholder-val="{{ true }}">
+                  <i class="ph ph-circle-dashed" style="font-size: 14px; color: #8b98a5; animation: run-spin 2400ms linear infinite;"></i>
+                  </sc-if>
+                  <sc-if value="{{ b.done }}" hint-placeholder-val="{{ false }}">
+                  <i class="ph ph-check-circle" style="font-size: 14px; color: #8ad3ab;"></i>
+                  </sc-if>
+                  <div style="font: 400 12px/16px 'Open Sans', sans-serif; color: {{ b.color }};">{{ b.title }}</div>
+                </div>
+                </sc-for>
+              </div>
+              <div style="display: grid; grid-template-rows: {{ ba.rows }}; margin-top: {{ ba.mt }}; transition: grid-template-rows {{ moveDur }} {{ moveEase }}, margin-top {{ moveDur }} {{ moveEase }};">
+              <div style="overflow: hidden; min-height: 0; opacity: {{ ba.op }}; transition: opacity {{ ba.opDur }} {{ moveEase }} {{ ba.opDl }};">
+              <div style="font: 400 14px/24px 'Open Sans', sans-serif; color: #f5f9fc; text-wrap: pretty;">{{ buildDone }}</div>
+              </div>
+              </div>
             </div>
           </div>
           </div>
@@ -525,7 +545,7 @@
                 <div style="display: flex; align-items: center; gap: 12px;">
                   <div style="display: flex; align-items: center; gap: 3px; flex: none;">
                     <sc-for list="{{ dashes }}" as="d" hint-placeholder-count="5">
-                    <div style="width: {{ dashW }}; height: 3px; border-radius: 2px; background: {{ d.bg }}; transition: width {{ moveDur }} {{ moveEase }}, background-color {{ moveDur }} {{ moveEase }};"></div>
+                    <div style="width: {{ dashW }}; height: 3px; border-radius: 2px; background: {{ d.bg }}; animation: {{ d.anim }}; transition: width {{ moveDur }} {{ moveEase }}, background-color {{ moveDur }} {{ moveEase }};"></div>
                     </sc-for>
                   </div>
                   <div style="display: grid; grid-template-columns: {{ exCols }}; min-width: 0; transition: grid-template-columns {{ moveDur }} {{ moveEase }};">
@@ -557,7 +577,7 @@
 
               <div style="position: relative; display: flex; gap: {{ rowGap }}; align-items: stretch; transition: gap {{ moveDur }} {{ moveEase }};">
                 <div style="width: {{ gutterW }}; flex: none; display: flex; flex-direction: column; align-items: center; transition: width {{ moveDur }} {{ moveEase }};">
-                  <div style="position: absolute; left: 0; top: 0; width: {{ dotSize }}; height: {{ dotSize }}; border-radius: 99px; background: {{ s.dotBg }}; border: {{ s.dotBorder }}; display: grid; place-items: center; transition: width {{ moveDur }} {{ moveEase }}, height {{ moveDur }} {{ moveEase }};"><i class="ph {{ s.dotGlyph }}" style="font-size: {{ iconSize }}; color: {{ s.dotGlyphColor }}; opacity: {{ exOp }}; transition: font-size {{ wrDur }} {{ wrEase }}, opacity {{ exOpDur }} {{ moveEase }} {{ exOpDl }};"></i></div>
+                  <div style="position: absolute; left: 0; top: 0; width: {{ dotSize }}; height: {{ dotSize }}; border-radius: 99px; background: {{ s.dotBg }}; border: {{ s.dotBorder }}; display: grid; place-items: center; animation: {{ s.dotAnim }}; transition: width {{ moveDur }} {{ moveEase }}, height {{ moveDur }} {{ moveEase }};"><i class="ph {{ s.dotGlyph }}" style="font-size: {{ iconSize }}; color: {{ s.dotGlyphColor }}; opacity: {{ exOp }}; transition: font-size {{ wrDur }} {{ wrEase }}, opacity {{ exOpDur }} {{ moveEase }} {{ exOpDl }};"></i></div>
                   <div style="position: absolute; left: {{ connL }}; top: {{ connT }}; right: {{ connR }}; bottom: {{ connB }}; background: {{ s.connBg }}; border: 0 dashed #26313d; border-left-width: {{ s.connLW }}; border-top-width: {{ s.connTW }}; transition: left {{ moveDur }} {{ moveEase }}, top {{ moveDur }} {{ moveEase }}, right {{ moveDur }} {{ moveEase }}, bottom {{ moveDur }} {{ moveEase }}, background-color {{ moveDur }} {{ moveEase }}, border-left-width {{ moveDur }} {{ moveEase }}, border-top-width {{ moveDur }} {{ moveEase }};"></div>
                 </div>
                 <div style="flex: 1; min-width: 0; padding-bottom: {{ rowPb }}; transition: padding-bottom {{ moveDur }} {{ moveEase }};">
@@ -568,7 +588,7 @@
                       <div style="display: flex; flex-direction: column; gap: 0;">
                         <div style="display: grid; grid-template-rows: {{ s.labelRows }}; transition: grid-template-rows {{ moveDur }} {{ moveEase }};">
                           <div style="overflow: hidden; min-height: 0; opacity: {{ rmOp }}; transition: opacity {{ rmOpDur }} {{ moveEase }} {{ rmOpDl }};">
-                            <div style="padding-bottom: 8px; font: 400 10px/12px ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; text-transform: uppercase; letter-spacing: 0.14em; color: {{ s.labelColor }}; white-space: nowrap;">{{ s.label }}</div>
+                            <div style="padding-bottom: 8px; font: 400 10px/12px ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; text-transform: uppercase; letter-spacing: 0.14em; color: {{ s.labelColor }}; white-space: nowrap; animation: {{ s.busyAnim }};">{{ s.label }}</div>
                           </div>
                         </div>
 
@@ -597,7 +617,7 @@
 
 <!-- One tag, not two stacked — the stack was 74px wider than the animating max-width could afford. -->
                     <div style="position: relative; display: grid; grid-template-columns: {{ exCols }}; flex: none; transition: grid-template-columns {{ moveDur }} {{ moveEase }};">
-                      <div style="overflow: hidden; min-width: 0; white-space: nowrap; display: flex; padding-top: 2px; opacity: {{ exOp }}; transition: opacity {{ exOpDur }} {{ moveEase }} {{ exOpDl }};"><div style="display: inline-flex; align-items: center; gap: 4px; height: 18px; padding: 0 6px; border-radius: 4px; background: {{ s.chipBg }}; border: 1px solid {{ s.chipBorder }}; color: {{ s.chipColor }}; font: 400 10px/12px ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;"><sc-if value="{{ s.chipGlyph }}" hint-placeholder-val="{{ false }}"><i class="ph ph-question-mark" style="font-size: 10px;"></i></sc-if>{{ s.chip }}</div></div>
+                      <div style="overflow: hidden; min-width: 0; white-space: nowrap; display: flex; padding-top: 2px; opacity: {{ exOp }}; transition: opacity {{ exOpDur }} {{ moveEase }} {{ exOpDl }};"><div style="display: inline-flex; align-items: center; gap: 4px; height: 18px; padding: 0 6px; border-radius: 4px; background: {{ s.chipBg }}; border: 1px solid {{ s.chipBorder }}; color: {{ s.chipColor }}; font: 400 10px/12px ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; animation: {{ s.busyAnim }};"><sc-if value="{{ s.chipGlyph }}" hint-placeholder-val="{{ false }}"><i class="ph ph-question-mark" style="font-size: 10px;"></i></sc-if>{{ s.chip }}</div></div>
                     </div>
                   </div>
 
@@ -908,7 +928,7 @@
             <div onClick="{{ buildStep.act }}" tabindex="{{ buildStep.tab }}" title="{{ buildStep.title }}" style="display: inline-flex; flex: none; white-space: nowrap; align-items: center; gap: 6px; height: 36px; padding: 0 12px; font: 600 14px/24px 'Open Sans', sans-serif; color: {{ buildStep.color }}; background: {{ buildStep.bg }}; border: 1px solid {{ buildStep.border }}; border-radius: 8px; cursor: {{ buildStep.cursor }}; outline: none; pointer-events: {{ buildStep.pe }}; transition: all 160ms cubic-bezier(0.2, 0, 0.2, 1);" style-hover="background: #4d97ea; border-color: #4d97ea;" style-active="background: #2b5f9e;" style-focus="box-shadow: 0 0 0 3px rgba(43, 127, 228, 0.32);"><i class="ph ph-hammer" style="font-size: 14px;"></i>Build this step</div>
             </sc-if>
             <sc-if value="{{ stepBuilding }}" hint-placeholder-val="{{ false }}">
-            <div style="display: inline-flex; flex: none; align-items: center; gap: 8px; font: 600 14px/24px 'Open Sans', sans-serif; color: #c3cdd7;"><i class="ph ph-hammer" style="font-size: 14px; color: #8b98a5;"></i>Building</div>
+            <div style="display: inline-flex; flex: none; align-items: center; gap: 8px; font: 600 14px/24px 'Open Sans', sans-serif; color: #c3cdd7;"><i class="ph ph-hammer" style="font-size: 14px; color: #8b98a5; animation: build-pulse 1400ms ease-in-out infinite;"></i>Building<div style="display: inline-flex; align-items: center; gap: 4px; padding-top: 6px;"><div style="width: 4px; height: 4px; border-radius: 99px; background: #8b98a5; animation: ask-think 1200ms ease-in-out infinite;"></div><div style="width: 4px; height: 4px; border-radius: 99px; background: #8b98a5; animation: ask-think 1200ms ease-in-out 150ms infinite;"></div><div style="width: 4px; height: 4px; border-radius: 99px; background: #8b98a5; animation: ask-think 1200ms ease-in-out 300ms infinite;"></div></div></div>
             </sc-if>
             <sc-if value="{{ stepBuilt }}" hint-placeholder-val="{{ false }}">
             <div style="display: inline-flex; flex: none; align-items: center; gap: 8px; font: 600 14px/24px 'Open Sans', sans-serif; color: #c3cdd7;"><i class="ph ph-check-circle" style="font-size: 14px; color: #8ad3ab;"></i>{{ stepBuiltFact }}</div>
@@ -1002,6 +1022,8 @@ class Component extends DCLogic {
     const run = q.get('run') === '1' || q.has('at') || loading || ask;
     // ?settling=1 opens mid-walk on the first owing step; the note is INIT's counts by hand.
     const settling = !run && q.get('settling') === '1';
+    // ?building=1 opens mid-build: everything settled on its proposal, the last three landing.
+    const building = !run && !settling && q.get('building') === '1';
     const want = parseInt(q.get('step'), 10);
     const step = (!run && want >= 1 && want <= 5) ? want : (settling ? 3 : 0);
     return {
@@ -1023,12 +1045,15 @@ class Component extends DCLogic {
       // Three things a step can owe, each cleared by its own act; Build is gated on the other two.
       // A step being built is NOT built — nothing moves group, so no heading travels.
       built:    { 1: true,  2: true,  3: false, 4: false, 5: false },
-      building: { 1: false, 2: false, 3: false, 4: false, 5: false },
+      building: { 1: false, 2: false, 3: building, 4: building, 5: building },
       // One entry per decision, owed and settled alike, keyed by step and letter. `pick` is the
       // row taken, -1 owed; `mine` is whether you answered it; `sel` and `text` are uncommitted;
       // `written` is part of the answer, like `pick`, which is why they are two.
-      cards: Object.fromEntries(Object.entries(Component.INIT).map(([k, v]) =>
-        [k, { pick: v.pick, mine: v.mine, open: false, why: false, sel: -1, text: '', written: '' }])),
+      cards: Object.fromEntries(Object.entries(Component.INIT).map(([k, v]) => {
+        // Mid-build nothing may still be owed: what INIT owes settles on its proposal.
+        const pick = (building && v.pick === -1) ? Math.max(0, Component.CARDS[k].proposal) : v.pick;
+        return [k, { pick, mine: v.mine || (building && v.pick === -1), open: false, why: false, sel: -1, text: '', written: '' }];
+      })),
       // Which cards are mid-settle, and which half of that beat each one is in.
       settling: {},
       // The card mid-move, and where it started. One at a time.
@@ -1038,11 +1063,14 @@ class Component extends DCLogic {
       order: [],
       // Build the plan while anything is owed starts this walk; the last settle fires the build.
       settleRun: settling,
-      // The two chat notes the run leaves. Sticky — a said thing stays said.
-      runNote: settling
+      // The chat notes the run and the build leave. Sticky — a said thing stays said.
+      // ?building=1 is the state right after the run's last settle, so it keeps the run's note.
+      runNote: (settling || building)
         ? 'One thing to agree and four questions left, across three steps. I will take you through them in order — the moment the last one settles, I build the rest.'
         : '',
-      runDone: ''
+      // Which steps were sent to build, in the order asked, and the sentence that sent them.
+      buildQueue: building ? [3, 4, 5] : [],
+      buildLead: building ? 'That was everything — building steps 3, 4 and 5 now.' : ''
     };
   })();
 
@@ -1294,8 +1322,18 @@ class Component extends DCLogic {
       this.setState(p => ok(p) ? { loading: false, live: true, at: 3, loadAt: 0 } : null), 3400));
   }
 
+  // A build takes time and then lands: one step at a time, oldest first.
+  landAll(ns) {
+    ns.forEach((n, i) => this.timers.push(setTimeout(() => this.setState(p => ({
+      built: { ...p.built, [n]: true },
+      building: { ...p.building, [n]: false }
+    })), 2600 * (i + 1))));
+  }
+
   componentDidMount() {
     if (this.state.loading) this.playRun();
+    // ?building=1 arrives mid-build, so the landings are owed from here.
+    this.landAll([1, 2, 3, 4, 5].filter(n => this.state.building[n]));
     this.onKey = e => {
       if (e.key !== 'Escape') return;
       // Escape has no control of its own, so there is no currentTarget to blur.
@@ -1511,31 +1549,43 @@ class Component extends DCLogic {
       this.timers.push(setTimeout(advanceRun, SETTLE + 480));
     };
 
+    const nameSteps = ns => ns.length === 1 ? 'step ' + ns[0]
+      : 'steps ' + ns.slice(0, -1).join(', ') + ' and ' + ns[ns.length - 1];
+
+    // Every way a build starts: the steps join the chat's queue, the lead says so, the landings
+    // are scheduled. Appended once each — a step already queued keeps its place and its check.
+    const startBuild = (ns, lead) => {
+      this.setState(p => ({
+        building: Object.fromEntries(NS.map(n => [n, p.building[n] || ns.indexOf(n) !== -1])),
+        buildQueue: p.buildQueue.concat(ns.filter(n => p.buildQueue.indexOf(n) === -1)),
+        buildLead: lead
+      }));
+      this.landAll(ns);
+    };
+
     // The settle run: every beat's end asks the same question of FRESH state — the closure's S
     // still predates the pick. Steps still owing carry you on; none left fires the build.
-    const advanceRun = () => this.setState(p => {
-      if (!p.settleRun) return null;
+    const advanceRun = () => {
+      const p = this.state;
+      if (!p.settleRun) return;
       // A beat still playing holds the walk: an earlier settle's timer lands mid-flight on the
       // next card's beat — its pick is already down — and would carry the pane out from under it.
-      if (Object.keys(p.settling).length) return null;
+      if (Object.keys(p.settling).length) return;
       const owes = n => Component.STEPS[n - 1].cards.some(k => p.cards[k].pick === -1);
-      if (owes(p.last)) return null;
+      if (owes(p.last)) return;
       const next = NS.find(owes);
-      if (next) return {
-        step: next, last: next,
-        cards: Object.fromEntries(Object.keys(p.cards).map(k =>
-          [k, { ...p.cards[k], open: false, why: false }]))
-      };
+      if (next) {
+        this.setState({
+          step: next, last: next,
+          cards: Object.fromEntries(Object.keys(p.cards).map(k =>
+            [k, { ...p.cards[k], open: false, why: false }]))
+        });
+        return;
+      }
+      this.setState({ settleRun: false });
       const ns = NS.filter(n => !p.built[n] && !p.building[n]);
-      if (!ns.length) return { settleRun: false };
-      return {
-        settleRun: false,
-        building: Object.fromEntries(NS.map(n => [n, p.building[n] || ns.indexOf(n) !== -1])),
-        runDone: 'That was everything. Building ' + (ns.length === 1 ? 'step ' + ns[0]
-          : 'steps ' + ns.slice(0, -1).join(', ') + ' and ' + ns[ns.length - 1])
-          + ' now — I will tell you here as each lands.'
-      };
-    });
+      if (ns.length) startBuild(ns, 'That was everything — building ' + nameSteps(ns) + ' now.');
+    };
 
     const st = k => S.settling[k];
     const flown = k => !!(S.fly && S.fly.k === k);
@@ -1788,7 +1838,11 @@ class Component extends DCLogic {
 
     const buildStep = primary(
       !wash(paneN) && !paneBuilt && !paneBuilding,
-      leave({ building: { ...S.building, [paneN]: true } }),
+      e => {
+        const el = e && e.currentTarget;
+        if (el && el.blur) el.blur();
+        startBuild([paneN], 'Building step ' + paneN + ' now.');
+      },
       'Build step ' + paneN
     );
 
@@ -1809,8 +1863,11 @@ class Component extends DCLogic {
       anyWash
         ? leave({ settleRun: true, run: false, step: owingSteps[0], last: owingSteps[0],
                   cards: allShut(), ...(S.settleRun ? {} : { runNote: startNote() }) })
-        : leave({ building: Object.fromEntries(NS.map(n =>
-            [n, S.building[n] || pending.indexOf(n) !== -1])) }),
+        : e => {
+            const el = e && e.currentTarget;
+            if (el && el.blur) el.blur();
+            startBuild(pending, 'Building ' + nameSteps(pending) + ' now.');
+          },
       anyWash
         ? (S.settleRun ? 'Back to what is left to settle' : 'Settle what is left, then I build the rest')
         : 'Build the ' + WORD[pending.length] + ' steps that are not built'
@@ -1870,11 +1927,15 @@ class Component extends DCLogic {
         chipBg: hot ? 'rgba(242, 118, 43, 0.14)' : '#131c24',
         chipBorder: hot ? 'rgba(242, 118, 43, 0.30)' : '#26313d',
         chipColor: hot ? '#f2762b' : '#8b98a5',
-        dotBg: s.dot === 'done' ? '#2ea86a' : '#0b1218',
-        dotBorder: s.dot === 'dashed' ? '1px dashed #8b98a5'
-          : (s.dot === 'person' ? '1px solid #8b98a5' : '0'),
-        dotGlyph: s.dot === 'done' ? 'ph-check' : (s.dot === 'person' ? 'ph-user' : ''),
-        dotGlyphColor: s.dot === 'done' ? '#ffffff' : '#c3cdd7',
+        dotBg: (s.dot === 'done' || S.built[n]) ? '#2ea86a' : '#0b1218',
+        dotBorder: (s.dot === 'done' || S.built[n]) ? '0' : (s.dot === 'dashed' ? '1px dashed #8b98a5'
+          : (s.dot === 'person' ? '1px solid #8b98a5' : '0')),
+        dotGlyph: (s.dot === 'done' || S.built[n]) ? 'ph-check' : (s.dot === 'person' ? 'ph-user' : ''),
+        dotGlyphColor: (s.dot === 'done' || S.built[n]) ? '#ffffff' : '#c3cdd7',
+        // Motion is the whole signal: the dashed ring turns while its step builds, never a colour.
+        dotAnim: S.building[n] ? (s.dot === 'dashed' ? 'run-spin 2400ms linear infinite'
+          : 'build-pulse 1400ms ease-in-out infinite') : 'none',
+        busyAnim: S.building[n] ? 'build-pulse 1400ms ease-in-out infinite' : 'none',
         // Both border WIDTHS interpolate rather than a border side being swapped, which could not
         // animate. Row 3 crosses from a dashed border to a solid ground: colour plus width, both animatable.
         connBg: s.conn === 'solid' ? '#26313d' : (s.conn === 'edge' ? c3Bg : 'transparent'),
@@ -1896,7 +1957,8 @@ class Component extends DCLogic {
       ledClear: (!anyWash && !buildingN && pending.length > 0) ? ' · nothing left to settle' : '',
       spineCount: '5 steps · ' + builtN + ' built',
       dashes: NS.map(n => ({
-        bg: S.built[n] ? '#2ea86a' : (wash(n) ? '#f2762b' : '#33404d')
+        bg: (S.built[n] || S.building[n]) ? '#2ea86a' : (wash(n) ? '#f2762b' : '#33404d'),
+        anim: S.building[n] ? 'build-pulse 1400ms ease-in-out infinite' : 'none'
       })),
 
       // ── The step pane ────────────────────────────────────────────────────
@@ -1940,13 +2002,17 @@ class Component extends DCLogic {
         pre: x.pre, token: sub(x.token),
         post: /^[.,;]/.test(x.post) ? x.post : ' ' + x.post
       })),
-      tech: paneStep.tech.map(t => ({
-        name: t.name, what: t.what, exists: t.exists,
-        glyph: t.yes ? 'ph-check-circle' : 'ph-circle-dashed',
-        glyphColor: t.yes ? '#8ad3ab' : '#8b98a5',
-        nameColor: t.yes ? '#f5f9fc' : '#8b98a5',
-        whatColor: t.yes ? '#c3cdd7' : '#8b98a5'
-      })),
+      // A landed step's resources exist now, whatever the hand-written data says.
+      tech: paneStep.tech.map(t => {
+        const yes = t.yes || paneBuilt;
+        return {
+          name: t.name, what: t.what, exists: t.yes ? t.exists : (paneBuilt ? 'this build' : t.exists),
+          glyph: yes ? 'ph-check-circle' : 'ph-circle-dashed',
+          glyphColor: yes ? '#8ad3ab' : '#8b98a5',
+          nameColor: yes ? '#f5f9fc' : '#8b98a5',
+          whatColor: yes ? '#c3cdd7' : '#8b98a5'
+        };
+      }),
       techHead: 'Technical detail — ' + paneStep.tech.length + ' resources, '
         + paneStep.settings.length + ' settings, ' + paneStep.shared + ' of them shared with other steps',
       noteLead: paneStep.note.lead,
@@ -1960,7 +2026,7 @@ class Component extends DCLogic {
       stepPending: !paneBuilt && !paneBuilding,
       stepBuilding: paneBuilding,
       stepBuilt: paneBuilt,
-      stepBuiltFact: 'Built · ' + paneStep.tech.filter(t => t.yes).length + ' resources exist',
+      stepBuiltFact: 'Built · ' + (paneBuilt ? paneStep.tech.length : paneStep.tech.filter(t => t.yes).length) + ' resources exist',
       stepGate: gateSentence(paneN),
       hasGate: gateSentence(paneN) !== '',
       buildPlan: buildPlan,
@@ -1971,10 +2037,21 @@ class Component extends DCLogic {
         : (nArg + nQ === 1 ? 'One left to settle — it starts the build.'
           : cap(WORD[nArg + nQ]) + ' left to settle — the last one starts the build.'),
       runStripStop: leave({ settleRun: false }),
-      rn: fold(!!S.runNote),
-      rd: fold(!!S.runDone),
+      // With the ask exchange AND a build up, the 723px budget is blown: the walk's promise
+      // folds once the build block fulfils it.
+      rn: fold(!!S.runNote && !(S.ask && S.buildQueue.length > 0)),
       runNote: S.runNote,
-      runDone: S.runDone,
+      // The build, told as it happens: the lead sentence, a live row per step, the all-built line.
+      bd: fold(S.buildQueue.length > 0),
+      buildLead: S.buildLead,
+      buildRows: S.buildQueue.map(n => ({
+        title: 'Step ' + n + ' · ' + STEPS[n - 1].crumb,
+        done: S.built[n],
+        busy: S.building[n],
+        color: S.built[n] ? '#c3cdd7' : '#8b98a5'
+      })),
+      ba: fold(S.buildQueue.length > 0 && NS.every(n => S.built[n]), 8),
+      buildDone: 'All five are built — run the whole journey when you want.',
 
       // Does not animate, so it is the one thing allowed behind an sc-if.
       open: this.state.tech,
@@ -1988,10 +2065,10 @@ class Component extends DCLogic {
       // ── The mid-run ask ──────────────────────────────────────────────────
       // Send folds three boxes as one beat: the plan-time exchange out, its divider in, the
       // run-time exchange in. Reached by URL (?ask=1) or by the composer during a live run.
-      // The run's note needs the room too: the chat has no scroller, so the exchange folds
-      // into its divider for either follow-on beat.
-      mx: fold(!S.ask && !S.runNote),
-      md: fold(S.ask || !!S.runNote),
+      // Later beats need the room: the chat has no scroller, so the exchange folds into its
+      // divider the moment the run or a build has something to say.
+      mx: fold(!S.ask && !S.runNote && !S.buildQueue.length),
+      md: fold(S.ask || !!S.runNote || S.buildQueue.length > 0),
       au: fold(S.ask),
       th: fold(S.ask && !S.replied),
       aa: fold(S.replied),
