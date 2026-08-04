@@ -750,7 +750,7 @@
                     </div>
 
 <!-- One tag, not two stacked — the stack was 74px wider than the animating max-width could afford. -->
-                    <div style="position: relative; display: grid; grid-template-columns: {{ exCols }}; flex: none; transition: grid-template-columns {{ moveDur }} {{ moveEase }};">
+                    <div style="position: relative; display: grid; grid-template-columns: {{ s.chipCols }}; flex: none; transition: grid-template-columns {{ moveDur }} {{ moveEase }};">
                       <div style="overflow: hidden; min-width: 0; white-space: nowrap; display: flex; padding-top: 2px; opacity: {{ exOp }}; transition: opacity {{ exOpDur }} {{ moveEase }} {{ exOpDl }};"><div style="display: inline-flex; align-items: center; gap: 4px; height: 18px; padding: 0 6px; border-radius: 4px; background: {{ s.chipBg }}; border: 1px solid {{ s.chipBorder }}; color: {{ s.chipColor }}; font: 400 10px/12px ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; animation: {{ s.busyAnim }};"><sc-if value="{{ s.chipGlyph }}" hint-placeholder-val="{{ false }}"><i class="ph ph-question-mark" style="font-size: 10px;"></i></sc-if>{{ s.chip }}</div></div>
                     </div>
                   </div>
@@ -2062,7 +2062,7 @@ class Component extends DCLogic {
         || of(n).filter(k => isArg(k) && st(k) && st(k).from === 'owed')[0];
       // One status word per state, sayable in both views. Never orange for `Building`.
       const label = argsOwed(n).length ? 'Not agreed' : (S.building[n] ? 'Building' : '');
-      const chip = S.building[n] ? 'Building' : (q ? q + ' to settle' : 'Nothing to settle');
+      const chip = S.building[n] ? 'Building' : (q ? q + ' to settle' : '');
       const hot = q > 0 && !S.building[n];
       return {
         n: n,
@@ -2082,6 +2082,7 @@ class Component extends DCLogic {
         count: q ? q + ' to settle' : '',
         countRows: q ? rmRows : '0fr',
         chip: chip,
+        chipCols: on ? '0fr' : (chip ? '1fr' : '0fr'),
         chipGlyph: hot,
         chipBg: hot ? 'rgba(242, 118, 43, 0.14)' : '#131c24',
         chipBorder: hot ? 'rgba(242, 118, 43, 0.30)' : '#26313d',
