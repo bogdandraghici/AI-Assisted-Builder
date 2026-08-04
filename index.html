@@ -264,9 +264,12 @@
             <div style="flex: 1; min-width: 0; display: flex; flex-direction: column; gap: 8px;">
               <div style="font: 600 12px/16px 'Open Sans', sans-serif; color: #8b98a5;">Agent <span style="font-weight: 400;">· 09:56</span></div>
               <div style="font: 400 14px/24px 'Open Sans', sans-serif; color: #f5f9fc; text-wrap: pretty;">{{ buildLead }}</div>
-<!-- One live row per step sent to build: a turning ring while it builds, a check when it lands. -->
+<!-- One live row per step sent to build: a turning ring while it builds, a check when it lands.
+     Under a building row, a note says what the build is on right now — the long waits are the
+     point, so they narrate rather than just spin. Empty when done, and an empty div holds 0. -->
               <div style="display: flex; flex-direction: column; gap: 6px; padding: 2px 0;">
                 <sc-for list="{{ buildRows }}" as="b" hint-placeholder-count="3">
+                <div style="display: flex; flex-direction: column; gap: 2px;">
                 <div style="display: flex; align-items: center; gap: 8px;">
                   <sc-if value="{{ b.busy }}" hint-placeholder-val="{{ true }}">
                   <i class="ph ph-circle-dashed" style="font-size: 14px; color: #8b98a5; animation: run-spin 2400ms linear infinite;"></i>
@@ -276,11 +279,21 @@
                   </sc-if>
                   <div style="font: 400 12px/16px 'Open Sans', sans-serif; color: {{ b.color }};">{{ b.title }}</div>
                 </div>
+                <div style="margin-left: 22px; min-width: 0; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; font: 400 12px/16px 'Open Sans', sans-serif; color: #8b98a5;">{{ b.note }}</div>
+                </div>
                 </sc-for>
               </div>
               <div style="display: grid; grid-template-rows: {{ ba.rows }}; margin-top: {{ ba.mt }}; transition: grid-template-rows {{ moveDur }} {{ moveEase }}, margin-top {{ moveDur }} {{ moveEase }};">
               <div style="overflow: hidden; min-height: 0; opacity: {{ ba.op }}; transition: opacity {{ ba.opDur }} {{ moveEase }} {{ ba.opDl }};">
               <div style="font: 400 14px/24px 'Open Sans', sans-serif; color: #f5f9fc; text-wrap: pretty;">{{ buildDone }}</div>
+<!-- The handoff is a control, not a hint: done means the next click is this one. Same green as
+     Test what exists — they are the same act from two places. Spent it withdraws: on the run
+     view the click has landed, and the chat has no room to hold a dead button. -->
+              <div style="display: grid; grid-template-rows: {{ bb.rows }}; transition: grid-template-rows {{ moveDur }} {{ moveEase }};">
+              <div style="overflow: hidden; min-height: 0; opacity: {{ bb.op }}; transition: opacity {{ bb.opDur }} {{ moveEase }} {{ bb.opDl }};">
+              <div onClick="{{ testAct }}" tabindex="{{ bb.tab }}" title="Run the whole journey" style="display: inline-flex; align-items: center; gap: 6px; height: 32px; padding: 0 12px; margin-top: 8px; border-radius: 8px; background: #1d9a5c; color: #ffffff; font: 600 12px/16px 'Open Sans', sans-serif; cursor: pointer; outline: none; pointer-events: {{ bb.pe }}; transition: background 160ms cubic-bezier(0.2, 0, 0.2, 1);" style-hover="filter: brightness(1.15);" style-focus="box-shadow: 0 0 0 3px rgba(46, 168, 106, 0.32);"><i class="ph ph-play" style="font-size: 12px;"></i>Test the journey</div>
+              </div>
+              </div>
               </div>
               </div>
             </div>
@@ -1046,6 +1059,8 @@ class Component extends DCLogic {
       // A step being built is NOT built — nothing moves group, so no heading travels.
       built:    { 1: true,  2: true,  3: false, 4: false, 5: false },
       building: { 1: false, 2: false, 3: building, 4: building, 5: building },
+      // What each building row says it is on: an index into its step's build.doing.
+      doing: {},
       // One entry per decision, owed and settled alike, keyed by step and letter. `pick` is the
       // row taken, -1 owed; `mine` is whether you answered it; `sel` and `text` are uncommitted;
       // `written` is part of the answer, like `pick`, which is why they are two.
@@ -1070,7 +1085,7 @@ class Component extends DCLogic {
         : '',
       // Which steps were sent to build, in the order asked, and the sentence that sent them.
       buildQueue: building ? [3, 4, 5] : [],
-      buildLead: building ? 'That was everything — building steps 3, 4 and 5 now.' : ''
+      buildLead: building ? 'That was everything — building steps 3, 4 and 5 now. The merchant check wires two systems, so step 3 takes a while — its row says what it is on.' : ''
     };
   })();
 
@@ -1078,10 +1093,13 @@ class Component extends DCLogic {
 
   // The plan, per row. `conn` is the connector this row draws: solid down the built part, edge
   // at the run's wall, dashed for what does not exist. `pin` is measured at 1440, never derived.
+  // `build` is how long the step takes to land and the notes its chat row walks through while it
+  // does; `deep` is the sentence that names the slow one before its wait is felt.
   static STEPS = [
     { n: 1, title: 'We show the payments they could dispute',
       crumb: 'Show the payments', pin: '838px', dot: 'done', conn: 'solid',
       desc: 'The customer sees ninety days of their own payments and picks the disputed one in a single click.',
+      build: { ms: 2200, doing: ['drawing the screen they pick on', 'wiring the list to cardsCore'] },
       cards: ['1A'], shared: 1,
       settings: [
         { pre: 'Show the customer', token: '90 days', post: 'of their own payments.' },
@@ -1097,6 +1115,7 @@ class Component extends DCLogic {
     { n: 2, title: 'We ask what happened, in their words',
       crumb: 'Ask what happened', pin: '838px', dot: 'done', conn: 'solid',
       desc: 'The customer describes it however they like, and we file it under a reason the scheme accepts — they never pick one.',
+      build: { ms: 2600, doing: ['building the box they write in', 'teaching the mapper to file the reason'] },
       cards: ['2A'], shared: 2,
       settings: [
         { pre: 'Give them up to', token: '500 characters', post: 'to describe it.' },
@@ -1112,6 +1131,8 @@ class Component extends DCLogic {
     { n: 3, title: 'We check with the merchant before asking for evidence',
       crumb: 'Check with the merchant', pin: '860px', dot: 'dashed', conn: 'edge',
       desc: 'The merchant gets one chance to put it right before we ask the customer for anything.',
+      build: { ms: 8800, deep: 'The merchant check wires two systems, so step 3 takes a while — its row says what it is on.',
+        doing: ['wiring the merchant check', 'connecting it to cardsCore', 'carrying the answer into step 4', 'naming the four answers a merchant can give'] },
       cards: ['3A', '3B', '3C', '3D'], shared: 3,
       settings: [
         { pre: 'Give the merchant', token: '4 seconds', post: 'to answer.' },
@@ -1131,6 +1152,7 @@ class Component extends DCLogic {
     { n: 4, title: 'We ask for evidence, only what the reason needs',
       crumb: 'Ask for evidence', pin: '860px', dot: 'dashed', conn: 'dashed',
       desc: 'The customer sends the one document their reason needs, and nothing at all when the reason needs none.',
+      build: { ms: 3200, doing: ['building the evidence ask', 'making the place the file is kept'] },
       cards: ['4A', '4B', '4C'], shared: 2,
       settings: [
         { pre: 'Give the customer', token: '10 days', post: 'to send it.' },
@@ -1147,6 +1169,7 @@ class Component extends DCLogic {
     { n: 5, title: 'We send the biggest disputes to a person',
       crumb: 'Send the biggest to a person', pin: '860px', dot: 'person', conn: 'dashed',
       desc: 'Disputes above {threshold} reach a person instead of an automatic decision, and the customer is told a reviewer has it.',
+      build: { ms: 5200, doing: ['building the review queue', 'putting a person in the loop'] },
       cards: ['5A', '5B'], shared: 2,
       settings: [
         { pre: 'Send anything above', token: '{threshold}', post: 'to a person.' },
@@ -1322,12 +1345,19 @@ class Component extends DCLogic {
       this.setState(p => ok(p) ? { loading: false, live: true, at: 3, loadAt: 0 } : null), 3400));
   }
 
-  // A build takes time and then lands: one step at a time, oldest first.
+  // Builds run side by side and each lands on its own clock — the deep one visibly later.
+  // While a step builds, its row walks through the step's `doing` notes so the wait reads as work.
   landAll(ns) {
-    ns.forEach((n, i) => this.timers.push(setTimeout(() => this.setState(p => ({
-      built: { ...p.built, [n]: true },
-      building: { ...p.building, [n]: false }
-    })), 2600 * (i + 1))));
+    ns.forEach(n => {
+      const b = Component.STEPS[n - 1].build;
+      b.doing.forEach((_, j) => j && this.timers.push(setTimeout(() =>
+        this.setState(p => p.building[n] ? { doing: { ...p.doing, [n]: j } } : null),
+        Math.round(b.ms * j / b.doing.length))));
+      this.timers.push(setTimeout(() => this.setState(p => ({
+        built: { ...p.built, [n]: true },
+        building: { ...p.building, [n]: false }
+      })), b.ms));
+    });
   }
 
   componentDidMount() {
@@ -1554,11 +1584,14 @@ class Component extends DCLogic {
 
     // Every way a build starts: the steps join the chat's queue, the lead says so, the landings
     // are scheduled. Appended once each — a step already queued keeps its place and its check.
+    // The slow one is named up front, so its ring still turning after the others land reads as
+    // depth, not a hang.
     const startBuild = (ns, lead) => {
+      const deep = ns.find(n => STEPS[n - 1].build.deep);
       this.setState(p => ({
         building: Object.fromEntries(NS.map(n => [n, p.building[n] || ns.indexOf(n) !== -1])),
         buildQueue: p.buildQueue.concat(ns.filter(n => p.buildQueue.indexOf(n) === -1)),
-        buildLead: lead
+        buildLead: lead + (deep ? ' ' + STEPS[deep - 1].build.deep : '')
       }));
       this.landAll(ns);
     };
@@ -2038,20 +2071,30 @@ class Component extends DCLogic {
           : cap(WORD[nArg + nQ]) + ' left to settle — the last one starts the build.'),
       runStripStop: leave({ settleRun: false }),
       // With the ask exchange AND a build up, the 723px budget is blown: the walk's promise
-      // folds once the build block fulfils it.
-      rn: fold(!!S.runNote && !(S.ask && S.buildQueue.length > 0)),
+      // folds once the build block fulfils it. Fully built it folds too — the done note and its
+      // handoff need the room.
+      rn: fold(!!S.runNote && !(S.ask && S.buildQueue.length > 0) && !(S.buildQueue.length > 0 && NS.every(n => S.built[n]))),
       runNote: S.runNote,
-      // The build, told as it happens: the lead sentence, a live row per step, the all-built line.
+      // The build, told as it happens: the lead sentence, a live row per step narrating what it
+      // is on, and the all-built handoff to the test run.
       bd: fold(S.buildQueue.length > 0),
       buildLead: S.buildLead,
       buildRows: S.buildQueue.map(n => ({
         title: 'Step ' + n + ' · ' + STEPS[n - 1].crumb,
         done: S.built[n],
         busy: S.building[n],
+        note: S.building[n] ? STEPS[n - 1].build.doing[S.doing[n] || 0] : '',
         color: S.built[n] ? '#c3cdd7' : '#8b98a5'
       })),
       ba: fold(S.buildQueue.length > 0 && NS.every(n => S.built[n]), 8),
-      buildDone: 'All five are built — run the whole journey when you want.',
+      bb: fold(S.buildQueue.length > 0 && NS.every(n => S.built[n]) && !S.run, 0),
+      buildDone: 'All five are built — that was everything I needed from you. The plan is done; the one thing left is to see it run.',
+      testAct: e => {
+        const el = e && e.currentTarget;
+        if (el && el.blur) el.blur();
+        this.setState({ run: true, live: false, loading: true, loadAt: 0, step: 0, cards: allShut() },
+          () => this.playRun());
+      },
 
       // Does not animate, so it is the one thing allowed behind an sc-if.
       open: this.state.tech,
