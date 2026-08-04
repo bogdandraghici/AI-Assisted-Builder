@@ -69,11 +69,8 @@
         </div>
         <div style="margin-left: auto; display: flex; align-items: center; gap: 12px;">
 <!-- 12px gap lives inside the wrapper so it collapses with the zero-width cell. -->
-          <div style="display: inline-flex; align-items: center; gap: {{ fullGap }}; transition: gap {{ moveDur }} {{ moveEase }};">
-            <div style="display: grid; grid-template-columns: {{ runCols }}; transition: grid-template-columns {{ moveDur }} {{ moveEase }};">
-              <div style="overflow: hidden; min-width: 0; white-space: nowrap; font: 400 12px/16px 'Open Sans', sans-serif; color: #c3cdd7; opacity: {{ runCrumbOp }}; transition: opacity {{ crumbOpDur }} {{ moveEase }} {{ runCrumbOpDl }};">ran 09:46 · reached 3 of 5</div>
-            </div>
-            <div style="display: inline-flex; align-items: center; gap: 6px;"><div style="width: 26px; height: 26px; border-radius: 99px; border: 1px solid #26313d; background: #161f28; display: inline-flex; align-items: center; justify-content: center; color: #c3cdd7; cursor: pointer; flex: none; transition: background 160ms cubic-bezier(0.2, 0, 0.2, 1);" style-hover="background: #1c2632;"><i class="ph ph-arrow-counter-clockwise" style="font-size: 12px;"></i></div><div style="width: 26px; height: 26px; border-radius: 99px; border: 1px solid #26313d; background: #161f28; display: inline-flex; align-items: center; justify-content: center; color: #c3cdd7; cursor: pointer; flex: none; transition: background 160ms cubic-bezier(0.2, 0, 0.2, 1);" style-hover="background: #1c2632;"><i class="ph ph-arrow-clockwise" style="font-size: 12px;"></i></div></div>
+          <div style="display: grid; grid-template-columns: {{ runCols }}; transition: grid-template-columns {{ moveDur }} {{ moveEase }};">
+            <div style="overflow: hidden; min-width: 0; white-space: nowrap; font: 400 12px/16px 'Open Sans', sans-serif; color: #c3cdd7; opacity: {{ runCrumbOp }}; transition: opacity {{ crumbOpDur }} {{ moveEase }} {{ runCrumbOpDl }};">ran 09:46 · reached 3 of 5</div>
           </div>
 <!-- No count in the label, or the button animates its own width. Withdrawn it says nothing. -->
           <div onClick="{{ buildPlan.act }}" tabindex="{{ buildPlan.tab }}" title="{{ buildPlan.title }}" style="display: inline-flex; align-items: center; gap: 6px; height: 28px; padding: 0 8px; border-radius: 8px; border: 1px solid {{ buildPlan.border }}; background: {{ buildPlan.bg }}; color: {{ buildPlan.color }}; font: 600 12px/16px 'Open Sans', sans-serif; cursor: {{ buildPlan.cursor }}; outline: none; pointer-events: {{ buildPlan.pe }}; transition: all 160ms cubic-bezier(0.2, 0, 0.2, 1);" style-hover="background: #4d97ea; border-color: #4d97ea;" style-focus="box-shadow: 0 0 0 3px rgba(43, 127, 228, 0.32);">
@@ -2165,10 +2162,10 @@ class Component extends DCLogic {
         this.timers.push(setTimeout(() => this.setState({ replied: true }), 2200));
       },
 
-      // Keyed on the live run alone, not on `on || run`.
+      // Keyed on the live run alone, not on `on || run`. The plan view carries no caption.
       composerCap: ranLive
         ? 'Anything you type lands on the step you are looking at.'
-        : 'Anything you type lands on the step it is about.',
+        : '',
 
       // ── Nothing offers what it cannot do ─────────────────────────────────
       // Gated here rather than styled to look gated: `style-hover` is a static string, so a hover
