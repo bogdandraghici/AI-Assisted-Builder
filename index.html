@@ -994,6 +994,40 @@
 
           </div>
 
+<!-- How to test: the golden path for this screen, and the run opened right at it. Dashed
+     where the step is not built — the screen Use this would open does not exist yet. -->
+          <div style="flex: none; max-width: 800px; display: flex; flex-direction: column; gap: 12px; padding-bottom: 24px; opacity: {{ dOp }}; transform: {{ dTr }}; transition: opacity {{ dDur }} cubic-bezier(0.2, 0, 0.2, 1) {{ dDl }}, transform {{ dDur }} cubic-bezier(0.2, 0, 0.2, 1) {{ dDl }};">
+            <div onClick="{{ htToggle }}" tabindex="0" style="display: inline-flex; align-self: flex-start; align-items: center; gap: 8px; cursor: pointer; color: #8b98a5; outline: none; transition: color 160ms cubic-bezier(0.2, 0, 0.2, 1);" style-hover="color: #c3cdd7;" style-focus="box-shadow: 0 0 0 3px rgba(43, 127, 228, 0.32);">
+<sc-if value="{{ htClosed }}" hint-placeholder-val="{{ false }}">
+              <i class="ph ph-caret-right" style="font-size: 12px;"></i>
+</sc-if>
+<sc-if value="{{ htOpen }}" hint-placeholder-val="{{ true }}">
+              <i class="ph ph-caret-down" style="font-size: 12px;"></i>
+</sc-if>
+              <div style="font: 400 10px/12px ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; text-transform: uppercase; letter-spacing: 0.14em;">How to test this step</div>
+            </div>
+<sc-if value="{{ htOpen }}" hint-placeholder-val="{{ true }}">
+            <div style="background: #101820; border: 1px solid #1c2530; border-radius: 8px; display: flex; flex-direction: column;">
+              <div style="padding: 12px 16px; display: flex; flex-direction: column; gap: 6px; border-bottom: 1px solid #1c2530;">
+                <div style="font: 400 10px/12px ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; text-transform: uppercase; letter-spacing: 0.14em; color: #8b98a5;">What to enter</div>
+                <sc-for list="{{ htInputs }}" as="g" hint-placeholder-count="1">
+                <div style="font: 400 14px/24px 'Open Sans', sans-serif; color: #c3cdd7; max-width: 62ch; text-wrap: pretty;">{{ g.pre }} <span style="font: 400 14px/22px ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; color: #f5f9fc;">{{ g.token }}</span>{{ g.post }}</div>
+                </sc-for>
+              </div>
+              <div style="padding: 12px 16px; display: flex; flex-direction: column; gap: 6px; border-bottom: 1px solid #1c2530;">
+                <div style="font: 400 10px/12px ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; text-transform: uppercase; letter-spacing: 0.14em; color: #8b98a5;">What you should see</div>
+                <div style="font: 400 14px/24px 'Open Sans', sans-serif; color: #a9b6c3; max-width: 62ch; text-wrap: pretty;">{{ htSee }}</div>
+              </div>
+              <div style="padding: 10px 16px; display: flex; align-items: center; gap: 12px;">
+                <div onClick="{{ htUse }}" tabindex="{{ htTab }}" title="{{ htTitle }}" style="display: inline-flex; align-items: center; gap: 6px; height: 28px; padding: 0 8px; border-radius: 6px; border: 1px {{ htBorderStyle }} {{ htBorder }}; background: {{ htBg }}; color: {{ htColor }}; font: 600 12px/16px 'Open Sans', sans-serif; cursor: {{ htCursor }}; outline: none; pointer-events: {{ htPE }}; transition: all 160ms cubic-bezier(0.2, 0, 0.2, 1);" style-hover="background: #4d97ea; border-color: #4d97ea;" style-focus="box-shadow: 0 0 0 3px rgba(43, 127, 228, 0.32);"><i class="ph ph-play" style="font-size: 12px;"></i>Use this</div>
+                <sc-if value="{{ htGate }}" hint-placeholder-val="{{ false }}">
+                <div style="font: 400 12px/16px 'Open Sans', sans-serif; color: #8b98a5;">Testable once this step is built.</div>
+                </sc-if>
+              </div>
+            </div>
+</sc-if>
+          </div>
+
           <div style="flex: none; max-width: 800px; display: flex; flex-direction: column; gap: 12px; opacity: {{ dOp }}; transform: {{ dTr }}; transition: opacity {{ dDur }} cubic-bezier(0.2, 0, 0.2, 1) {{ dDl }}, transform {{ dDur }} cubic-bezier(0.2, 0, 0.2, 1) {{ dDl }};">
             <div style="font: 400 10px/12px ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; text-transform: uppercase; letter-spacing: 0.14em; color: #8b98a5;">What I chose for you</div>
 
@@ -1175,6 +1209,7 @@ class Component extends DCLogic {
       // Read off `last`, not `step`: the pane stays mounted and would snap mid-fade.
       last: step || 3,
       tech: false,
+      howTest: false,
       run,
       // A run starts on the first screen; ?at=N is the only thing that starts it anywhere else.
       at: Math.min(5, Math.max(1, parseInt(q.get('at'), 10) || (ask ? 3 : 1))),
@@ -1233,6 +1268,8 @@ class Component extends DCLogic {
         { name: 'cardsCore.integrationSystem', what: 'Where the payments come from. Shared with steps 3 and 5.', exists: 'by you', yes: true },
         { name: 'paymentPicker.uiComponent', what: 'The one screen the customer picks on.', exists: 'build 1', yes: true }
       ],
+      test: { inputs: [{ pre: 'Pick', token: 'NORTHGATE SUPPLY CO · £248.00', post: 'from 24 July — the payment every screen after carries.' }],
+        see: 'All 12 payments from the last ninety days, and picking the row moves you straight to What happened.' },
       note: { lead: 'Settings above are ', mono: 'lookbackDays 90 · pageSize 12', mid: '. Card numbers are masked by ', mono2: 'cardPan.piiGuard', tail: ' before they leave the bank — that one you cannot switch off.' } },
 
     { n: 2, title: 'We ask what happened, in their words',
@@ -1249,6 +1286,8 @@ class Component extends DCLogic {
         { name: 'reasonFromText.dataMapper', what: 'Reads their words and files the reason. Nobody picks one.', exists: 'build 2', yes: true },
         { name: 'disputeReason.enum', what: 'The reasons the scheme accepts. Shared with steps 3 and 4.', exists: 'build 1', yes: true }
       ],
+      test: { inputs: [{ pre: 'Type', token: 'I ordered a parcel from them on the 24th and it never turned up.', post: '— their own words, inside the 500 characters.' }],
+        see: 'No reason list anywhere on the screen: it is filed as Goods not received from what they wrote.' },
       note: { lead: 'Settings above are ', mono: 'maxChars 500 · draftDays 7', mid: '.', mono2: '', tail: '' } },
 
     { n: 3, title: 'We check with the merchant before asking for evidence',
@@ -1270,6 +1309,8 @@ class Component extends DCLogic {
         { name: 'enquiryToContext.dataMapper', what: 'Carries the merchant’s answer into step 4. Waits on the decisions above.', exists: 'no', yes: false },
         { name: 'enquiryOutcome.enum', what: 'The four answers a merchant can give. Shared with step 5.', exists: 'no', yes: false }
       ],
+      test: { inputs: [{ pre: 'Nothing to enter —', token: '£248.00', post: 'is over the £10 floor, so the check already ran while they typed.' }],
+        see: 'NORTHGATE SUPPLY CO answers “They will not refund it” in 3 seconds, and the journey carries on either way.' },
       note: { lead: 'Settings above are ', mono: 'waitMs 4000 · retries 1 · minAmount 1000 · cacheDays 30', mid: '. Card numbers are masked by ', mono2: 'cardPan.piiGuard', tail: ' before they leave the bank — that one you cannot switch off.' } },
 
     { n: 4, title: 'We ask for evidence, only what the reason needs',
@@ -1289,6 +1330,8 @@ class Component extends DCLogic {
         { name: 'disputeReason.enum', what: 'Decides which document gets asked for. Shared with step 2.', exists: 'build 1', yes: true },
         { name: 'evidenceStore.integrationSystem', what: 'Where the file is kept once it arrives.', exists: 'no', yes: false }
       ],
+      test: { inputs: [{ pre: 'Send', token: 'order-2471-northgate.pdf', post: '— 184 KB, one PDF under the 8 MB cap.' }],
+        see: 'The file lands with a green check, and the screen names the 10 days they have and the one nudge after 3.' },
       note: { lead: 'Settings above are ', mono: 'dueDays 10 · remindAfterDays 3 · maxFileMb 8', mid: '.', mono2: '', tail: '' } },
 
     { n: 5, title: 'We send the biggest disputes to a person',
@@ -1306,6 +1349,8 @@ class Component extends DCLogic {
         { name: 'enquiryOutcome.enum', what: 'The four answers a merchant can give. Shared with step 3.', exists: 'no', yes: false },
         { name: 'cardsCore.integrationSystem', what: 'Where the payment comes from. Shared with steps 1 and 3.', exists: 'by you', yes: true }
       ],
+      test: { inputs: [{ pre: 'Nothing to enter —', token: '£248.00', post: 'stays under {threshold}, so no person is pulled in.' }],
+        see: 'Filed as Goods not received under DSP-4417-0093, and £248.00 held back from the merchant while it runs.' },
       note: { lead: 'Settings above are ', mono: 'threshold 50000 · reviewDays 2', mid: '.', mono2: '', tail: '' } }
   ];
 
@@ -2255,6 +2300,27 @@ class Component extends DCLogic {
       open: this.state.tech,
       closed: !this.state.tech,
       toggle: () => this.setState(p => ({ tech: !p.tech })),
+
+      // ── How to test ──────────────────────────────────────────────────────
+      // Use this enters the run the way ?at=N does — live, no preparing beat, inputs in place.
+      htOpen: S.howTest,
+      htClosed: !S.howTest,
+      htToggle: () => this.setState(p => ({ howTest: !p.howTest })),
+      htInputs: paneStep.test.inputs.map(x => ({
+        pre: sub(x.pre), token: sub(x.token),
+        post: /^[.,;]/.test(x.post) ? x.post : ' ' + sub(x.post)
+      })),
+      htSee: sub(paneStep.test.see),
+      htUse: paneBuilt ? leave({ run: true, live: true, loading: false, step: 0, at: paneN, cards: allShut() }) : () => {},
+      htPE: paneBuilt ? 'auto' : 'none',
+      htTab: paneBuilt ? '0' : '-1',
+      htTitle: paneBuilt ? 'Open the run at this screen, inputs in place' : '',
+      htBorderStyle: paneBuilt ? 'solid' : 'dashed',
+      htBorder: paneBuilt ? '#2b7fe4' : '#33404d',
+      htBg: paneBuilt ? '#2b7fe4' : 'transparent',
+      htColor: paneBuilt ? '#ffffff' : '#4a5764',
+      htCursor: paneBuilt ? 'pointer' : 'not-allowed',
+      htGate: !paneBuilt,
 
       closeStep: leave({ step: 0, cards: allShut() }),
 
