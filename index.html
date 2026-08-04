@@ -242,6 +242,32 @@
           </div>
           </div>
 
+<!-- The run's two notes: the walk promised when Build the plan starts it, the build named when
+     the last answer lands. Sticky — a said thing stays said. -->
+          <div style="display: grid; grid-template-rows: {{ rn.rows }}; margin-top: {{ rn.mt }}; transition: grid-template-rows {{ moveDur }} {{ moveEase }}, margin-top {{ moveDur }} {{ moveEase }};">
+          <div style="overflow: hidden; min-height: 0; opacity: {{ rn.op }}; transition: opacity {{ rn.opDur }} {{ moveEase }} {{ rn.opDl }};">
+          <div style="display: flex; gap: 12px;">
+            <div style="width: 22px; height: 22px; flex: none; border-radius: 99px; background: rgba(139, 152, 165, 0.16); display: grid; place-items: center;"><img src="assets/flowx-mark-white.svg" alt="Agent" style="height: 11px; width: auto; flex: none;" /></div>
+            <div style="flex: 1; min-width: 0; display: flex; flex-direction: column; gap: 4px;">
+              <div style="font: 600 12px/16px 'Open Sans', sans-serif; color: #8b98a5;">Agent <span style="font-weight: 400;">· 09:52</span></div>
+              <div style="font: 400 14px/24px 'Open Sans', sans-serif; color: #f5f9fc; text-wrap: pretty;">{{ runNote }}</div>
+            </div>
+          </div>
+          </div>
+          </div>
+
+          <div style="display: grid; grid-template-rows: {{ rd.rows }}; margin-top: {{ rd.mt }}; transition: grid-template-rows {{ moveDur }} {{ moveEase }}, margin-top {{ moveDur }} {{ moveEase }};">
+          <div style="overflow: hidden; min-height: 0; opacity: {{ rd.op }}; transition: opacity {{ rd.opDur }} {{ moveEase }} {{ rd.opDl }};">
+          <div style="display: flex; gap: 12px;">
+            <div style="width: 22px; height: 22px; flex: none; border-radius: 99px; background: rgba(139, 152, 165, 0.16); display: grid; place-items: center;"><img src="assets/flowx-mark-white.svg" alt="Agent" style="height: 11px; width: auto; flex: none;" /></div>
+            <div style="flex: 1; min-width: 0; display: flex; flex-direction: column; gap: 4px;">
+              <div style="font: 600 12px/16px 'Open Sans', sans-serif; color: #8b98a5;">Agent <span style="font-weight: 400;">· 09:56</span></div>
+              <div style="font: 400 14px/24px 'Open Sans', sans-serif; color: #f5f9fc; text-wrap: pretty;">{{ runDone }}</div>
+            </div>
+          </div>
+          </div>
+          </div>
+
         </div>
 
         <div style="min-width: 359px; flex: none; padding: 16px 24px 24px; display: flex; flex-direction: column; gap: 8px;">
@@ -650,6 +676,17 @@
 <!-- detPin is the pane's open width; the same 906 caps the pane, so the close button stays by what it closes. -->
         <div data-pane-scroll="1" style="position: absolute; top: 0; left: 0; bottom: 0; width: 100%; min-width: {{ detPin }}; max-width: 906px; display: flex; flex-direction: column; overflow-y: auto; padding: 24px 74px 24px 32px;">
 
+<!-- The run's banner. Folds, never sc-if; blue is the commit the run carries. -->
+          <div style="flex: none; max-width: 800px; display: grid; grid-template-rows: {{ rs.rows }}; opacity: {{ dOp }}; transform: {{ dTr }}; transition: grid-template-rows {{ moveDur }} {{ moveEase }}, opacity {{ dDur }} cubic-bezier(0.2, 0, 0.2, 1) {{ dDl }}, transform {{ dDur }} cubic-bezier(0.2, 0, 0.2, 1) {{ dDl }};">
+          <div style="min-height: 0; overflow: hidden; opacity: {{ rs.op }}; transition: opacity {{ rs.opDur }} {{ moveEase }} {{ rs.opDl }};">
+          <div style="margin-bottom: 24px; display: flex; align-items: center; gap: 10px; padding: 10px 14px; background: rgba(43, 127, 228, 0.08); border: 1px solid rgba(43, 127, 228, 0.30); border-radius: 8px;">
+            <i class="ph ph-hammer" style="font-size: 14px; color: #4d97ea; flex: none;"></i>
+            <div style="flex: 1; min-width: 0; font: 400 14px/24px 'Open Sans', sans-serif; color: #f5f9fc;">{{ runStripText }}</div>
+            <div onClick="{{ runStripStop }}" tabindex="{{ rs.tab }}" title="Stop — settle at your own pace" style="width: 22px; height: 22px; border-radius: 99px; display: inline-flex; align-items: center; justify-content: center; color: #8b98a5; cursor: pointer; outline: none; pointer-events: {{ rs.pe }}; flex: none; transition: color 160ms cubic-bezier(0.2, 0, 0.2, 1), background 160ms cubic-bezier(0.2, 0, 0.2, 1);" style-hover="background: #1c2632; color: #f5f9fc;" style-focus="box-shadow: 0 0 0 3px rgba(43, 127, 228, 0.32);"><i class="ph ph-x" style="font-size: 12px;"></i></div>
+          </div>
+          </div>
+          </div>
+
           <div style="flex: none; max-width: 800px; display: flex; flex-direction: column; gap: 8px; padding-bottom: 24px; opacity: {{ dOp }}; transform: {{ dTr }}; transition: opacity {{ dDur }} cubic-bezier(0.2, 0, 0.2, 1) {{ dDl }}, transform {{ dDur }} cubic-bezier(0.2, 0, 0.2, 1) {{ dDl }};">
 
 <!-- Read off `last`, not `step`: the pane stays mounted and would snap mid-fade. -->
@@ -963,8 +1000,10 @@ class Component extends DCLogic {
     // `ask` moves the drop-merchant request into the run: the user asks while the preview is up.
     const ask = q.get('ask') === '1';
     const run = q.get('run') === '1' || q.has('at') || loading || ask;
+    // ?settling=1 opens mid-walk on the first owing step; the note is INIT's counts by hand.
+    const settling = !run && q.get('settling') === '1';
     const want = parseInt(q.get('step'), 10);
-    const step = (!run && want >= 1 && want <= 5) ? want : 0;
+    const step = (!run && want >= 1 && want <= 5) ? want : (settling ? 3 : 0);
     return {
       step,
       ask,
@@ -996,7 +1035,14 @@ class Component extends DCLogic {
       fly: null,
       // The order answers landed in, appended once each. Newest LAST: this list is one sc-for
       // keyed by index, so a card landing anywhere else renames the node already there.
-      order: []
+      order: [],
+      // Build the plan while anything is owed starts this walk; the last settle fires the build.
+      settleRun: settling,
+      // The two chat notes the run leaves. Sticky — a said thing stays said.
+      runNote: settling
+        ? 'One thing to agree and four questions left, across three steps. I will take you through them in order — the moment the last one settles, I build the rest.'
+        : '',
+      runDone: ''
     };
   })();
 
@@ -1269,6 +1315,7 @@ class Component extends DCLogic {
         return;
       }
       if (this.state.draft) { this.setState({ draft: false }); return; }
+      if (this.state.settleRun) { this.setState({ settleRun: false }); return; }
       if (this.state.run && (this.state.live || this.state.loading)) { this.setState({ live: false, loading: false }); return; }
       if (this.state.run)  { this.setState({ run: false }); return; }
       if (this.state.step) this.setState({ step: 0 });
@@ -1460,8 +1507,35 @@ class Component extends DCLogic {
       }, 20));
       this.timers.push(setTimeout(() => put(null, null), SETTLE + 40));
       // The blue drains after the beat, not during it.
-
+      // A breath after it, the run moves — long enough to see the answer land where it lives.
+      this.timers.push(setTimeout(advanceRun, SETTLE + 480));
     };
+
+    // The settle run: every beat's end asks the same question of FRESH state — the closure's S
+    // still predates the pick. Steps still owing carry you on; none left fires the build.
+    const advanceRun = () => this.setState(p => {
+      if (!p.settleRun) return null;
+      // A beat still playing holds the walk: an earlier settle's timer lands mid-flight on the
+      // next card's beat — its pick is already down — and would carry the pane out from under it.
+      if (Object.keys(p.settling).length) return null;
+      const owes = n => Component.STEPS[n - 1].cards.some(k => p.cards[k].pick === -1);
+      if (owes(p.last)) return null;
+      const next = NS.find(owes);
+      if (next) return {
+        step: next, last: next,
+        cards: Object.fromEntries(Object.keys(p.cards).map(k =>
+          [k, { ...p.cards[k], open: false, why: false }]))
+      };
+      const ns = NS.filter(n => !p.built[n] && !p.building[n]);
+      if (!ns.length) return { settleRun: false };
+      return {
+        settleRun: false,
+        building: Object.fromEntries(NS.map(n => [n, p.building[n] || ns.indexOf(n) !== -1])),
+        runDone: 'That was everything. Building ' + (ns.length === 1 ? 'step ' + ns[0]
+          : 'steps ' + ns.slice(0, -1).join(', ') + ' and ' + ns[ns.length - 1])
+          + ' now — I will tell you here as each lands.'
+      };
+    });
 
     const st = k => S.settling[k];
     const flown = k => !!(S.fly && S.fly.k === k);
@@ -1718,11 +1792,28 @@ class Component extends DCLogic {
       'Build step ' + paneN
     );
 
+    // One button, two grains of one commit: settled it builds, owing it starts the walk to what
+    // is left — and the walk's last settle fires the build itself (see advanceRun). Clicked
+    // mid-run it is the way back to the run, so the note is written once.
+    const owingSteps = NS.filter(wash);
+    const startNote = () => {
+      const bits = [];
+      if (nArg) bits.push(nArg === 1 ? 'one thing to agree' : WORD[nArg] + ' things to agree');
+      if (nQ) bits.push(nQ === 1 ? 'one question' : WORD[nQ] + ' questions');
+      const where = owingSteps.length === 1 ? 'on one step' : 'across ' + WORD[owingSteps.length] + ' steps';
+      return cap(bits.join(' and ')) + ' left, ' + where
+        + '. I will take you through them in order — the moment the last one settles, I build the rest.';
+    };
     const buildPlan = primary(
-      !anyWash && pending.length > 0,
-      leave({ building: Object.fromEntries(NS.map(n =>
-        [n, S.building[n] || pending.indexOf(n) !== -1])) }),
-      'Build the ' + WORD[pending.length] + ' steps that are not built'
+      pending.length > 0,
+      anyWash
+        ? leave({ settleRun: true, run: false, step: owingSteps[0], last: owingSteps[0],
+                  cards: allShut(), ...(S.settleRun ? {} : { runNote: startNote() }) })
+        : leave({ building: Object.fromEntries(NS.map(n =>
+            [n, S.building[n] || pending.indexOf(n) !== -1])) }),
+      anyWash
+        ? (S.settleRun ? 'Back to what is left to settle' : 'Settle what is left, then I build the rest')
+        : 'Build the ' + WORD[pending.length] + ' steps that are not built'
     );
 
     // ── Everything that changes shape, on one curve ─────────────────────────
@@ -1874,6 +1965,17 @@ class Component extends DCLogic {
       hasGate: gateSentence(paneN) !== '',
       buildPlan: buildPlan,
 
+      // ── The settle run's banner and its two chat notes ───────────────────
+      rs: fold(S.settleRun),
+      runStripText: nArg + nQ === 0 ? 'That was the last one — building the rest.'
+        : (nArg + nQ === 1 ? 'One left to settle — it starts the build.'
+          : cap(WORD[nArg + nQ]) + ' left to settle — the last one starts the build.'),
+      runStripStop: leave({ settleRun: false }),
+      rn: fold(!!S.runNote),
+      rd: fold(!!S.runDone),
+      runNote: S.runNote,
+      runDone: S.runDone,
+
       // Does not animate, so it is the one thing allowed behind an sc-if.
       open: this.state.tech,
       closed: !this.state.tech,
@@ -1886,8 +1988,10 @@ class Component extends DCLogic {
       // ── The mid-run ask ──────────────────────────────────────────────────
       // Send folds three boxes as one beat: the plan-time exchange out, its divider in, the
       // run-time exchange in. Reached by URL (?ask=1) or by the composer during a live run.
-      mx: fold(!S.ask),
-      md: fold(S.ask),
+      // The run's note needs the room too: the chat has no scroller, so the exchange folds
+      // into its divider for either follow-on beat.
+      mx: fold(!S.ask && !S.runNote),
+      md: fold(S.ask || !!S.runNote),
       au: fold(S.ask),
       th: fold(S.ask && !S.replied),
       aa: fold(S.replied),
