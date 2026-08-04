@@ -1165,14 +1165,16 @@ class Component extends DCLogic {
       // The staged request sitting in the composer, not yet sent. Send turns it into `ask`.
       draft: false,
       // `run` is which view; `live` is whether a run is playing in it. Stop keeps the view.
-      live: !loading && q.get('live') !== '0',
+      // Opening the view is not running: a live run is asked for — ?at=N, ?ask=1 or ?live=1.
+      live: !loading && (q.has('at') || ask || q.get('live') === '1'),
       loading,
       loadAt: 0,
       // Read off `last`, not `step`: the pane stays mounted and would snap mid-fade.
       last: step || 3,
       tech: false,
       run,
-      at: Math.min(5, Math.max(1, parseInt(q.get('at'), 10) || 3)),
+      // A run starts on the first screen; ?at=N is the only thing that starts it anywhere else.
+      at: Math.min(5, Math.max(1, parseInt(q.get('at'), 10) || (ask ? 3 : 1))),
       // Three things a step can owe, each cleared by its own act; Build is gated on the other two.
       // A step being built is NOT built — nothing moves group, so no heading travels.
       built:    { 1: true,  2: true,  3: false, 4: false, 5: false },
@@ -2241,7 +2243,7 @@ class Component extends DCLogic {
       testAct: e => {
         const el = e && e.currentTarget;
         if (el && el.blur) el.blur();
-        this.setState({ run: true, live: false, loading: true, loadAt: 0, step: 0, cards: allShut() },
+        this.setState({ run: true, live: false, loading: true, loadAt: 0, at: 1, step: 0, cards: allShut() },
           () => this.playRun());
       },
 
@@ -2327,7 +2329,7 @@ class Component extends DCLogic {
         : e => {
             const el = e && e.currentTarget;
             if (el && el.blur) el.blur();
-            this.setState({ run: true, live: false, loading: true, loadAt: 0, step: 0, cards: allShut() },
+            this.setState({ run: true, live: false, loading: true, loadAt: 0, at: 1, step: 0, cards: allShut() },
               () => this.playRun());
           },
       runIcon: busy ? 'ph-stop' : 'ph-play',
