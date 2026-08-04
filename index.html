@@ -2169,11 +2169,9 @@ class Component extends DCLogic {
       // The plan's copy of the argument card is withdrawn behind an open step and again while it
       // folds away. Both are one value on the card: a control cannot be half-withdrawn.
 
-      // The one state it may not act from is a step open — those endpoints do not exist. Live inside the run.
-      // `on` never coincides with `run` (see the state comment above), so the run-side of these
-      // ternaries is never itself dimmed.
-      runPE: on ? 'none' : 'auto',
-      runTab: on ? '-1' : '0',
+      // Live from a step too: closing it and starting the run is one act, so nothing gates it on `on`.
+      runPE: 'auto',
+      runTab: '0',
       // Stop stays on the Test run view: the live run gives way to the empty state.
       runAct: busy
         ? leave({ live: false, loading: false })
@@ -2184,11 +2182,11 @@ class Component extends DCLogic {
               () => this.playRun());
           },
       runIcon: busy ? 'ph-stop' : 'ph-play',
-      runLabel: busy ? 'Stop running' : 'Test what exists',
-      runTitle: busy ? 'Stop running — Esc' : (on ? '' : 'Run what exists'),
+      runLabel: busy ? 'Stop running' : 'Test the journey',
+      runTitle: busy ? 'Stop running — Esc' : 'Run the whole journey',
       runBorder: busy ? '#eb4e33' : 'transparent',
-      runBg: busy ? 'transparent' : (on ? '#14402a' : '#1d9a5c'),
-      runFg: busy ? '#ffffff' : (on ? '#4a5764' : '#ffffff'),
+      runBg: busy ? 'transparent' : '#1d9a5c',
+      runFg: busy ? '#ffffff' : '#ffffff',
 
       // The active segment takes the "you are here" white; only the one you are NOT on is live.
       segPlanAct: leave({ run: false, step: 0, cards: allShut() }),
