@@ -8,9 +8,12 @@ Measured numbers and traps only. Every value lives in `index.html`.
   `vw` / `vh` inside the zoom are z times too big — `renderVals` hands down `frameW` / `frameH`.
   At z = 1 the value must be `normal`: a `zoom: 1` still takes the zoom path and re-rasterises
   every glyph, 14.6k pixels off at the design size.
-- Tracks are the region minus **321** (band) or **300** (spine). Caps: 1016 plan rows, 966 app,
+- Tracks are the region minus **321** (band) or **248** (spine). Caps: 1016 plan rows, 966 app,
   906 step pane — each doubles as a pin's floor, so the screen's `min-width` / `min-height` may
   not move without all of them. A height pin may never be a percentage.
+- The spine's 248 is derived, not chosen: **170** is the tightest title measure all five still
+  wrap to two lines in (165 puts one on three), plus 74 of chrome, plus 4 of slack. A collapsed
+  column still leaves its flex gap — the chip's 24 and the caret's 8 fold to 0 in the spine.
 - Settle beat: **640ms**, `cubic-bezier(0.65, 0, 0.35, 1)`, symmetric. Ceiling is **324px** of
   scroll clamp. Any ease-out is a trap at this size — `0.4, 0, 0.2, 1` put nine tenths of a 336px
   fold in the first 375ms. Measure the fold in the browser before believing a curve.

@@ -713,7 +713,7 @@
                 </div>
                 <div style="flex: 1; min-width: 0; padding-bottom: {{ rowPb }}; transition: padding-bottom {{ moveDur }} {{ moveEase }};">
 
-                  <div style="position: relative; border-radius: 12px; padding: {{ s.pad }}; outline: 1px solid {{ s.outline }}; outline-offset: 3px; display: flex; gap: 24px; align-items: flex-start; transition: padding {{ moveDur }} {{ moveEase }}, outline-color {{ rmOpDur }} {{ moveEase }} {{ rmOpDl }};">
+                  <div style="position: relative; border-radius: 12px; padding: {{ s.pad }}; outline: 1px solid {{ s.outline }}; outline-offset: 3px; display: flex; gap: {{ chipGap }}; align-items: flex-start; transition: padding {{ moveDur }} {{ moveEase }}, gap {{ wrDur }} {{ wrEase }}, outline-color {{ rmOpDur }} {{ moveEase }} {{ rmOpDl }};">
                     <div style="position: relative; flex: 1; min-width: 0; display: flex; flex-direction: column; gap: 2px;">
 
                       <div style="display: flex; flex-direction: column; gap: 0;">
@@ -723,7 +723,7 @@
                           </div>
                         </div>
 
-                        <div onClick="{{ s.openMe }}" tabindex="{{ cardTab }}" title="{{ s.title }}" style="display: flex; align-items: baseline; gap: 8px; cursor: pointer; margin: -6px -8px 0; padding: 6px 8px 0; border-radius: 8px; outline: none; pointer-events: {{ cardPE }}; transition: background 160ms cubic-bezier(0.2, 0, 0.2, 1);" style-hover="background: #131c24;" style-focus="box-shadow: 0 0 0 3px rgba(43, 127, 228, 0.32);">
+                        <div onClick="{{ s.openMe }}" tabindex="{{ cardTab }}" title="{{ s.title }}" style="display: flex; align-items: baseline; gap: {{ caretGap }}; cursor: pointer; margin: -6px -8px 0; padding: 6px 8px 0; border-radius: 8px; outline: none; pointer-events: {{ cardPE }}; transition: gap {{ wrDur }} {{ wrEase }}, background 160ms cubic-bezier(0.2, 0, 0.2, 1);" style-hover="background: #131c24;" style-focus="box-shadow: 0 0 0 3px rgba(43, 127, 228, 0.32);">
                           <div style="min-height: {{ titleLines }}; font-family: 'Open Sans', sans-serif; font-weight: 600; font-size: {{ titleSize }}; line-height: {{ titleLh }}; max-width: {{ titleMax }}; color: #f5f9fc; text-wrap: pretty; transition: min-height {{ ldDur }} {{ ldEase }}, font-size {{ wrDur }} {{ wrEase }}, line-height {{ wrDur }} {{ wrEase }}, max-width {{ wrDur }} {{ wrEase }};">{{ s.title }}</div>
 
                           <i class="ph ph-arrow-right" style="font-size: {{ caretSize }}; color: {{ s.arrow }}; flex: none; opacity: {{ exOp }}; transition: font-size {{ wrDur }} {{ wrEase }}, opacity {{ exOpDur }} {{ moveEase }} {{ exOpDl }};"></i>
@@ -2384,15 +2384,18 @@ class Component extends DCLogic {
       exOpDl: on ? '0ms' : '180ms',
       iconSize: on ? '0px' : '11px',
       caretSize: on ? '0px' : '12px',
+      // A collapsed column is 0 wide but its flex gap is not: 32px of air behind the chip and the
+      // caret, which is most of what the spine used to waste right of the text.
+      chipGap: on ? '0px' : '24px',
+      caretGap: on ? '0px' : '8px',
 
       // ── What a title is wrapped to ───────────────────────────────────────
-      // 194 is the width the open row's title ACTUALLY ends up with, and a collapsed sibling
-      // still leaves its flex gap behind:
-      //   300 - 32 pad - 8 dot - 12 gap = 248 in the row
-      //   248 - 2 - 20 pad - 24 gap - 8 gap = 194 on the card
-      titleMax: on ? '194px' : '800px',
+      // 170 is the tightest measure all five titles still wrap to TWO lines in — 165 puts one on
+      // three. The spine is sized from it, not the other way round:
+      //   170 + 20 pad + 2 + 12 gap + 8 dot + 32 pad = 244, and 248 leaves 4 of slack.
+      titleMax: on ? '170px' : '800px',
       // The measure animates FASTER than the pane, so at every instant max-width is below the
-      // width available and decides where the lines break: 800 -> 194 against 879 -> 224.
+      // width available and decides where the lines break: 800 -> 170 against 879 -> 176.
       wrDur: on ? '260ms' : '340ms',
       wrEase: on ? 'cubic-bezier(0, 0, 0.4, 0.8)' : 'cubic-bezier(0.2, 0, 0.2, 1)',
 
@@ -2414,7 +2417,7 @@ class Component extends DCLogic {
       // Everything else is the region minus it, and 1440 x 900 is the floor the screen holds.
       // BOTH TRACKS IN A TEMPLATE MUST CARRY THE SAME UNIT: px and % blend to a calc, `fr` snaps.
       gRows: run ? '100% 0px' : '0px 100%',
-      gCols: on ? '300px calc(100% - 300px)' : '100% 0px',
+      gCols: on ? '248px calc(100% - 248px)' : '100% 0px',
 
       detVis: on ? 'visible' : 'hidden',
       detVisDl: on ? '0ms' : '120ms',   // == dDur out, so it hides after the fade
@@ -2505,7 +2508,7 @@ class Component extends DCLogic {
       frameH: H + 'px',
       // The step pane, pinned at its open width so it clips instead of reflowing. W - 660 is its
       // column, floored at the 780 it has at 1440 and capped at 906 — above that no wrap changes.
-      detPin: Math.min(906, Math.max(780, W - 660)) + 'px',
+      detPin: Math.min(906, Math.max(780, W - 608)) + 'px',
 
       // ── Screen 02: the run, and where it stops ───────────────────────────
       // Five stage states behind sc-if. Legal here and only here: nothing on screen 02 animates.
