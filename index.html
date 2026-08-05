@@ -89,7 +89,7 @@
 <!-- Gap inside the wrapper: collapses with the cell. -->
           <div style="display: inline-flex; align-items: center; gap: {{ fullGap }}; transition: gap {{ moveDur }} {{ moveEase }};">
 <!-- Swaps to Stop running while run is true — the two never show at once, so no width to animate between. -->
-            <div onClick="{{ runAct }}" tabindex="{{ runTab }}" title="{{ runTitle }}" style="display: inline-flex; align-items: center; gap: 6px; height: 28px; padding: 0 8px; border-radius: 8px; border: 1px solid {{ runBorder }}; background: {{ runBg }}; color: {{ runFg }}; font: 600 12px/16px 'Open Sans', sans-serif; cursor: pointer; outline: none; pointer-events: {{ runPE }}; transition: background 160ms cubic-bezier(0.2, 0, 0.2, 1), border-color 160ms cubic-bezier(0.2, 0, 0.2, 1), color {{ moveDur }} {{ moveEase }};" style-hover="filter: brightness(1.15);" style-focus="box-shadow: 0 0 0 3px rgba(46, 168, 106, 0.32);">
+            <div onClick="{{ runAct }}" tabindex="{{ runTab }}" title="{{ runTitle }}" style="display: inline-flex; align-items: center; gap: 6px; height: 28px; padding: 0 8px; border-radius: 8px; border: 1px solid {{ runBorder }}; background: {{ runBg }}; color: {{ runFg }}; font: 600 12px/16px 'Open Sans', sans-serif; cursor: {{ runCursor }}; outline: none; pointer-events: {{ runPE }}; transition: background 160ms cubic-bezier(0.2, 0, 0.2, 1), border-color 160ms cubic-bezier(0.2, 0, 0.2, 1), color {{ moveDur }} {{ moveEase }};" style-hover="filter: brightness(1.15);" style-focus="box-shadow: 0 0 0 3px rgba(46, 168, 106, 0.32);">
               <i class="ph {{ runIcon }}" style="font-size: 12px;"></i>{{ runLabel }}
             </div>
           </div>
@@ -151,11 +151,126 @@
           <div style="width: 22px; height: 22px; flex: none; border-radius: 99px; background: rgba(139, 152, 165, 0.16); display: grid; place-items: center;"><img src="assets/flowx-mark-white.svg" alt="Agent" style="height: 11px; width: auto; flex: none;" /></div>
           <div style="flex: 1; min-width: 0; display: flex; flex-direction: column; gap: 4px;">
             <div style="font: 600 12px/16px 'Open Sans', sans-serif; color: #8b98a5;">Agent <span style="font-weight: 400;">· 09:31</span></div>
-            <div style="font: 400 14px/24px 'Open Sans', sans-serif; color: #f5f9fc; text-wrap: pretty;">Five steps, on the right. I built the two with only one sensible shape.</div>
-            <div style="padding-top: 4px;">
-              <div onClick="{{ guidedAct }}" tabindex="{{ ir.tab }}" style="display: inline-flex; align-items: center; gap: 8px; height: 28px; padding: 0 12px; border-radius: 8px; border: 1px solid #26313d; background: #101820; color: #f5f9fc; font: 600 12px/16px 'Open Sans', sans-serif; cursor: pointer; outline: none; pointer-events: {{ ir.pe }}; transition: all 160ms cubic-bezier(0.2, 0, 0.2, 1);" style-hover="border-color: #4d97ea; background: #161f28;" style-focus="box-shadow: 0 0 0 3px rgba(43, 127, 228, 0.32);">
-                <i class="ph ph-chats" style="font-size: 12px; color: #4d97ea; flex: none;"></i><span style="white-space: nowrap;">Take me through it, one at a time</span>
+            <div style="font: 400 14px/24px 'Open Sans', sans-serif; color: #f5f9fc; text-wrap: pretty;">Five steps, on the right. Two are ready to build, three owe a decision.</div>
+          </div>
+        </div>
+        </div>
+        </div>
+
+<!-- The offer is the reply's SIBLING, not a box inside it: a fold nested in a fold resolves to
+     nothing and never recovers. Open it cancels 20 of the column's 24 gap, closed all of it. -->
+        <div style="display: grid; grid-template-rows: {{ io.rows }}; margin-top: {{ io.mt }}; transition: grid-template-rows {{ moveDur }} {{ moveEase }}, margin-top {{ moveDur }} {{ moveEase }};">
+        <div style="overflow: hidden; min-height: 0; padding-left: 34px; opacity: {{ io.op }}; transition: opacity {{ io.opDur }} {{ moveEase }} {{ io.opDl }};">
+          <div onClick="{{ guidedAct }}" tabindex="{{ io.tab }}" style="display: inline-flex; align-items: center; gap: 8px; height: 28px; padding: 0 12px; border-radius: 8px; border: 1px solid #26313d; background: #101820; color: #f5f9fc; font: 600 12px/16px 'Open Sans', sans-serif; cursor: pointer; outline: none; pointer-events: {{ io.pe }}; transition: all 160ms cubic-bezier(0.2, 0, 0.2, 1);" style-hover="border-color: #4d97ea; background: #161f28;" style-focus="box-shadow: 0 0 0 3px rgba(43, 127, 228, 0.32);">
+            <i class="ph ph-chats" style="font-size: 12px; color: #4d97ea; flex: none;"></i><span style="white-space: nowrap;">Take me through it, one at a time</span>
+          </div>
+        </div>
+        </div>
+
+<!-- ── The walk, in the conversation ── the same five folds the 360 chat carries, on the same
+     values: the lead, the echoes, the think beat, the one ask block, and the build. Only the
+     measure differs, so nothing here may hold a condition of its own. -->
+        <div style="display: grid; grid-template-rows: {{ igl.rows }}; margin-top: {{ igl.mt }}; transition: grid-template-rows {{ moveDur }} {{ moveEase }}, margin-top {{ moveDur }} {{ moveEase }};">
+        <div style="overflow: hidden; min-height: 0; opacity: {{ igl.op }}; transition: opacity {{ igl.opDur }} {{ moveEase }} {{ igl.opDl }};">
+        <div style="display: flex; gap: 12px;">
+          <div style="width: 22px; height: 22px; flex: none; border-radius: 99px; background: rgba(139, 152, 165, 0.16); display: grid; place-items: center;"><img src="assets/flowx-mark-white.svg" alt="Agent" style="height: 11px; width: auto; flex: none;" /></div>
+          <div style="flex: 1; min-width: 0; display: flex; flex-direction: column; gap: 4px;">
+            <div style="font: 600 12px/16px 'Open Sans', sans-serif; color: #8b98a5;">Agent <span style="font-weight: 400;">· 09:47</span></div>
+            <div style="font: 400 14px/24px 'Open Sans', sans-serif; color: #f5f9fc; text-wrap: pretty;">{{ gLead }}</div>
+          </div>
+        </div>
+        </div>
+        </div>
+
+        <div style="display: grid; grid-template-rows: {{ ge.rows }}; margin-top: {{ ge.mt }}; transition: grid-template-rows {{ moveDur }} {{ moveEase }}, margin-top {{ moveDur }} {{ moveEase }};">
+        <div style="overflow: hidden; min-height: 0; opacity: {{ ge.op }}; transition: opacity {{ ge.opDur }} {{ moveEase }} {{ ge.opDl }};">
+        <div style="display: flex; flex-direction: column; gap: 6px; padding-left: 34px;">
+          <sc-for list="{{ gEchoes }}" as="g" hint-placeholder-count="2">
+          <div style="display: flex; align-items: center; gap: 8px; min-width: 0;">
+            <i class="ph ph-check-circle" style="font-size: 14px; color: #4d97ea; flex: none;"></i>
+            <div style="min-width: 0; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; font: 400 12px/16px 'Open Sans', sans-serif; color: #c3cdd7;">{{ g.text }}</div>
+          </div>
+          </sc-for>
+        </div>
+        </div>
+        </div>
+
+        <div style="display: grid; grid-template-rows: {{ gt.rows }}; margin-top: {{ gt.mt }}; transition: grid-template-rows {{ moveDur }} {{ moveEase }}, margin-top {{ moveDur }} {{ moveEase }};">
+        <div style="overflow: hidden; min-height: 0; opacity: {{ gt.op }}; transition: opacity {{ gt.opDur }} {{ moveEase }} {{ gt.opDl }};">
+        <div style="display: flex; gap: 12px;">
+          <div style="width: 22px; height: 22px; flex: none; border-radius: 99px; background: rgba(139, 152, 165, 0.16); display: grid; place-items: center;"><img src="assets/flowx-mark-white.svg" alt="Agent" style="height: 11px; width: auto; flex: none;" /></div>
+          <div style="display: flex; align-items: center; gap: 4px; height: 22px;">
+            <div style="width: 5px; height: 5px; border-radius: 99px; background: #8b98a5; animation: ask-think 1200ms ease-in-out infinite;"></div>
+            <div style="width: 5px; height: 5px; border-radius: 99px; background: #8b98a5; animation: ask-think 1200ms ease-in-out 150ms infinite;"></div>
+            <div style="width: 5px; height: 5px; border-radius: 99px; background: #8b98a5; animation: ask-think 1200ms ease-in-out 300ms infinite;"></div>
+          </div>
+        </div>
+        </div>
+        </div>
+
+<!-- The rows stay at the 360 chat's measure: at 640 a two-word answer would be a button the
+     width of the column. -->
+        <div style="display: grid; grid-template-rows: {{ ga.rows }}; margin-top: {{ ga.mt }}; transition: grid-template-rows {{ moveDur }} {{ moveEase }}, margin-top {{ moveDur }} {{ moveEase }};">
+        <div style="overflow: hidden; min-height: 0; opacity: {{ ga.op }}; transition: opacity {{ ga.opDur }} {{ moveEase }} {{ ga.opDl }};">
+        <div style="display: flex; gap: 12px;">
+          <div style="width: 22px; height: 22px; flex: none; border-radius: 99px; background: rgba(139, 152, 165, 0.16); display: grid; place-items: center;"><img src="assets/flowx-mark-white.svg" alt="Agent" style="height: 11px; width: auto; flex: none;" /></div>
+          <div style="flex: 1; min-width: 0; display: flex; flex-direction: column; gap: 8px;">
+            <div style="font: 600 12px/16px 'Open Sans', sans-serif; color: #8b98a5;">Agent <span style="font-weight: 400;">· {{ gaWhen }} · {{ gaCount }}</span></div>
+            <div style="font: 700 18px/28px 'Open Sans', sans-serif; color: #f5f9fc; text-wrap: pretty;">{{ gaHead }}</div>
+            <div style="max-width: 470px; font: 400 14px/24px 'Open Sans', sans-serif; color: #a9b6c3; text-wrap: pretty;">{{ gaWhy }}</div>
+            <div style="display: {{ gaSrcDisp }}; align-self: flex-start; align-items: center; gap: 8px; color: #8b98a5;">
+              <i class="ph ph-book-open-text" style="font-size: 14px; color: #f2762b;"></i>
+              <div style="font: 400 12px/16px ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;">{{ gaSrc }}</div>
+            </div>
+            <div style="display: flex; flex-direction: column; gap: 8px; align-items: flex-start; padding-top: 4px;">
+              <sc-for list="{{ gaRows }}" as="g" hint-placeholder-count="2">
+              <div onClick="{{ g.act }}" tabindex="{{ ga.tab }}" style="display: flex; align-items: center; gap: 8px; min-height: 36px; padding: 6px 16px; border-radius: 8px; border: 1px solid #26313d; background: #101820; color: #f5f9fc; font: 600 14px/22px 'Open Sans', sans-serif; cursor: pointer; outline: none; pointer-events: {{ ga.pe }}; transition: all 160ms cubic-bezier(0.2, 0, 0.2, 1);" style-hover="border-color: #4d97ea; background: #161f28;" style-focus="box-shadow: 0 0 0 3px rgba(43, 127, 228, 0.32);">
+                <i class="ph {{ g.icon }}" style="font-size: 14px; color: {{ g.iconColor }}; flex: none;"></i><span style="min-width: 0;">{{ g.label }}</span>
               </div>
+              </sc-for>
+            </div>
+          </div>
+        </div>
+        </div>
+        </div>
+
+<!-- The build, in the conversation: the last answer fires it here and the walk ends on the
+     handoff, which is the other way this screen is ever left. -->
+        <div style="display: grid; grid-template-rows: {{ bd.rows }}; margin-top: {{ bd.mt }}; transition: grid-template-rows {{ moveDur }} {{ moveEase }}, margin-top {{ moveDur }} {{ moveEase }};">
+        <div style="overflow: hidden; min-height: 0; opacity: {{ bd.op }}; transition: opacity {{ bd.opDur }} {{ moveEase }} {{ bd.opDl }};">
+        <div style="display: flex; gap: 12px;">
+          <div style="width: 22px; height: 22px; flex: none; border-radius: 99px; background: rgba(139, 152, 165, 0.16); display: grid; place-items: center;"><img src="assets/flowx-mark-white.svg" alt="Agent" style="height: 11px; width: auto; flex: none;" /></div>
+          <div style="flex: 1; min-width: 0; display: flex; flex-direction: column; gap: 8px;">
+            <div style="font: 600 12px/16px 'Open Sans', sans-serif; color: #8b98a5;">Agent <span style="font-weight: 400;">· 09:56</span></div>
+            <div style="font: 400 14px/24px 'Open Sans', sans-serif; color: #f5f9fc; text-wrap: pretty;">{{ buildLead }}</div>
+            <div style="display: flex; flex-direction: column; gap: 6px; padding: 2px 0;">
+              <sc-for list="{{ buildRows }}" as="b" hint-placeholder-count="3">
+              <div style="display: flex; flex-direction: column;">
+              <div style="display: flex; align-items: center; gap: 8px;">
+                <sc-if value="{{ b.busy }}" hint-placeholder-val="{{ true }}">
+                <i class="ph ph-circle-dashed" style="font-size: 14px; color: #4d97ea; animation: run-spin 2400ms linear infinite;"></i>
+                </sc-if>
+                <sc-if value="{{ b.done }}" hint-placeholder-val="{{ false }}">
+                <i class="ph ph-check-circle" style="font-size: 14px; color: #8ad3ab; animation: check-pop 360ms cubic-bezier(0.2, 0, 0.2, 1) both;"></i>
+                </sc-if>
+                <div style="font: 400 12px/16px 'Open Sans', sans-serif; color: {{ b.color }}; transition: color 340ms cubic-bezier(0.2, 0, 0.2, 1);">{{ b.title }}</div>
+              </div>
+              <div style="display: grid; grid-template-rows: {{ b.sub }}; transition: grid-template-rows 340ms cubic-bezier(0.2, 0, 0.2, 1);">
+              <div style="overflow: hidden; min-height: 0; margin-left: 22px; opacity: {{ b.subOp }}; transition: opacity 200ms cubic-bezier(0.2, 0, 0.2, 1);">
+                <div style="height: 2px; margin: 7px 0 6px; max-width: 220px; border-radius: 99px; background: rgba(139, 152, 165, 0.16); overflow: hidden;">
+                  <div style="height: 100%; border-radius: 99px; background: #4d97ea; animation: build-fill {{ b.ms }} linear both;"></div>
+                </div>
+                <div style="min-width: 0; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; font: 400 12px/16px 'Open Sans', sans-serif; color: #8b98a5; animation: {{ b.noteAnim }} 340ms cubic-bezier(0.2, 0, 0.2, 1) both;">{{ b.note }}</div>
+              </div>
+              </div>
+              </div>
+              </sc-for>
+            </div>
+            <div style="display: grid; grid-template-rows: {{ ba.rows }}; margin-top: {{ ba.mt }}; transition: grid-template-rows {{ moveDur }} {{ moveEase }}, margin-top {{ moveDur }} {{ moveEase }};">
+            <div style="overflow: hidden; min-height: 0; opacity: {{ ba.op }}; transition: opacity {{ ba.opDur }} {{ moveEase }} {{ ba.opDl }};">
+            <div style="font: 400 14px/24px 'Open Sans', sans-serif; color: #f5f9fc; text-wrap: pretty;">{{ buildDone }}</div>
+            <div onClick="{{ testAct }}" tabindex="{{ ba.tab }}" title="Run the whole journey" style="display: inline-flex; align-items: center; gap: 6px; height: 32px; padding: 0 12px; margin-top: 8px; border-radius: 8px; background: #1d9a5c; color: #ffffff; font: 600 12px/16px 'Open Sans', sans-serif; cursor: pointer; outline: none; pointer-events: {{ ba.pe }}; transition: background 160ms cubic-bezier(0.2, 0, 0.2, 1);" style-hover="filter: brightness(1.15);" style-focus="box-shadow: 0 0 0 3px rgba(46, 168, 106, 0.32);"><i class="ph ph-play" style="font-size: 12px;"></i>Test the journey</div>
+            </div>
             </div>
           </div>
         </div>
@@ -188,12 +303,13 @@
           </div>
           </sc-for>
         </div>
-        <div style="font: 400 11px/16px 'Open Sans', sans-serif; color: #8b98a5;">{{ ledBuilt }}{{ ledArg }} · {{ ledQ }}</div>
+        <div style="font: 400 11px/16px 'Open Sans', sans-serif; color: #8b98a5;">{{ ledBuilt }}{{ ledArg }}{{ ledDot }}{{ ledQ }}</div>
         <div style="display: flex; gap: 8px;">
           <div onClick="{{ iPlanAct }}" tabindex="{{ iw.tab }}" title="Open the plan" style="flex: 1; display: inline-flex; align-items: center; justify-content: center; gap: 6px; height: 28px; border-radius: 8px; border: 1px solid #26313d; background: #0e161d; color: #f5f9fc; font: 600 12px/16px 'Open Sans', sans-serif; cursor: pointer; outline: none; pointer-events: {{ iw.pe }}; transition: all 160ms cubic-bezier(0.2, 0, 0.2, 1);" style-hover="border-color: #4d97ea; background: #161f28;" style-focus="box-shadow: 0 0 0 3px rgba(43, 127, 228, 0.32);">
             <i class="ph ph-list-dashes" style="font-size: 12px;"></i>Open the plan
           </div>
-          <div onClick="{{ testAct }}" tabindex="{{ iw.tab }}" title="Run the two built steps" style="flex: 1; display: inline-flex; align-items: center; justify-content: center; gap: 6px; height: 28px; border-radius: 8px; background: #1d9a5c; color: #ffffff; font: 600 12px/16px 'Open Sans', sans-serif; cursor: pointer; outline: none; pointer-events: {{ iw.pe }}; transition: background 160ms cubic-bezier(0.2, 0, 0.2, 1);" style-hover="filter: brightness(1.15);" style-focus="box-shadow: 0 0 0 3px rgba(46, 168, 106, 0.32);">
+<!-- The other way out. Withdrawn until something exists to run — the card's own ledger says so. -->
+          <div onClick="{{ testAct }}" tabindex="{{ iTestTab }}" title="{{ runTitle }}" style="flex: 1; display: inline-flex; align-items: center; justify-content: center; gap: 6px; height: 28px; border-radius: 8px; border: 1px solid {{ runBorder }}; background: {{ runBg }}; color: {{ runFg }}; font: 600 12px/16px 'Open Sans', sans-serif; cursor: {{ runCursor }}; outline: none; pointer-events: {{ iTestPE }}; transition: background 160ms cubic-bezier(0.2, 0, 0.2, 1), color {{ moveDur }} {{ moveEase }}, border-color {{ moveDur }} {{ moveEase }};" style-hover="filter: brightness(1.15);" style-focus="box-shadow: 0 0 0 3px rgba(46, 168, 106, 0.32);">
             <i class="ph ph-play" style="font-size: 12px;"></i>Test what exists
           </div>
         </div>
@@ -220,13 +336,17 @@
             <div style="width: 22px; height: 22px; flex: none; border-radius: 99px; background: rgba(139, 152, 165, 0.16); display: grid; place-items: center;"><img src="assets/flowx-mark-white.svg" alt="Agent" style="height: 11px; width: auto; flex: none;" /></div>
             <div style="flex: 1; min-width: 0; display: flex; flex-direction: column; gap: 4px;">
               <div style="font: 600 12px/16px 'Open Sans', sans-serif; color: #8b98a5;">Agent <span style="font-weight: 400;">· 09:31</span></div>
-              <div style="font: 400 14px/24px 'Open Sans', sans-serif; color: #f5f9fc; text-wrap: pretty;">Five steps, on the right. I built the two with only one sensible shape.</div>
+              <div style="font: 400 14px/24px 'Open Sans', sans-serif; color: #f5f9fc; text-wrap: pretty;">Five steps, on the right. Two are ready to build, three owe a decision.</div>
             </div>
           </div>
 
+          <div style="display: grid; grid-template-rows: {{ wd.rows }}; margin-top: {{ wd.mt }}; transition: grid-template-rows {{ moveDur }} {{ moveEase }}, margin-top {{ moveDur }} {{ moveEase }};">
+          <div style="overflow: hidden; min-height: 0; opacity: {{ wd.op }}; transition: opacity {{ wd.opDur }} {{ moveEase }} {{ wd.opDl }};">
           <div style="display: flex; align-items: center; gap: 12px; color: #8b98a5; padding-left: 34px;">
             <div style="font: 400 12px/16px 'Open Sans', sans-serif; cursor: pointer; flex: none; transition: color 160ms cubic-bezier(0.2, 0, 0.2, 1);" style-hover="color: #c3cdd7;">3 turns about wording</div>
             <div style="flex: 1; height: 1px; background: #18212a;"></div>
+          </div>
+          </div>
           </div>
 
 <!-- ask folds this exchange into its own divider — the same request re-made mid-run, below. Gap is the
@@ -262,22 +382,27 @@
             </div>
           </div>
 
-<!-- The exchange closes on the agent, not on you: it takes the constraint, says where it landed,
-     and the one offer rides the newest turn — stranded three turns up it read as unanswered.
-     No fold of its own: nesting one inside mx's is the trap, and mx already folds it everywhere. -->
+<!-- The exchange closes on the agent, not on you: it takes the constraint and says where it
+     landed. The offer is NOT in here — see `so` below. -->
           <div style="display: flex; gap: 12px;">
             <div style="width: 22px; height: 22px; flex: none; border-radius: 99px; background: rgba(139, 152, 165, 0.16); display: grid; place-items: center;"><img src="assets/flowx-mark-white.svg" alt="Agent" style="height: 11px; width: auto; flex: none;" /></div>
             <div style="flex: 1; min-width: 0; display: flex; flex-direction: column; gap: 4px;">
               <div style="font: 600 12px/16px 'Open Sans', sans-serif; color: #8b98a5;">Agent <span style="font-weight: 400;">· 09:45</span></div>
               <div style="font: 400 14px/24px 'Open Sans', sans-serif; color: #f5f9fc; text-wrap: pretty;">Then it runs while they type. Step 3 is drawn that way — five decisions left.</div>
-              <div style="padding-top: 4px;">
-                <div onClick="{{ guidedAct }}" tabindex="{{ mx.tab }}" style="display: inline-flex; align-items: center; gap: 8px; height: 28px; padding: 0 12px; border-radius: 8px; border: 1px solid #26313d; background: #101820; color: #f5f9fc; font: 600 12px/16px 'Open Sans', sans-serif; cursor: pointer; outline: none; pointer-events: {{ mx.pe }}; transition: all 160ms cubic-bezier(0.2, 0, 0.2, 1);" style-hover="border-color: #4d97ea; background: #161f28;" style-focus="box-shadow: 0 0 0 3px rgba(43, 127, 228, 0.32);">
-                  <i class="ph ph-chats" style="font-size: 12px; color: #4d97ea; flex: none;"></i><span style="white-space: nowrap;">Take me through it, one at a time</span>
-                </div>
-              </div>
             </div>
           </div>
           </div>
+          </div>
+          </div>
+
+<!-- The one offer, on its own fold between the history and the divider that replaces it: it is
+     always directly under the newest agent turn, whichever of the two that is. A fold inside
+     either of them would be a collapse nested in a collapse, which never recovers. -->
+          <div style="display: grid; grid-template-rows: {{ so.rows }}; margin-top: {{ so.mt }}; transition: grid-template-rows {{ moveDur }} {{ moveEase }}, margin-top {{ moveDur }} {{ moveEase }};">
+          <div style="overflow: hidden; min-height: 0; padding-left: 34px; opacity: {{ so.op }}; transition: opacity {{ so.opDur }} {{ moveEase }} {{ so.opDl }};">
+            <div onClick="{{ guidedAct }}" tabindex="{{ so.tab }}" style="display: inline-flex; align-items: center; gap: 8px; height: 28px; padding: 0 12px; border-radius: 8px; border: 1px solid #26313d; background: #101820; color: #f5f9fc; font: 600 12px/16px 'Open Sans', sans-serif; cursor: pointer; outline: none; pointer-events: {{ so.pe }}; transition: all 160ms cubic-bezier(0.2, 0, 0.2, 1);" style-hover="border-color: #4d97ea; background: #161f28;" style-focus="box-shadow: 0 0 0 3px rgba(43, 127, 228, 0.32);">
+              <i class="ph ph-chats" style="font-size: 12px; color: #4d97ea; flex: none;"></i><span style="white-space: nowrap;">Take me through it, one at a time</span>
+            </div>
           </div>
           </div>
 
@@ -843,10 +968,11 @@
           <div style="flex: 1; min-height: 0; border: 1px dashed #26313d; border-radius: 12px; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 20px;">
             <div style="width: 48px; height: 48px; border-radius: 99px; border: 1px dashed #33404d; display: grid; place-items: center; color: #8b98a5;"><i class="ph ph-play" style="font-size: 18px;"></i></div>
             <div style="display: flex; flex-direction: column; align-items: center; gap: 4px; text-align: center;">
-              <div style="font: 600 14px/22px 'Open Sans', sans-serif; color: #f5f9fc;">Nothing is running</div>
-              <div style="font: 400 12px/18px 'Open Sans', sans-serif; color: #8b98a5;">The built steps play here, as the customer would see them.</div>
+              <div style="font: 600 14px/22px 'Open Sans', sans-serif; color: #f5f9fc;">{{ emptyHead }}</div>
+              <div style="font: 400 12px/18px 'Open Sans', sans-serif; color: #8b98a5; text-wrap: pretty; max-width: 340px; text-align: center;">{{ emptySub }}</div>
             </div>
-            <div onClick="{{ runAct }}" tabindex="0" title="Run what exists" style="display: inline-flex; align-items: center; gap: 6px; height: 28px; padding: 0 8px; border-radius: 8px; background: #1d9a5c; color: #ffffff; font: 600 12px/16px 'Open Sans', sans-serif; cursor: pointer; outline: none; transition: background 160ms cubic-bezier(0.2, 0, 0.2, 1);" style-hover="filter: brightness(1.15);" style-focus="box-shadow: 0 0 0 3px rgba(46, 168, 106, 0.32);">
+<!-- Withdrawn while nothing exists: this frame IS the answer, so it may not offer to run it. -->
+            <div onClick="{{ runAct }}" tabindex="{{ runTab }}" title="{{ runTitle }}" style="display: inline-flex; align-items: center; gap: 6px; height: 28px; padding: 0 8px; border-radius: 8px; border: 1px solid {{ runBorder }}; background: {{ runBg }}; color: {{ runFg }}; font: 600 12px/16px 'Open Sans', sans-serif; cursor: {{ runCursor }}; outline: none; pointer-events: {{ runPE }}; transition: background 160ms cubic-bezier(0.2, 0, 0.2, 1), color {{ moveDur }} {{ moveEase }}, border-color {{ moveDur }} {{ moveEase }};" style-hover="filter: brightness(1.15);" style-focus="box-shadow: 0 0 0 3px rgba(46, 168, 106, 0.32);">
               <i class="ph ph-play" style="font-size: 12px;"></i>Test what exists
             </div>
           </div>
@@ -1370,13 +1496,16 @@ class Component extends DCLogic {
     const loading = q.get('loading') === '1';
     // `ask` moves the drop-merchant request into the run: the user asks while the preview is up.
     const ask = q.get('ask') === '1';
-    // ?guided=1 is the walk moved into the chat: the right pane shows the run's empty frame.
+    // ?guided=1 is the walk moved into the conversation, which is where it stays: the full-screen
+    // chat holds it to the end, so the walk never opens a view of its own.
     const guided = q.get('guided') === '1';
-    const run = q.get('run') === '1' || q.has('at') || loading || ask || guided;
+    const run = q.get('run') === '1' || q.has('at') || loading || ask;
+    // A run of nothing is not a run, so the live-run URLs are the only thing that starts built.
+    const ranStart = ask || loading || q.has('at') || q.get('live') === '1';
     // ?settling=1 opens mid-walk on the first owing step; the note is INIT's counts by hand.
     const settling = !run && q.get('settling') === '1';
-    // ?building=1 opens mid-build: everything settled on its proposal, the last three landing.
-    const building = !run && !settling && q.get('building') === '1';
+    // ?building=1 opens mid-build: everything settled on its proposal, all five landing.
+    const building = !run && !settling && !guided && q.get('building') === '1';
     // &q=N holds the guided walk at the Nth ask; &building=1 is the beat right after the last.
     const gBuild = guided && q.get('building') === '1';
     const gq = gBuild ? 6 : Math.min(5, Math.max(1, parseInt(q.get('q'), 10) || 1));
@@ -1391,11 +1520,17 @@ class Component extends DCLogic {
       step,
       ask,
       guided,
-      intro: !run && !settling && !building && step === 0 && !plan,
+      // The walk lives in the conversation, so `guided` is an intro state — never a view.
+      intro: guided || (!run && !settling && !building && step === 0 && !plan),
       // The intro's three beats: the brief staged in the composer, sent, and the plan landed.
       iDraft: false,
-      iSent: sent,
-      iPlanned: planned,
+      // Whether the brief was typed HERE. The 360 chat's collapsed history — the wording turns and
+      // the merchant argument — belongs to a session already under way; a session that started on
+      // the empty chat never had those turns, so it may not claim them. Taking the offer does not
+      // set this: the walk continues whichever conversation it was taken from.
+      told: sent || guided,
+      iSent: sent || guided,
+      iPlanned: planned || guided,
       // The beat between an answer landing and the next ask arriving.
       gThink: false,
       // The reply lags the ask by a thinking beat; ?replied=0 holds that beat for looking at.
@@ -1416,8 +1551,9 @@ class Component extends DCLogic {
       at: Math.min(5, Math.max(1, parseInt(q.get('at'), 10) || (ask ? 3 : 1))),
       // Three things a step can owe, each cleared by its own act; Build is gated on the other two.
       // A step being built is NOT built — nothing moves group, so no heading travels.
-      built:    { 1: true,  2: true,  3: false, 4: false, 5: false },
-      building: { 1: false, 2: false, 3: building || gBuild, 4: building || gBuild, 5: building || gBuild },
+      // Nothing exists at the start: the plan is drawn and not one step of it is built.
+      built:    { 1: ranStart, 2: ranStart, 3: false, 4: false, 5: false },
+      building: Object.fromEntries([1, 2, 3, 4, 5].map(n => [n, building || gBuild])),
       // What each building row says it is on: an index into its step's build.doing.
       doing: {},
       // One entry per decision, owed and settled alike, keyed by step and letter. `pick` is the
@@ -1446,21 +1582,21 @@ class Component extends DCLogic {
         ? 'One thing to agree and four questions left, across three steps. I will take you through them in order — the moment the last one settles, I build the rest.'
         : '',
       // Which steps were sent to build, in the order asked, and the sentence that sent them.
-      buildQueue: (building || gBuild) ? [3, 4, 5] : [],
-      buildLead: building ? 'That was everything — building steps 3, 4 and 5 now. The merchant check wires two systems, so step 3 takes a while — its row says what it is on.'
-        : (gBuild ? 'That was the last one — building steps 3, 4 and 5 now. The merchant check wires two systems, so step 3 takes a while — its row says what it is on.' : '')
+      buildQueue: (building || gBuild) ? [1, 2, 3, 4, 5] : [],
+      buildLead: building ? 'That was everything — building all five steps now. The merchant check wires two systems, so step 3 takes a while — its row says what it is on.'
+        : (gBuild ? 'That was the last one — building all five steps now. The merchant check wires two systems, so step 3 takes a while — its row says what it is on.' : '')
     };
   })();
 
   timers = [];
 
-  // The plan, per row. `conn` is the connector this row draws: solid down the built part, edge
-  // at the run's wall, dashed for what does not exist. `pin` is measured at 1440, never derived.
+  // The plan, per row. `dot` is the row's mark BEFORE it is built — built is always the green
+  // check, and the connector is read off `built` too. `pin` is measured at 1440, never derived.
   // `build` is how long the step takes to land and the notes its chat row walks through while it
   // does; `deep` is the sentence that names the slow one before its wait is felt.
   static STEPS = [
     { n: 1, title: 'We show the payments they could dispute',
-      crumb: 'Show the payments', pin: '838px', dot: 'done', conn: 'solid',
+      crumb: 'Show the payments', pin: '838px', dot: 'dashed',
       desc: 'The customer sees ninety days of their own payments and picks the disputed one in a single click.',
       build: { ms: 2200, doing: ['drawing the screen they pick on', 'wiring the list to cardsCore'] },
       cards: ['1A'], shared: 1,
@@ -1469,16 +1605,16 @@ class Component extends DCLogic {
         { pre: 'Put', token: '12', post: 'on the first screen, and page from there.' }
       ],
       tech: [
-        { name: 'paymentList.integrationWorkflow', what: 'The list itself. Holds both settings above.', exists: 'build 1', yes: true },
-        { name: 'cardsCore.integrationSystem', what: 'Where the payments come from. Shared with steps 3 and 5.', exists: 'by you', yes: true },
-        { name: 'paymentPicker.uiComponent', what: 'The one screen the customer picks on.', exists: 'build 1', yes: true }
+        { name: 'paymentList.integrationWorkflow', what: 'The list itself. Holds both settings above.', exists: 'step 1' },
+        { name: 'cardsCore.integrationSystem', what: 'Where the payments come from. Shared with steps 3 and 5.', exists: 'by you' },
+        { name: 'paymentPicker.uiComponent', what: 'The one screen the customer picks on.', exists: 'step 1' }
       ],
       test: { inputs: [{ pre: 'Pick', token: 'NORTHGATE SUPPLY CO · £248.00', post: 'from 24 July — the payment every screen after carries.' }],
         see: 'All 12 payments from the last ninety days, and picking the row moves you straight to What happened.' },
       note: { lead: 'Settings above are ', mono: 'lookbackDays 90 · pageSize 12', mid: '. Card numbers are masked by ', mono2: 'cardPan.piiGuard', tail: ' before they leave the bank — that one you cannot switch off.' } },
 
     { n: 2, title: 'We ask what happened, in their words',
-      crumb: 'Ask what happened', pin: '838px', dot: 'done', conn: 'solid',
+      crumb: 'Ask what happened', pin: '838px', dot: 'dashed',
       desc: 'The customer describes it however they like, and we file it under a reason the scheme accepts — they never pick one.',
       build: { ms: 2600, doing: ['building the box they write in', 'teaching the mapper to file the reason'] },
       cards: ['2A'], shared: 2,
@@ -1487,16 +1623,16 @@ class Component extends DCLogic {
         { pre: 'Keep an unfinished one for', token: '7 days', post: 'if they leave.' }
       ],
       tech: [
-        { name: 'whatHappened.uiComponent', what: 'The one box they write in. Holds both settings above.', exists: 'build 1', yes: true },
-        { name: 'reasonFromText.dataMapper', what: 'Reads their words and files the reason. Nobody picks one.', exists: 'build 2', yes: true },
-        { name: 'disputeReason.enum', what: 'The reasons the scheme accepts. Shared with steps 3 and 4.', exists: 'build 1', yes: true }
+        { name: 'whatHappened.uiComponent', what: 'The one box they write in. Holds both settings above.', exists: 'step 2' },
+        { name: 'reasonFromText.dataMapper', what: 'Reads their words and files the reason. Nobody picks one.', exists: 'step 2' },
+        { name: 'disputeReason.enum', what: 'The reasons the scheme accepts. Shared with steps 3 and 4.', exists: 'step 2' }
       ],
       test: { inputs: [{ pre: 'Type', token: 'I ordered a parcel from them on the 24th and it never turned up.', post: '— their own words, inside the 500 characters.' }],
         see: 'No reason list anywhere on the screen: it is filed as Goods not received from what they wrote.' },
       note: { lead: 'Settings above are ', mono: 'maxChars 500 · draftDays 7', mid: '.', mono2: '', tail: '' } },
 
     { n: 3, title: 'We check with the merchant before asking for evidence',
-      crumb: 'Check with the merchant', pin: '860px', dot: 'dashed', conn: 'edge',
+      crumb: 'Check with the merchant', pin: '860px', dot: 'dashed',
       desc: 'The merchant gets one chance to put it right before we ask the customer for anything.',
       build: { ms: 8800, deep: 'The merchant check wires two systems, so step 3 takes a while — its row says what it is on.',
         doing: ['wiring the merchant check', 'connecting it to cardsCore', 'carrying the answer into step 4', 'naming the four answers a merchant can give'] },
@@ -1508,18 +1644,18 @@ class Component extends DCLogic {
         { pre: "Keep the merchant's answer for", token: '30 days', post: '.' }
       ],
       tech: [
-        { name: 'merchantCheck.integrationWorkflow', what: 'The check itself. Holds all four settings above.', exists: 'build 2', yes: true },
-        { name: 'disputeIntake.bpmnProcess', what: 'The journey all five steps live in. 2 of its 6 nodes are this step’s.', exists: 'build 1', yes: true },
-        { name: 'cardsCore.integrationSystem', what: 'Where the payment comes from. Shared with steps 1 and 5.', exists: 'by you', yes: true },
-        { name: 'enquiryToContext.dataMapper', what: 'Carries the merchant’s answer into step 4. Waits on the decisions above.', exists: 'no', yes: false },
-        { name: 'enquiryOutcome.enum', what: 'The four answers a merchant can give. Shared with step 5.', exists: 'no', yes: false }
+        { name: 'merchantCheck.integrationWorkflow', what: 'The check itself. Holds all four settings above.', exists: 'step 3' },
+        { name: 'disputeIntake.bpmnProcess', what: 'The journey all five steps live in. 2 of its 6 nodes are this step’s.', exists: 'step 1' },
+        { name: 'cardsCore.integrationSystem', what: 'Where the payment comes from. Shared with steps 1 and 5.', exists: 'by you' },
+        { name: 'enquiryToContext.dataMapper', what: 'Carries the merchant’s answer into step 4. Waits on the decisions above.', exists: 'step 3' },
+        { name: 'enquiryOutcome.enum', what: 'The four answers a merchant can give. Shared with step 5.', exists: 'step 3' }
       ],
       test: { inputs: [{ pre: 'Nothing to enter —', token: '£248.00', post: 'is over the £10 floor, so the check already ran while they typed.' }],
         see: 'NORTHGATE SUPPLY CO answers “They will not refund it” in 3 seconds, and the journey carries on either way.' },
       note: { lead: 'Settings above are ', mono: 'waitMs 4000 · retries 1 · minAmount 1000 · cacheDays 30', mid: '. Card numbers are masked by ', mono2: 'cardPan.piiGuard', tail: ' before they leave the bank — that one you cannot switch off.' } },
 
     { n: 4, title: 'We ask for evidence, only what the reason needs',
-      crumb: 'Ask for evidence', pin: '860px', dot: 'dashed', conn: 'dashed',
+      crumb: 'Ask for evidence', pin: '860px', dot: 'dashed',
       // What the customer would meet next, for the run's wall. Step 3 has none: it is a wait.
       runNext: 'send a receipt',
       desc: 'The customer sends the one document their reason needs, and nothing at all when the reason needs none.',
@@ -1531,16 +1667,16 @@ class Component extends DCLogic {
         { pre: 'Accept files up to', token: '8 MB', post: 'each.' }
       ],
       tech: [
-        { name: 'evidenceRequest.integrationWorkflow', what: 'The ask itself. Waits on both decisions above.', exists: 'no', yes: false },
-        { name: 'disputeReason.enum', what: 'Decides which document gets asked for. Shared with step 2.', exists: 'build 1', yes: true },
-        { name: 'evidenceStore.integrationSystem', what: 'Where the file is kept once it arrives.', exists: 'no', yes: false }
+        { name: 'evidenceRequest.integrationWorkflow', what: 'The ask itself. Waits on both decisions above.', exists: 'step 4' },
+        { name: 'disputeReason.enum', what: 'Decides which document gets asked for. Shared with step 2.', exists: 'step 2' },
+        { name: 'evidenceStore.integrationSystem', what: 'Where the file is kept once it arrives.', exists: 'step 4' }
       ],
       test: { inputs: [{ pre: 'Send', token: 'order-2471-northgate.pdf', post: '— 184 KB, one PDF under the 8 MB cap.' }],
         see: 'The file lands with a green check, and the screen names the 10 days they have and the one nudge after 3.' },
       note: { lead: 'Settings above are ', mono: 'dueDays 10 · remindAfterDays 3 · maxFileMb 8', mid: '.', mono2: '', tail: '' } },
 
     { n: 5, title: 'We send the biggest disputes to a person',
-      crumb: 'Send the biggest to a person', pin: '860px', dot: 'person', conn: 'dashed',
+      crumb: 'Send the biggest to a person', pin: '860px', dot: 'person',
       runNext: 'see it filed, and who has it',
       desc: 'Disputes above {threshold} reach a person instead of an automatic decision, and the customer is told a reviewer has it.',
       build: { ms: 5200, doing: ['building the review queue', 'putting a person in the loop'] },
@@ -1550,9 +1686,9 @@ class Component extends DCLogic {
         { pre: 'A reviewer has', token: '2 working days', post: 'before it escalates.' }
       ],
       tech: [
-        { name: 'reviewQueue.integrationWorkflow', what: 'Puts the dispute in front of a person. Waits on the decision above.', exists: 'no', yes: false },
-        { name: 'enquiryOutcome.enum', what: 'The four answers a merchant can give. Shared with step 3.', exists: 'no', yes: false },
-        { name: 'cardsCore.integrationSystem', what: 'Where the payment comes from. Shared with steps 1 and 3.', exists: 'by you', yes: true }
+        { name: 'reviewQueue.integrationWorkflow', what: 'Puts the dispute in front of a person. Waits on the decision above.', exists: 'step 5' },
+        { name: 'enquiryOutcome.enum', what: 'The four answers a merchant can give. Shared with step 3.', exists: 'step 3' },
+        { name: 'cardsCore.integrationSystem', what: 'Where the payment comes from. Shared with steps 1 and 3.', exists: 'by you' }
       ],
       test: { inputs: [{ pre: 'Nothing to enter —', token: '£248.00', post: 'stays under {threshold}, so no person is pulled in.' }],
         see: 'Filed as Goods not received under DSP-4417-0093, and £248.00 held back from the merchant while it runs.' },
@@ -1967,8 +2103,11 @@ class Component extends DCLogic {
       this.timers.push(setTimeout(advanceRun, SETTLE + 480));
     };
 
-    const nameSteps = ns => ns.length === 1 ? 'step ' + ns[0]
-      : 'steps ' + ns.slice(0, -1).join(', ') + ' and ' + ns[ns.length - 1];
+    // The whole plan is the common case now that nothing starts built, and listing all five reads
+    // as a list rather than as everything.
+    const nameSteps = ns => ns.length === 5 ? 'all five steps'
+      : (ns.length === 1 ? 'step ' + ns[0]
+        : 'steps ' + ns.slice(0, -1).join(', ') + ' and ' + ns[ns.length - 1]);
 
     // Every way a build starts: the steps join the chat's queue, the lead says so, the landings
     // are scheduled. Appended once each — a step already queued keeps its place and its check.
@@ -2223,6 +2362,9 @@ class Component extends DCLogic {
     const nQ = NS.reduce((a, n) => a + qsOwed(n).length, 0);
     const anyWash = nArg + nQ > 0;
     const pending = NS.filter(n => !S.built[n] && !S.building[n]);
+    // Nothing offers what it cannot do: with nothing built there is no run to start. The Test run
+    // VIEW stays reachable — it is the empty frame that says so — only the act is withdrawn.
+    const canRun = builtN > 0;
 
     // What a step owes, as a sentence. The two kinds are named separately: clearing one does not clear the other.
     const gateSentence = n => {
@@ -2256,6 +2398,8 @@ class Component extends DCLogic {
       .sort((a, b) => (S.order.indexOf(a) + 1 || 0.5) - (S.order.indexOf(b) + 1 || 0.5));
     const paneBuilt = S.built[paneN];
     const paneBuilding = S.building[paneN];
+    // `exists` names the step whose build makes the resource; `by you` was there before any of it.
+    const resExists = t => t.exists === 'by you' || !!S.built[+t.exists.slice(5)];
 
     const buildStep = primary(
       !wash(paneN) && !paneBuilt && !paneBuilding,
@@ -2315,11 +2459,18 @@ class Component extends DCLogic {
     // states, 0fr in the wide plan, so nothing that animates is ever sc-if-ed in or out. A row
     // with no heading holds 0fr in BOTH states — building a step must not change its group.
     const groupOf = n => S.built[n] ? 'Built' : 'Not built yet';
+    // The dot and the connector are read off `built`, never written per step: the green check and a
+    // solid spine down the built part, the wall at the first step that does not exist, dashed below
+    // it. `firstPending` is 0 when everything is built, which is the one state with no wall.
+    const firstPending = NS.find(n => !S.built[n]) || 0;
+    const dotOf = n => S.built[n] ? 'done' : STEPS[n - 1].dot;
+    const connOf = n => S.built[n] ? 'solid' : (n === firstPending ? 'edge' : 'dashed');
     const rows = STEPS.map(s => {
       const n = s.n;
       const isOpen = S.step === n;
       const firstOfGroup = n === 1 || groupOf(n) !== groupOf(n - 1);
       const q = qsOwed(n).length;
+      const dot = dotOf(n), conn = connOf(n);
       // Closes on the same beat as the pane's, so agreeing folds the card rather than deleting it.
       const arg = argsOwed(n)[0]
         || of(n).filter(k => isArg(k) && st(k) && st(k).from === 'owed')[0];
@@ -2351,20 +2502,20 @@ class Component extends DCLogic {
         chipBg: hot ? 'rgba(242, 118, 43, 0.14)' : '#131c24',
         chipBorder: hot ? 'rgba(242, 118, 43, 0.30)' : '#26313d',
         chipColor: hot ? '#f2762b' : '#8b98a5',
-        dotBg: (s.dot === 'done' || S.built[n]) ? '#2ea86a' : '#0b1218',
-        dotBorder: (s.dot === 'done' || S.built[n]) ? '0' : (s.dot === 'dashed' ? '1px dashed #8b98a5'
-          : (s.dot === 'person' ? '1px solid #8b98a5' : '0')),
-        dotGlyph: (s.dot === 'done' || S.built[n]) ? 'ph-check' : (s.dot === 'person' ? 'ph-user' : ''),
-        dotGlyphColor: (s.dot === 'done' || S.built[n]) ? '#ffffff' : '#c3cdd7',
+        dotBg: dot === 'done' ? '#2ea86a' : '#0b1218',
+        dotBorder: dot === 'done' ? '0' : (dot === 'dashed' ? '1px dashed #8b98a5'
+          : (dot === 'person' ? '1px solid #8b98a5' : '0')),
+        dotGlyph: dot === 'done' ? 'ph-check' : (dot === 'person' ? 'ph-user' : ''),
+        dotGlyphColor: dot === 'done' ? '#ffffff' : '#c3cdd7',
         // Motion is the whole signal: the dashed ring turns while its step builds, never a colour.
-        dotAnim: S.building[n] ? (s.dot === 'dashed' ? 'run-spin 2400ms linear infinite'
+        dotAnim: S.building[n] ? (dot === 'dashed' ? 'run-spin 2400ms linear infinite'
           : 'build-pulse 1400ms ease-in-out infinite') : 'none',
         busyAnim: S.building[n] ? 'build-pulse 1400ms ease-in-out infinite' : 'none',
         // Both border WIDTHS interpolate rather than a border side being swapped, which could not
         // animate. Row 3 crosses from a dashed border to a solid ground: colour plus width, both animatable.
-        connBg: s.conn === 'solid' ? '#26313d' : (s.conn === 'edge' ? c3Bg : 'transparent'),
-        connLW: s.conn === 'solid' ? '0px' : (s.conn === 'edge' ? c3VW : cVW),
-        connTW: s.conn === 'dashed' ? cHW : '0px',
+        connBg: conn === 'solid' ? '#26313d' : (conn === 'edge' ? c3Bg : 'transparent'),
+        connLW: conn === 'solid' ? '0px' : (conn === 'edge' ? c3VW : cVW),
+        connTW: conn === 'dashed' ? cHW : '0px',
         // Only an argument is carried on the plan — three wash cards overflow its 16px of slack.
         arg: arg ? owedCard(arg, !(on || run), '#242424', true, 0) : null
       };
@@ -2381,26 +2532,31 @@ class Component extends DCLogic {
     // The wall names the next thing the CUSTOMER would meet, so the invisible step 3 has no phrase.
     const missingNext = STEPS[(NS.find(n => n > shown && !S.built[n] && STEPS[n - 1].runNext) || 4) - 1].runNext;
     // Step 3 is a wait, not a stage of its own: it sits at the front edge of Evidence.
-    const stage = [{ label: 'Payment', on: true }, { label: 'What happened', on: true },
+    const stage = [{ label: 'Payment', on: S.built[1] }, { label: 'What happened', on: S.built[2] },
                    { label: 'Evidence', on: S.built[4] }, { label: 'Done', on: S.built[5] }]
       .filter(c => c.on);
-    const curr = shown <= 2 ? shown - 1
-      : (shown === 5 ? stage.length - 1 : Math.min(stage.length - 1, 2));
+    const curr = Math.max(0, shown <= 2 ? shown - 1
+      : (shown === 5 ? stage.length - 1 : Math.min(stage.length - 1, 2)));
     // Whether a person is in this journey at all is the threshold against the one disputed £248.
     const big = 248 > (parseFloat(String(thr).replace(/[^0-9.]/g, '')) || 500);
     const team = S.cards['5A'].pick === 1
       ? 'the disputes team, because the reason is not fraud' : 'the disputes team';
     // Reached is where the run stopped: the first step that does not exist, or all five.
     const reached = NS.find(n => !S.built[n]) || 5;
+    const allBuilt = NS.every(n => S.built[n]);
+    const bdOpen = S.buildQueue.length > 0 && !(ranLive && allBuilt);
 
     return {
       rows: rows,
 
       // ── The plan's ledger ────────────────────────────────────────────────
-      ledBuilt: cap(WORD[builtN]) + ' of five built',
+      ledBuilt: builtN ? cap(WORD[builtN]) + ' of five built' : 'Nothing built yet',
       ledBuilding: buildingN ? ' · building ' + WORD[buildingN] : '',
       ledArg: nArg ? ' · ' + (nArg === 1 ? 'one not agreed' : WORD[nArg] + ' not agreed') : '',
       ledQ: nQ ? WORD[nQ] + ' to settle' : '',
+      // The plan's header draws its own separator and question glyph around ledQ; the card has no
+      // room for the glyph, so it carries the separator instead — one phrase, two frames.
+      ledDot: nQ ? ' · ' : '',
       ledClear: (!anyWash && !buildingN && pending.length > 0) ? ' · nothing left to settle' : '',
       spineCount: '5 steps · ' + builtN + ' built',
       dashes: NS.map(n => ({
@@ -2449,11 +2605,12 @@ class Component extends DCLogic {
         pre: x.pre, token: sub(x.token),
         post: /^[.,;]/.test(x.post) ? x.post : ' ' + x.post
       })),
-      // A landed step's resources exist now, whatever the hand-written data says.
+      // Read off `built` — a resource exists once the step that makes it has landed.
       tech: paneStep.tech.map(t => {
-        const yes = t.yes || paneBuilt;
+        const yes = resExists(t);
         return {
-          name: t.name, what: t.what, exists: t.yes ? t.exists : (paneBuilt ? 'this build' : t.exists),
+          name: t.name, what: t.what,
+          exists: yes ? t.exists : (S.building[+t.exists.slice(5)] ? 'building' : 'not yet'),
           glyph: yes ? 'ph-check-circle' : 'ph-circle-dashed',
           glyphColor: yes ? '#8ad3ab' : '#8b98a5',
           nameColor: yes ? '#f5f9fc' : '#8b98a5',
@@ -2473,7 +2630,7 @@ class Component extends DCLogic {
       stepPending: !paneBuilt && !paneBuilding,
       stepBuilding: paneBuilding,
       stepBuilt: paneBuilt,
-      stepBuiltFact: 'Built · ' + (paneBuilt ? paneStep.tech.length : paneStep.tech.filter(t => t.yes).length) + ' resources exist',
+      stepBuiltFact: 'Built · ' + paneStep.tech.filter(resExists).length + ' resources exist',
       stepGate: gateSentence(paneN),
       hasGate: gateSentence(paneN) !== '',
       buildPlan: buildPlan,
@@ -2484,14 +2641,17 @@ class Component extends DCLogic {
         : (nArg + nQ === 1 ? 'One left to settle — it starts the build.'
           : cap(WORD[nArg + nQ]) + ' left to settle — the last one starts the build.'),
       runStripStop: leave({ settleRun: false }),
-      // With the ask exchange AND a build up, the 723px budget is blown: the walk's promise
-      // folds once the build block fulfils it. Fully built it folds too — the done note and its
-      // handoff need the room.
-      rn: fold(!!S.runNote && !(S.ask && S.buildQueue.length > 0) && !(S.buildQueue.length > 0 && NS.every(n => S.built[n]))),
+      // The walk's promise folds the moment the build block fulfils it — with all five queued it
+      // is 19px past the budget, and a promise kept beside its keeping is only saying it twice.
+      rn: fold(!!S.runNote && !S.buildQueue.length),
       runNote: S.runNote,
       // The build, told as it happens: the lead sentence, a live row per step narrating what it
       // is on, and the all-built handoff to the test run.
-      bd: fold(S.buildQueue.length > 0),
+      // Spent once the run it handed off to is up: five green checks and "the one thing left is to
+      // see it run" are both answered by the run itself, and together they are 118px the chat does
+      // not have. Its two inner folds carry the SAME condition — a 1fr inside a closed track
+      // resolves to nothing and never recovers.
+      bd: fold(bdOpen),
       buildLead: S.buildLead,
       buildRows: S.buildQueue.map(n => ({
         title: 'Step ' + n + ' · ' + STEPS[n - 1].crumb,
@@ -2505,8 +2665,8 @@ class Component extends DCLogic {
         subOp: S.building[n] ? '1' : '0',
         color: S.built[n] ? '#c3cdd7' : '#8b98a5'
       })),
-      ba: fold(S.buildQueue.length > 0 && NS.every(n => S.built[n]), 8),
-      bb: fold(S.buildQueue.length > 0 && NS.every(n => S.built[n]) && !S.run, 0),
+      ba: fold(bdOpen && allBuilt, 8),
+      bb: fold(bdOpen && allBuilt && !S.run, 0),
       buildDone: 'All five are built — that was everything I needed from you. The plan is done; the one thing left is to see it run.',
       testAct: e => {
         const el = e && e.currentTarget;
@@ -2553,8 +2713,15 @@ class Component extends DCLogic {
       // run-time exchange in. Reached by URL (?ask=1) or by the composer during a live run.
       // Later beats need the room: the chat has no scroller, so the exchange folds into its
       // divider the moment the run or a build has something to say.
-      mx: fold(!S.ask && !S.runNote && !S.buildQueue.length && !S.guided && !ranLive),
-      md: fold(S.ask || !!S.runNote || S.buildQueue.length > 0 || S.guided || ranLive),
+      wd: fold(!S.told),
+      mx: fold(!S.told && !S.ask && !S.runNote && !S.buildQueue.length && !S.guided && !ranLive),
+      md: fold(!S.told && (S.ask || !!S.runNote || S.buildQueue.length > 0 || S.guided || ranLive)),
+      // The offer is a sibling of the history, not part of it: whichever of the two turns above it
+      // is showing, it is the one directly under it and so always rides the newest thing said.
+      so: (() => {
+        const open = !S.guided && !S.buildQueue.length && !S.ask && !ranLive && !S.settleRun;
+        return { ...fold(open), mt: open ? '-20px' : '-24px' };
+      })(),
       au: fold(S.ask),
       th: fold(S.ask && !S.replied),
       aa: fold(S.replied),
@@ -2587,6 +2754,12 @@ class Component extends DCLogic {
       im: fold(S.iSent),
       it: fold(S.iSent && !S.iPlanned),
       ir: fold(S.iPlanned),
+      // The offer, as the reply's sibling. Open it keeps 4 of the column's 24 gap so it reads as
+      // part of that turn; closed it cancels all 24, like every other folded block.
+      io: (() => {
+        const open = S.iPlanned && !S.guided && !S.buildQueue.length && !S.ask && !ranLive;
+        return { ...fold(open), mt: open ? '-20px' : '-24px' };
+      })(),
       // The plan's card is out of flow, so it arrives on its own opacity and travel, not a fold.
       iw: {
         op: S.iPlanned ? '1' : '0',
@@ -2609,24 +2782,32 @@ class Component extends DCLogic {
       iSendAct: e => {
         const el = e && e.currentTarget;
         if (el && el.blur) el.blur();
-        this.setState({ iSent: true, iDraft: false });
+        this.setState({ told: true, iSent: true, iDraft: false });
         this.timers.push(setTimeout(() => this.setState({ iPlanned: true }), 2200));
       },
       iPlanAct: leave({ intro: false }),
+      // Both gates, ANDed: the card has to have arrived and there has to be something to run.
+      iTestPE: (S.iPlanned && canRun) ? 'auto' : 'none',
+      iTestTab: (S.iPlanned && canRun) ? '0' : '-1',
 
       // ── The guided walk's chat ───────────────────────────────────────────
-      // Taking the offer moves the walk into the chat: the right pane shows the run's empty
-      // frame, the plan keeps living behind its segment. Each answer settles through the same
+      // Taking the offer does not leave the conversation: it goes full screen and stays there to
+      // the end, the plan living as the card in the corner. Each answer settles through the same
       // machinery a card does, folds to one echo line, and a thinking beat brings the next ask.
+      // The ways out are the card's two buttons and the header's two segments.
       guidedAct: e => {
         const el = e && e.currentTarget;
         if (el && el.blur) el.blur();
-        this.setState({ intro: false, guided: true, run: true, live: false, loading: false, step: 0, cards: allShut(), gThink: true });
+        this.setState({ intro: true, iSent: true, iPlanned: true, iDraft: false, guided: true,
+                        run: false, live: false, loading: false, step: 0, cards: allShut(), gThink: true });
         this.timers.push(setTimeout(() => this.setState({ gThink: false }), 1100));
       },
       // The lead makes the promise and folds when the first echo starts keeping it — the fifth
       // ask does not fit the chat's budget with the lead still up.
       gl: fold(S.guided && !gDone.length && !S.buildQueue.length),
+      // The full chat has ~400px of slack where the 360 has none, so its copy of the lead is not
+      // paid for by folding: the echoes keep their antecedent for the whole walk and the build.
+      igl: fold(S.guided),
       gLead: 'One thing to agree and four questions, across three steps. I will ask them here, one at a time — the moment the last one settles, I build the rest.',
       ge: fold(S.guided && gDone.length > 0),
       // The answer alone — with the subject in front every line truncates its answer half.
@@ -2702,8 +2883,9 @@ class Component extends DCLogic {
       // folds away. Both are one value on the card: a control cannot be half-withdrawn.
 
       // Live from a step too: closing it and starting the run is one act, so nothing gates it on `on`.
-      runPE: 'auto',
-      runTab: '0',
+      runPE: (busy || canRun) ? 'auto' : 'none',
+      runTab: (busy || canRun) ? '0' : '-1',
+      runCursor: (busy || canRun) ? 'pointer' : 'not-allowed',
       // Stop stays on the Test run view: the live run gives way to the empty state.
       runAct: busy
         ? leave({ live: false, loading: false })
@@ -2715,10 +2897,14 @@ class Component extends DCLogic {
           },
       runIcon: busy ? 'ph-stop' : 'ph-play',
       runLabel: busy ? 'Stop running' : 'Test the journey',
-      runTitle: busy ? 'Stop running — Esc' : 'Run the whole journey',
-      runBorder: busy ? '#eb4e33' : 'transparent',
-      runBg: busy ? 'transparent' : '#1d9a5c',
-      runFg: busy ? '#ffffff' : '#ffffff',
+      runTitle: busy ? 'Stop running — Esc' : (canRun ? 'Run what exists' : ''),
+      runBorder: busy ? '#eb4e33' : (canRun ? 'transparent' : '#1c2530'),
+      runBg: (busy || !canRun) ? 'transparent' : '#1d9a5c',
+      runFg: (busy || canRun) ? '#ffffff' : '#4a5764',
+      // The empty frame is two states: nothing built at all, or built and simply not running.
+      emptyHead: canRun ? 'Nothing is running' : 'Nothing is built yet',
+      emptySub: canRun ? 'The built steps play here, as the customer would see them.'
+        : 'The steps play here as the customer would see them, once they exist.',
 
       // In the intro the crumb and switcher arrive with the plan, and neither segment is "here".
       hdCols: (S.intro && !S.iPlanned) ? '0fr' : '1fr',

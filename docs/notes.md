@@ -37,11 +37,23 @@ Measured numbers and traps only. Every value lives in `index.html`.
 - `style-hover`/`-active`/`-focus` reach `pseudoClass()` verbatim (`support.js:428`) and take
   **no** `{{ }}`. Every other attribute interpolates (`support.js:441`).
 - Warming the greys inside the wash goes mustard. Flat grey.
-- The start state has **10px** of chat slack, the mid-run ask **26**. The guided offer is one
-  28px chip riding the exchange's closing turn, so it folds with `mx` and may not carry a fold of
-  its own — a `1fr` inside a closed track never recovers. Buying that turn cost the 09:41 reply
-  its second paragraph. The guided lead folds on the **first** echo or the fifth ask clips ~80
-  behind the composer.
+- The 360 chat's slack: start **14px**, mid-run ask **26**, mid-build **121**, everything else 70+.
+  Buying the exchange's closing turn cost the 09:41 reply its second paragraph.
+- The guided offer is one 28px chip, and in BOTH chats it is a sibling fold (`io` / `so`) between
+  the history and the divider that replaces it — never a box inside a turn. A `1fr` inside a
+  closed track resolves to nothing and never recovers, which is also why `bd`'s two inner folds
+  carry `bd`'s own condition verbatim. Open, the chip cancels 20 of the column's 24 gap.
+- The walk lives in the full-screen chat, so `guided` implies `intro` and is never a view. Its five
+  blocks are twinned in the overlay and the 360 pane on ONE set of fold values — the only split is
+  `igl`, because the 360 has to fold the lead on the first echo and the 640 has ~180px spare.
+- The build block retires once the run it handed off to is up: five checks plus "the one thing left
+  is to see it run" are **118px** the chat does not have, and the run answers both. The walk's
+  promise (`rn`) folds the moment the build starts, for the same reason at **19px**.
+- Nothing starts built. `?ask`, `?at`, `?live` and `?loading` are the only states that preset steps
+  1 and 2 — a run of nothing is not a run, so every other entry point is withdrawn until something
+  exists. The dot, the connector and each resource's existence are read off `built`, never written
+  per step: `exists` names the step whose build makes it, and `by you` is the only pre-existing kind.
+  The run states spill the frame by **24px**; that predates all of this.
 - The guided ask is ONE block whose words swap only while the think beat holds it shut — its
   source row is a `display:` swap for the same reason, never `sc-if`.
 - The intro is an overlay with `visibility`, never an `sc-if` around the body: the run screens'
