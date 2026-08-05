@@ -23,6 +23,10 @@
   a:hover { color: #7db3f2; text-decoration: underline; }
   /* A placeholder cannot be coloured inline. */
   ::placeholder { color: #6b7783; opacity: 1; }
+  /* The conversation scrolls only when a state overruns the screen, and the bar may not be seen or
+     take width: the column travels to the rail's measure and lands on it to the pixel. */
+  [data-chat-scroll] { scrollbar-width: none; -ms-overflow-style: none; }
+  [data-chat-scroll]::-webkit-scrollbar { width: 0; height: 0; }
   @keyframes run-spin { to { transform: rotate(360deg); } }
   @keyframes ask-think { 0%, 60%, 100% { opacity: 0.25; } 30% { opacity: 1; } }
   @keyframes build-pulse { 0%, 100% { opacity: 0.35; } 50% { opacity: 1; } }
@@ -123,7 +127,7 @@
         </div>
       </div>
 
-      <div style="width: {{ iColW }}; margin-left: {{ iColML }}; transform: {{ iColTr }}; flex: 1; min-height: 0; overflow: hidden; padding-top: {{ iColPT }}; display: flex; flex-direction: column; gap: 24px; transition: width {{ iColDur }} {{ iColEase }} {{ iColDl }}, margin-left {{ iColDur }} {{ iColEase }} {{ iColDl }}, transform {{ iColDur }} {{ iColEase }} {{ iColDl }}, padding-top {{ iColDur }} {{ iColEase }} {{ iColDl }};">
+      <div data-chat-scroll="1" style="width: {{ iColW }}; margin-left: {{ iColML }}; transform: {{ iColTr }}; flex: 1; min-height: 0; overflow-y: auto; overflow-x: hidden; padding-top: {{ iColPT }}; padding-bottom: 12px; display: flex; flex-direction: column; gap: 24px; transition: width {{ iColDur }} {{ iColEase }} {{ iColDl }}, margin-left {{ iColDur }} {{ iColEase }} {{ iColDl }}, transform {{ iColDur }} {{ iColEase }} {{ iColDl }}, padding-top {{ iColDur }} {{ iColEase }} {{ iColDl }};">
         <div style="display: grid; grid-template-rows: {{ im.rows }}; margin-top: {{ im.mt }}; transition: grid-template-rows {{ moveDur }} {{ moveEase }}, margin-top {{ moveDur }} {{ moveEase }};">
         <div style="overflow: hidden; min-height: 0; opacity: {{ im.op }}; transition: opacity {{ im.opDur }} {{ moveEase }} {{ im.opDl }};">
         <div style="display: flex; gap: 12px;">
@@ -2207,11 +2211,38 @@ class Component extends DCLogic {
       // Zoom and layout size are read off the window; this state is only a bump.
     this.onResize = () => this.setState(p => ({ resized: (p.resized || 0) + 1 }));
     window.addEventListener('resize', this.onResize);
+    this.stick();
+  }
+
+  // The conversation carries every state's turns in one column, and two of them overrun the screen
+  // — the interjection mid-walk by 74px, the walk's build by 105. Overrunning, it scrolls, and the
+  // newest turn is the one to keep in view: an ask half under the composer is an answer you cannot
+  // give. Only while the bottom is already where you are looking, though — a column that yanks
+  // itself down over the history you scrolled back to is worse than one that clips.
+  stick() {
+    document.querySelectorAll('[data-chat-scroll]').forEach(el => {
+      const owed = el.scrollHeight - el.clientHeight - el.scrollTop;
+      if (owed > 0 && owed < 240) el.scrollTop = el.scrollHeight;
+    });
+  }
+
+  // Every frame of the beat, not once at the commit: the block that overruns is a fold, and its
+  // height at the commit is zero — sticking only then leaves the ask clipped until the fold ends,
+  // and sticking once at the end of it is a 74px jump. Following it is the whole point.
+  componentDidUpdate() {
+    cancelAnimationFrame(this.stickRaf);
+    const t0 = performance.now();
+    const step = () => {
+      this.stick();
+      if (performance.now() - t0 < 760) this.stickRaf = requestAnimationFrame(step);
+    };
+    step();
   }
 
   componentWillUnmount() {
     document.removeEventListener('keydown', this.onKey);
     window.removeEventListener('resize', this.onResize);
+    cancelAnimationFrame(this.stickRaf);
     this.timers.forEach(clearTimeout);
     if (this.raf) cancelAnimationFrame(this.raf);
   }

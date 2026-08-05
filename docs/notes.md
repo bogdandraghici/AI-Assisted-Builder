@@ -37,6 +37,13 @@ Measured numbers and traps only. Every value lives in `index.html`.
 - `style-hover`/`-active`/`-focus` reach `pseudoClass()` verbatim (`support.js:428`) and take
   **no** `{{ }}`. Every other attribute interpolates (`support.js:441`).
 - Warming the greys inside the wash goes mustard. Flat grey.
+- The 640 column scrolls, the 360 rail does not. Two states overrun it: the interjection mid-walk
+  with the exchange still open and the lead still up (**74px**, and the argument's second row was
+  under the composer), and the walk's build block (**105**). It sticks to the bottom on every frame
+  of the beat, not at the commit — the block that overruns is a fold, and at the commit its height
+  is still zero. Bar hidden both ways (`scrollbar-width` and `::-webkit-scrollbar`): the column
+  travels to the rail's measure and a bar that takes width lands it a scrollbar off. Leaving folds
+  the overrunning blocks on the rail's condition, so the scroll clamps to 0 before the travel.
 - The 360 chat's slack: start **14px**, mid-run ask **26**, mid-build **121**, everything else 70+.
   Buying the exchange's closing turn cost the 09:41 reply its second paragraph.
 - The guided offer is one 28px chip, and in BOTH chats it is a sibling fold (`io` / `so`) between
