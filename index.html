@@ -221,22 +221,11 @@
             <div style="flex: 1; min-width: 0; display: flex; flex-direction: column; gap: 4px;">
               <div style="font: 600 12px/16px 'Open Sans', sans-serif; color: #8b98a5;">Agent <span style="font-weight: 400;">· 09:31</span></div>
               <div style="font: 400 14px/24px 'Open Sans', sans-serif; color: #f5f9fc; text-wrap: pretty;">Five steps, on the right. I built the two with only one sensible shape.</div>
-<!-- One offer, not a fork: the plan on the right already is the other way. The start state has
-     44px of chat budget left, so this is one button and 4px of air — never two. -->
-              <div style="display: grid; grid-template-rows: {{ go.rows }}; margin-top: {{ go.mt }}; transition: grid-template-rows {{ moveDur }} {{ moveEase }}, margin-top {{ moveDur }} {{ moveEase }};">
-              <div style="overflow: hidden; min-height: 0; opacity: {{ go.op }}; transition: opacity {{ go.opDur }} {{ moveEase }} {{ go.opDl }};">
-              <div style="padding-top: 0px;">
-                <div onClick="{{ guidedAct }}" tabindex="{{ go.tab }}" style="display: inline-flex; align-items: center; gap: 8px; height: 28px; padding: 0 12px; border-radius: 8px; border: 1px solid #26313d; background: #101820; color: #f5f9fc; font: 600 12px/16px 'Open Sans', sans-serif; cursor: pointer; outline: none; pointer-events: {{ go.pe }}; transition: all 160ms cubic-bezier(0.2, 0, 0.2, 1);" style-hover="border-color: #4d97ea; background: #161f28;" style-focus="box-shadow: 0 0 0 3px rgba(43, 127, 228, 0.32);">
-                  <i class="ph ph-chats" style="font-size: 12px; color: #4d97ea; flex: none;"></i><span style="white-space: nowrap;">Take me through it, one at a time</span>
-                </div>
-              </div>
-              </div>
-              </div>
             </div>
           </div>
 
           <div style="display: flex; align-items: center; gap: 12px; color: #8b98a5; padding-left: 34px;">
-            <div style="font: 400 12px/16px 'Open Sans', sans-serif; cursor: pointer; flex: none; transition: color 160ms cubic-bezier(0.2, 0, 0.2, 1);" style-hover="color: #c3cdd7;">4 turns about wording</div>
+            <div style="font: 400 12px/16px 'Open Sans', sans-serif; cursor: pointer; flex: none; transition: color 160ms cubic-bezier(0.2, 0, 0.2, 1);" style-hover="color: #c3cdd7;">3 turns about wording</div>
             <div style="flex: 1; height: 1px; background: #18212a;"></div>
           </div>
 
@@ -257,8 +246,7 @@
             <div style="width: 22px; height: 22px; flex: none; border-radius: 99px; background: rgba(139, 152, 165, 0.16); display: grid; place-items: center;"><img src="assets/flowx-mark-white.svg" alt="Agent" style="height: 11px; width: auto; flex: none;" /></div>
             <div style="flex: 1; min-width: 0; display: flex; flex-direction: column; gap: 8px;">
               <div style="font: 600 12px/16px 'Open Sans', sans-serif; color: #8b98a5;">Agent <span style="font-weight: 400;">· 09:41</span></div>
-              <div style="font: 400 14px/24px 'Open Sans', sans-serif; color: #f5f9fc; text-wrap: pretty;">No. The scheme requires an attempt to resolve with the merchant before you ask the customer for evidence. Without it the chargeback is out of scope when we submit it.</div>
-              <div style="font: 400 14px/24px 'Open Sans', sans-serif; color: #a9b6c3; text-wrap: pretty;">It does not have to be in their way, though. I have drawn what I would do instead on step 3.</div>
+              <div style="font: 400 14px/24px 'Open Sans', sans-serif; color: #f5f9fc; text-wrap: pretty;">No. The scheme needs an attempt with the merchant before we ask for evidence — without one the chargeback is out of scope.</div>
               <div style="display: inline-flex; align-self: flex-start; align-items: center; gap: 8px; cursor: pointer; color: #8b98a5; transition: color 160ms cubic-bezier(0.2, 0, 0.2, 1);" style-hover="color: #4d97ea;">
                 <i class="ph ph-book-open-text" style="font-size: 14px; color: #f2762b;"></i>
                 <div style="font: 400 12px/16px ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;">Scheme rules §4.2</div>
@@ -273,6 +261,22 @@
               <div style="font: 400 14px/24px 'Open Sans', sans-serif; color: #c3cdd7; text-wrap: pretty;">Fine. Keep it, but the customer never waits on it.</div>
             </div>
           </div>
+
+<!-- The exchange closes on the agent, not on you: it takes the constraint, says where it landed,
+     and the one offer rides the newest turn — stranded three turns up it read as unanswered.
+     No fold of its own: nesting one inside mx's is the trap, and mx already folds it everywhere. -->
+          <div style="display: flex; gap: 12px;">
+            <div style="width: 22px; height: 22px; flex: none; border-radius: 99px; background: rgba(139, 152, 165, 0.16); display: grid; place-items: center;"><img src="assets/flowx-mark-white.svg" alt="Agent" style="height: 11px; width: auto; flex: none;" /></div>
+            <div style="flex: 1; min-width: 0; display: flex; flex-direction: column; gap: 4px;">
+              <div style="font: 600 12px/16px 'Open Sans', sans-serif; color: #8b98a5;">Agent <span style="font-weight: 400;">· 09:45</span></div>
+              <div style="font: 400 14px/24px 'Open Sans', sans-serif; color: #f5f9fc; text-wrap: pretty;">Then it runs while they type. Step 3 is drawn that way — five decisions left.</div>
+              <div style="padding-top: 4px;">
+                <div onClick="{{ guidedAct }}" tabindex="{{ mx.tab }}" style="display: inline-flex; align-items: center; gap: 8px; height: 28px; padding: 0 12px; border-radius: 8px; border: 1px solid #26313d; background: #101820; color: #f5f9fc; font: 600 12px/16px 'Open Sans', sans-serif; cursor: pointer; outline: none; pointer-events: {{ mx.pe }}; transition: all 160ms cubic-bezier(0.2, 0, 0.2, 1);" style-hover="border-color: #4d97ea; background: #161f28;" style-focus="box-shadow: 0 0 0 3px rgba(43, 127, 228, 0.32);">
+                  <i class="ph ph-chats" style="font-size: 12px; color: #4d97ea; flex: none;"></i><span style="white-space: nowrap;">Take me through it, one at a time</span>
+                </div>
+              </div>
+            </div>
+          </div>
           </div>
           </div>
           </div>
@@ -280,7 +284,7 @@
           <div style="display: grid; grid-template-rows: {{ md.rows }}; margin-top: {{ md.mt }}; transition: grid-template-rows {{ moveDur }} {{ moveEase }}, margin-top {{ moveDur }} {{ moveEase }};">
           <div style="overflow: hidden; min-height: 0; opacity: {{ md.op }}; transition: opacity {{ md.opDur }} {{ moveEase }} {{ md.opDl }};">
           <div style="display: flex; align-items: center; gap: 12px; color: #8b98a5; padding-left: 34px;">
-            <div style="font: 400 12px/16px 'Open Sans', sans-serif; cursor: pointer; flex: none; transition: color 160ms cubic-bezier(0.2, 0, 0.2, 1);" style-hover="color: #c3cdd7;">3 turns about the merchant check</div>
+            <div style="font: 400 12px/16px 'Open Sans', sans-serif; cursor: pointer; flex: none; transition: color 160ms cubic-bezier(0.2, 0, 0.2, 1);" style-hover="color: #c3cdd7;">4 turns about the merchant check</div>
             <div style="flex: 1; height: 1px; background: #18212a;"></div>
           </div>
           </div>
@@ -374,7 +378,7 @@
             <div style="width: 22px; height: 22px; flex: none; border-radius: 99px; background: #2b7fe4; color: #ffffff; display: grid; place-items: center; font: 700 10px/12px 'Open Sans', sans-serif;">LC</div>
             <div style="flex: 1; min-width: 0; display: flex; flex-direction: column; gap: 4px;">
               <div style="font: 600 12px/16px 'Open Sans', sans-serif; color: #8b98a5;">You <span style="font-weight: 400;">· 09:48</span></div>
-              <div style="font: 400 14px/24px 'Open Sans', sans-serif; color: #c3cdd7; text-wrap: pretty;">Drop the merchant check.</div>
+              <div style="font: 400 14px/24px 'Open Sans', sans-serif; color: #c3cdd7; text-wrap: pretty;">I have seen it now — drop the check.</div>
             </div>
           </div>
           </div>
@@ -399,7 +403,7 @@
             <div style="width: 22px; height: 22px; flex: none; border-radius: 99px; background: rgba(139, 152, 165, 0.16); display: grid; place-items: center;"><img src="assets/flowx-mark-white.svg" alt="Agent" style="height: 11px; width: auto; flex: none;" /></div>
             <div style="flex: 1; min-width: 0; display: flex; flex-direction: column; gap: 8px;">
               <div style="font: 600 12px/16px 'Open Sans', sans-serif; color: #8b98a5;">Agent <span style="font-weight: 400;">· 09:49</span></div>
-              <div style="font: 400 14px/24px 'Open Sans', sans-serif; color: #f5f9fc; text-wrap: pretty;">That changes the plan. A chargeback counts only after the merchant has had its chance to put it right — drop the check and every dispute we file is out of scope.</div>
+              <div style="font: 400 14px/24px 'Open Sans', sans-serif; color: #f5f9fc; text-wrap: pretty;">Same answer as before the run, and now you have seen why: the check cost the customer nothing. Drop it and every dispute we file is out of scope.</div>
 <!-- Spent controls withdraw: the buttons fold as the decision lands, either from here or the plan. -->
               <div style="display: grid; grid-template-rows: {{ bt.rows }}; margin-top: {{ bt.mt }}; transition: grid-template-rows {{ moveDur }} {{ moveEase }}, margin-top {{ moveDur }} {{ moveEase }};">
               <div style="overflow: hidden; min-height: 0; opacity: {{ bt.op }}; transition: opacity {{ bt.opDur }} {{ moveEase }} {{ bt.opDl }};">
@@ -1392,8 +1396,6 @@ class Component extends DCLogic {
       iDraft: false,
       iSent: sent,
       iPlanned: planned,
-      // The offer stands until anything else claims the chat; taking or waving it off folds it.
-      gOffer: !run && !settling && !building,
       // The beat between an answer landing and the next ask arriving.
       gThink: false,
       // The reply lags the ask by a thinking beat; ?replied=0 holds that beat for looking at.
@@ -2616,11 +2618,10 @@ class Component extends DCLogic {
       // Taking the offer moves the walk into the chat: the right pane shows the run's empty
       // frame, the plan keeps living behind its segment. Each answer settles through the same
       // machinery a card does, folds to one echo line, and a thinking beat brings the next ask.
-      go: fold(S.gOffer && !S.guided && !S.settleRun && !S.buildQueue.length && !S.ask && !ranLive, 4),
       guidedAct: e => {
         const el = e && e.currentTarget;
         if (el && el.blur) el.blur();
-        this.setState({ intro: false, guided: true, gOffer: false, run: true, live: false, loading: false, step: 0, cards: allShut(), gThink: true });
+        this.setState({ intro: false, guided: true, run: true, live: false, loading: false, step: 0, cards: allShut(), gThink: true });
         this.timers.push(setTimeout(() => this.setState({ gThink: false }), 1100));
       },
       // The lead makes the promise and folds when the first echo starts keeping it — the fifth
@@ -2663,7 +2664,7 @@ class Component extends DCLogic {
         })),
       // One text element interpolated, per the rule below. The composer only stages the one
       // scripted request, and only while a run is up with nothing already asked.
-      compText: S.draft ? 'Drop the merchant check.' : 'Reply to the agent',
+      compText: S.draft ? 'I have seen it now — drop the check.' : 'Reply to the agent',
       compColor: S.draft ? '#f5f9fc' : '#7b8896',
       compAct: () => { if (ranLive && !S.ask && !S.draft) this.setState({ draft: true }); },
       sendPE: S.draft ? 'auto' : 'none',
