@@ -334,6 +334,7 @@
               <i class="ph ph-book-open-text" style="font-size: 14px; color: #f2762b;"></i>
               <div style="font: 400 12px/16px ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;">{{ gaSrc }}</div>
             </div>
+            <sc-if value="{{ gaPlain }}" hint-placeholder-val="{{ true }}">
             <div style="display: flex; flex-direction: column; gap: 8px; align-items: flex-start; padding-top: 4px;">
               <sc-for list="{{ gaRows }}" as="g" hint-placeholder-count="2">
               <div onClick="{{ g.act }}" tabindex="{{ iga.tab }}" style="display: flex; align-items: center; gap: 8px; min-height: 36px; padding: 6px 16px; border-radius: 8px; border: 1px solid #26313d; background: #101820; color: #f5f9fc; font: 600 14px/22px 'Open Sans', sans-serif; cursor: pointer; outline: none; pointer-events: {{ iga.pe }}; transition: all 160ms cubic-bezier(0.2, 0, 0.2, 1);" style-hover="border-color: #4d97ea; background: #161f28;" style-focus="box-shadow: 0 0 0 3px rgba(43, 127, 228, 0.32);">
@@ -341,6 +342,29 @@
               </div>
               </sc-for>
             </div>
+            </sc-if>
+
+<!-- The drawn pick. The reply is a shape, so the choices are the shapes, and taking one settles
+     the card the same way a row does. -->
+            <sc-if value="{{ gaShaped }}" hint-placeholder-val="{{ false }}">
+            <div style="display: flex; gap: 12px; max-width: 470px; padding-top: 4px;">
+              <sc-for list="{{ gaShapes }}" as="s" hint-placeholder-count="3">
+              <div onClick="{{ s.act }}" tabindex="{{ iga.tab }}" style="flex: 1; min-width: 0; display: flex; flex-direction: column; gap: 8px; cursor: pointer; outline: none; border-radius: 8px; pointer-events: {{ iga.pe }};" style-focus="box-shadow: 0 0 0 3px rgba(43, 127, 228, 0.32);">
+                <div style="height: 96px; background: #0b1218; border: 1px solid {{ s.border }}; border-radius: 8px; padding: 8px; display: flex; flex-direction: column; gap: 4px; transition: all 160ms cubic-bezier(0.2, 0, 0.2, 1);" style-hover="background: #131c25; border-color: #4d97ea;">
+                  <sc-for list="{{ s.bars }}" as="b" hint-placeholder-count="4">
+                  <div style="flex: {{ b.f }}; width: {{ b.w }}; background: {{ b.bg }}; border: {{ b.bd }}; border-radius: {{ b.r }};"></div>
+                  </sc-for>
+                </div>
+<!-- The proposal wears the walk's own mark — the checked row, not the card's chip: the other four
+     asks in this same conversation say it with this glyph. -->
+                <div style="display: flex; align-items: center; gap: 8px;">
+                  <i class="ph {{ s.icon }}" style="font-size: 14px; color: {{ s.iconColor }}; flex: none;"></i>
+                  <div style="min-width: 0; font: 600 14px/22px 'Open Sans', sans-serif; color: {{ s.color }};">{{ s.label }}</div>
+                </div>
+              </div>
+              </sc-for>
+            </div>
+            </sc-if>
           </div>
         </div>
         </div>
@@ -614,6 +638,7 @@
                 <i class="ph ph-book-open-text" style="font-size: 14px; color: #f2762b;"></i>
                 <div style="font: 400 12px/16px ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;">{{ gaSrc }}</div>
               </div>
+              <sc-if value="{{ gaPlain }}" hint-placeholder-val="{{ true }}">
               <div style="display: flex; flex-direction: column; gap: 8px;">
                 <sc-for list="{{ gaRows }}" as="g" hint-placeholder-count="2">
                 <div onClick="{{ g.act }}" tabindex="{{ ga.tab }}" style="display: flex; align-items: center; gap: 8px; min-height: 32px; padding: 6px 12px; border-radius: 8px; border: 1px solid #26313d; background: #101820; color: #f5f9fc; font: 600 12px/16px 'Open Sans', sans-serif; cursor: pointer; outline: none; pointer-events: {{ ga.pe }}; transition: all 160ms cubic-bezier(0.2, 0, 0.2, 1);" style-hover="border-color: #4d97ea; background: #161f28;" style-focus="box-shadow: 0 0 0 3px rgba(43, 127, 228, 0.32);">
@@ -621,6 +646,27 @@
                 </div>
                 </sc-for>
               </div>
+              </sc-if>
+
+<!-- The rail's copy: the same three across, drawn at 60 in 84 of width, and the proposal marked
+     with a glyph on the drawing instead of the chip — the chip is 24px this measure does not have. -->
+              <sc-if value="{{ gaShaped }}" hint-placeholder-val="{{ false }}">
+              <div style="display: flex; gap: 12px;">
+                <sc-for list="{{ gaShapes }}" as="s" hint-placeholder-count="3">
+                <div onClick="{{ s.act }}" tabindex="{{ ga.tab }}" style="flex: 1; min-width: 0; display: flex; flex-direction: column; gap: 6px; cursor: pointer; outline: none; border-radius: 8px; pointer-events: {{ ga.pe }};" style-focus="box-shadow: 0 0 0 3px rgba(43, 127, 228, 0.32);">
+                  <div style="height: 60px; background: #0b1218; border: 1px solid {{ s.border }}; border-radius: 6px; padding: 6px; display: flex; flex-direction: column; gap: 3px; transition: all 160ms cubic-bezier(0.2, 0, 0.2, 1);" style-hover="background: #131c25; border-color: #4d97ea;">
+                    <sc-for list="{{ s.bars }}" as="b" hint-placeholder-count="4">
+                    <div style="flex: {{ b.f }}; width: {{ b.w }}; background: {{ b.bg }}; border: {{ b.bd }}; border-radius: {{ b.r }};"></div>
+                    </sc-for>
+                  </div>
+                  <div style="display: flex; align-items: flex-start; gap: 6px;">
+                    <i class="ph {{ s.icon }}" style="font-size: 12px; color: {{ s.iconColor }}; flex: none; padding-top: 2px;"></i>
+                    <div style="min-width: 0; font: 600 12px/16px 'Open Sans', sans-serif; color: {{ s.color }};">{{ s.label }}</div>
+                  </div>
+                </div>
+                </sc-for>
+              </div>
+              </sc-if>
             </div>
           </div>
           </div>
@@ -991,17 +1037,40 @@
                 <div style="flex: 1; min-width: 0; max-width: 620px; display: flex; flex-direction: column; gap: 8px;">
                   <div style="font: 700 24px/38px 'Open Sans', sans-serif; color: #1a2129;">{{ evTitle }}</div>
                   <div style="font: 400 14px/22px 'Open Sans', sans-serif; color: #5c6975; padding-bottom: 8px;">{{ evSub }}</div>
-                  <div style="min-height: 120px; border: 1px dashed #b6c0ca; border-radius: 8px; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 8px; padding: 20px;">
-                    <i class="ph ph-upload-simple" style="font-size: 20px; color: #5c6975;"></i>
-                    <div style="font: 600 14px/22px 'Open Sans', sans-serif; color: #2b7fe4;">Choose a file</div>
-                    <div style="font: 400 12px/18px 'Open Sans', sans-serif; color: #5c6975;">PDF, JPG or PNG · up to 8 MB</div>
+<!-- The shape 4A picked, drawn: one named slot, a slot for each, or the open zone. One loop —
+     an entry carries any of a label, the big zone, an empty slot and a file already sent. -->
+                  <sc-for list="{{ evSlots }}" as="s" hint-placeholder-count="1">
+                  <div style="display: flex; flex-direction: column; gap: 6px;">
+                    <sc-if value="{{ s.label }}" hint-placeholder-val="{{ true }}">
+                    <div style="display: flex; align-items: baseline; gap: 8px; flex-wrap: wrap;">
+                      <div style="font: 600 14px/22px 'Open Sans', sans-serif; color: #1a2129;">{{ s.label }}</div>
+                      <div style="font: 400 12px/18px 'Open Sans', sans-serif; color: #5c6975;">{{ s.note }}</div>
+                    </div>
+                    </sc-if>
+                    <sc-if value="{{ s.drop }}" hint-placeholder-val="{{ false }}">
+                    <div style="min-height: 120px; border: 1px dashed #b6c0ca; border-radius: 8px; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 8px; padding: 20px;">
+                      <i class="ph ph-upload-simple" style="font-size: 20px; color: #5c6975;"></i>
+                      <div style="font: 600 14px/22px 'Open Sans', sans-serif; color: #2b7fe4;">Choose a file</div>
+                      <div style="font: 400 12px/18px 'Open Sans', sans-serif; color: #5c6975;">PDF, JPG or PNG · up to 8 MB</div>
+                    </div>
+                    </sc-if>
+                    <sc-if value="{{ s.empty }}" hint-placeholder-val="{{ false }}">
+                    <div style="display: flex; align-items: center; gap: 10px; padding: 12px; border: 1px dashed #b6c0ca; border-radius: 8px;">
+                      <i class="ph ph-upload-simple" style="font-size: 16px; color: #5c6975; flex: none;"></i>
+                      <div style="flex: 1; min-width: 0; font: 600 14px/22px 'Open Sans', sans-serif; color: #2b7fe4;">Choose a file</div>
+                      <div style="flex: none; font: 400 12px/18px 'Open Sans', sans-serif; color: #5c6975;">PDF, JPG or PNG</div>
+                    </div>
+                    </sc-if>
+                    <sc-if value="{{ s.file }}" hint-placeholder-val="{{ true }}">
+                    <div style="display: flex; align-items: center; gap: 12px; padding: 12px; background: #f4f6f8; border: 1px solid #dfe5ea; border-radius: 8px;">
+                      <i class="ph ph-file-text" style="font-size: 16px; color: #5c6975; flex: none;"></i>
+                      <div style="flex: 1; min-width: 0; font: 400 14px/22px 'Open Sans', sans-serif; color: #1a2129;">{{ s.file }}</div>
+                      <div style="flex: none; font: 400 12px/18px ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; color: #5c6975;">{{ s.size }}</div>
+                      <i class="ph ph-check-circle" style="font-size: 16px; color: #1d9a5c; flex: none;"></i>
+                    </div>
+                    </sc-if>
                   </div>
-                  <div style="display: flex; align-items: center; gap: 12px; padding: 12px; background: #f4f6f8; border: 1px solid #dfe5ea; border-radius: 8px;">
-                    <i class="ph ph-file-text" style="font-size: 16px; color: #5c6975; flex: none;"></i>
-                    <div style="flex: 1; min-width: 0; font: 400 14px/22px 'Open Sans', sans-serif; color: #1a2129;">order-2471-northgate.pdf</div>
-                    <div style="flex: none; font: 400 12px/18px ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; color: #5c6975;">184 KB</div>
-                    <i class="ph ph-check-circle" style="font-size: 16px; color: #1d9a5c; flex: none;"></i>
-                  </div>
+                  </sc-for>
                   <div style="font: 400 12px/18px 'Open Sans', sans-serif; color: #5c6975; padding-top: 4px;">You have 10 days to send it. We will nudge you once after 3.</div>
                 </div>
                 <div style="width: 300px; flex: none; display: flex; flex-direction: column; gap: 12px;">
@@ -1383,6 +1452,27 @@
               </sc-if>
 
               <div style="padding: 14px 16px; display: flex; flex-direction: column; gap: 8px; border-bottom: 1px solid rgba(242, 118, 43, 0.16);">
+<!-- The card that says pick a shape draws them: the reply is a shape, so the choices are too, and
+     the row underneath is still the way to say something else. -->
+                <sc-if value="{{ o.thumbs }}" hint-placeholder-val="{{ false }}">
+                <div style="display: flex; gap: 12px;">
+                  <sc-for list="{{ o.shapes }}" as="s" hint-placeholder-count="3">
+                  <div data-owed-row="{{ s.idx }}" onClick="{{ s.take }}" tabindex="{{ o.tab }}" style="flex: 1; min-width: 0; display: flex; flex-direction: column; gap: 8px; cursor: pointer; outline: none; border-radius: 8px; pointer-events: {{ o.pe }};" style-focus="box-shadow: 0 0 0 3px rgba(43, 127, 228, 0.32);">
+                    <div style="height: 96px; background: #0d0d0d; border: 1px solid {{ s.border }}; border-radius: 8px; padding: 8px; display: flex; flex-direction: column; gap: 4px; transition: all 160ms cubic-bezier(0.2, 0, 0.2, 1);" style-hover="background: #1d1d1d; border-color: #383838;">
+                      <sc-for list="{{ s.bars }}" as="b" hint-placeholder-count="4">
+                      <div style="flex: {{ b.f }}; width: {{ b.w }}; background: {{ b.bg }}; border: {{ b.bd }}; border-radius: {{ b.r }};"></div>
+                      </sc-for>
+                    </div>
+                    <div style="display: flex; align-items: center; gap: 8px; flex-wrap: wrap;">
+                      <div style="font: 600 12px/16px 'Open Sans', sans-serif; color: {{ s.color }};">{{ s.label }}</div>
+                      <sc-if value="{{ s.badge }}" hint-placeholder-val="{{ false }}">
+                      <div style="display: inline-flex; align-items: center; height: 18px; padding: 0 6px; border-radius: 4px; background: rgba(43, 127, 228, 0.14); border: 1px solid rgba(43, 127, 228, 0.28); color: #4d97ea; font: 400 10px/12px ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; text-transform: uppercase; letter-spacing: 0.14em; flex: none;">I would do this</div>
+                      </sc-if>
+                    </div>
+                  </div>
+                  </sc-for>
+                </div>
+                </sc-if>
                 <sc-for list="{{ o.rows }}" as="w" hint-placeholder-count="3">
                 <div style="display: flex; flex-direction: column; gap: 8px;">
                 <div data-owed-row="{{ w.idx }}" onClick="{{ w.take }}" tabindex="{{ o.tab }}" style="display: flex; align-items: center; gap: 10px; padding: 8px 12px; background: {{ w.bg }}; border: 1px solid {{ w.border }}; border-radius: 8px; cursor: pointer; outline: none; color: {{ w.color }}; pointer-events: {{ o.pe }}; transition: all 160ms cubic-bezier(0.2, 0, 0.2, 1);" style-hover="background: #1d1d1d;" style-focus="box-shadow: 0 0 0 3px rgba(43, 127, 228, 0.32);">
@@ -1425,6 +1515,25 @@
                 <div style="display: grid; grid-template-rows: {{ c.openBox }}; overflow: hidden; transition: grid-template-rows {{ c.bodyDur }} cubic-bezier(0.65, 0, 0.35, 1);">
                   <div style="min-height: 0;">
                     <div style="padding: 14px 16px; display: flex; flex-direction: column; gap: 8px; border-bottom: 1px solid #1c2530;">
+                      <sc-if value="{{ c.thumbs }}" hint-placeholder-val="{{ false }}">
+                      <div style="display: flex; gap: 12px;">
+                        <sc-for list="{{ c.shapes }}" as="s" hint-placeholder-count="3">
+                        <div data-row="{{ s.idx }}" onClick="{{ s.take }}" tabindex="{{ c.bodyTab }}" style="flex: 1; min-width: 0; display: flex; flex-direction: column; gap: 8px; cursor: pointer; outline: none; border-radius: 8px;" style-focus="box-shadow: 0 0 0 3px rgba(43, 127, 228, 0.32);">
+                          <div style="height: 96px; background: #0e161d; border: 1px solid {{ s.border }}; border-radius: 8px; padding: 8px; display: flex; flex-direction: column; gap: 4px; transition: all 160ms cubic-bezier(0.2, 0, 0.2, 1);" style-hover="background: #161f28;">
+                            <sc-for list="{{ s.bars }}" as="b" hint-placeholder-count="4">
+                            <div style="flex: {{ b.f }}; width: {{ b.w }}; background: {{ b.bg }}; border: {{ b.bd }}; border-radius: {{ b.r }};"></div>
+                            </sc-for>
+                          </div>
+                          <div style="display: flex; align-items: center; gap: 8px; flex-wrap: wrap;">
+                            <div style="font: 600 12px/16px 'Open Sans', sans-serif; color: {{ s.color }};">{{ s.label }}</div>
+                            <sc-if value="{{ s.tag }}" hint-placeholder-val="{{ false }}">
+                            <div style="display: inline-flex; align-items: center; height: 18px; padding: 0 6px; border-radius: 4px; background: #131c24; border: 1px solid #26313d; color: #8b98a5; font: 400 10px/12px ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; text-transform: uppercase; letter-spacing: 0.14em; flex: none;">proposed</div>
+                            </sc-if>
+                          </div>
+                        </div>
+                        </sc-for>
+                      </div>
+                      </sc-if>
                       <sc-for list="{{ c.rows }}" as="r" hint-placeholder-count="3">
                       <div style="display: flex; flex-direction: column; gap: 8px;">
                       <div data-row="{{ r.idx }}" onClick="{{ r.take }}" tabindex="{{ c.bodyTab }}" style="display: flex; align-items: center; gap: 10px; padding: 8px 12px; background: {{ r.bg }}; border: 1px solid {{ r.border }}; border-radius: 8px; cursor: pointer; outline: none; color: {{ r.color }}; transition: background 160ms cubic-bezier(0.2, 0, 0.2, 1);" style-hover="background: #1c2632;" style-focus="box-shadow: 0 0 0 3px rgba(43, 127, 228, 0.32);">
@@ -1482,6 +1591,25 @@
               <div style="display: grid; grid-template-rows: {{ c.openBox }}; overflow: hidden; transition: grid-template-rows {{ c.bodyDur }} cubic-bezier(0.65, 0, 0.35, 1);">
                 <div style="min-height: 0;">
                   <div style="padding: 14px 16px; display: flex; flex-direction: column; gap: 8px; border-bottom: 1px solid #1c2530;">
+                    <sc-if value="{{ c.thumbs }}" hint-placeholder-val="{{ false }}">
+                    <div style="display: flex; gap: 12px;">
+                      <sc-for list="{{ c.shapes }}" as="s" hint-placeholder-count="3">
+                      <div data-row="{{ s.idx }}" onClick="{{ s.take }}" tabindex="{{ c.bodyTab }}" style="flex: 1; min-width: 0; display: flex; flex-direction: column; gap: 8px; cursor: pointer; outline: none; border-radius: 8px;" style-focus="box-shadow: 0 0 0 3px rgba(43, 127, 228, 0.32);">
+                        <div style="height: 96px; background: #0e161d; border: 1px solid {{ s.border }}; border-radius: 8px; padding: 8px; display: flex; flex-direction: column; gap: 4px; transition: all 160ms cubic-bezier(0.2, 0, 0.2, 1);" style-hover="background: #161f28;">
+                          <sc-for list="{{ s.bars }}" as="b" hint-placeholder-count="4">
+                          <div style="flex: {{ b.f }}; width: {{ b.w }}; background: {{ b.bg }}; border: {{ b.bd }}; border-radius: {{ b.r }};"></div>
+                          </sc-for>
+                        </div>
+                        <div style="display: flex; align-items: center; gap: 8px; flex-wrap: wrap;">
+                          <div style="font: 600 12px/16px 'Open Sans', sans-serif; color: {{ s.color }};">{{ s.label }}</div>
+                          <sc-if value="{{ s.tag }}" hint-placeholder-val="{{ false }}">
+                          <div style="display: inline-flex; align-items: center; height: 18px; padding: 0 6px; border-radius: 4px; background: #131c24; border: 1px solid #26313d; color: #8b98a5; font: 400 10px/12px ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; text-transform: uppercase; letter-spacing: 0.14em; flex: none;">proposed</div>
+                          </sc-if>
+                        </div>
+                      </div>
+                      </sc-for>
+                    </div>
+                    </sc-if>
                     <sc-for list="{{ c.rows }}" as="r" hint-placeholder-count="3">
                     <div style="display: flex; flex-direction: column; gap: 8px;">
                     <div data-row="{{ r.idx }}" onClick="{{ r.take }}" tabindex="{{ c.bodyTab }}" style="display: flex; align-items: center; gap: 10px; padding: 8px 12px; background: {{ r.bg }}; border: 1px solid {{ r.border }}; border-radius: 8px; cursor: pointer; outline: none; color: {{ r.color }}; transition: background 160ms cubic-bezier(0.2, 0, 0.2, 1);" style-hover="background: #1c2632;" style-focus="box-shadow: 0 0 0 3px rgba(43, 127, 228, 0.32);">
@@ -1941,14 +2069,28 @@ class Component extends DCLogic {
       ]
     },
     '4A': {
-      kind: 'question', subject: 'What we ask the customer for',
-      headline: 'Which document do we ask for?', affects: 'affects step 5',
+      kind: 'question', subject: 'What we ask the customer for', shape: true,
+      headline: 'How should the screen ask for the evidence?', affects: 'affects step 5',
       proposal: 0,
-      because: 'Each reason has one document that settles it. Asking for the rest is work the customer does for nothing, and a reviewer then has to read it.',
+      because: 'Each reason has one document that settles it, so I would ask for that one by name. Asking wider is work the customer does for nothing, and a reviewer then has to read it. Pick the shape and I will draw it.',
       source: 'Scheme rules §6.4',
       rows: [
-        { label: 'Only the one the reason needs', answer: 'only the one the reason needs' },
-        { label: 'Everything they have, and we sort it', answer: 'everything they have, and we sort it' },
+        // Drawn at two heights, so every bar may shrink and what carries the shape is the flex one:
+        // one short slot with the screen empty under it, three of them, or a zone that takes it all.
+        { label: 'One named slot', answer: 'one named slot, for the document the reason needs',
+          bars: [{ f: '0 1 5px', w: '55%', bg: 'line' }, { f: '0 1 3px', w: '26%', bg: 'dim' },
+                 { f: '0 1 24px', w: '100%', bg: 'fill', bd: 'solid', r: '3px' },
+                 { f: '1 1 0', w: '0' },
+                 { f: '0 1 7px', w: '34%', bg: 'dim', r: '3px' }] },
+        { label: 'A slot for each', answer: 'a slot for each of the three they might have',
+          bars: [{ f: '0 1 5px', w: '55%', bg: 'line' },
+                 { f: '1 1 0', w: '100%', bg: 'fill', r: '3px' }, { f: '1 1 0', w: '100%', bg: 'fill', r: '3px' },
+                 { f: '1 1 0', w: '100%', bg: 'fill', r: '3px' },
+                 { f: '0 1 7px', w: '34%', bg: 'dim', r: '3px' }] },
+        { label: 'One drop zone', answer: 'one open drop zone, and we sort whatever arrives',
+          bars: [{ f: '0 1 5px', w: '55%', bg: 'line' },
+                 { f: '1 1 0', w: '100%', bg: 'fill', bd: 'dashed', r: '3px' },
+                 { f: '0 1 7px', w: '34%', bg: 'dim', r: '3px' }] },
         { label: 'Something else — I will tell you' }
       ]
     },
@@ -2423,10 +2565,24 @@ class Component extends DCLogic {
       keys: e => { if (e.key === 'Enter' && ap.pe === 'auto') ap.act(e); }
     });
 
+    // A drawn row's bars name a tone, never a colour: the same list is drawn on the wash's greys
+    // and on the chat's blue-greys, and warming one into the other is what goes mustard.
+    const GROUND = {
+      chat: { line: '#4a5764', dim: '#33404d', fill: '#18212a',
+              solid: '1px solid #33404d', dashed: '1px dashed #4a5764' },
+      wash: { line: '#494949', dim: '#383838', fill: '#1d1d1d',
+              solid: '1px solid #383838', dashed: '1px dashed #494949' }
+    };
+    const barsOn = (r, g) => (r.bars || []).map(b => ({
+      f: b.f, w: b.w, bg: GROUND[g][b.bg] || 'transparent',
+      bd: b.bd ? GROUND[g][b.bd] : 'none', r: b.r || '2px'
+    }));
+
     const washRows = (k, ap) => CARDS[k].rows.map((r, i) => {
       const taken = i === S.cards[k].sel;
       return {
         label: r.label, idx: String(i), take: choose(k, i),
+        bars: barsOn(r, 'wash'),
         bg: taken ? '#181818' : '#141414',
         border: taken ? '#4d97ea' : '#2a2a2a',
         color: taken ? '#f5f9fc' : '#c3cdd7',
@@ -2460,7 +2616,11 @@ class Component extends DCLogic {
         source: CARDS[k].source,
         affects: CARDS[k].affects,
         drawing: !!CARDS[k].drawing && !writing,
-        rows: washRows(k, ap),
+        // A shape card draws the three it offers and keeps only the written-in row as a row: the
+        // two lists are exclusive, and an empty sc-for would still leave its wrapper's padding.
+        thumbs: !!CARDS[k].shape,
+        shapes: CARDS[k].shape ? washRows(k, ap).filter(r => r.bars.length) : [],
+        rows: CARDS[k].shape ? washRows(k, ap).filter(r => !r.bars.length) : washRows(k, ap),
         apply: ap
       };
     };
@@ -2492,24 +2652,31 @@ class Component extends DCLogic {
         source: card.source,
         // The row chooses and `Apply` commits: the same two acts as answering one.
         apply: ap,
-        rows: card.rows.map((r, i) => {
-          const taken = i === S.cards[k].sel;
-          return {
-            label: r.label, idx: String(i), take: choose(k, i),
-            // The cool ladder, not the wash's neutral: this card never goes orange.
-            bg: taken ? '#161f28' : '#131c24',
-            border: taken ? '#4d97ea' : '#26313d',
-            color: taken ? '#f5f9fc' : '#c3cdd7',
-            ring: taken ? '#4d97ea' : '#8b98a5',
-            dot: taken ? '#4d97ea' : 'transparent',
-            // A flat grey tag once taken, and only on the row I proposed.
-            tag: taken && i === card.proposal,
-            write: taken && writes(k, i),
-            field: writeField(k, ap)
-          };
-        })
+        // Changing a shape means seeing the shapes, so the disclosure draws them too — on the cool
+        // ladder this card already wears, never the wash's greys.
+        thumbs: !!card.shape,
+        shapes: !card.shape ? [] : settledRows(k, ap).filter(r => r.bars.length),
+        rows: card.shape ? settledRows(k, ap).filter(r => !r.bars.length) : settledRows(k, ap)
       };
     };
+
+    const settledRows = (k, ap) => CARDS[k].rows.map((r, i) => {
+      const taken = i === S.cards[k].sel;
+      return {
+        label: r.label, idx: String(i), take: choose(k, i),
+        bars: barsOn(r, 'chat'),
+        // The cool ladder, not the wash's neutral: this card never goes orange.
+        bg: taken ? '#161f28' : '#131c24',
+        border: taken ? '#4d97ea' : '#26313d',
+        color: taken ? '#f5f9fc' : '#c3cdd7',
+        ring: taken ? '#4d97ea' : '#8b98a5',
+        dot: taken ? '#4d97ea' : 'transparent',
+        // A flat grey tag once taken, and only on the row I proposed.
+        tag: taken && i === CARDS[k].proposal,
+        write: taken && writes(k, i),
+        field: writeField(k, ap)
+      };
+    });
 
     // ── The ledger ─────────────────────────────────────────────────────────
     // Every count on the screen comes from here. Numerals in the chips, words in the sentences.
@@ -2715,6 +2882,27 @@ class Component extends DCLogic {
     // interrupt the walk is on the screen. Nothing to stage once the build has started.
     const iStage = !S.iSent ? 'brief'
       : ((S.iPlanned && !S.argOn && !S.buildQueue.length) ? 'drop' : '');
+
+    // ── The walk's rows ────────────────────────────────────────────────────
+    // The rows the chat offers: the written-in one is not among them — there is nowhere to type in
+    // a message. Taking one settles the card wherever it stands and the walk moves on a beat later.
+    const gaAll = !gAsk ? [] : CARDS[gAsk].rows
+      .map((r, i) => ({ r, i })).filter(x => x.r.answer !== undefined);
+    const gaTake = i => e => {
+      const el = e && e.currentTarget;
+      if (el && el.blur) el.blur();
+      beginSettle(gAsk, flyFrom(gAsk));
+      setCard(gAsk, { sel: i, open: false, why: false, pick: i, mine: true, written: '' });
+      this.setState({ gThink: true });
+      this.timers.push(setTimeout(() => {
+        // Fresh state: the closure's S predates the pick. None left fires the build.
+        const p = this.state;
+        this.setState({ gThink: false });
+        if (GUIDED.some(k => p.cards[k].pick === -1)) return;
+        const ns = NS.filter(n => !p.built[n] && !p.building[n]);
+        if (ns.length) startBuild(ns, 'That was the last one — building ' + nameSteps(ns) + ' now.');
+      }, 1400));
+    };
 
     return {
       rows: rows,
@@ -3085,28 +3273,27 @@ class Component extends DCLogic {
       gaWhy: gAsk ? CARDS[gAsk].because : '',
       gaSrc: gAsk ? CARDS[gAsk].source : '',
       gaSrcDisp: (gAsk && CARDS[gAsk].source) ? 'inline-flex' : 'none',
-      gaRows: !gAsk ? [] : CARDS[gAsk].rows.map((r, i) => ({ r, i }))
-        .filter(x => x.r.answer !== undefined)
-        .map(x => ({
-          label: x.r.label,
-          icon: x.i === CARDS[gAsk].proposal ? 'ph-check' : 'ph-circle',
-          iconColor: x.i === CARDS[gAsk].proposal ? '#4d97ea' : '#8b98a5',
-          act: e => {
-            const el = e && e.currentTarget;
-            if (el && el.blur) el.blur();
-            beginSettle(gAsk, flyFrom(gAsk));
-            setCard(gAsk, { sel: x.i, open: false, why: false, pick: x.i, mine: true, written: '' });
-            this.setState({ gThink: true });
-            this.timers.push(setTimeout(() => {
-              // Fresh state: the closure's S predates the pick. None left fires the build.
-              const p = this.state;
-              this.setState({ gThink: false });
-              if (GUIDED.some(k => p.cards[k].pick === -1)) return;
-              const ns = NS.filter(n => !p.built[n] && !p.building[n]);
-              if (ns.length) startBuild(ns, 'That was the last one — building ' + nameSteps(ns) + ' now.');
-            }, 1400));
-          }
-        })),
+      // A shape card's rows are drawn, not written, so the two lists are exclusive — one of them is
+      // always empty and each is gated on its own flag: an empty sc-for still leaves its wrapper.
+      gaPlain: !!gAsk && !CARDS[gAsk].shape,
+      gaShaped: !!gAsk && !!CARDS[gAsk].shape,
+      gaRows: (!gAsk || CARDS[gAsk].shape) ? [] : gaAll.map(x => ({
+        label: x.r.label,
+        icon: x.i === CARDS[gAsk].proposal ? 'ph-check' : 'ph-circle',
+        iconColor: x.i === CARDS[gAsk].proposal ? '#4d97ea' : '#8b98a5',
+        act: gaTake(x.i)
+      })),
+      // The wireframes: one bar list per option, drawn at 96 in the chat and 60 on the rail — the
+      // bars that carry the shape are flex, so the same list draws at either height.
+      gaShapes: (!gAsk || !CARDS[gAsk].shape) ? [] : gaAll.map(x => ({
+        label: x.r.label,
+        bars: barsOn(x.r, 'chat'),
+        icon: x.i === CARDS[gAsk].proposal ? 'ph-check' : 'ph-circle',
+        iconColor: x.i === CARDS[gAsk].proposal ? '#4d97ea' : '#8b98a5',
+        border: x.i === CARDS[gAsk].proposal ? '#33404d' : '#26313d',
+        color: x.i === CARDS[gAsk].proposal ? '#f5f9fc' : '#c3cdd7',
+        act: gaTake(x.i)
+      })),
       // One text element interpolated, per the rule below. The composer only stages the one
       // scripted request, and only while a run is up with nothing already asked.
       compText: S.draft ? 'I have seen it now — drop the check.' : 'Reply to the agent',
@@ -3306,7 +3493,9 @@ class Component extends DCLogic {
       fullGap: ranLive ? '12px' : '0px',
       ranReach: 'ran 09:46 · reached ' + reached + ' of 5',
       ranText: reached === 5
-        ? 'I ran the whole journey, all five steps. The merchant check went out while the customer was still typing and came back in three seconds; the receipt was the only thing we asked for, and it lands with a reference at the end.'
+        ? 'I ran the whole journey, all five steps. The merchant check went out while the customer was still typing and came back in three seconds; '
+          + (S.cards['4A'].pick >= 1 ? 'we asked for whatever they had' : 'the order confirmation was the only thing we asked for')
+          + ', and it lands with a reference at the end.'
         : 'I ran what exists. Both built steps, then the check — which went out while the customer was still typing and came back in three seconds. It stops there.',
       runLive: S.live,
       runLoading: S.loading,
@@ -3396,10 +3585,22 @@ class Component extends DCLogic {
       merchNext: 'If it had gone quiet instead, ' + (S.cards['3D'].pick === 0
         ? 'we would ask you for a receipt anyway.'
         : 'we would carry on without it and tell the reviewer why.'),
-      evTitle: S.cards['4A'].pick === 1 ? 'Send us what you have' : 'Send us one thing',
-      evSub: S.cards['4A'].pick === 1
+      // The screen 4A drew. Unanswered reads as the shape I proposed — the same way every other
+      // decision the run reads back does.
+      evTitle: S.cards['4A'].pick === 0 || S.cards['4A'].pick === -1
+        ? 'Send us one thing' : 'Send us what you have',
+      evSub: S.cards['4A'].pick === 2
         ? 'Anything about this order — receipts, emails, screenshots. We will work out which parts matter.'
-        : 'Your reason is goods not received, so the order confirmation from NORTHGATE SUPPLY CO settles it. Nothing else.',
+        : (S.cards['4A'].pick === 1
+          ? 'Any of these three. The order confirmation is the one that settles it — the other two only help.'
+          : 'Your reason is goods not received, so the order confirmation from NORTHGATE SUPPLY CO settles it. Nothing else.'),
+      evSlots: S.cards['4A'].pick === 2
+        ? [{ drop: true, file: 'order-2471-northgate.pdf', size: '184 KB' }]
+        : (S.cards['4A'].pick === 1
+          ? [{ label: 'Order confirmation', note: 'the one your reason needs', file: 'order-2471-northgate.pdf', size: '184 KB' },
+             { label: 'Receipt or invoice', note: 'if you have it', empty: true },
+             { label: 'Anything else', note: 'emails or screenshots', empty: true }]
+          : [{ label: 'Order confirmation', note: 'from NORTHGATE SUPPLY CO', file: 'order-2471-northgate.pdf', size: '184 KB' }]),
       evKept: S.cards['4C'].pick === 0
         ? 'Kept with the dispute for as long as it exists.'
         : 'Kept only until the scheme has it, then dropped.',
