@@ -40,7 +40,7 @@
 <!-- One design at {{ frameW }} x {{ frameH }}, rendered {{ z }} times bigger. Never vw/vh below this. -->
 <div style="background: #000000; padding: 0; zoom: {{ z }}; display: flex; flex-direction: column; font-family: 'Open Sans', -apple-system, sans-serif; -webkit-font-smoothing: antialiased;">
 
-  <div data-screen-label="01" style="width: {{ frameW }}; height: {{ frameH }}; min-width: 1440px; min-height: 900px; background: #0b1218; overflow: hidden; display: flex; flex-direction: column; color: #f5f9fc;">
+  <div data-screen-label="01" style="position: relative; width: {{ frameW }}; height: {{ frameH }}; min-width: 1440px; min-height: 900px; background: #0b1218; overflow: hidden; display: flex; flex-direction: column; color: #f5f9fc;">
 
     <div style="flex: none;">
       <div style="height: 48px; background: #101820; border-bottom: 1px solid #18212a; display: flex; align-items: center; gap: 16px; padding: 0 16px;">
@@ -53,6 +53,9 @@
           <i class="ph ph-arrow-left" style="font-size: 14px;"></i>
         </div>
 
+<!-- In the intro the journey has no name and no views yet: the whole group arrives with the plan. -->
+        <div style="display: grid; grid-template-columns: {{ hdCols }}; min-width: 0; transition: grid-template-columns {{ moveDur }} {{ moveEase }};">
+        <div style="overflow: hidden; min-width: 0; white-space: nowrap; opacity: {{ hdOp }}; transition: opacity {{ crumbOpDur }} {{ moveEase }} {{ crumbOpDl }};">
         <div style="display: flex; align-items: center; gap: 8px; font: 400 12px/16px 'Open Sans', sans-serif; min-width: 0;">
           <span style="color: #8b98a5;">Card payment dispute</span>
 
@@ -70,11 +73,15 @@
             </span>
           </span>
         </div>
+        </div>
+        </div>
         <div style="margin-left: auto; display: flex; align-items: center; gap: 12px;">
 <!-- 12px gap lives inside the wrapper so it collapses with the zero-width cell. -->
           <div style="display: grid; grid-template-columns: {{ runCols }}; transition: grid-template-columns {{ moveDur }} {{ moveEase }};">
             <div style="overflow: hidden; min-width: 0; white-space: nowrap; font: 400 12px/16px 'Open Sans', sans-serif; color: #c3cdd7; opacity: {{ runCrumbOp }}; transition: opacity {{ crumbOpDur }} {{ moveEase }} {{ runCrumbOpDl }};">{{ ranReach }}</div>
           </div>
+<!-- display, not a fold: the buttons return on the intro's cut, when the whole view swaps anyway. -->
+          <div style="display: {{ hdBtns }}; align-items: center; gap: 12px;">
 <!-- No count in the label, or the button animates its own width. Withdrawn it says nothing. -->
           <div onClick="{{ buildPlan.act }}" tabindex="{{ buildPlan.tab }}" title="{{ buildPlan.title }}" style="display: inline-flex; align-items: center; gap: 6px; height: 28px; padding: 0 8px; border-radius: 8px; border: 1px solid {{ buildPlan.border }}; background: {{ buildPlan.bg }}; color: {{ buildPlan.color }}; font: 600 12px/16px 'Open Sans', sans-serif; cursor: {{ buildPlan.cursor }}; outline: none; pointer-events: {{ buildPlan.pe }}; transition: all 160ms cubic-bezier(0.2, 0, 0.2, 1);" style-hover="background: #4d97ea; border-color: #4d97ea;" style-focus="box-shadow: 0 0 0 3px rgba(43, 127, 228, 0.32);">
             <i class="ph ph-hammer" style="font-size: 12px;"></i>Build the plan
@@ -86,6 +93,7 @@
               <i class="ph {{ runIcon }}" style="font-size: 12px;"></i>{{ runLabel }}
             </div>
           </div>
+          </div>
           <div style="width: 26px; height: 26px; border-radius: 99px; border: 1px solid #26313d; background: #161f28; display: inline-flex; align-items: center; justify-content: center; color: #c3cdd7; cursor: pointer; flex: none; transition: background 160ms cubic-bezier(0.2, 0, 0.2, 1);" style-hover="background: #1c2632;"><i class="ph ph-dots-three-vertical" style="font-size: 12px;"></i></div>
           <div style="width: 1px; height: 20px; background: #26313d; flex: none;"></div>
           <i class="ph ph-bell" style="font-size: 16px; color: #7b8896; cursor: pointer;"></i>
@@ -95,7 +103,104 @@
       </div>
     </div>
 
-    <div style="flex: 1; display: flex; min-height: 0;">
+<!-- ── The opening chat ── Before anything exists there is only the conversation: full screen,
+     the composer stages the one scripted brief, and the plan arrives as a card in the top right.
+     An overlay over the mounted body, never an sc-if — leaving is a 200ms dissolve onto the view
+     asked for, and the machinery underneath stays whole. -->
+    <div style="position: absolute; top: 48px; left: 0; right: 0; bottom: 0; z-index: 5; background: #0b1218; display: flex; flex-direction: column; align-items: center; visibility: {{ introVis }}; opacity: {{ introOp }}; transition: opacity 200ms cubic-bezier(0.2, 0, 0.2, 1), visibility 0s linear {{ introVisDl }};">
+
+<!-- The greeting holds the empty middle and gives it up to the conversation. pointer-events
+     none: the composer lives under this overlay's glass. -->
+      <div style="position: absolute; inset: 0; display: grid; place-items: center; pointer-events: none; opacity: {{ grOp }}; visibility: {{ grVis }}; transition: opacity 200ms cubic-bezier(0.2, 0, 0.2, 1), visibility 0s linear {{ grVisDl }};">
+        <div style="display: flex; flex-direction: column; align-items: center; gap: 8px; text-align: center; padding-bottom: 140px;">
+          <img src="assets/flowx-mark-white.svg" alt="FlowX" style="height: 32px; width: auto; margin-bottom: 8px;" />
+          <div style="font: 700 24px/38px 'Open Sans', sans-serif; color: #f5f9fc;">What should we build?</div>
+          <div style="font: 400 14px/24px 'Open Sans', sans-serif; color: #8b98a5; max-width: 440px; text-wrap: pretty;">Describe the journey in your own words — I will draw the plan and build it with you.</div>
+        </div>
+      </div>
+
+      <div style="width: 640px; flex: 1; min-height: 0; overflow: hidden; padding-top: 48px; display: flex; flex-direction: column; gap: 24px;">
+        <div style="display: grid; grid-template-rows: {{ im.rows }}; margin-top: {{ im.mt }}; transition: grid-template-rows {{ moveDur }} {{ moveEase }}, margin-top {{ moveDur }} {{ moveEase }};">
+        <div style="overflow: hidden; min-height: 0; opacity: {{ im.op }}; transition: opacity {{ im.opDur }} {{ moveEase }} {{ im.opDl }};">
+        <div style="display: flex; gap: 12px;">
+          <div style="width: 22px; height: 22px; flex: none; border-radius: 99px; background: #2b7fe4; color: #ffffff; display: grid; place-items: center; font: 700 10px/12px 'Open Sans', sans-serif;">LC</div>
+          <div style="flex: 1; min-width: 0; display: flex; flex-direction: column; gap: 4px;">
+            <div style="font: 600 12px/16px 'Open Sans', sans-serif; color: #8b98a5;">You <span style="font-weight: 400;">· 09:29</span></div>
+            <div style="font: 400 14px/24px 'Open Sans', sans-serif; color: #c3cdd7; text-wrap: pretty;">People should be able to dispute a card payment from the app. Anything big gets looked at by a person.</div>
+          </div>
+        </div>
+        </div>
+        </div>
+
+        <div style="display: grid; grid-template-rows: {{ it.rows }}; margin-top: {{ it.mt }}; transition: grid-template-rows {{ moveDur }} {{ moveEase }}, margin-top {{ moveDur }} {{ moveEase }};">
+        <div style="overflow: hidden; min-height: 0; opacity: {{ it.op }}; transition: opacity {{ it.opDur }} {{ moveEase }} {{ it.opDl }};">
+        <div style="display: flex; gap: 12px;">
+          <div style="width: 22px; height: 22px; flex: none; border-radius: 99px; background: rgba(139, 152, 165, 0.16); display: grid; place-items: center;"><img src="assets/flowx-mark-white.svg" alt="Agent" style="height: 11px; width: auto; flex: none;" /></div>
+          <div style="display: flex; align-items: center; gap: 4px; height: 22px;">
+            <div style="width: 5px; height: 5px; border-radius: 99px; background: #8b98a5; animation: ask-think 1200ms ease-in-out infinite;"></div>
+            <div style="width: 5px; height: 5px; border-radius: 99px; background: #8b98a5; animation: ask-think 1200ms ease-in-out 150ms infinite;"></div>
+            <div style="width: 5px; height: 5px; border-radius: 99px; background: #8b98a5; animation: ask-think 1200ms ease-in-out 300ms infinite;"></div>
+          </div>
+        </div>
+        </div>
+        </div>
+
+        <div style="display: grid; grid-template-rows: {{ ir.rows }}; margin-top: {{ ir.mt }}; transition: grid-template-rows {{ moveDur }} {{ moveEase }}, margin-top {{ moveDur }} {{ moveEase }};">
+        <div style="overflow: hidden; min-height: 0; opacity: {{ ir.op }}; transition: opacity {{ ir.opDur }} {{ moveEase }} {{ ir.opDl }};">
+        <div style="display: flex; gap: 12px;">
+          <div style="width: 22px; height: 22px; flex: none; border-radius: 99px; background: rgba(139, 152, 165, 0.16); display: grid; place-items: center;"><img src="assets/flowx-mark-white.svg" alt="Agent" style="height: 11px; width: auto; flex: none;" /></div>
+          <div style="flex: 1; min-width: 0; display: flex; flex-direction: column; gap: 4px;">
+            <div style="font: 600 12px/16px 'Open Sans', sans-serif; color: #8b98a5;">Agent <span style="font-weight: 400;">· 09:31</span></div>
+            <div style="font: 400 14px/24px 'Open Sans', sans-serif; color: #f5f9fc; text-wrap: pretty;">Five steps, on the right. I built the two with only one sensible shape.</div>
+            <div style="padding-top: 4px;">
+              <div onClick="{{ guidedAct }}" tabindex="{{ ir.tab }}" style="display: inline-flex; align-items: center; gap: 8px; height: 28px; padding: 0 12px; border-radius: 8px; border: 1px solid #26313d; background: #101820; color: #f5f9fc; font: 600 12px/16px 'Open Sans', sans-serif; cursor: pointer; outline: none; pointer-events: {{ ir.pe }}; transition: all 160ms cubic-bezier(0.2, 0, 0.2, 1);" style-hover="border-color: #4d97ea; background: #161f28;" style-focus="box-shadow: 0 0 0 3px rgba(43, 127, 228, 0.32);">
+                <i class="ph ph-chats" style="font-size: 12px; color: #4d97ea; flex: none;"></i><span style="white-space: nowrap;">Take me through it, one at a time</span>
+              </div>
+            </div>
+          </div>
+        </div>
+        </div>
+        </div>
+      </div>
+
+      <div style="width: 640px; flex: none; padding: 16px 0 24px;">
+        <div onClick="{{ iCompAct }}" style="display: flex; align-items: center; gap: 12px; padding: 14px 16px; background: #101820; border: 1px solid #26313d; border-radius: 12px; cursor: text; transition: border-color 160ms cubic-bezier(0.2, 0, 0.2, 1);" style-hover="border-color: #3a4653;">
+          <div style="flex: 1; min-width: 0; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; font: 400 14px/24px 'Open Sans', sans-serif; color: {{ iCompColor }};">{{ iCompText }}</div>
+          <div onClick="{{ iSendAct }}" tabindex="{{ iSendTab }}" style="font: 600 12px/16px 'Open Sans', sans-serif; color: {{ iSendColor }}; flex: none; cursor: {{ iSendCursor }}; pointer-events: {{ iSendPE }}; outline: none; transition: color 160ms cubic-bezier(0.2, 0, 0.2, 1);" style-hover="color: #4d97ea;" style-focus="box-shadow: 0 0 0 3px rgba(43, 127, 228, 0.32);">Send</div>
+        </div>
+      </div>
+
+<!-- The plan, arrived: a card out of flow, so it travels in on its own opacity — never a fold. -->
+      <div style="position: absolute; top: 24px; right: 24px; width: 320px; border: 1px solid #26313d; border-radius: 12px; background: #101820; padding: 16px; display: flex; flex-direction: column; gap: 12px; box-shadow: 0 12px 32px rgba(0, 0, 0, 0.4); opacity: {{ iw.op }}; transform: {{ iw.tr }}; visibility: {{ iw.vis }}; transition: opacity 300ms {{ moveEase }} {{ iw.dl }}, transform 300ms {{ moveEase }} {{ iw.dl }}, visibility 0s linear {{ iw.visDl }};">
+        <div style="display: flex; align-items: center; justify-content: space-between; gap: 12px;">
+          <div style="font: 700 12px/16px 'Open Sans', sans-serif; color: #f5f9fc;">The plan</div>
+          <div style="display: flex; align-items: center; gap: 3px;">
+            <sc-for list="{{ dashes }}" as="d" hint-placeholder-count="5">
+            <div style="width: 14px; height: 3px; border-radius: 99px; background: {{ d.bg }}; animation: {{ d.anim }};"></div>
+            </sc-for>
+          </div>
+        </div>
+        <div style="display: flex; flex-direction: column; gap: 8px;">
+          <sc-for list="{{ rows }}" as="r" hint-placeholder-count="5">
+          <div style="display: flex; align-items: center; gap: 8px; min-width: 0;">
+            <div style="width: 14px; height: 14px; flex: none; border-radius: 99px; background: {{ r.dotBg }}; border: {{ r.dotBorder }}; display: grid; place-items: center;"><i class="ph {{ r.dotGlyph }}" style="font-size: 9px; color: {{ r.dotGlyphColor }};"></i></div>
+            <div style="min-width: 0; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; font: 400 12px/16px 'Open Sans', sans-serif; color: #c3cdd7;">{{ r.crumb }}</div>
+          </div>
+          </sc-for>
+        </div>
+        <div style="font: 400 11px/16px 'Open Sans', sans-serif; color: #8b98a5;">{{ ledBuilt }}{{ ledArg }} · {{ ledQ }}</div>
+        <div style="display: flex; gap: 8px;">
+          <div onClick="{{ iPlanAct }}" tabindex="{{ iw.tab }}" title="Open the plan" style="flex: 1; display: inline-flex; align-items: center; justify-content: center; gap: 6px; height: 28px; border-radius: 8px; border: 1px solid #26313d; background: #0e161d; color: #f5f9fc; font: 600 12px/16px 'Open Sans', sans-serif; cursor: pointer; outline: none; pointer-events: {{ iw.pe }}; transition: all 160ms cubic-bezier(0.2, 0, 0.2, 1);" style-hover="border-color: #4d97ea; background: #161f28;" style-focus="box-shadow: 0 0 0 3px rgba(43, 127, 228, 0.32);">
+            <i class="ph ph-list-dashes" style="font-size: 12px;"></i>Open the plan
+          </div>
+          <div onClick="{{ testAct }}" tabindex="{{ iw.tab }}" title="Run the two built steps" style="flex: 1; display: inline-flex; align-items: center; justify-content: center; gap: 6px; height: 28px; border-radius: 8px; background: #1d9a5c; color: #ffffff; font: 600 12px/16px 'Open Sans', sans-serif; cursor: pointer; outline: none; pointer-events: {{ iw.pe }}; transition: background 160ms cubic-bezier(0.2, 0, 0.2, 1);" style-hover="filter: brightness(1.15);" style-focus="box-shadow: 0 0 0 3px rgba(46, 168, 106, 0.32);">
+            <i class="ph ph-play" style="font-size: 12px;"></i>Test what exists
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div style="flex: 1; display: flex; min-height: 0; visibility: {{ bodyVis }};">
 
 <!-- 360 in every state, run included. One copy — hand-kept duplicates drifted twice. -->
       <div style="width: 360px; flex: none; background: #0b1218; border-right: 1px solid #18212a; display: flex; flex-direction: column; min-height: 0; overflow: hidden;">
@@ -1273,10 +1378,20 @@ class Component extends DCLogic {
     const gq = gBuild ? 6 : Math.min(5, Math.max(1, parseInt(q.get('q'), 10) || 1));
     const want = parseInt(q.get('step'), 10);
     const step = (!run && want >= 1 && want <= 5) ? want : (settling ? 3 : 0);
+    // The start is the conversation alone: no query is the empty chat, ?plan=1 is the plan view
+    // it used to open on. ?sent=1 holds the thinking beat, ?planned=1 the plan's arrival.
+    const plan = q.get('plan') === '1';
+    const planned = q.get('planned') === '1';
+    const sent = planned || q.get('sent') === '1';
     return {
       step,
       ask,
       guided,
+      intro: !run && !settling && !building && step === 0 && !plan,
+      // The intro's three beats: the brief staged in the composer, sent, and the plan landed.
+      iDraft: false,
+      iSent: sent,
+      iPlanned: planned,
       // The offer stands until anything else claims the chat; taking or waving it off folds it.
       gOffer: !run && !settling && !building,
       // The beat between an answer landing and the next ask arriving.
@@ -1644,6 +1759,7 @@ class Component extends DCLogic {
           [k, { ...cards[k], open: false, why: false }])) });
         return;
       }
+      if (this.state.iDraft) { this.setState({ iDraft: false }); return; }
       if (this.state.draft) { this.setState({ draft: false }); return; }
       if (this.state.settleRun) { this.setState({ settleRun: false }); return; }
       if (this.state.run && (this.state.live || this.state.loading)) { this.setState({ live: false, loading: false }); return; }
@@ -2212,6 +2328,7 @@ class Component extends DCLogic {
       return {
         n: n,
         title: s.title,
+        crumb: s.crumb,
         desc: sub(s.desc),
         pin: s.pin,
         openMe: leave({ step: n, last: n, cards: allShut() }),
@@ -2392,7 +2509,7 @@ class Component extends DCLogic {
       testAct: e => {
         const el = e && e.currentTarget;
         if (el && el.blur) el.blur();
-        this.setState({ run: true, live: false, loading: true, loadAt: 0, at: 1, step: 0, cards: allShut() },
+        this.setState({ intro: false, run: true, live: false, loading: true, loadAt: 0, at: 1, step: 0, cards: allShut() },
           () => this.playRun());
       },
 
@@ -2434,8 +2551,8 @@ class Component extends DCLogic {
       // run-time exchange in. Reached by URL (?ask=1) or by the composer during a live run.
       // Later beats need the room: the chat has no scroller, so the exchange folds into its
       // divider the moment the run or a build has something to say.
-      mx: fold(!S.ask && !S.runNote && !S.buildQueue.length && !S.guided),
-      md: fold(S.ask || !!S.runNote || S.buildQueue.length > 0 || S.guided),
+      mx: fold(!S.ask && !S.runNote && !S.buildQueue.length && !S.guided && !ranLive),
+      md: fold(S.ask || !!S.runNote || S.buildQueue.length > 0 || S.guided || ranLive),
       au: fold(S.ask),
       th: fold(S.ask && !S.replied),
       aa: fold(S.replied),
@@ -2455,15 +2572,55 @@ class Component extends DCLogic {
         setCard('3C', { sel: 0, open: false, why: false, pick: 0, mine: true, written: '' });
       },
 
+      // ── The opening chat ─────────────────────────────────────────────────
+      // An overlay over the mounted body, never an sc-if: the machinery underneath stays whole,
+      // and leaving is a 200ms dissolve onto whichever view was asked for.
+      introVis: S.intro ? 'visible' : 'hidden',
+      introOp: S.intro ? '1' : '0',
+      introVisDl: S.intro ? '0ms' : '200ms',
+      bodyVis: S.intro ? 'hidden' : 'visible',
+      grOp: S.iSent ? '0' : '1',
+      grVis: S.iSent ? 'hidden' : 'visible',
+      grVisDl: S.iSent ? '200ms' : '0ms',
+      im: fold(S.iSent),
+      it: fold(S.iSent && !S.iPlanned),
+      ir: fold(S.iPlanned),
+      // The plan's card is out of flow, so it arrives on its own opacity and travel, not a fold.
+      iw: {
+        op: S.iPlanned ? '1' : '0',
+        tr: S.iPlanned ? 'none' : 'translateY(-8px)',
+        vis: S.iPlanned ? 'visible' : 'hidden',
+        dl: S.iPlanned ? '240ms' : '0ms',
+        visDl: S.iPlanned ? '0ms' : '540ms',
+        pe: S.iPlanned ? 'auto' : 'none',
+        tab: S.iPlanned ? '0' : '-1'
+      },
+      iCompText: S.iDraft
+        ? 'People should be able to dispute a card payment from the app. Anything big gets looked at by a person.'
+        : (S.iSent ? 'Reply to the agent' : 'Describe what you want to build'),
+      iCompColor: S.iDraft ? '#f5f9fc' : '#7b8896',
+      iCompAct: () => { if (!S.iSent && !S.iDraft) this.setState({ iDraft: true }); },
+      iSendPE: S.iDraft ? 'auto' : 'none',
+      iSendTab: S.iDraft ? '0' : '-1',
+      iSendColor: S.iDraft ? '#4d97ea' : '#5c6975',
+      iSendCursor: S.iDraft ? 'pointer' : 'default',
+      iSendAct: e => {
+        const el = e && e.currentTarget;
+        if (el && el.blur) el.blur();
+        this.setState({ iSent: true, iDraft: false });
+        this.timers.push(setTimeout(() => this.setState({ iPlanned: true }), 2200));
+      },
+      iPlanAct: leave({ intro: false }),
+
       // ── The guided walk's chat ───────────────────────────────────────────
       // Taking the offer moves the walk into the chat: the right pane shows the run's empty
       // frame, the plan keeps living behind its segment. Each answer settles through the same
       // machinery a card does, folds to one echo line, and a thinking beat brings the next ask.
-      go: fold(S.gOffer && !S.guided && !S.settleRun && !S.buildQueue.length && !S.ask, 4),
+      go: fold(S.gOffer && !S.guided && !S.settleRun && !S.buildQueue.length && !S.ask && !ranLive, 4),
       guidedAct: e => {
         const el = e && e.currentTarget;
         if (el && el.blur) el.blur();
-        this.setState({ guided: true, gOffer: false, run: true, live: false, loading: false, step: 0, cards: allShut(), gThink: true });
+        this.setState({ intro: false, guided: true, gOffer: false, run: true, live: false, loading: false, step: 0, cards: allShut(), gThink: true });
         this.timers.push(setTimeout(() => this.setState({ gThink: false }), 1100));
       },
       // The lead makes the promise and folds when the first echo starts keeping it — the fifth
@@ -2562,20 +2719,24 @@ class Component extends DCLogic {
       runBg: busy ? 'transparent' : '#1d9a5c',
       runFg: busy ? '#ffffff' : '#ffffff',
 
+      // In the intro the crumb and switcher arrive with the plan, and neither segment is "here".
+      hdCols: (S.intro && !S.iPlanned) ? '0fr' : '1fr',
+      hdOp: (S.intro && !S.iPlanned) ? '0' : '1',
+      hdBtns: S.intro ? 'none' : 'flex',
       // The active segment takes the "you are here" white; only the one you are NOT on is live.
-      segPlanAct: leave({ run: false, step: 0, cards: allShut() }),
-      segPlanPE: (on || run) ? 'auto' : 'none',
-      segPlanTab: (on || run) ? '0' : '-1',
-      segPlanTitle: (on || run) ? 'Back to the plan — Esc' : '',
-      segPlanBg: run ? 'transparent' : '#1c2632',
-      segPlanColor: run ? '#8b98a5' : '#ffffff',
+      segPlanAct: leave({ intro: false, run: false, step: 0, cards: allShut() }),
+      segPlanPE: S.intro ? (S.iPlanned ? 'auto' : 'none') : ((on || run) ? 'auto' : 'none'),
+      segPlanTab: (S.intro ? S.iPlanned : (on || run)) ? '0' : '-1',
+      segPlanTitle: S.intro ? (S.iPlanned ? 'Open the plan' : '') : ((on || run) ? 'Back to the plan — Esc' : ''),
+      segPlanBg: (S.intro || run) ? 'transparent' : '#1c2632',
+      segPlanColor: S.intro ? '#8b98a5' : (run ? '#8b98a5' : '#ffffff'),
       // Same gate as the green button: entering the run from an open step has no endpoints.
-      segRunAct: leave({ run: true, step: 0, cards: allShut() }),
-      segRunPE: (on || run) ? 'none' : 'auto',
-      segRunTab: (on || run) ? '-1' : '0',
-      segRunTitle: (on || run) ? '' : 'Run what exists',
-      segRunBg: run ? '#1c2632' : 'transparent',
-      segRunColor: run ? '#ffffff' : (on ? '#4a5764' : '#8b98a5'),
+      segRunAct: leave({ intro: false, run: true, step: 0, cards: allShut() }),
+      segRunPE: S.intro ? (S.iPlanned ? 'auto' : 'none') : ((on || run) ? 'none' : 'auto'),
+      segRunTab: (S.intro ? S.iPlanned : !(on || run)) ? '0' : '-1',
+      segRunTitle: S.intro ? (S.iPlanned ? 'Run what exists' : '') : ((on || run) ? '' : 'Run what exists'),
+      segRunBg: (!S.intro && run) ? '#1c2632' : 'transparent',
+      segRunColor: S.intro ? '#8b98a5' : (run ? '#ffffff' : (on ? '#4a5764' : '#8b98a5')),
 
       moveDur: moveDur,
       moveEase: moveEase,

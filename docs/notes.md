@@ -42,3 +42,8 @@ Measured numbers and traps only. Every value lives in `index.html`.
   gap. The guided lead folds on the **first** echo or the fifth ask clips ~80 behind the composer.
 - The guided ask is ONE block whose words swap only while the think beat holds it shut — its
   source row is a `display:` swap for the same reason, never `sc-if`.
+- The intro is an overlay with `visibility`, never an `sc-if` around the body: the run screens'
+  own `sc-if`s would nest untested, and the settle machinery must stay mounted underneath.
+- A live run folds the plan-time exchange into its divider: open beside the ran note it is
+  **122px** past the budget — that clip predates the intro and was invisible until the widget
+  made Test what exists a first-screen path.
