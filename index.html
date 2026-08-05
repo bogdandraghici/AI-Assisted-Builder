@@ -1810,6 +1810,8 @@ class Component extends DCLogic {
       // The beat between an answer landing and the next ask arriving — and the one the interjection
       // opens, which is what ?asked=1 holds: the ask may not be up while its own answer is in flight.
       gThink: asked && !argued,
+      // Which answered ask the shut block is still showing, if any — see gShow.
+      gHold: null,
       // The reply lags the ask by a thinking beat; ?replied=0 holds that beat for looking at.
       replied: ask && q.get('replied') !== '0',
       // The staged request sitting in the composer, not yet sent. Send turns it into `ask`.
@@ -2884,20 +2886,25 @@ class Component extends DCLogic {
       : ((S.iPlanned && !S.argOn && !S.buildQueue.length) ? 'drop' : '');
 
     // ── The walk's rows ────────────────────────────────────────────────────
-    // The rows the chat offers: the written-in one is not among them — there is nowhere to type in
-    // a message. Taking one settles the card wherever it stands and the walk moves on a beat later.
-    const gaAll = !gAsk ? [] : CARDS[gAsk].rows
+    // What the block SHOWS is not always the ask that is owed: the words in there may only swap
+    // while the beat holds it shut, so the answered card is held for the beat. Swapping on the same
+    // commit the fold starts flashes the next question at full opacity for two frames.
+    const gShow = (S.gThink && S.gHold && CARDS[S.gHold]) ? S.gHold : gAsk;
+    const gShown = gDone.length - (gShow !== gAsk ? 1 : 0);
+    // The rows it offers: the written-in one is not among them — there is nowhere here to type.
+    // Taking one settles the card wherever it stands, and the walk moves on a beat later.
+    const gaAll = !gShow ? [] : CARDS[gShow].rows
       .map((r, i) => ({ r, i })).filter(x => x.r.answer !== undefined);
     const gaTake = i => e => {
       const el = e && e.currentTarget;
       if (el && el.blur) el.blur();
       beginSettle(gAsk, flyFrom(gAsk));
       setCard(gAsk, { sel: i, open: false, why: false, pick: i, mine: true, written: '' });
-      this.setState({ gThink: true });
+      this.setState({ gThink: true, gHold: gAsk });
       this.timers.push(setTimeout(() => {
         // Fresh state: the closure's S predates the pick. None left fires the build.
         const p = this.state;
-        this.setState({ gThink: false });
+        this.setState({ gThink: false, gHold: null });
         if (GUIDED.some(k => p.cards[k].pick === -1)) return;
         const ns = NS.filter(n => !p.built[n] && !p.building[n]);
         if (ns.length) startBuild(ns, 'That was the last one — building ' + nameSteps(ns) + ' now.');
@@ -3267,31 +3274,32 @@ class Component extends DCLogic {
       // when it was taken from the offer. The interjection's two turns are 09:39 and 09:41, so an
       // ask after them clears both.
       glWhen: S.told ? '09:32' : '09:47',
-      gaWhen: S.told ? '09:' + (33 + gDone.length + (S.argHere ? 9 : 0)) : '09:' + (48 + gDone.length),
-      gaCount: (gDone.length + 1) + ' of ' + (gDone.length + gOwed.length),
-      gaHead: gAsk ? CARDS[gAsk].headline : '',
-      gaWhy: gAsk ? CARDS[gAsk].because : '',
-      gaSrc: gAsk ? CARDS[gAsk].source : '',
-      gaSrcDisp: (gAsk && CARDS[gAsk].source) ? 'inline-flex' : 'none',
+      // The held ask keeps the clock and the count it was asked with — both tick on the reopen.
+      gaWhen: S.told ? '09:' + (33 + gShown + (S.argHere ? 9 : 0)) : '09:' + (48 + gShown),
+      gaCount: (gShown + 1) + ' of ' + (gDone.length + gOwed.length),
+      gaHead: gShow ? CARDS[gShow].headline : '',
+      gaWhy: gShow ? CARDS[gShow].because : '',
+      gaSrc: gShow ? CARDS[gShow].source : '',
+      gaSrcDisp: (gShow && CARDS[gShow].source) ? 'inline-flex' : 'none',
       // A shape card's rows are drawn, not written, so the two lists are exclusive — one of them is
       // always empty and each is gated on its own flag: an empty sc-for still leaves its wrapper.
-      gaPlain: !!gAsk && !CARDS[gAsk].shape,
-      gaShaped: !!gAsk && !!CARDS[gAsk].shape,
-      gaRows: (!gAsk || CARDS[gAsk].shape) ? [] : gaAll.map(x => ({
+      gaPlain: !!gShow && !CARDS[gShow].shape,
+      gaShaped: !!gShow && !!CARDS[gShow].shape,
+      gaRows: (!gShow || CARDS[gShow].shape) ? [] : gaAll.map(x => ({
         label: x.r.label,
-        icon: x.i === CARDS[gAsk].proposal ? 'ph-check' : 'ph-circle',
-        iconColor: x.i === CARDS[gAsk].proposal ? '#4d97ea' : '#8b98a5',
+        icon: x.i === CARDS[gShow].proposal ? 'ph-check' : 'ph-circle',
+        iconColor: x.i === CARDS[gShow].proposal ? '#4d97ea' : '#8b98a5',
         act: gaTake(x.i)
       })),
       // The wireframes: one bar list per option, drawn at 96 in the chat and 60 on the rail — the
       // bars that carry the shape are flex, so the same list draws at either height.
-      gaShapes: (!gAsk || !CARDS[gAsk].shape) ? [] : gaAll.map(x => ({
+      gaShapes: (!gShow || !CARDS[gShow].shape) ? [] : gaAll.map(x => ({
         label: x.r.label,
         bars: barsOn(x.r, 'chat'),
-        icon: x.i === CARDS[gAsk].proposal ? 'ph-check' : 'ph-circle',
-        iconColor: x.i === CARDS[gAsk].proposal ? '#4d97ea' : '#8b98a5',
-        border: x.i === CARDS[gAsk].proposal ? '#33404d' : '#26313d',
-        color: x.i === CARDS[gAsk].proposal ? '#f5f9fc' : '#c3cdd7',
+        icon: x.i === CARDS[gShow].proposal ? 'ph-check' : 'ph-circle',
+        iconColor: x.i === CARDS[gShow].proposal ? '#4d97ea' : '#8b98a5',
+        border: x.i === CARDS[gShow].proposal ? '#33404d' : '#26313d',
+        color: x.i === CARDS[gShow].proposal ? '#f5f9fc' : '#c3cdd7',
         act: gaTake(x.i)
       })),
       // One text element interpolated, per the rule below. The composer only stages the one

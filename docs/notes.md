@@ -57,7 +57,10 @@ Measured numbers and traps only. Every value lives in `index.html`.
   per step: `exists` names the step whose build makes it, and `by you` is the only pre-existing kind.
   The run states spill the frame by **24px**; that predates all of this.
 - The guided ask is ONE block whose words swap only while the think beat holds it shut — its
-  source row is a `display:` swap for the same reason, never `sc-if`.
+  source row is a `display:` swap for the same reason, never `sc-if`. Shut is not instant: the
+  block reads `gShow`, holding the answered card for the beat, because swapping on the commit the
+  fold starts draws the NEXT question at full opacity for **two frames** (~50ms, screencast) before
+  the 70ms fade catches up. Invisible with two text rows either side, a jump with a 96px drawing.
 - The intro is an overlay with `visibility`, never an `sc-if` around the body: the run screens'
   own `sc-if`s would nest untested, and the settle machinery must stay mounted underneath.
 - The chat ⇄ plan swap is the column MOVING onto the rail, not a dissolve: 640 → **311** wide,
