@@ -37,3 +37,8 @@ Measured numbers and traps only. Every value lives in `index.html`.
 - `style-hover`/`-active`/`-focus` reach `pseudoClass()` verbatim (`support.js:428`) and take
   **no** `{{ }}`. Every other attribute interpolates (`support.js:441`).
 - Warming the greys inside the wash goes mustard. Flat grey.
+- The start state has **2px** of chat slack: the guided offer is one 28px chip on one line, paid
+  for by the run-note block's `-24px` gap cancel — it was the one folded chat block holding its
+  gap. The guided lead folds on the **first** echo or the fifth ask clips ~80 behind the composer.
+- The guided ask is ONE block whose words swap only while the think beat holds it shut — its
+  source row is a `display:` swap for the same reason, never `sc-if`.

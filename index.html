@@ -116,6 +116,17 @@
             <div style="flex: 1; min-width: 0; display: flex; flex-direction: column; gap: 4px;">
               <div style="font: 600 12px/16px 'Open Sans', sans-serif; color: #8b98a5;">Agent <span style="font-weight: 400;">· 09:31</span></div>
               <div style="font: 400 14px/24px 'Open Sans', sans-serif; color: #f5f9fc; text-wrap: pretty;">Five steps, on the right. I built the two with only one sensible shape.</div>
+<!-- One offer, not a fork: the plan on the right already is the other way. The start state has
+     44px of chat budget left, so this is one button and 4px of air — never two. -->
+              <div style="display: grid; grid-template-rows: {{ go.rows }}; margin-top: {{ go.mt }}; transition: grid-template-rows {{ moveDur }} {{ moveEase }}, margin-top {{ moveDur }} {{ moveEase }};">
+              <div style="overflow: hidden; min-height: 0; opacity: {{ go.op }}; transition: opacity {{ go.opDur }} {{ moveEase }} {{ go.opDl }};">
+              <div style="padding-top: 0px;">
+                <div onClick="{{ guidedAct }}" tabindex="{{ go.tab }}" style="display: inline-flex; align-items: center; gap: 8px; height: 28px; padding: 0 12px; border-radius: 8px; border: 1px solid #26313d; background: #101820; color: #f5f9fc; font: 600 12px/16px 'Open Sans', sans-serif; cursor: pointer; outline: none; pointer-events: {{ go.pe }}; transition: all 160ms cubic-bezier(0.2, 0, 0.2, 1);" style-hover="border-color: #4d97ea; background: #161f28;" style-focus="box-shadow: 0 0 0 3px rgba(43, 127, 228, 0.32);">
+                  <i class="ph ph-chats" style="font-size: 12px; color: #4d97ea; flex: none;"></i><span style="white-space: nowrap;">Take me through it, one at a time</span>
+                </div>
+              </div>
+              </div>
+              </div>
             </div>
           </div>
 
@@ -171,13 +182,80 @@
           </div>
 
 <!-- No scroller: 723px budget vs 676px content — if the copy grows, shorten it. Collapses 1fr -> 0fr, not sc-if. -->
-          <div style="display: grid; grid-template-rows: {{ runRows }}; transition: grid-template-rows {{ moveDur }} {{ moveEase }};">
+<!-- Folded it cancels its gap like every other block — without the margin it held 24px of air. -->
+          <div style="display: grid; grid-template-rows: {{ runRows }}; margin-top: {{ rrMt }}; transition: grid-template-rows {{ moveDur }} {{ moveEase }}, margin-top {{ moveDur }} {{ moveEase }};">
           <div style="overflow: hidden; min-height: 0; opacity: {{ runCrumbOp }}; transition: opacity {{ crumbOpDur }} {{ moveEase }} {{ runCrumbOpDl }};">
           <div style="display: flex; gap: 12px;">
             <div style="width: 22px; height: 22px; flex: none; border-radius: 99px; background: rgba(139, 152, 165, 0.16); display: grid; place-items: center;"><img src="assets/flowx-mark-white.svg" alt="Agent" style="height: 11px; width: auto; flex: none;" /></div>
             <div style="flex: 1; min-width: 0; display: flex; flex-direction: column; gap: 4px;">
               <div style="font: 600 12px/16px 'Open Sans', sans-serif; color: #8b98a5;">Agent <span style="font-weight: 400;">· 09:46</span></div>
               <div style="font: 400 14px/24px 'Open Sans', sans-serif; color: #f5f9fc; text-wrap: pretty;">{{ ranText }}</div>
+            </div>
+          </div>
+          </div>
+          </div>
+
+<!-- ── The guided walk ── the plan's five open decisions asked here, one at a time. The lead
+     makes the promise and folds when the build fulfils it; every answer folds to one echo line;
+     the ask is ONE block whose words swap only while the think beat holds it shut. -->
+          <div style="display: grid; grid-template-rows: {{ gl.rows }}; margin-top: {{ gl.mt }}; transition: grid-template-rows {{ moveDur }} {{ moveEase }}, margin-top {{ moveDur }} {{ moveEase }};">
+          <div style="overflow: hidden; min-height: 0; opacity: {{ gl.op }}; transition: opacity {{ gl.opDur }} {{ moveEase }} {{ gl.opDl }};">
+          <div style="display: flex; gap: 12px;">
+            <div style="width: 22px; height: 22px; flex: none; border-radius: 99px; background: rgba(139, 152, 165, 0.16); display: grid; place-items: center;"><img src="assets/flowx-mark-white.svg" alt="Agent" style="height: 11px; width: auto; flex: none;" /></div>
+            <div style="flex: 1; min-width: 0; display: flex; flex-direction: column; gap: 4px;">
+              <div style="font: 600 12px/16px 'Open Sans', sans-serif; color: #8b98a5;">Agent <span style="font-weight: 400;">· 09:47</span></div>
+              <div style="font: 400 14px/24px 'Open Sans', sans-serif; color: #f5f9fc; text-wrap: pretty;">{{ gLead }}</div>
+            </div>
+          </div>
+          </div>
+          </div>
+
+          <div style="display: grid; grid-template-rows: {{ ge.rows }}; margin-top: {{ ge.mt }}; transition: grid-template-rows {{ moveDur }} {{ moveEase }}, margin-top {{ moveDur }} {{ moveEase }};">
+          <div style="overflow: hidden; min-height: 0; opacity: {{ ge.op }}; transition: opacity {{ ge.opDur }} {{ moveEase }} {{ ge.opDl }};">
+          <div style="display: flex; flex-direction: column; gap: 6px; padding-left: 34px;">
+            <sc-for list="{{ gEchoes }}" as="g" hint-placeholder-count="2">
+            <div style="display: flex; align-items: center; gap: 8px; min-width: 0;">
+              <i class="ph ph-check-circle" style="font-size: 14px; color: #4d97ea; flex: none;"></i>
+              <div style="min-width: 0; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; font: 400 12px/16px 'Open Sans', sans-serif; color: #c3cdd7;">{{ g.text }}</div>
+            </div>
+            </sc-for>
+          </div>
+          </div>
+          </div>
+
+          <div style="display: grid; grid-template-rows: {{ gt.rows }}; margin-top: {{ gt.mt }}; transition: grid-template-rows {{ moveDur }} {{ moveEase }}, margin-top {{ moveDur }} {{ moveEase }};">
+          <div style="overflow: hidden; min-height: 0; opacity: {{ gt.op }}; transition: opacity {{ gt.opDur }} {{ moveEase }} {{ gt.opDl }};">
+          <div style="display: flex; gap: 12px;">
+            <div style="width: 22px; height: 22px; flex: none; border-radius: 99px; background: rgba(139, 152, 165, 0.16); display: grid; place-items: center;"><img src="assets/flowx-mark-white.svg" alt="Agent" style="height: 11px; width: auto; flex: none;" /></div>
+            <div style="display: flex; align-items: center; gap: 4px; height: 22px;">
+              <div style="width: 5px; height: 5px; border-radius: 99px; background: #8b98a5; animation: ask-think 1200ms ease-in-out infinite;"></div>
+              <div style="width: 5px; height: 5px; border-radius: 99px; background: #8b98a5; animation: ask-think 1200ms ease-in-out 150ms infinite;"></div>
+              <div style="width: 5px; height: 5px; border-radius: 99px; background: #8b98a5; animation: ask-think 1200ms ease-in-out 300ms infinite;"></div>
+            </div>
+          </div>
+          </div>
+          </div>
+
+          <div style="display: grid; grid-template-rows: {{ ga.rows }}; margin-top: {{ ga.mt }}; transition: grid-template-rows {{ moveDur }} {{ moveEase }}, margin-top {{ moveDur }} {{ moveEase }};">
+          <div style="overflow: hidden; min-height: 0; opacity: {{ ga.op }}; transition: opacity {{ ga.opDur }} {{ moveEase }} {{ ga.opDl }};">
+          <div style="display: flex; gap: 12px;">
+            <div style="width: 22px; height: 22px; flex: none; border-radius: 99px; background: rgba(139, 152, 165, 0.16); display: grid; place-items: center;"><img src="assets/flowx-mark-white.svg" alt="Agent" style="height: 11px; width: auto; flex: none;" /></div>
+            <div style="flex: 1; min-width: 0; display: flex; flex-direction: column; gap: 8px;">
+              <div style="font: 600 12px/16px 'Open Sans', sans-serif; color: #8b98a5;">Agent <span style="font-weight: 400;">· {{ gaWhen }} · {{ gaCount }}</span></div>
+              <div style="font: 600 14px/22px 'Open Sans', sans-serif; color: #f5f9fc; text-wrap: pretty;">{{ gaHead }}</div>
+              <div style="font: 400 12px/18px 'Open Sans', sans-serif; color: #a9b6c3; text-wrap: pretty;">{{ gaWhy }}</div>
+<!-- display, not sc-if: the swap to a sourceless ask happens while the think beat holds the block shut. -->
+              <div style="display: {{ gaSrcDisp }}; align-self: flex-start; align-items: center; gap: 8px; color: #8b98a5;">
+                <i class="ph ph-book-open-text" style="font-size: 14px; color: #f2762b;"></i>
+                <div style="font: 400 12px/16px ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;">{{ gaSrc }}</div>
+              </div>
+              <div style="display: flex; flex-direction: column; gap: 8px;">
+                <sc-for list="{{ gaRows }}" as="g" hint-placeholder-count="2">
+                <div onClick="{{ g.act }}" tabindex="{{ ga.tab }}" style="display: flex; align-items: center; gap: 8px; min-height: 32px; padding: 6px 12px; border-radius: 8px; border: 1px solid #26313d; background: #101820; color: #f5f9fc; font: 600 12px/16px 'Open Sans', sans-serif; cursor: pointer; outline: none; pointer-events: {{ ga.pe }}; transition: all 160ms cubic-bezier(0.2, 0, 0.2, 1);" style-hover="border-color: #4d97ea; background: #161f28;" style-focus="box-shadow: 0 0 0 3px rgba(43, 127, 228, 0.32);">
+                  <i class="ph {{ g.icon }}" style="font-size: 12px; color: {{ g.iconColor }}; flex: none;"></i><span style="min-width: 0;">{{ g.label }}</span>
+                </div>
+                </sc-for>
+              </div>
             </div>
           </div>
           </div>
@@ -1183,16 +1261,26 @@ class Component extends DCLogic {
     const loading = q.get('loading') === '1';
     // `ask` moves the drop-merchant request into the run: the user asks while the preview is up.
     const ask = q.get('ask') === '1';
-    const run = q.get('run') === '1' || q.has('at') || loading || ask;
+    // ?guided=1 is the walk moved into the chat: the right pane shows the run's empty frame.
+    const guided = q.get('guided') === '1';
+    const run = q.get('run') === '1' || q.has('at') || loading || ask || guided;
     // ?settling=1 opens mid-walk on the first owing step; the note is INIT's counts by hand.
     const settling = !run && q.get('settling') === '1';
     // ?building=1 opens mid-build: everything settled on its proposal, the last three landing.
     const building = !run && !settling && q.get('building') === '1';
+    // &q=N holds the guided walk at the Nth ask; &building=1 is the beat right after the last.
+    const gBuild = guided && q.get('building') === '1';
+    const gq = gBuild ? 6 : Math.min(5, Math.max(1, parseInt(q.get('q'), 10) || 1));
     const want = parseInt(q.get('step'), 10);
     const step = (!run && want >= 1 && want <= 5) ? want : (settling ? 3 : 0);
     return {
       step,
       ask,
+      guided,
+      // The offer stands until anything else claims the chat; taking or waving it off folds it.
+      gOffer: !run && !settling && !building,
+      // The beat between an answer landing and the next ask arriving.
+      gThink: false,
       // The reply lags the ask by a thinking beat; ?replied=0 holds that beat for looking at.
       replied: ask && q.get('replied') !== '0',
       // The staged request sitting in the composer, not yet sent. Send turns it into `ask`.
@@ -1212,16 +1300,19 @@ class Component extends DCLogic {
       // Three things a step can owe, each cleared by its own act; Build is gated on the other two.
       // A step being built is NOT built — nothing moves group, so no heading travels.
       built:    { 1: true,  2: true,  3: false, 4: false, 5: false },
-      building: { 1: false, 2: false, 3: building, 4: building, 5: building },
+      building: { 1: false, 2: false, 3: building || gBuild, 4: building || gBuild, 5: building || gBuild },
       // What each building row says it is on: an index into its step's build.doing.
       doing: {},
       // One entry per decision, owed and settled alike, keyed by step and letter. `pick` is the
       // row taken, -1 owed; `mine` is whether you answered it; `sel` and `text` are uncommitted;
       // `written` is part of the answer, like `pick`, which is why they are two.
       cards: Object.fromEntries(Object.entries(Component.INIT).map(([k, v]) => {
-        // Mid-build nothing may still be owed: what INIT owes settles on its proposal.
-        const pick = (building && v.pick === -1) ? Math.max(0, Component.CARDS[k].proposal) : v.pick;
-        return [k, { pick, mine: v.mine || (building && v.pick === -1), open: false, why: false, sel: -1, text: '', written: '' }];
+        // Mid-build nothing may still be owed: what INIT owes settles on its proposal. The guided
+        // walk settles what it has already asked the same way.
+        const gi = Component.GUIDED.indexOf(k);
+        const preset = v.pick === -1 && (building || gBuild || (guided && gi !== -1 && gi < gq - 1));
+        const pick = preset ? Math.max(0, Component.CARDS[k].proposal) : v.pick;
+        return [k, { pick, mine: v.mine || preset, open: false, why: false, sel: -1, text: '', written: '' }];
       })),
       // Which cards are mid-settle, and which half of that beat each one is in.
       settling: {},
@@ -1238,8 +1329,9 @@ class Component extends DCLogic {
         ? 'One thing to agree and four questions left, across three steps. I will take you through them in order — the moment the last one settles, I build the rest.'
         : '',
       // Which steps were sent to build, in the order asked, and the sentence that sent them.
-      buildQueue: building ? [3, 4, 5] : [],
-      buildLead: building ? 'That was everything — building steps 3, 4 and 5 now. The merchant check wires two systems, so step 3 takes a while — its row says what it is on.' : ''
+      buildQueue: (building || gBuild) ? [3, 4, 5] : [],
+      buildLead: building ? 'That was everything — building steps 3, 4 and 5 now. The merchant check wires two systems, so step 3 takes a while — its row says what it is on.'
+        : (gBuild ? 'That was the last one — building steps 3, 4 and 5 now. The merchant check wires two systems, so step 3 takes a while — its row says what it is on.' : '')
     };
   })();
 
@@ -1364,6 +1456,9 @@ class Component extends DCLogic {
     '5A': { pick: -1, mine: false },
     '5B': { pick: 0,  mine: true  }
   };
+
+  // What the guided walk asks and in what order: the argument first — it gates the rest.
+  static GUIDED = ['3C', '3D', '4A', '4B', '5A'];
 
   // The decisions. `kind` is which of the two kinds of waiting, and they never gate each other.
   // Only an argument is carried on the plan. A row with no `answer` opens a write field instead.
@@ -1620,6 +1715,14 @@ class Component extends DCLogic {
     const argsOwed = n => of(n).filter(k => isArg(k) && owed(k));
     const qsOwed   = n => of(n).filter(k => !isArg(k) && owed(k));
     const wash = n => argsOwed(n).length + qsOwed(n).length > 0;
+
+    // ── The guided walk ────────────────────────────────────────────────────
+    // The same five decisions the plan carries, read in GUIDED's order. The current ask is
+    // simply the first still owed — answering anywhere, chat or plan, advances it.
+    const GUIDED = Component.GUIDED;
+    const gOwed = GUIDED.filter(owed);
+    const gDone = GUIDED.filter(k => !owed(k));
+    const gAsk = gOwed[0];
 
     // `done` runs after the commit. Not requestAnimationFrame: a page the browser is not
     // painting never runs it, and the focus silently does not land.
@@ -2058,8 +2161,9 @@ class Component extends DCLogic {
       return cap(bits.join(' and ')) + ' left, ' + where
         + '. I will take you through them in order — the moment the last one settles, I build the rest.';
     };
+    // The guided walk owns the sequencing while it has asks left, so the header may not start a second one.
     const buildPlan = primary(
-      pending.length > 0,
+      pending.length > 0 && !(S.guided && gOwed.length > 0),
       anyWash
         ? leave({ settleRun: true, run: false, step: owingSteps[0], last: owingSteps[0],
                   cards: allShut(), ...(S.settleRun ? {} : { runNote: startNote() }) })
@@ -2330,8 +2434,8 @@ class Component extends DCLogic {
       // run-time exchange in. Reached by URL (?ask=1) or by the composer during a live run.
       // Later beats need the room: the chat has no scroller, so the exchange folds into its
       // divider the moment the run or a build has something to say.
-      mx: fold(!S.ask && !S.runNote && !S.buildQueue.length),
-      md: fold(S.ask || !!S.runNote || S.buildQueue.length > 0),
+      mx: fold(!S.ask && !S.runNote && !S.buildQueue.length && !S.guided),
+      md: fold(S.ask || !!S.runNote || S.buildQueue.length > 0 || S.guided),
       au: fold(S.ask),
       th: fold(S.ask && !S.replied),
       aa: fold(S.replied),
@@ -2350,6 +2454,56 @@ class Component extends DCLogic {
         beginSettle('3C', flyFrom('3C'));
         setCard('3C', { sel: 0, open: false, why: false, pick: 0, mine: true, written: '' });
       },
+
+      // ── The guided walk's chat ───────────────────────────────────────────
+      // Taking the offer moves the walk into the chat: the right pane shows the run's empty
+      // frame, the plan keeps living behind its segment. Each answer settles through the same
+      // machinery a card does, folds to one echo line, and a thinking beat brings the next ask.
+      go: fold(S.gOffer && !S.guided && !S.settleRun && !S.buildQueue.length && !S.ask, 4),
+      guidedAct: e => {
+        const el = e && e.currentTarget;
+        if (el && el.blur) el.blur();
+        this.setState({ guided: true, gOffer: false, run: true, live: false, loading: false, step: 0, cards: allShut(), gThink: true });
+        this.timers.push(setTimeout(() => this.setState({ gThink: false }), 1100));
+      },
+      // The lead makes the promise and folds when the first echo starts keeping it — the fifth
+      // ask does not fit the chat's budget with the lead still up.
+      gl: fold(S.guided && !gDone.length && !S.buildQueue.length),
+      gLead: 'One thing to agree and four questions, across three steps. I will ask them here, one at a time — the moment the last one settles, I build the rest.',
+      ge: fold(S.guided && gDone.length > 0),
+      // The answer alone — with the subject in front every line truncates its answer half.
+      gEchoes: gDone.map(k => ({ text: cap(answerOf(k)) })),
+      gt: fold(S.guided && S.gThink),
+      // ONE block whose words swap only while it is shut — the think beat is what shuts it.
+      ga: fold(S.guided && !S.gThink && !!gAsk),
+      gaWhen: '09:' + (48 + gDone.length),
+      gaCount: (gDone.length + 1) + ' of 5',
+      gaHead: gAsk ? CARDS[gAsk].headline : '',
+      gaWhy: gAsk ? CARDS[gAsk].because : '',
+      gaSrc: gAsk ? CARDS[gAsk].source : '',
+      gaSrcDisp: (gAsk && CARDS[gAsk].source) ? 'inline-flex' : 'none',
+      gaRows: !gAsk ? [] : CARDS[gAsk].rows.map((r, i) => ({ r, i }))
+        .filter(x => x.r.answer !== undefined)
+        .map(x => ({
+          label: x.r.label,
+          icon: x.i === CARDS[gAsk].proposal ? 'ph-check' : 'ph-circle',
+          iconColor: x.i === CARDS[gAsk].proposal ? '#4d97ea' : '#8b98a5',
+          act: e => {
+            const el = e && e.currentTarget;
+            if (el && el.blur) el.blur();
+            beginSettle(gAsk, flyFrom(gAsk));
+            setCard(gAsk, { sel: x.i, open: false, why: false, pick: x.i, mine: true, written: '' });
+            this.setState({ gThink: true });
+            this.timers.push(setTimeout(() => {
+              // Fresh state: the closure's S predates the pick. None left fires the build.
+              const p = this.state;
+              this.setState({ gThink: false });
+              if (GUIDED.some(k => p.cards[k].pick === -1)) return;
+              const ns = NS.filter(n => !p.built[n] && !p.building[n]);
+              if (ns.length) startBuild(ns, 'That was the last one — building ' + nameSteps(ns) + ' now.');
+            }, 1400));
+          }
+        })),
       // One text element interpolated, per the rule below. The composer only stages the one
       // scripted request, and only while a run is up with nothing already asked.
       compText: S.draft ? 'Drop the merchant check.' : 'Reply to the agent',
@@ -2524,6 +2678,7 @@ class Component extends DCLogic {
       // Three parts of one thing having happened, so one schedule.
       runCols: ranLive ? '1fr' : '0fr',
       runRows: ranLive ? '1fr' : '0fr',
+      rrMt: ranLive ? '0px' : '-24px',
       runCrumbOp: ranLive ? '1' : '0',
       runCrumbOpDl: ranLive ? '150ms' : '0ms',
       fullGap: ranLive ? '12px' : '0px',
