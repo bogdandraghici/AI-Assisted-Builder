@@ -45,7 +45,9 @@ Measured numbers and traps only. Every value lives in `index.html`.
   carry `bd`'s own condition verbatim. Open, the chip cancels 20 of the column's 24 gap.
 - The walk lives in the full-screen chat, so `guided` implies `intro` and is never a view. Its five
   blocks are twinned in the overlay and the 360 pane on ONE set of fold values — the only split is
-  `igl`, because the 360 has to fold the lead on the first echo and the 640 has ~180px spare.
+  `igl`, because the 360 has to fold the lead on the first echo and the 640 has ~180px spare. Every
+  split holds only while the chat is UP: on the way out they take the rail's condition, or the
+  column has nothing to land on.
 - The build block retires once the run it handed off to is up: five checks plus "the one thing left
   is to see it run" are **118px** the chat does not have, and the run answers both. The walk's
   promise (`rn`) folds the moment the build starts, for the same reason at **19px**.
@@ -58,11 +60,20 @@ Measured numbers and traps only. Every value lives in `index.html`.
   source row is a `display:` swap for the same reason, never `sc-if`.
 - The intro is an overlay with `visibility`, never an `sc-if` around the body: the run screens'
   own `sc-if`s would nest untested, and the settle machinery must stay mounted underneath.
-- The chat ⇄ plan swap is out **110** / in **200 at 110**, the chat travelling **32px** left and the
-  grid **24px** right on the move curve. Three things it may not do: fade the 360 rail (the overlay's
-  opaque dissolve uncovers it — a shared full-screen fade leaves ~50ms of blank screen, measured),
-  fade the grid WITH the chat (the centred column stands over it, so they cross at half), or drop the
-  body before the fade in ends — hence `bodyVisDl` **310**, the whole of it.
+- The chat ⇄ plan swap is the column MOVING onto the rail, not a dissolve: 640 → **311** wide,
+  `50%`/`-320px` → `0%`/`24px`, padding-top 48 → 24, over **320ms** of the settle curve, and only
+  then a **140ms** crossfade — a fade over the last of the travel is the same sentence in two places
+  30px apart. It lands to the pixel: measure **277** both sides (311 − 22 avatar − 12 gap), and the
+  composer block is **104** both once its bottom padding grows to 32 — 24 of padding, 8 of gap, and
+  a caption that is 16px of nothing until a run is live (48 when there is one).
+  Four rules hold it: the 360 rail is never animated (the overlay's opaque dissolve uncovers it — a
+  shared full-screen fade leaves ~50ms of blank screen, measured); the grid may not share that
+  dissolve and arrives at **320** instead; the offset may never be read off the viewport, because a
+  resize retargets it every frame and a transition whose target keeps moving restarts its delay and
+  never lands; and anything that does NOT land is handed over instead — the ask block and the
+  composer's line are typeset for 640 and the rail's copies for 311, and `igl` / `lq` / `lr` / `ld`
+  fold on the RAIL's own condition the moment the chat is down, a block the rail folds being 72 or
+  170px the landing does not have. Diff the two trees before touching any of it.
 - A live run folds the plan-time exchange into its divider: open beside the ran note it is
   **122px** past the budget — that clip predates the intro and was invisible until the widget
   made Test what exists a first-screen path.
