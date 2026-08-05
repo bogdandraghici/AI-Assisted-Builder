@@ -58,6 +58,11 @@ Measured numbers and traps only. Every value lives in `index.html`.
   source row is a `display:` swap for the same reason, never `sc-if`.
 - The intro is an overlay with `visibility`, never an `sc-if` around the body: the run screens'
   own `sc-if`s would nest untested, and the settle machinery must stay mounted underneath.
+- The chat ⇄ plan swap is out **110** / in **200 at 110**, the chat travelling **32px** left and the
+  grid **24px** right on the move curve. Three things it may not do: fade the 360 rail (the overlay's
+  opaque dissolve uncovers it — a shared full-screen fade leaves ~50ms of blank screen, measured),
+  fade the grid WITH the chat (the centred column stands over it, so they cross at half), or drop the
+  body before the fade in ends — hence `bodyVisDl` **310**, the whole of it.
 - A live run folds the plan-time exchange into its divider: open beside the ran note it is
   **122px** past the budget — that clip predates the intro and was invisible until the widget
   made Test what exists a first-screen path.
