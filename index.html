@@ -265,6 +265,7 @@
           <sc-for list="{{ gEchoes }}" as="g" hint-placeholder-count="2">
           <div style="display: flex; align-items: center; gap: 8px; min-width: 0;">
             <i class="ph ph-check-circle" style="font-size: 14px; color: #4d97ea; flex: none;"></i>
+            <div style="flex: none; max-width: 200px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; font: 400 12px/16px 'Open Sans', sans-serif; color: #8b98a5;">{{ g.subject }}</div>
             <div style="min-width: 0; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; font: 400 12px/16px 'Open Sans', sans-serif; color: #c3cdd7;">{{ g.text }}</div>
           </div>
           </sc-for>
@@ -637,6 +638,7 @@
             <sc-for list="{{ gEchoes }}" as="g" hint-placeholder-count="2">
             <div style="display: flex; align-items: center; gap: 8px; min-width: 0;">
               <i class="ph ph-check-circle" style="font-size: 14px; color: #4d97ea; flex: none;"></i>
+              <div style="flex: none; max-width: 200px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; font: 400 12px/16px 'Open Sans', sans-serif; color: #8b98a5;">{{ g.subject }}</div>
               <div style="min-width: 0; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; font: 400 12px/16px 'Open Sans', sans-serif; color: #c3cdd7;">{{ g.text }}</div>
             </div>
             </sc-for>
@@ -3472,8 +3474,8 @@ class Component extends DCLogic {
       // It folds on the first echo, so what it promises is always the count it opened on.
       gLead: S.leadNote,
       ge: fold(S.guided && gDone.length > 0),
-      // The answer alone — with the subject in front every line truncates its answer half.
-      gEchoes: gDone.map(k => ({ text: cap(answerOf(k)) })),
+      // Subject capped to a fixed column so a long one can no longer swallow the answer beside it.
+      gEchoes: gDone.map(k => ({ subject: CARDS[k].subject, text: cap(answerOf(k)) })),
       gt: fold(S.guided && S.gThink),
       // ONE block whose words swap only while it is shut — the think beat is what shuts it.
       ga: fold(S.guided && !S.gThink && !!gAsk),
