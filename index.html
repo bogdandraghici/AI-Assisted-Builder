@@ -520,7 +520,7 @@
      column under the headline, and the first message is what walks it to the middle. The column
      behind it is already there and empty, so the turn it opens with is drawn where it lands. -->
       <div style="width: {{ iColW }}; margin-left: {{ iCompML }}; transform: {{ iCompTr }}; flex: none; padding-top: 16px; padding-bottom: {{ iColPB }}; transition: width {{ iColDur }} {{ iColEase }} {{ iColDl }}, margin-left {{ iColDur }} {{ iColEase }} {{ iColDl }}, transform {{ iColDur }} {{ iColEase }} {{ iColDl }}, padding-bottom {{ iColDur }} {{ iColEase }} {{ iColDl }};">
-        <div onClick="{{ iCompAct }}" style="display: flex; align-items: center; gap: 12px; padding: {{ iCompPad }}; background: #101820; border: 1px solid #26313d; border-radius: {{ iCompRad }}; cursor: text; transition: border-color 160ms cubic-bezier(0.2, 0, 0.2, 1), padding {{ iColDur }} {{ iColEase }} {{ iColDl }}, border-radius {{ iColDur }} {{ iColEase }} {{ iColDl }};" style-hover="border-color: #3a4653;">
+        <div onClick="{{ iCompAct }}" onKeyDown="{{ iCompKeys }}" tabindex="0" style="display: flex; align-items: center; gap: 12px; padding: {{ iCompPad }}; background: #101820; border: 1px solid #26313d; border-radius: {{ iCompRad }}; cursor: text; outline: none; transition: border-color 160ms cubic-bezier(0.2, 0, 0.2, 1), padding {{ iColDur }} {{ iColEase }} {{ iColDl }}, border-radius {{ iColDur }} {{ iColEase }} {{ iColDl }};" style-hover="border-color: #3a4653;" style-focus="border-color: #4d97ea; box-shadow: 0 0 0 3px rgba(43, 127, 228, 0.32);">
 <!-- Handed over like the ask: the two composers say different things, and this line does not fit
      the rail's measure. The box and Send land on the rail's own; only the words swap. -->
           <div style="flex: 1; min-width: 0; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; font: 400 14px/24px 'Open Sans', sans-serif; color: {{ iCompColor }}; opacity: {{ iga.op2 }}; transition: opacity {{ iga.opDur2 }} {{ moveEase }} {{ iga.opDl2 }};">{{ iCompText }}</div>
@@ -946,7 +946,7 @@
         </div>
 
         <div style="min-width: 359px; flex: none; padding: 16px 24px 24px; display: flex; flex-direction: column; gap: 8px;">
-          <div onClick="{{ compAct }}" style="display: flex; align-items: center; gap: 12px; padding: 8px 12px; background: #101820; border: 1px solid #26313d; border-radius: 8px; cursor: text; transition: border-color 160ms cubic-bezier(0.2, 0, 0.2, 1);" style-hover="border-color: #3a4653;">
+          <div onClick="{{ compAct }}" onKeyDown="{{ compKeys }}" tabindex="0" style="display: flex; align-items: center; gap: 12px; padding: 8px 12px; background: #101820; border: 1px solid #26313d; border-radius: 8px; cursor: text; outline: none; transition: border-color 160ms cubic-bezier(0.2, 0, 0.2, 1);" style-hover="border-color: #3a4653;" style-focus="border-color: #4d97ea; box-shadow: 0 0 0 3px rgba(43, 127, 228, 0.32);">
             <div style="flex: 1; min-width: 0; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; font: 400 14px/24px 'Open Sans', sans-serif; color: {{ compColor }};">{{ compText }}</div>
             <div onClick="{{ sendAct }}" tabindex="{{ sendTab }}" style="font: 600 12px/16px 'Open Sans', sans-serif; color: {{ sendColor }}; flex: none; cursor: {{ sendCursor }}; pointer-events: {{ sendPE }}; outline: none; transition: color 160ms cubic-bezier(0.2, 0, 0.2, 1);" style-hover="color: #4d97ea;" style-focus="box-shadow: 0 0 0 3px rgba(43, 127, 228, 0.32);">Send</div>
           </div>
@@ -3321,6 +3321,31 @@ class Component extends DCLogic {
       };
     });
 
+    // Send, shared by the click and the box's Enter key.
+    const iSendGo = e => {
+      const el = e && e.currentTarget;
+      if (el && el.blur) el.blur();
+      // The interjection shuts the ask block for the beat it takes to answer — the words in there
+      // may only ever swap while it is closed, and the argument is about to take its place.
+      if (iStage === 'drop') {
+        this.setState({ argHere: true, iDraft: false, gThink: true });
+        this.timers.push(setTimeout(() => this.setState({ argOn: true, gThink: false }), 2200));
+        return;
+      }
+      // The plan and the walk's first ask arrive together, with the interjection already typed.
+      this.setState({ told: true, iSent: true, iDraft: false });
+      this.timers.push(setTimeout(() => this.setState({ iPlanned: true, guided: true,
+                                                       iDraft: true, gThink: true,
+                                                       leadNote: leadFrom() }), 2200));
+      this.timers.push(setTimeout(() => this.setState({ gThink: false }), 3300));
+    };
+    const sendGo = e => {
+      const el = e && e.currentTarget;
+      if (el && el.blur) el.blur();
+      this.setState({ ask: true, draft: false });
+      this.timers.push(setTimeout(() => this.setState({ replied: true }), 2200));
+    };
+
     return {
       rows: rows,
 
@@ -3644,22 +3669,12 @@ class Component extends DCLogic {
       iSendTab: S.iDraft ? '0' : '-1',
       iSendColor: S.iDraft ? '#4d97ea' : '#5c6975',
       iSendCursor: S.iDraft ? 'pointer' : 'default',
-      iSendAct: e => {
-        const el = e && e.currentTarget;
-        if (el && el.blur) el.blur();
-        // The interjection shuts the ask block for the beat it takes to answer — the words in there
-        // may only ever swap while it is closed, and the argument is about to take its place.
-        if (iStage === 'drop') {
-          this.setState({ argHere: true, iDraft: false, gThink: true });
-          this.timers.push(setTimeout(() => this.setState({ argOn: true, gThink: false }), 2200));
-          return;
-        }
-        // The plan and the walk's first ask arrive together, with the interjection already typed.
-        this.setState({ told: true, iSent: true, iDraft: false });
-        this.timers.push(setTimeout(() => this.setState({ iPlanned: true, guided: true,
-                                                         iDraft: true, gThink: true,
-                                                         leadNote: leadFrom() }), 2200));
-        this.timers.push(setTimeout(() => this.setState({ gThink: false }), 3300));
+      iSendAct: iSendGo,
+      // Enter on the box is Send; on an empty box it stages the draft, same as the click.
+      iCompKeys: e => {
+        if (e.key !== 'Enter') return;
+        if (S.iDraft) iSendGo(e);
+        else if (iStage) this.setState({ iDraft: true });
       },
       iPlanAct: leave({ intro: false }),
       // Both gates, ANDed: the card has to have arrived and there has to be something to run.
@@ -3750,11 +3765,11 @@ class Component extends DCLogic {
       sendTab: S.draft ? '0' : '-1',
       sendColor: S.draft ? '#4d97ea' : '#5c6975',
       sendCursor: S.draft ? 'pointer' : 'default',
-      sendAct: e => {
-        const el = e && e.currentTarget;
-        if (el && el.blur) el.blur();
-        this.setState({ ask: true, draft: false });
-        this.timers.push(setTimeout(() => this.setState({ replied: true }), 2200));
+      sendAct: sendGo,
+      compKeys: e => {
+        if (e.key !== 'Enter') return;
+        if (S.draft) sendGo(e);
+        else if (ranLive && !S.ask) this.setState({ draft: true });
       },
 
       // Keyed on the live run alone, not on `on || run`. The plan view carries no caption.
