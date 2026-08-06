@@ -420,6 +420,40 @@
         </div>
         </div>
         </div>
+
+<!-- The comment implementation, echoed here too: Make these changes fires this the same way the
+     last answer fires the build above — a spinner per note while it is on it, a check once it lands. -->
+        <div style="display: grid; grid-template-rows: {{ cn.rows }}; margin-top: {{ cn.mt }}; transition: grid-template-rows {{ moveDur }} {{ moveEase }}, margin-top {{ moveDur }} {{ moveEase }};">
+        <div style="overflow: hidden; min-height: 0; opacity: {{ cn.op }}; transition: opacity {{ cn.opDur }} {{ moveEase }} {{ cn.opDl }};">
+        <div style="display: flex; gap: 12px;">
+          <div style="width: 22px; height: 22px; flex: none; border-radius: 99px; background: rgba(139, 152, 165, 0.16); display: grid; place-items: center;"><img src="assets/flowx-mark-white.svg" alt="Agent" style="height: 11px; width: auto; flex: none;" /></div>
+          <div style="flex: 1; min-width: 0; display: flex; flex-direction: column; gap: 8px;">
+            <div style="font: 600 12px/16px 'Open Sans', sans-serif; color: #8b98a5;">Agent <span style="font-weight: 400;">· 09:58</span></div>
+            <div style="font: 400 14px/24px 'Open Sans', sans-serif; color: #f5f9fc; text-wrap: pretty;">{{ cnLead }}</div>
+            <div style="display: flex; flex-direction: column; gap: 6px; padding: 2px 0;">
+              <sc-for list="{{ cnRows }}" as="c" hint-placeholder-count="2">
+              <div style="display: flex; flex-direction: column;">
+              <div style="display: flex; align-items: flex-start; gap: 8px;">
+                <sc-if value="{{ c.busy }}" hint-placeholder-val="{{ true }}">
+                <i class="ph ph-circle-dashed" style="font-size: 14px; color: #4d97ea; flex: none; margin-top: 2px; animation: run-spin 2400ms linear infinite;"></i>
+                </sc-if>
+                <sc-if value="{{ c.done }}" hint-placeholder-val="{{ false }}">
+                <i class="ph ph-check-circle" style="font-size: 14px; color: #8ad3ab; flex: none; margin-top: 2px; animation: check-pop 360ms cubic-bezier(0.2, 0, 0.2, 1) both;"></i>
+                </sc-if>
+                <div style="min-width: 0; font: 400 12px/18px 'Open Sans', sans-serif; color: {{ c.color }}; text-wrap: pretty; transition: color 340ms cubic-bezier(0.2, 0, 0.2, 1);">{{ c.title }}</div>
+              </div>
+              <div style="display: grid; grid-template-rows: {{ c.sub }}; transition: grid-template-rows 340ms cubic-bezier(0.2, 0, 0.2, 1);">
+              <div style="overflow: hidden; min-height: 0; margin-left: 22px; opacity: {{ c.subOp }}; transition: opacity 200ms cubic-bezier(0.2, 0, 0.2, 1);">
+                <div style="min-width: 0; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; font: 400 12px/16px 'Open Sans', sans-serif; color: #8b98a5;">{{ c.note }}</div>
+              </div>
+              </div>
+              </div>
+              </sc-for>
+            </div>
+          </div>
+        </div>
+        </div>
+        </div>
       </div>
 
 <!-- Lands on the rail's composer, caption and all: the 24 of bottom padding grows to 48 to clear
@@ -436,7 +470,8 @@
 <!-- The plan, arrived: a card out of flow, so it travels in on its own opacity — never a fold.
      It is also the first thing to go on the way out: it has nowhere to land on the plan view, and
      the column morphing out from under it would leave it hanging over the far side. -->
-      <div style="position: absolute; top: 24px; right: 24px; width: 320px; border: 1px solid #26313d; border-radius: 12px; background: #101820; padding: 16px; display: flex; flex-direction: column; gap: 12px; box-shadow: 0 12px 32px rgba(0, 0, 0, 0.4); opacity: {{ iw.op }}; transform: {{ iw.tr }}; visibility: {{ iw.vis }}; transition: opacity {{ iw.dur }} {{ moveEase }} {{ iw.dl }}, transform {{ iw.dur }} {{ moveEase }} {{ iw.dl }}, visibility 0s linear {{ iw.visDl }};">
+<!-- The comments dock claims the same corner: this card steps left of it rather than sitting under it. -->
+      <div style="position: absolute; top: 24px; right: {{ iwRight }}; width: 320px; border: 1px solid #26313d; border-radius: 12px; background: #101820; padding: 16px; display: flex; flex-direction: column; gap: 12px; box-shadow: 0 12px 32px rgba(0, 0, 0, 0.4); opacity: {{ iw.op }}; transform: {{ iw.tr }}; visibility: {{ iw.vis }}; transition: opacity {{ iw.dur }} {{ moveEase }} {{ iw.dl }}, transform {{ iw.dur }} {{ moveEase }} {{ iw.dl }}, right {{ moveDur }} {{ moveEase }}, visibility 0s linear {{ iw.visDl }};">
         <div style="display: flex; align-items: center; justify-content: space-between; gap: 12px;">
           <div style="font: 700 12px/16px 'Open Sans', sans-serif; color: #f5f9fc;">The plan</div>
           <div style="display: flex; align-items: center; gap: 3px;">
@@ -806,6 +841,40 @@
               </div>
               </div>
               </div>
+              </div>
+            </div>
+          </div>
+          </div>
+          </div>
+
+<!-- The comment implementation, echoed here too: Make these changes fires this the same way the
+     last answer fires the build above — a spinner per note while it is on it, a check once it lands. -->
+          <div style="display: grid; grid-template-rows: {{ cn.rows }}; margin-top: {{ cn.mt }}; transition: grid-template-rows {{ moveDur }} {{ moveEase }}, margin-top {{ moveDur }} {{ moveEase }};">
+          <div style="overflow: hidden; min-height: 0; opacity: {{ cn.op }}; transition: opacity {{ cn.opDur }} {{ moveEase }} {{ cn.opDl }};">
+          <div style="display: flex; gap: 12px;">
+            <div style="width: 22px; height: 22px; flex: none; border-radius: 99px; background: rgba(139, 152, 165, 0.16); display: grid; place-items: center;"><img src="assets/flowx-mark-white.svg" alt="Agent" style="height: 11px; width: auto; flex: none;" /></div>
+            <div style="flex: 1; min-width: 0; display: flex; flex-direction: column; gap: 8px;">
+              <div style="font: 600 12px/16px 'Open Sans', sans-serif; color: #8b98a5;">Agent <span style="font-weight: 400;">· 09:58</span></div>
+              <div style="font: 400 14px/24px 'Open Sans', sans-serif; color: #f5f9fc; text-wrap: pretty;">{{ cnLead }}</div>
+              <div style="display: flex; flex-direction: column; gap: 6px; padding: 2px 0;">
+                <sc-for list="{{ cnRows }}" as="c" hint-placeholder-count="2">
+                <div style="display: flex; flex-direction: column;">
+                <div style="display: flex; align-items: flex-start; gap: 8px;">
+                  <sc-if value="{{ c.busy }}" hint-placeholder-val="{{ true }}">
+                  <i class="ph ph-circle-dashed" style="font-size: 14px; color: #4d97ea; flex: none; margin-top: 2px; animation: run-spin 2400ms linear infinite;"></i>
+                  </sc-if>
+                  <sc-if value="{{ c.done }}" hint-placeholder-val="{{ false }}">
+                  <i class="ph ph-check-circle" style="font-size: 14px; color: #8ad3ab; flex: none; margin-top: 2px; animation: check-pop 360ms cubic-bezier(0.2, 0, 0.2, 1) both;"></i>
+                  </sc-if>
+                  <div style="min-width: 0; font: 400 12px/18px 'Open Sans', sans-serif; color: {{ c.color }}; text-wrap: pretty; transition: color 340ms cubic-bezier(0.2, 0, 0.2, 1);">{{ c.title }}</div>
+                </div>
+                <div style="display: grid; grid-template-rows: {{ c.sub }}; transition: grid-template-rows 340ms cubic-bezier(0.2, 0, 0.2, 1);">
+                <div style="overflow: hidden; min-height: 0; margin-left: 22px; opacity: {{ c.subOp }}; transition: opacity 200ms cubic-bezier(0.2, 0, 0.2, 1);">
+                  <div style="min-width: 0; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; font: 400 12px/16px 'Open Sans', sans-serif; color: #8b98a5;">{{ c.note }}</div>
+                </div>
+                </div>
+                </div>
+                </sc-for>
               </div>
             </div>
           </div>
@@ -2982,7 +3051,10 @@ class Component extends DCLogic {
     const bdOpen = S.buildQueue.length > 0 && !(ranLive && allBuilt);
     // The merchant exchange gives way to its divider the moment the run, a build or the walk needs
     // the room — the chat has no scroller. Both panes read it, so it is one value.
-    const mFold = S.ask || !!S.runNote || S.buildQueue.length > 0 || S.guided || ranLive;
+    // Implementing comments claims the same room the build already claims: the older exchange
+    // folds into its divider rather than fighting the rail's fixed, unscrolled budget for it.
+    const cnActive = S.notes.some(n => n.state !== 'open');
+    const mFold = S.ask || !!S.runNote || S.buildQueue.length > 0 || S.guided || ranLive || cnActive;
     // The intro composer stages two scripted turns, in this order and no other: the brief, then the
     // one thing you want dropped — typed and waiting from the moment the plan lands, so the way to
     // interrupt the walk is on the screen. Nothing to stage once the build has started.
@@ -3056,6 +3128,8 @@ class Component extends DCLogic {
     const nBusy = S.notes.some(n => n.state === 'busy');
     const nOpen = S.notes.filter(n => n.state === 'open');
     const nDone = S.notes.length > 0 && S.notes.every(n => n.state === 'done');
+    // Sent to the agent, in order — the chat's own echo of the panel's list, one line per note.
+    const cnList = S.notes.filter(n => n.state !== 'open');
 
     return {
       rows: rows,
@@ -3782,6 +3856,7 @@ class Component extends DCLogic {
         if (g) g.style.opacity = '0';
         this.setState(p => ({ noteMode: !p.noteMode, noteDraft: null, noteText: '' }));
       },
+      iwRight: S.noteMode ? '352px' : '24px',
       noteBtnTitle: S.noteMode ? 'Leave comment mode — Esc' : 'Comment on what you see',
       noteBtnBg: S.noteMode ? '#2b7fe4' : '#161f28',
       noteBtnBorder: S.noteMode ? '#2b7fe4' : '#26313d',
@@ -3870,6 +3945,22 @@ class Component extends DCLogic {
         : (nDone ? 'Done — every comment is in.' : ''),
       noteDone: nDone,
       noteClear: () => this.setState({ notes: [] }),
+
+      // ── The implementation, echoed in the chat ──────────────────────────
+      // One line per note, in the order sent: a spinner and "Working on it" while busy, a check
+      // once it lands. The sub-note folds away on done — the icon and the brighter title say it,
+      // the same language the plan's own built/not-built dot uses everywhere else on this screen.
+      cn: fold(cnList.length > 0),
+      cnLead: cnList.length === 1 ? 'Making the change from your comment.' : 'Making the changes from your comments.',
+      cnRows: cnList.map(n => ({
+        title: '“' + (n.text.length > 100 ? n.text.slice(0, 100).trim() + '…' : n.text) + '”',
+        note: 'Working on it — ' + n.viewName + ' · “' + n.label + '”',
+        busy: n.state === 'busy',
+        done: n.state === 'done',
+        color: n.state === 'done' ? '#c3cdd7' : '#8b98a5',
+        sub: n.state === 'busy' ? '1fr' : '0fr',
+        subOp: n.state === 'busy' ? '1' : '0'
+      })),
 
     };
   }
