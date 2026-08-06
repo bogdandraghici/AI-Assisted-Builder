@@ -100,6 +100,10 @@
               <i class="ph {{ runIcon }}" style="font-size: 12px;"></i>{{ runLabel }}
             </div>
           </div>
+<!-- brightness on hover, not a background: the same rule has to sit on both the armed blue and the quiet grey. -->
+          <div onClick="{{ noteToggle }}" tabindex="0" title="{{ noteBtnTitle }}" style="display: inline-flex; align-items: center; gap: 6px; height: 28px; padding: 0 8px; border-radius: 8px; border: 1px solid {{ noteBtnBorder }}; background: {{ noteBtnBg }}; color: {{ noteBtnColor }}; font: 600 12px/16px 'Open Sans', sans-serif; cursor: pointer; outline: none; transition: all 160ms cubic-bezier(0.2, 0, 0.2, 1);" style-hover="filter: brightness(1.15);" style-focus="box-shadow: 0 0 0 3px rgba(43, 127, 228, 0.32);">
+            <i class="ph ph-chat-teardrop-text" style="font-size: 12px;"></i>Comment
+          </div>
           </div>
           <div style="width: 26px; height: 26px; border-radius: 99px; border: 1px solid #26313d; background: #161f28; display: inline-flex; align-items: center; justify-content: center; color: #c3cdd7; cursor: pointer; flex: none; transition: background 160ms cubic-bezier(0.2, 0, 0.2, 1);" style-hover="background: #1c2632;"><i class="ph ph-dots-three-vertical" style="font-size: 12px;"></i></div>
           <div style="width: 1px; height: 20px; background: #26313d; flex: none;"></div>
@@ -1742,6 +1746,67 @@
       </div>
 
     </div>
+
+<!-- ── Comment mode ── The overlay owns the pointer below the header while the mode is armed;
+     what is under it is read back through elementFromPoint, the overlay stepping aside for the
+     one call. Pins and the composer live in frame pixels on a hit-proof layer above it, and the
+     panel carries every note plus the handoff to the agent. -->
+    <div data-note-overlay="1" onClick="{{ notePick }}" onMouseMove="{{ noteMove }}" onMouseLeave="{{ noteLeave }}" style="position: absolute; top: 48px; left: 0; right: 0; bottom: 0; z-index: 30; cursor: crosshair; visibility: {{ nmVis }}; pointer-events: {{ nmPE }};"></div>
+
+    <div style="position: absolute; inset: 0; z-index: 31; pointer-events: none; visibility: {{ nmVis }};">
+<!-- Hover box written frame by frame in noteMove — position transitions so it glides between targets. -->
+      <div data-note-glow="1" style="position: absolute; top: 0; left: 0; width: 0; height: 0; border: 1.5px solid #4d97ea; background: rgba(43, 127, 228, 0.10); border-radius: 6px; opacity: 0; transition: top 90ms cubic-bezier(0.2, 0, 0.2, 1), left 90ms cubic-bezier(0.2, 0, 0.2, 1), width 90ms cubic-bezier(0.2, 0, 0.2, 1), height 90ms cubic-bezier(0.2, 0, 0.2, 1), opacity 120ms linear;"></div>
+      <div style="position: absolute; top: {{ noteSel.top }}; left: {{ noteSel.left }}; width: {{ noteSel.width }}; height: {{ noteSel.height }}; border: 1.5px solid #4d97ea; background: rgba(43, 127, 228, 0.10); border-radius: 6px; visibility: {{ noteSel.vis }};"></div>
+      <sc-for list="{{ pins }}" as="p" hint-placeholder-count="2">
+      <div style="position: absolute; top: {{ p.top }}; left: {{ p.left }}; transform: translate(-50%, -50%); width: 22px; height: 22px; border-radius: 99px 99px 99px 3px; background: {{ p.bg }}; border: 2px solid #0b1218; box-shadow: 0 2px 10px rgba(0, 0, 0, 0.45); display: grid; place-items: center; font: 700 10px/12px 'Open Sans', sans-serif; color: #ffffff; animation: {{ p.anim }};">{{ p.n }}</div>
+      </sc-for>
+      <div data-note-ui="1" style="position: absolute; top: {{ noteComp.top }}; left: {{ noteComp.left }}; width: 320px; visibility: {{ noteComp.vis }}; pointer-events: auto; background: #101820; border: 1px solid #26313d; border-radius: 10px; box-shadow: 0 12px 40px rgba(0, 0, 0, 0.5); padding: 12px; display: flex; flex-direction: column; gap: 8px;">
+        <div style="display: flex; align-items: center; gap: 8px;">
+          <div style="flex: 1; min-width: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; font: 400 11px/16px 'Open Sans', sans-serif; color: #8b98a5;">On &ldquo;{{ noteComp.label }}&rdquo;</div>
+          <div onClick="{{ noteCancel }}" title="Drop it — Esc" style="width: 20px; height: 20px; border-radius: 6px; display: inline-flex; align-items: center; justify-content: center; color: #8b98a5; cursor: pointer; flex: none; transition: background 160ms cubic-bezier(0.2, 0, 0.2, 1);" style-hover="background: #1c2632;"><i class="ph ph-x" style="font-size: 12px;"></i></div>
+        </div>
+        <input data-note-input="1" data-write="note" value="{{ noteText }}" onChange="{{ noteType }}" onKeyDown="{{ noteKeys }}" placeholder="What should change here?" style="padding: 6px 10px; background: #0e161d; border: 1px solid #26313d; border-radius: 6px; font: 400 13px/20px 'Open Sans', sans-serif; color: #f5f9fc; outline: none;" style-hover="border-color: #33404d;" style-focus="border-color: #4d97ea; box-shadow: 0 0 0 3px rgba(43, 127, 228, 0.32);">
+        <div style="display: flex; justify-content: flex-end;">
+          <div onClick="{{ noteAdd.act }}" tabindex="{{ noteAdd.tab }}" style="display: inline-flex; align-items: center; height: 26px; padding: 0 12px; border-radius: 8px; border: 1px solid {{ noteAdd.border }}; background: {{ noteAdd.bg }}; color: {{ noteAdd.color }}; font: 600 12px/16px 'Open Sans', sans-serif; cursor: {{ noteAdd.cursor }}; outline: none; pointer-events: {{ noteAdd.pe }}; transition: all 160ms cubic-bezier(0.2, 0, 0.2, 1);" style-hover="filter: brightness(1.15);" style-focus="box-shadow: 0 0 0 3px rgba(43, 127, 228, 0.32);">Comment</div>
+        </div>
+      </div>
+    </div>
+
+    <div data-note-ui="1" style="position: absolute; top: 48px; right: 0; bottom: 0; width: 320px; z-index: 32; background: #101820; border-left: 1px solid #18212a; display: flex; flex-direction: column; visibility: {{ nmVis }}; opacity: {{ npOp }}; transform: {{ npTr }}; transition: opacity 200ms cubic-bezier(0.2, 0, 0.2, 1), transform 200ms cubic-bezier(0.2, 0, 0.2, 1), visibility 0s linear {{ npVisDl }};">
+      <div style="height: 48px; flex: none; display: flex; align-items: center; gap: 8px; padding: 0 16px; border-bottom: 1px solid #18212a;">
+        <i class="ph ph-chat-teardrop-text" style="font-size: 14px; color: #8b98a5;"></i>
+        <div style="font: 600 13px/18px 'Open Sans', sans-serif; color: #f5f9fc;">Comments</div>
+        <div style="font: 400 12px/16px 'Open Sans', sans-serif; color: #8b98a5;">{{ noteCount }}</div>
+        <div onClick="{{ noteToggle }}" tabindex="{{ npTab }}" title="Leave comment mode — Esc" style="margin-left: auto; width: 22px; height: 22px; border-radius: 6px; display: inline-flex; align-items: center; justify-content: center; color: #8b98a5; cursor: pointer; flex: none; outline: none; transition: background 160ms cubic-bezier(0.2, 0, 0.2, 1);" style-hover="background: #1c2632;" style-focus="box-shadow: 0 0 0 3px rgba(43, 127, 228, 0.32);"><i class="ph ph-x" style="font-size: 12px;"></i></div>
+      </div>
+      <div style="flex: 1; min-height: 0; overflow-y: auto; display: flex; flex-direction: column;">
+<sc-if value="{{ notesEmpty }}" hint-placeholder-val="{{ false }}">
+        <div style="padding: 24px 16px; display: flex; flex-direction: column; gap: 6px;">
+          <div style="font: 600 13px/18px 'Open Sans', sans-serif; color: #c3cdd7;">Nothing yet</div>
+          <div style="font: 400 12px/18px 'Open Sans', sans-serif; color: #8b98a5;">Click anything on the screen, say what should change, and it lands here.</div>
+        </div>
+</sc-if>
+        <sc-for list="{{ noteRows }}" as="nr" hint-placeholder-count="2">
+        <div style="display: flex; align-items: flex-start; gap: 10px; padding: 12px 16px; border-bottom: 1px solid #18212a; flex: none;">
+          <div style="width: 18px; height: 18px; border-radius: 99px 99px 99px 3px; background: {{ nr.pinBg }}; display: grid; place-items: center; font: 700 9px/10px 'Open Sans', sans-serif; color: #ffffff; flex: none; margin-top: 1px;">{{ nr.n }}</div>
+          <div style="flex: 1; min-width: 0; display: flex; flex-direction: column; gap: 2px;">
+            <div style="font: 400 11px/16px 'Open Sans', sans-serif; color: #8b98a5; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;">{{ nr.viewName }} &middot; &ldquo;{{ nr.label }}&rdquo;</div>
+            <div style="font: 400 13px/19px 'Open Sans', sans-serif; color: #f5f9fc; text-wrap: pretty;">{{ nr.text }}</div>
+          </div>
+          <i class="ph {{ nr.glyph }}" style="font-size: 14px; color: {{ nr.glyphColor }}; flex: none; margin-top: 2px; animation: {{ nr.anim }};"></i>
+        </div>
+        </sc-for>
+      </div>
+      <div style="flex: none; padding: 12px 16px 16px; border-top: 1px solid #18212a; display: flex; flex-direction: column; gap: 8px;">
+        <div onClick="{{ noteGo.act }}" tabindex="{{ noteGo.tab }}" title="{{ noteGo.title }}" style="height: 32px; display: inline-flex; align-items: center; justify-content: center; gap: 6px; border-radius: 8px; border: 1px solid {{ noteGo.border }}; background: {{ noteGo.bg }}; color: {{ noteGo.color }}; font: 600 12px/16px 'Open Sans', sans-serif; cursor: {{ noteGo.cursor }}; outline: none; pointer-events: {{ noteGo.pe }}; transition: all 160ms cubic-bezier(0.2, 0, 0.2, 1);" style-hover="filter: brightness(1.15);" style-focus="box-shadow: 0 0 0 3px rgba(43, 127, 228, 0.32);"><i class="ph ph-hammer" style="font-size: 12px;"></i>{{ noteGo.label }}</div>
+<sc-if value="{{ noteFootCap }}" hint-placeholder-val="{{ false }}">
+        <div style="font: 400 11px/16px 'Open Sans', sans-serif; color: #8b98a5; text-align: center;">{{ noteFootCap }}</div>
+</sc-if>
+<sc-if value="{{ noteDone }}" hint-placeholder-val="{{ false }}">
+        <div onClick="{{ noteClear }}" style="font: 600 11px/16px 'Open Sans', sans-serif; color: #8b98a5; text-align: center; cursor: pointer; transition: color 160ms cubic-bezier(0.2, 0, 0.2, 1);" style-hover="color: #c3cdd7;">Clear the list</div>
+</sc-if>
+      </div>
+    </div>
   </div>
 
 </div>
@@ -1820,6 +1885,12 @@ class Component extends DCLogic {
       replied: ask && q.get('replied') !== '0',
       // The staged request sitting in the composer, not yet sent. Send turns it into `ask`.
       draft: false,
+      // Comment mode: armed by the header button. A note is a pin in frame pixels plus the words,
+      // keyed to the view it was left on; `state` walks open -> busy -> done when the agent is sent.
+      noteMode: false,
+      noteDraft: null,
+      noteText: '',
+      notes: [],
       // `run` is which view; `live` is whether a run is playing in it. Stop keeps the view.
       // Opening the view is not running: a live run is asked for — ?at=N, ?ask=1 or ?live=1.
       live: !loading && (q.has('at') || ask || q.get('live') === '1'),
@@ -2189,6 +2260,8 @@ class Component extends DCLogic {
       // One thing per press: the draft is held in state, so the blur loses none of it.
       if (act && act.hasAttribute && act.hasAttribute('data-write')) return;
       // Most modal first, and each Escape leaves exactly one thing.
+      if (this.state.noteDraft) { this.setState({ noteDraft: null, noteText: '' }); return; }
+      if (this.state.noteMode) { this.setState({ noteMode: false }); return; }
       const cards = this.state.cards;
       const keys = Object.keys(cards);
       const any = p => keys.some(k => cards[k][p]);
@@ -2942,6 +3015,48 @@ class Component extends DCLogic {
       }, 1400));
     };
 
+    // ── Comment mode ───────────────────────────────────────────────────────
+    // The element under the pointer is read through elementFromPoint, with the overlay stepping
+    // aside for the one call. Everything is stored in frame pixels — client rects are z times
+    // too big, the same divide as rectIn — and keyed to the view the note was left on.
+    const viewKey = S.intro ? 'chat' : (S.run ? 'run' : (S.step ? 'step' + S.step : 'plan'));
+    const viewName = S.intro ? 'Chat' : (S.run ? 'Test run' : (S.step ? 'Step ' + S.step : 'Plan'));
+    const noteAt = e => {
+      const ov = document.querySelector('[data-note-overlay]');
+      if (!ov) return null;
+      ov.style.pointerEvents = 'none';
+      const el = document.elementFromPoint(e.clientX, e.clientY);
+      ov.style.pointerEvents = 'auto';
+      if (!el || el.closest('[data-note-ui]')) return null;
+      const fr = document.querySelector('[data-screen-label]').getBoundingClientRect();
+      const r = el.getBoundingClientRect();
+      return {
+        el: el,
+        x: (e.clientX - fr.left) / z, y: (e.clientY - fr.top) / z,
+        rect: { top: (r.top - fr.top) / z, left: (r.left - fr.left) / z,
+                width: r.width / z, height: r.height / z }
+      };
+    };
+    const noteName = el => {
+      const t = (el.getAttribute('title') || el.getAttribute('placeholder') || el.innerText || '')
+        .replace(/\s+/g, ' ').trim();
+      return t ? (t.length > 64 ? t.slice(0, 64).trim() + '…' : t) : 'this spot';
+    };
+    const nd = S.noteDraft;
+    const noteArmed = !!nd && S.noteText.trim() !== '';
+    const noteSend = e => {
+      const el = e && e.currentTarget;
+      if (el && el.blur) el.blur();
+      if (!noteArmed) return;
+      this.setState(p => ({
+        notes: p.notes.concat([{ ...p.noteDraft, n: p.notes.length + 1, text: p.noteText.trim(), state: 'open' }]),
+        noteDraft: null, noteText: ''
+      }));
+    };
+    const nBusy = S.notes.some(n => n.state === 'busy');
+    const nOpen = S.notes.filter(n => n.state === 'open');
+    const nDone = S.notes.length > 0 && S.notes.every(n => n.state === 'done');
+
     return {
       rows: rows,
 
@@ -3651,6 +3766,110 @@ class Component extends DCLogic {
         : (big
           ? 'A reviewer in ' + team + ' has it, and you will hear by 7 August.'
           : 'You will have a decision by 7 August.'),
+
+      // ── Comment mode ─────────────────────────────────────────────────────
+      nmVis: S.noteMode ? 'visible' : 'hidden',
+      nmPE: S.noteMode ? 'auto' : 'none',
+      npOp: S.noteMode ? '1' : '0',
+      npTr: S.noteMode ? 'none' : 'translateX(16px)',
+      npVisDl: S.noteMode ? '0ms' : '200ms',
+      npTab: S.noteMode ? '0' : '-1',
+      noteToggle: e => {
+        const el = e && e.currentTarget;
+        if (el && el.blur) el.blur();
+        // The glow keeps its last inline position, so re-arming would flash it where it was.
+        const g = document.querySelector('[data-note-glow]');
+        if (g) g.style.opacity = '0';
+        this.setState(p => ({ noteMode: !p.noteMode, noteDraft: null, noteText: '' }));
+      },
+      noteBtnTitle: S.noteMode ? 'Leave comment mode — Esc' : 'Comment on what you see',
+      noteBtnBg: S.noteMode ? '#2b7fe4' : '#161f28',
+      noteBtnBorder: S.noteMode ? '#2b7fe4' : '#26313d',
+      noteBtnColor: S.noteMode ? '#ffffff' : '#c3cdd7',
+      // Written frame by frame, never through state — a setState per mousemove re-renders the screen.
+      noteMove: e => {
+        const g = document.querySelector('[data-note-glow]');
+        if (!g) return;
+        const hit = noteAt(e);
+        if (!hit) { g.style.opacity = '0'; return; }
+        g.style.top = hit.rect.top + 'px';
+        g.style.left = hit.rect.left + 'px';
+        g.style.width = hit.rect.width + 'px';
+        g.style.height = hit.rect.height + 'px';
+        g.style.opacity = '1';
+      },
+      noteLeave: () => {
+        const g = document.querySelector('[data-note-glow]');
+        if (g) g.style.opacity = '0';
+      },
+      // Clicking with a draft open retargets it and keeps the words already typed.
+      notePick: e => {
+        const hit = noteAt(e);
+        if (!hit) return;
+        this.setState({
+          noteDraft: { x: hit.x, y: hit.y, rect: hit.rect, label: noteName(hit.el),
+                       view: viewKey, viewName: viewName }
+        }, () => {
+          const f = document.querySelector('[data-note-input]');
+          if (f) f.focus();
+        });
+      },
+      noteSel: {
+        vis: nd ? 'visible' : 'hidden',
+        top: (nd ? nd.rect.top : 0) + 'px', left: (nd ? nd.rect.left : 0) + 'px',
+        width: (nd ? nd.rect.width : 0) + 'px', height: (nd ? nd.rect.height : 0) + 'px'
+      },
+      // Clamped clear of the panel's 320, and flipped above the point near the floor.
+      noteComp: {
+        vis: nd ? 'visible' : 'hidden',
+        left: (nd ? Math.max(12, Math.min(nd.x - 24, W - 664)) : 0) + 'px',
+        top: (nd ? (nd.y > H - 200 ? nd.y - 156 : nd.y + 14) : 0) + 'px',
+        label: nd ? nd.label : ''
+      },
+      noteText: S.noteText,
+      noteType: e => this.setState({ noteText: e.target.value }),
+      noteKeys: e => { if (e.key === 'Enter') noteSend(e); },
+      noteCancel: () => this.setState({ noteDraft: null, noteText: '' }),
+      noteAdd: {
+        pe: noteArmed ? 'auto' : 'none',
+        tab: noteArmed ? '0' : '-1',
+        bg: noteArmed ? '#2b7fe4' : 'transparent',
+        border: noteArmed ? '#2b7fe4' : '#26313d',
+        color: noteArmed ? '#ffffff' : '#8b98a5',
+        cursor: noteArmed ? 'pointer' : 'not-allowed',
+        act: noteSend
+      },
+      pins: S.notes.filter(n => n.view === viewKey).map(n => ({
+        n: String(n.n), top: n.y + 'px', left: n.x + 'px',
+        bg: n.state === 'done' ? '#2ea86a' : '#2b7fe4',
+        anim: n.state === 'busy' ? 'build-pulse 1400ms ease-in-out infinite' : 'none'
+      })),
+      noteCount: S.notes.length ? String(S.notes.length) : '',
+      notesEmpty: S.notes.length === 0,
+      noteRows: S.notes.map(n => ({
+        n: String(n.n), viewName: n.viewName, label: n.label, text: n.text,
+        pinBg: n.state === 'done' ? '#2ea86a' : '#2b7fe4',
+        glyph: n.state === 'done' ? 'ph-check-circle' : (n.state === 'busy' ? 'ph-circle-notch' : 'ph-circle-dashed'),
+        glyphColor: n.state === 'done' ? '#8ad3ab' : (n.state === 'busy' ? '#4d97ea' : '#8b98a5'),
+        anim: n.state === 'busy' ? 'run-spin 900ms linear infinite' : 'none'
+      })),
+      noteGo: {
+        ...primary(nOpen.length > 0 && !nBusy, e => {
+          const el = e && e.currentTarget;
+          if (el && el.blur) el.blur();
+          const ids = nOpen.map(n => n.n);
+          this.setState(p => ({ notes: p.notes.map(n => ids.indexOf(n.n) !== -1 ? { ...n, state: 'busy' } : n) }));
+          // Landed one at a time, top to bottom, so the list reads as the agent working through it.
+          ids.forEach((id, i) => this.timers.push(setTimeout(() =>
+            this.setState(p => ({ notes: p.notes.map(n => n.n === id ? { ...n, state: 'done' } : n) })),
+            1600 + i * 1200)));
+        }, 'The agent makes every change on the list'),
+        label: nBusy ? 'Making the changes…' : (nDone ? 'All of them are in' : 'Make these changes')
+      },
+      noteFootCap: nBusy ? 'Working through the list, top to bottom.'
+        : (nDone ? 'Done — every comment is in.' : ''),
+      noteDone: nDone,
+      noteClear: () => this.setState({ notes: [] }),
 
     };
   }
