@@ -1401,9 +1401,15 @@
                       </div>
                     </div>
 
-<!-- One tag, not two stacked — the stack was 74px wider than the animating max-width could afford. -->
-                    <div style="position: relative; display: grid; grid-template-columns: {{ s.chipCols }}; flex: none; transition: grid-template-columns {{ moveDur }} {{ moveEase }};">
-                      <div style="overflow: hidden; min-width: 0; white-space: nowrap; display: flex; padding-top: 2px; opacity: {{ exOp }}; transition: opacity {{ exOpDur }} {{ moveEase }} {{ exOpDl }};"><div style="display: inline-flex; align-items: center; gap: 4px; height: 18px; padding: 0 6px; border-radius: 4px; background: {{ s.chipBg }}; border: 1px solid {{ s.chipBorder }}; color: {{ s.chipColor }}; font: 400 10px/12px ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; animation: {{ s.busyAnim }};"><sc-if value="{{ s.chipGlyph }}" hint-placeholder-val="{{ false }}"><i class="ph ph-question-mark" style="font-size: 10px;"></i></sc-if>{{ s.chip }}</div></div>
+<!-- One tag, not two stacked — the stack was 74px wider than the animating max-width could afford.
+     Side by side is fine: each tag folds on its own column, the chip's 6px gap folds with it. -->
+                    <div style="position: relative; display: flex; flex: none;">
+                      <div style="display: grid; grid-template-columns: {{ s.chipCols }}; transition: grid-template-columns {{ moveDur }} {{ moveEase }};">
+                        <div style="overflow: hidden; min-width: 0; white-space: nowrap; display: flex; padding-top: 2px; opacity: {{ exOp }}; transition: opacity {{ exOpDur }} {{ moveEase }} {{ exOpDl }};"><div style="display: inline-flex; align-items: center; gap: 4px; height: 18px; margin-right: 6px; padding: 0 6px; border-radius: 4px; background: {{ s.chipBg }}; border: 1px solid {{ s.chipBorder }}; color: {{ s.chipColor }}; font: 400 10px/12px ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; animation: {{ s.busyAnim }};"><sc-if value="{{ s.chipGlyph }}" hint-placeholder-val="{{ false }}"><i class="ph ph-question-mark" style="font-size: 10px;"></i></sc-if>{{ s.chip }}</div></div>
+                      </div>
+                      <div style="display: grid; grid-template-columns: {{ s.testCols }}; transition: grid-template-columns {{ moveDur }} {{ moveEase }};">
+                        <div style="overflow: hidden; min-width: 0; white-space: nowrap; display: flex; padding-top: 2px; opacity: {{ exOp }}; transition: opacity {{ exOpDur }} {{ moveEase }} {{ exOpDl }};"><div onClick="{{ s.openTest }}" tabindex="{{ cardTab }}" title="Open this step at how to test it" style="display: inline-flex; align-items: center; gap: 4px; height: 18px; padding: 0 6px; border-radius: 4px; background: rgba(46, 168, 106, 0.10); border: 1px solid rgba(46, 168, 106, 0.26); color: #2ea86a; font: 400 10px/12px ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; cursor: pointer; outline: none; pointer-events: {{ cardPE }}; transition: background 160ms cubic-bezier(0.2, 0, 0.2, 1), color 160ms cubic-bezier(0.2, 0, 0.2, 1);" style-hover="background: rgba(46, 168, 106, 0.18); color: #8ad3ab;" style-focus="box-shadow: 0 0 0 3px rgba(46, 168, 106, 0.32);"><i class="ph ph-play" style="font-size: 10px;"></i>How to test</div></div>
+                      </div>
                     </div>
                   </div>
 
@@ -3136,6 +3142,9 @@ class Component extends DCLogic {
         desc: sub(s.desc),
         pin: s.pin,
         openMe: leave({ step: n, last: n, cards: allShut() }),
+        // The tag's promise is the panel, not just the pane — so it lands with the fold open.
+        openTest: leave({ step: n, last: n, cards: allShut(), howTest: true }),
+        testCols: on ? '0fr' : (s.test ? '1fr' : '0fr'),
         pad: isOpen ? stepPad : '0px',
         outline: isOpen ? selOutline : 'rgba(77, 151, 234, 0)',
         arrow: wash(n) ? '#f2985c' : '#8b98a5',
