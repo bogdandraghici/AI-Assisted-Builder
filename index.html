@@ -46,7 +46,10 @@
 
   <div data-screen-label="01" style="position: relative; width: {{ frameW }}; height: {{ frameH }}; min-width: 1440px; min-height: 900px; background: #0b1218; overflow: hidden; display: flex; flex-direction: column; color: #f5f9fc;">
 
-    <div style="flex: none;">
+<!-- Nothing exists before the first message — no journey to name, no views to switch, nothing to
+     go back to — so the bar is not there either. It opens WITH the conversation. The height is the
+     intro overlay's top too, which is how the two stay a single edge. -->
+    <div style="flex: none; height: {{ hdrH }}; overflow: hidden; opacity: {{ hdrOp }}; transition: height {{ iColDur }} {{ iColEase }} {{ hdrDl }}, opacity {{ hdrOpDur }} {{ moveEase }} {{ hdrDl }};">
       <div style="height: 48px; background: #101820; border-bottom: 1px solid #18212a; display: flex; align-items: center; gap: 16px; padding: 0 16px;">
 <!-- The negative margin pays back the padding, or the mark leaves its 16px and the gap tightens. -->
         <div onClick="{{ homeAct }}" tabindex="0" title="Start over" style="display: inline-flex; align-items: center; justify-content: center; padding: 3px; margin: -3px; border-radius: 6px; cursor: pointer; flex: none; outline: none; transition: background 160ms cubic-bezier(0.2, 0, 0.2, 1);" style-hover="background: #1c2632;" style-focus="box-shadow: 0 0 0 3px rgba(43, 127, 228, 0.32);">
@@ -119,15 +122,69 @@
      An overlay over the mounted body, never an sc-if — the machinery underneath stays whole, and
      leaving is the column MOVING onto the 360 rail, not a dissolve: see iCol. flex-start, never
      centred — the measure is what travels, so the offset has to be a length that can. -->
-    <div style="position: absolute; top: 48px; left: 0; right: 0; bottom: 0; z-index: 5; background: #0b1218; display: flex; flex-direction: column; align-items: flex-start; visibility: {{ introVis }}; opacity: {{ introOp }}; transition: opacity {{ introOpDur }} {{ moveEase }} {{ introOpDl }}, visibility 0s linear {{ introVisDl }};">
+    <div style="position: absolute; top: {{ hdrH }}; left: 0; right: 0; bottom: 0; z-index: 5; background: #0b1218; display: flex; flex-direction: column; align-items: flex-start; visibility: {{ introVis }}; opacity: {{ introOp }}; transition: top {{ iColDur }} {{ iColEase }} {{ hdrDl }}, opacity {{ introOpDur }} {{ moveEase }} {{ introOpDl }}, visibility 0s linear {{ introVisDl }};">
 
-<!-- The greeting holds the empty middle and gives it up to the conversation. pointer-events
-     none: the composer lives under this overlay's glass. -->
-      <div style="position: absolute; inset: 0; display: grid; place-items: center; pointer-events: none; opacity: {{ grOp }}; visibility: {{ grVis }}; transition: opacity 200ms cubic-bezier(0.2, 0, 0.2, 1), visibility 0s linear {{ grVisDl }};">
-        <div style="display: flex; flex-direction: column; align-items: center; gap: 8px; text-align: center; padding-bottom: 140px;">
-          <img src="assets/flowx-mark-white.svg" alt="FlowX" style="height: 32px; width: auto; margin-bottom: 8px;" />
-          <div style="font: 700 24px/38px 'Open Sans', sans-serif; color: #f5f9fc;">What should we build?</div>
-          <div style="font: 400 14px/24px 'Open Sans', sans-serif; color: #8b98a5; max-width: 440px; text-wrap: pretty;">Describe the journey in your own words — I will draw the plan and build it with you.</div>
+<!-- ── The first screen ── nothing said yet: the line it will finish for you on the left, and a
+     ghost of the plan it would draw on the right. Hovering a ghost step opens the decision inside
+     it. pointer-events none: the composer lives under this overlay's glass, so only the plan and
+     the two links take the pointer back. It all goes on the first message — see grOp. -->
+<!-- The z-index is not decoration: the composer below is TRANSFORMED, which paints it in this
+     layer and later in the DOM, so without it the invisible composer wrapper covers the two
+     links and eats their clicks. -->
+      <div style="position: absolute; inset: 0; z-index: 1; pointer-events: none; opacity: {{ grOp }}; visibility: {{ grVis }}; transition: opacity 200ms cubic-bezier(0.2, 0, 0.2, 1), visibility 0s linear {{ grVisDl }};">
+
+<!-- Both columns hang off the middle, never off the frame's edges: 640 + 56 + 552 is 1248, so the
+     group's left edge is 50% - 624 and its right is 50% + 624. Edge-anchored they were correct at
+     1440 and drifted apart at every width above it. -->
+<!-- Bottom-anchored vertically: what this sits on is the composer, and while the first screen is
+     up that is 378px off the floor — 24 of padding, 54 of box, 300 of lift. See iCompTr. -->
+        <div style="position: absolute; left: 50%; transform: translateX(-624px); bottom: 410px; width: 640px; display: flex; flex-direction: column; align-items: flex-start;">
+          <img src="assets/flowx-mark-white.svg" alt="FlowX" style="height: 30px; width: auto;" />
+          <div style="margin-top: 24px; font: 700 30px/40px 'Open Sans', sans-serif; color: #f5f9fc;">Let's build</div>
+<!-- One line, always: the phrase is dealt, and a two-line one would move everything above it. -->
+          <div style="font: 700 30px/40px 'Open Sans', sans-serif; color: #4d97ea; white-space: nowrap; opacity: {{ eOp }}; transition: opacity 420ms cubic-bezier(0.2, 0, 0.2, 1);">{{ ePhrase }}</div>
+          <div style="margin-top: 14px; font: 400 14px/24px 'Open Sans', sans-serif; color: #8b98a5; max-width: 470px; text-wrap: pretty;">Describe the journey in your own words. Hover a step to see the decision inside it — nothing is settled until you say so.</div>
+        </div>
+
+<!-- Under the composer, in the 324px it leaves: deal another plan, or take the one example. Its
+     bottom edge is the plan's too — the two columns are levelled on this line, not on their tops. -->
+        <div style="position: absolute; left: 50%; transform: translateX(-624px); bottom: 294px; display: flex; align-items: center; gap: 8px; font: 400 12px/16px 'Open Sans', sans-serif; color: #6b7783;">
+          <div onClick="{{ eDeal }}" tabindex="{{ eTab }}" style="display: inline-flex; align-items: center; gap: 6px; padding: 2px 4px; margin: -2px -4px; border-radius: 4px; pointer-events: auto; cursor: pointer; color: #8b98a5; outline: none; transition: color 160ms cubic-bezier(0.2, 0, 0.2, 1);" style-hover="color: #4d97ea;" style-focus="box-shadow: 0 0 0 3px rgba(43, 127, 228, 0.32);"><i class="ph ph-shuffle" style="font-size: 12px;"></i>Deal another journey</div>
+          <div>·</div>
+          <div>e.g. <span onClick="{{ eEg }}" tabindex="{{ eTab }}" style="padding: 2px 4px; margin: -2px -4px; border-radius: 4px; pointer-events: auto; cursor: pointer; color: #8b98a5; outline: none; transition: color 160ms cubic-bezier(0.2, 0, 0.2, 1);" style-hover="color: #4d97ea;" style-focus="box-shadow: 0 0 0 3px rgba(43, 127, 228, 0.32);">card disputes</span></div>
+        </div>
+
+<!-- The ghost plan. Pointer on the whole column, not just the cards: entering it holds the deal
+     where it is, so a step you are reading cannot be dealt away mid-read. -->
+        <div onMouseEnter="{{ ePin }}" onMouseLeave="{{ ePout }}" style="position: absolute; left: 50%; transform: translateX(72px); bottom: 294px; width: 552px; pointer-events: auto;">
+          <div style="display: flex; align-items: center; gap: 12px;">
+            <div style="display: flex; gap: 5px; flex: none;">
+              <sc-for list="{{ eTicks }}" as="k" hint-placeholder-count="4">
+              <div style="width: 26px; height: 3px; border-radius: 2px; background: {{ k.bg }};"></div>
+              </sc-for>
+            </div>
+            <div style="font: 400 12px/16px 'Open Sans', sans-serif; color: #6b7783;">Nothing settled yet · hover a step to look inside</div>
+          </div>
+
+          <div style="margin-top: 24px; display: flex; flex-direction: column; gap: 12px;">
+            <sc-for list="{{ eCards }}" as="g" hint-placeholder-count="4">
+            <div onMouseEnter="{{ g.in }}" onMouseLeave="{{ g.out }}" style="border: 1px {{ g.bs }} {{ g.bc }}; border-radius: 8px; padding: 12px 16px; background: {{ g.bg }}; opacity: {{ g.op }}; transform: {{ g.tf }}; transition: {{ g.tr }};">
+              <div style="display: flex; align-items: center; gap: 12px;">
+                <div style="font: 400 12px/22px ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; color: {{ g.nc }}; flex: none; transition: color 200ms cubic-bezier(0.2, 0, 0.2, 1);">{{ g.num }}</div>
+                <div style="min-width: 0; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; font: 600 14px/22px 'Open Sans', sans-serif; color: #f5f9fc;">{{ g.t }}</div>
+                <div style="flex: 1;"></div>
+                <div style="font: 600 10px/14px ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; letter-spacing: 0.1em; color: {{ g.tc }}; border: 1px solid {{ g.tb }}; border-radius: 99px; padding: 2px 7px; flex: none;">{{ g.tag }}</div>
+              </div>
+              <div style="display: grid; grid-template-rows: {{ g.rows }}; transition: grid-template-rows 260ms cubic-bezier(0.2, 0, 0.2, 1);">
+              <div style="overflow: hidden; min-height: 0; opacity: {{ g.dop }}; transition: opacity {{ g.dopDur }} cubic-bezier(0.2, 0, 0.2, 1) {{ g.dopDl }};">
+                <div style="padding: 6px 0 0 24px; font: 400 12px/18px 'Open Sans', sans-serif; color: #8b98a5; text-wrap: pretty;"><span style="font-weight: 600; color: #4d97ea;">You will decide</span> — {{ g.d }}</div>
+              </div>
+              </div>
+            </div>
+            </sc-for>
+          </div>
+
+          <div style="margin-top: 24px; font: 400 12px/16px 'Open Sans', sans-serif; color: #6b7783;">You will settle these in the conversation — rename, reorder, remove.</div>
         </div>
       </div>
 
@@ -459,7 +516,10 @@
 
 <!-- Lands on the rail's composer, caption and all: the 24 of bottom padding grows to 48 to clear
      the line the rail has and this does not, so the two boxes end on the same pixel. -->
-      <div style="width: {{ iColW }}; margin-left: {{ iColML }}; transform: {{ iColTr }}; flex: none; padding-top: 16px; padding-bottom: {{ iColPB }}; transition: width {{ iColDur }} {{ iColEase }} {{ iColDl }}, margin-left {{ iColDur }} {{ iColEase }} {{ iColDl }}, transform {{ iColDur }} {{ iColEase }} {{ iColDl }}, padding-bottom {{ iColDur }} {{ iColEase }} {{ iColDl }};">
+<!-- Its own margin and transform, not the column's: on the first screen it stands in the left
+     column under the headline, and the first message is what walks it to the middle. The column
+     behind it is already there and empty, so the turn it opens with is drawn where it lands. -->
+      <div style="width: {{ iColW }}; margin-left: {{ iCompML }}; transform: {{ iCompTr }}; flex: none; padding-top: 16px; padding-bottom: {{ iColPB }}; transition: width {{ iColDur }} {{ iColEase }} {{ iColDl }}, margin-left {{ iColDur }} {{ iColEase }} {{ iColDl }}, transform {{ iColDur }} {{ iColEase }} {{ iColDl }}, padding-bottom {{ iColDur }} {{ iColEase }} {{ iColDl }};">
         <div onClick="{{ iCompAct }}" style="display: flex; align-items: center; gap: 12px; padding: {{ iCompPad }}; background: #101820; border: 1px solid #26313d; border-radius: {{ iCompRad }}; cursor: text; transition: border-color 160ms cubic-bezier(0.2, 0, 0.2, 1), padding {{ iColDur }} {{ iColEase }} {{ iColDl }}, border-radius {{ iColDur }} {{ iColEase }} {{ iColDl }};" style-hover="border-color: #3a4653;">
 <!-- Handed over like the ask: the two composers say different things, and this line does not fit
      the rail's measure. The box and Send land on the rail's own; only the words swap. -->
@@ -1956,6 +2016,12 @@ class Component extends DCLogic {
       replied: ask && q.get('replied') !== '0',
       // The staged request sitting in the composer, not yet sent. Send turns it into `ask`.
       draft: false,
+      // The first screen's ghost plan: which journey of DECK is dealt, whether it is mid-deal, and
+      // which of its four steps has the pointer. Card disputes is index 0 — it is the one the
+      // composer's brief is about, so the plan on the right matches the words on the left.
+      eIdx: 0,
+      eOp: 1,
+      eHov: -1,
       // Comment mode: armed by the header button. A note is a pin in frame pixels plus the words,
       // keyed to the view it was left on; `state` walks open -> busy -> done when the agent is sent.
       noteMode: false,
@@ -2019,6 +2085,55 @@ class Component extends DCLogic {
   })();
 
   timers = [];
+
+  // The first screen's deck: four journeys it could draw, each a ghost of a plan. Four steps, not
+  // five — nothing here is the real plan, and card disputes, the one the brief is about, leads.
+  // `d` is the decision the step hides, which is the whole point: the plan is a set of questions.
+  static DECK = [
+    { phrase: 'a card dispute process', steps: [
+      { t: 'Show the payments they could dispute', tag: 'SCREEN', d: 'how far back a customer can reach' },
+      { t: 'Ask what happened, in their words', tag: 'SCREEN', d: 'guided questions, free text, or both' },
+      { t: 'Check with the merchant', tag: 'INTEGRATION', d: 'how long you wait before acting' },
+      { t: 'Send the biggest ones to a person', tag: 'HUMAN', d: 'what counts as big' } ] },
+    { phrase: 'a client onboarding journey', steps: [
+      { t: 'Collect their details', tag: 'SCREEN', d: 'what you ask for up front, and what can wait' },
+      { t: 'Verify their identity', tag: 'INTEGRATION', d: 'which provider checks them, and what a fail triggers' },
+      { t: 'Score the risk', tag: 'RULE', d: 'where the line sits between yes, no and maybe' },
+      { t: 'Open the account', tag: 'HUMAN', d: 'who signs off before it goes live' } ] },
+    { phrase: 'a loan origination flow', steps: [
+      { t: 'Take the application', tag: 'SCREEN', d: 'one long form, or a short conversation' },
+      { t: 'Pull credit and affordability', tag: 'INTEGRATION', d: 'which bureau you pull, and when' },
+      { t: 'Decide or escalate', tag: 'RULE', d: 'what auto-approves and what needs a person' },
+      { t: 'Pay out and confirm', tag: 'INTEGRATION', d: 'instant rails or next-day batch' } ] },
+    { phrase: 'an internal approvals app', steps: [
+      { t: 'Take the request', tag: 'SCREEN', d: 'what a requester must attach' },
+      { t: 'Route to the right approver', tag: 'RULE', d: 'route by amount, by team, or both' },
+      { t: 'Nudge when it stalls', tag: 'TIMER', d: 'how patient the nudge is' },
+      { t: 'Record the decision', tag: 'INTEGRATION', d: 'where the audit trail lives' } ] },
+    { phrase: 'a complaint handling flow', steps: [
+      { t: 'Hear the complaint', tag: 'SCREEN', d: 'what you ask for, and what you can look up yourself' },
+      { t: 'Work out how serious it is', tag: 'RULE', d: 'what makes one urgent' },
+      { t: 'Put it with the right team', tag: 'HUMAN', d: 'who owns it when two teams could' },
+      { t: 'Answer before the deadline', tag: 'TIMER', d: 'how long you have, and when you say so' } ] },
+    { phrase: 'a card replacement journey', steps: [
+      { t: 'Ask what happened to the card', tag: 'SCREEN', d: 'whether lost, stolen and damaged go different ways' },
+      { t: 'Stop the old one', tag: 'INTEGRATION', d: 'block it as they tell you, or on confirmation' },
+      { t: 'Order the new one', tag: 'INTEGRATION', d: 'standard post or courier, and who pays' },
+      { t: 'Say when it lands', tag: 'SCREEN', d: 'a date, or a range' } ] },
+    { phrase: 'a standing order change', steps: [
+      { t: 'Show what they pay out', tag: 'SCREEN', d: 'how far the list reaches' },
+      { t: 'Take the change', tag: 'SCREEN', d: 'the amount, the date, or both at once' },
+      { t: 'Check it still fits', tag: 'RULE', d: 'what happens when the balance will not cover it' },
+      { t: 'Confirm the next payment', tag: 'INTEGRATION', d: 'whether it catches the one due tomorrow' } ] }
+  ];
+  // The kind of thing a ghost step is, in the palette the built plan already uses for it.
+  static TAGS = {
+    SCREEN:      ['#4d97ea', 'rgba(77, 151, 234, 0.34)'],
+    RULE:        ['#f2762b', 'rgba(242, 118, 43, 0.34)'],
+    INTEGRATION: ['#8ad3ab', 'rgba(138, 211, 171, 0.34)'],
+    HUMAN:       ['#b0bcc8', 'rgba(176, 188, 200, 0.30)'],
+    TIMER:       ['#b0bcc8', 'rgba(176, 188, 200, 0.30)']
+  };
 
   // The plan, per row. `dot` is the row's mark BEFORE it is built — built is always the green
   // check, and the connector is read off `built` too. `pin` is measured at 1440, never derived.
@@ -2294,6 +2409,28 @@ class Component extends DCLogic {
 
   static WORD = ['nothing', 'one', 'two', 'three', 'four', 'five'];
 
+  // Deal the next ghost plan: out on its own opacity, swapped while it is invisible, back in. The
+  // hover is dropped with it — the step you were reading is not the step that arrives.
+  // Where it lands is held on the instance, not in state: a second deal mid-fade RETARGETS the one
+  // in flight. Dropping it instead loses the example's jump back to the journey the brief is about.
+  deal(to) {
+    if (this.state.iSent) return;
+    // Where it is HEADED, not where it is: mid-fade the two differ, and asking for the journey
+    // already dealt is a no-op — never a fade out and back to the same plan.
+    const from = this.eTo === undefined ? this.state.eIdx : this.eTo;
+    const want = to === undefined ? (from + 1) % Component.DECK.length : to;
+    if (want === from && !this.eBusy) return;
+    this.eTo = want;
+    if (this.eBusy) return;
+    this.eBusy = true;
+    this.setState({ eOp: 0 });
+    this.timers.push(setTimeout(() => {
+      this.setState({ eIdx: this.eTo, eOp: 1, eHov: -1 });
+      this.eTo = undefined;
+      this.eBusy = false;
+    }, 420));
+  }
+
   // The walk to live, one beat per built step. `runSeq` outlives a stopped walk's stale timers.
   playRun() {
     const seq = this.runSeq = (this.runSeq || 0) + 1;
@@ -2355,6 +2492,13 @@ class Component extends DCLogic {
       // Zoom and layout size are read off the window; this state is only a bump.
     this.onResize = () => this.setState(p => ({ resized: (p.resized || 0) + 1 }));
     window.addEventListener('resize', this.onResize);
+    // The first screen deals itself a new plan every few seconds, and stops for good on the first
+    // message — the gate is inside the tick, so a session that never sees that screen never deals.
+    // It also stops the moment there is a draft: the screen is being used, not idled on.
+    this.eTimer = setInterval(() => {
+      if (this.eHover || this.state.iSent || this.state.iDraft || !this.state.intro) return;
+      this.deal();
+    }, 5200);
     this.stick();
   }
 
@@ -2387,6 +2531,7 @@ class Component extends DCLogic {
     document.removeEventListener('keydown', this.onKey);
     window.removeEventListener('resize', this.onResize);
     cancelAnimationFrame(this.stickRaf);
+    clearInterval(this.eTimer);
     this.timers.forEach(clearTimeout);
     if (this.raf) cancelAnimationFrame(this.raf);
   }
@@ -3133,6 +3278,40 @@ class Component extends DCLogic {
     // Sent to the agent, in order — the chat's own echo of the panel's list, one line per note.
     const cnList = S.notes.filter(n => n.state !== 'open');
 
+    // ── The conversation's column ──────────────────────────────────────────
+    // Where it stands in each of its two places. The composer reads them too, and on the first
+    // screen it stands somewhere else again — see iCompML.
+    const iColML = S.intro ? '50%' : '0%';
+    const iColTr = S.intro ? 'translateX(-320px)' : 'translateX(24px)';
+
+    // ── The first screen's ghost plan ──────────────────────────────────────
+    // One journey of the deck, dealt. The whole thing rides one opacity: the phrase on the left and
+    // the four steps on the right are the same deal, so they may not fade apart. The steps come
+    // back staggered, which is the only place they differ.
+    const deck = Component.DECK[S.eIdx];
+    const eCards = deck.steps.map((st, i) => {
+      const hot = S.eHov === i;
+      const tag = Component.TAGS[st.tag];
+      return {
+        num: '0' + (i + 1), t: st.t, d: st.d, tag: st.tag, tc: tag[0], tb: tag[1],
+        // Dashed until you touch it: nothing on this screen is drawn yet.
+        bs: hot ? 'solid' : 'dashed',
+        bc: hot ? 'rgba(77, 151, 234, 0.55)' : 'rgba(139, 152, 165, 0.30)',
+        bg: hot ? 'rgba(77, 151, 234, 0.06)' : 'rgba(255, 255, 255, 0)',
+        nc: hot ? '#4d97ea' : '#6b7783',
+        rows: hot ? '1fr' : '0fr',
+        dop: hot ? '1' : '0',
+        dopDur: hot ? '200ms' : '90ms',
+        dopDl: hot ? '120ms' : '0ms',
+        op: S.eOp, tf: S.eOp ? 'none' : 'translateY(10px)',
+        tr: 'opacity 420ms cubic-bezier(0.2, 0, 0.2, 1) ' + (S.eOp ? i * 70 : 0) + 'ms, '
+          + 'transform 420ms cubic-bezier(0.2, 0, 0.2, 1) ' + (S.eOp ? i * 70 : 0) + 'ms, '
+          + 'border-color 200ms cubic-bezier(0.2, 0, 0.2, 1), background 200ms cubic-bezier(0.2, 0, 0.2, 1)',
+        in: () => this.setState({ eHov: i }),
+        out: () => this.setState(p => p.eHov === i ? { eHov: -1 } : null)
+      };
+    });
+
     return {
       rows: rows,
 
@@ -3371,8 +3550,8 @@ class Component extends DCLogic {
       introOpDl: S.intro ? '0ms' : '320ms',
       introVisDl: S.intro ? '0ms' : '460ms',
       iColW: S.intro ? '640px' : '311px',
-      iColML: S.intro ? '50%' : '0%',
-      iColTr: S.intro ? 'translateX(-320px)' : 'translateX(24px)',
+      iColML: iColML,
+      iColTr: iColTr,
       iColPT: S.intro ? '48px' : '24px',
       // The rail's composer sits on 24 of padding plus 8 of gap plus its caption — and the caption
       // is 16px of nothing until a run is live, which is the only time the plan view has one.
@@ -3383,12 +3562,41 @@ class Component extends DCLogic {
       // The settle curve, symmetric: any ease-out spends this much travel in the first third.
       iColEase: 'cubic-bezier(0.65, 0, 0.35, 1)',
       iColDl: S.intro ? '140ms' : '0ms',
+      // The composer's own pair. On the first screen it stands in the left column — 624 left of the
+      // middle and 300 up from where the conversation wants it. The greeting's blocks are measured
+      // off those two numbers, so nothing here moves alone.
+      iCompML: S.iSent ? iColML : '50%',
+      iCompTr: S.iSent ? iColTr : 'translateX(-624px) translateY(-300px)',
       bodyVis: S.intro ? 'hidden' : 'visible',
       bodyVisDl: S.intro ? '160ms' : '0ms',
       bdOp: S.intro ? '0' : '1',
       bdOpDur: S.intro ? '90ms' : '200ms',
       bdTr: S.intro ? 'translateX(24px)' : 'none',
       bdOpDl: S.intro ? '0ms' : '320ms',
+      ePhrase: deck.phrase,
+      eOp: S.eOp,
+      eCards: eCards,
+      // Four steps, the dealt one last — a stepper with nothing behind it yet.
+      eTicks: [0, 1, 2, 3].map(i => ({ bg: i === 3 ? 'rgba(77, 151, 234, 0.55)' : '#1c2530' })),
+      // Instance flags, not state: pausing the deal may not redraw the card you are reading.
+      ePin: () => { this.eHover = true; },
+      ePout: () => { this.eHover = false; },
+      eDeal: e => { const el = e && e.currentTarget; if (el && el.blur) el.blur(); this.deal(); },
+      // The example both deals the journey the brief is about and types it: the plan on the right
+      // has to be the plan those words would draw, or the screen argues with itself.
+      eEg: e => {
+        const el = e && e.currentTarget;
+        if (el && el.blur) el.blur();
+        this.deal(0);
+        this.setState({ iDraft: true });
+      },
+      eTab: S.iSent ? '-1' : '0',
+      // The bar and the intro overlay's top edge are one value. It opens on the same clock the
+      // composer travels on, and it waits out the greeting's fade before it does.
+      hdrH: S.iSent ? '48px' : '0px',
+      hdrOp: S.iSent ? '1' : '0',
+      hdrOpDur: S.iSent ? '200ms' : '90ms',
+      hdrDl: S.iSent ? '140ms' : '0ms',
       grOp: S.iSent ? '0' : '1',
       grVis: S.iSent ? 'hidden' : 'visible',
       grVisDl: S.iSent ? '200ms' : '0ms',
