@@ -152,6 +152,9 @@
           <div onClick="{{ eDeal }}" tabindex="{{ eTab }}" style="display: inline-flex; align-items: center; gap: 6px; padding: 2px 4px; margin: -2px -4px; border-radius: 4px; pointer-events: auto; cursor: pointer; color: #8b98a5; outline: none; transition: color 160ms cubic-bezier(0.2, 0, 0.2, 1);" style-hover="color: #4d97ea;" style-focus="box-shadow: 0 0 0 3px rgba(43, 127, 228, 0.32);"><i class="ph ph-shuffle" style="font-size: 12px;"></i>Deal another journey</div>
           <div>·</div>
           <div>e.g. <span onClick="{{ eEg }}" tabindex="{{ eTab }}" style="padding: 2px 4px; margin: -2px -4px; border-radius: 4px; pointer-events: auto; cursor: pointer; color: #8b98a5; outline: none; transition: color 160ms cubic-bezier(0.2, 0, 0.2, 1);" style-hover="color: #4d97ea;" style-focus="box-shadow: 0 0 0 3px rgba(43, 127, 228, 0.32);">card disputes</span></div>
+<!-- The second plan, opened as its own reader — a different journey entirely, so it hovers purple. -->
+          <div>·</div>
+          <div onClick="{{ bpOpen }}" tabindex="{{ eTab }}" style="display: inline-flex; align-items: center; gap: 6px; padding: 2px 4px; margin: -2px -4px; border-radius: 4px; pointer-events: auto; cursor: pointer; color: #8b98a5; outline: none; transition: color 160ms cubic-bezier(0.2, 0, 0.2, 1);" style-hover="color: #a879e6;" style-focus="box-shadow: 0 0 0 3px rgba(168, 121, 230, 0.32);"><i class="ph ph-list-checks" style="font-size: 12px;"></i>AI Investment Assistant</div>
         </div>
 
 <!-- The ghost plan. Pointer on the whole column, not just the cards: entering it holds the deal
@@ -1959,6 +1962,655 @@
 </sc-if>
       </div>
     </div>
+
+<!-- ── The second builder (?buildplan=1) ───────────────────────────────────────
+     The Investment Assistant, in the dispute builder's own chrome: Chat / Plan / Test run over the
+     whole frame. Its own state (bpTab, bpStep) — it never touches the dispute flow. Test run is the
+     attached happy-path prototype in an iframe; Plan is the steps, each opening to its questions. -->
+<sc-if value="{{ buildplan }}" hint-placeholder-val="{{ false }}">
+    <div style="position: absolute; inset: 0; z-index: 40; background: #0b1218; display: flex; flex-direction: column; color: #f5f9fc;">
+<!-- Header, the frame's own 48px bar — mark and arrow both go home; the switcher is the three tabs. -->
+      <div style="height: 48px; flex: none; background: #101820; border-bottom: 1px solid #18212a; display: flex; align-items: center; gap: 16px; padding: 0 16px;">
+        <div onClick="{{ homeAct }}" tabindex="0" title="Back to the builder" style="display: inline-flex; align-items: center; justify-content: center; padding: 3px; margin: -3px; border-radius: 6px; cursor: pointer; flex: none; outline: none; transition: background 160ms cubic-bezier(0.2, 0, 0.2, 1);" style-hover="background: #1c2632;" style-focus="box-shadow: 0 0 0 3px rgba(43, 127, 228, 0.32);">
+          <img src="assets/flowx-mark-white.svg" alt="FlowX" style="height: 22px; width: auto; flex: none;" />
+        </div>
+        <div onClick="{{ homeAct }}" tabindex="0" title="Back to the builder — Esc" style="width: 26px; height: 26px; border-radius: 6px; border: 1px solid #26313d; background: #161f28; display: inline-flex; align-items: center; justify-content: center; color: #c3cdd7; cursor: pointer; flex: none; outline: none; transition: background 160ms cubic-bezier(0.2, 0, 0.2, 1);" style-hover="background: #1c2632; color: #f5f9fc;" style-focus="box-shadow: 0 0 0 3px rgba(43, 127, 228, 0.32);">
+          <i class="ph ph-arrow-left" style="font-size: 14px;"></i>
+        </div>
+        <div style="font: 400 12px/16px 'Open Sans', sans-serif; color: #8b98a5; flex: none;">Triglav</div>
+<!-- The switcher — same segmented control as the dispute header. -->
+        <div style="display: inline-flex; align-items: center; gap: 2px; height: 26px; padding: 2px; border: 1px solid #26313d; border-radius: 8px; background: #0e161d; flex: none;">
+          <div onClick="{{ bpTabChat }}" tabindex="0" title="The conversation" style="display: inline-flex; align-items: center; height: 20px; padding: 0 10px; border-radius: 6px; background: {{ bpChatBg }}; color: {{ bpChatColor }}; font: 600 12px/16px 'Open Sans', sans-serif; cursor: pointer; outline: none; transition: background 160ms cubic-bezier(0.2, 0, 0.2, 1), color 160ms cubic-bezier(0.2, 0, 0.2, 1);" style-hover="color: #ffffff;" style-focus="box-shadow: 0 0 0 3px rgba(43, 127, 228, 0.32);">Chat</div>
+          <div onClick="{{ bpTabPlan }}" tabindex="0" title="The plan" style="display: inline-flex; align-items: center; height: 20px; padding: 0 10px; border-radius: 6px; background: {{ bpPlanBg }}; color: {{ bpPlanColor }}; font: 600 12px/16px 'Open Sans', sans-serif; cursor: pointer; outline: none; transition: background 160ms cubic-bezier(0.2, 0, 0.2, 1), color 160ms cubic-bezier(0.2, 0, 0.2, 1);" style-hover="color: #ffffff;" style-focus="box-shadow: 0 0 0 3px rgba(43, 127, 228, 0.32);">Plan</div>
+          <div onClick="{{ bpTabCanvas }}" tabindex="0" title="The solution on one canvas" style="display: inline-flex; align-items: center; height: 20px; padding: 0 10px; border-radius: 6px; background: {{ bpCanvasBg }}; color: {{ bpCanvasColor }}; font: 600 12px/16px 'Open Sans', sans-serif; cursor: pointer; outline: none; transition: background 160ms cubic-bezier(0.2, 0, 0.2, 1), color 160ms cubic-bezier(0.2, 0, 0.2, 1);" style-hover="color: #ffffff;" style-focus="box-shadow: 0 0 0 3px rgba(43, 127, 228, 0.32);">Canvas</div>
+          <div onClick="{{ bpTabRun }}" tabindex="0" title="Run the happy path" style="display: inline-flex; align-items: center; height: 20px; padding: 0 10px; border-radius: 6px; background: {{ bpRunBg }}; color: {{ bpRunColor }}; font: 600 12px/16px 'Open Sans', sans-serif; cursor: pointer; outline: none; transition: background 160ms cubic-bezier(0.2, 0, 0.2, 1), color 160ms cubic-bezier(0.2, 0, 0.2, 1);" style-hover="color: #ffffff;" style-focus="box-shadow: 0 0 0 3px rgba(43, 127, 228, 0.32);">Test run</div>
+        </div>
+        <div style="display: flex; align-items: center; gap: 8px; font: 400 12px/16px 'Open Sans', sans-serif; min-width: 0;">
+          <span style="color: #4a5764;">/</span>
+          <span style="color: #ffffff; font-weight: 600;">Investment Assistant</span>
+        </div>
+        <div style="flex: 1;"></div>
+<!-- Comment — on the Test run and the Canvas, arms comment mode over the embedded frame. -->
+<sc-if value="{{ bpNoteBtnShow }}" hint-placeholder-val="{{ false }}">
+        <div onClick="{{ bpNoteToggle }}" tabindex="0" title="{{ bpNoteBtnTitle }}" style="display: inline-flex; align-items: center; gap: 6px; height: 28px; padding: 0 10px; border-radius: 8px; border: 1px solid {{ bpNoteBtnBorder }}; background: {{ bpNoteBtnBg }}; color: {{ bpNoteBtnColor }}; font: 600 12px/16px 'Open Sans', sans-serif; cursor: pointer; outline: none; flex: none; transition: all 160ms cubic-bezier(0.2, 0, 0.2, 1);" style-hover="filter: brightness(1.15);" style-focus="box-shadow: 0 0 0 3px rgba(43, 127, 228, 0.32);"><i class="ph ph-chat-teardrop-text" style="font-size: 13px;"></i>Comment</div>
+</sc-if>
+        <div style="font: 600 10px/14px ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; letter-spacing: 0.1em; color: #a879e6; border: 1px solid rgba(168, 121, 230, 0.34); border-radius: 99px; padding: 2px 8px; flex: none;">BUILD PLAN</div>
+      </div>
+
+<!-- ── Chat tab ── the guided conversation, same shape as the dispute opener: the brief, the walk
+     one question at a time, the plan docked top-right, the composer at the foot. -->
+<sc-if value="{{ bpIsChat }}" hint-placeholder-val="{{ false }}">
+      <div style="flex: 1; min-height: 0; position: relative;">
+
+<!-- The plan, docked top-right — dots fill as each step's questions settle. -->
+        <div style="position: absolute; top: 24px; right: 24px; width: 340px; z-index: 2; border: 1px solid #26313d; border-radius: 12px; background: #101820; padding: 16px; box-shadow: 0 12px 40px rgba(0, 0, 0, 0.4);">
+          <div style="display: flex; align-items: center;">
+            <div style="font: 700 14px/20px 'Open Sans', sans-serif; color: #f5f9fc;">The plan</div>
+            <div style="flex: 1;"></div>
+            <div style="display: flex; gap: 4px;">
+              <sc-for list="{{ bpCardSteps }}" as="cs" hint-placeholder-count="11">
+              <div style="width: 10px; height: 3px; border-radius: 2px; background: {{ cs.tickBg }};"></div>
+              </sc-for>
+            </div>
+          </div>
+          <div style="margin-top: 14px; display: flex; flex-direction: column; gap: 9px;">
+            <sc-for list="{{ bpCardSteps }}" as="cs" hint-placeholder-count="11">
+            <div style="display: flex; align-items: center; gap: 10px;">
+              <div style="flex: none; width: 16px; height: 16px; border-radius: 99px; border: 1.5px solid {{ cs.dotBorder }}; background: {{ cs.dotBg }}; display: grid; place-items: center;"><i class="ph ph-check" style="font-size: 9px; color: #ffffff; display: {{ cs.dotGlyphShow }};"></i></div>
+              <div style="min-width: 0; font: 400 13px/18px 'Open Sans', sans-serif; color: {{ cs.titleColor }}; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;">{{ cs.title }}</div>
+            </div>
+            </sc-for>
+          </div>
+          <div style="margin-top: 12px; font: 400 12px/16px 'Open Sans', sans-serif; color: #6b7783;">{{ bpCardLedger }}</div>
+          <div style="margin-top: 14px; display: flex; gap: 8px;">
+            <div onClick="{{ bpTabPlan }}" tabindex="0" style="flex: 1; display: inline-flex; align-items: center; justify-content: center; gap: 6px; height: 30px; border-radius: 8px; border: 1px solid #26313d; background: #161f28; color: #c3cdd7; font: 600 12px/16px 'Open Sans', sans-serif; cursor: pointer; outline: none; transition: all 160ms cubic-bezier(0.2, 0, 0.2, 1);" style-hover="border-color: #4d97ea; color: #ffffff;" style-focus="box-shadow: 0 0 0 3px rgba(43, 127, 228, 0.32);"><i class="ph ph-list-checks" style="font-size: 13px;"></i>Open the plan</div>
+            <div onClick="{{ bpTabRun }}" tabindex="0" style="flex: 1; display: inline-flex; align-items: center; justify-content: center; gap: 6px; height: 30px; border-radius: 8px; border: 1px solid transparent; background: #1d9a5c; color: #ffffff; font: 600 12px/16px 'Open Sans', sans-serif; cursor: pointer; outline: none; transition: filter 160ms cubic-bezier(0.2, 0, 0.2, 1);" style-hover="filter: brightness(1.12);" style-focus="box-shadow: 0 0 0 3px rgba(46, 168, 106, 0.32);"><i class="ph ph-play" style="font-size: 13px;"></i>Test run</div>
+          </div>
+        </div>
+
+<!-- The conversation. -->
+        <div data-chat-scroll style="position: absolute; inset: 0; overflow-y: auto;">
+          <div style="max-width: 680px; margin: 0 auto; padding: 40px 32px 132px; display: flex; flex-direction: column; gap: 24px;">
+
+<!-- You · the brief -->
+            <div style="display: flex; gap: 12px; align-items: flex-start;">
+              <div style="flex: none; width: 28px; height: 28px; border-radius: 99px; background: #2b7fe4; color: #ffffff; display: grid; place-items: center; font: 700 10px/12px 'Open Sans', sans-serif;">LC</div>
+              <div style="min-width: 0; flex: 1;">
+                <div style="font: 400 12px/16px 'Open Sans', sans-serif; color: #8b98a5;"><b style="color: #c3cdd7; font-weight: 600;">You</b> · 09:29</div>
+                <div style="margin-top: 6px; font: 400 14px/23px 'Open Sans', sans-serif; color: #e7edf2; text-wrap: pretty;">Build the AI Investment Assistant for Triglav — an agent finds an insurance client and runs a guided request: portfolio, risk, an AI fund allocation, KYC, documents, a BetrSign signature, a summary.</div>
+              </div>
+            </div>
+
+<!-- Agent · the plan arrives -->
+            <div style="display: flex; gap: 12px; align-items: flex-start;">
+              <div style="flex: none; width: 28px; height: 28px; border-radius: 99px; border: 1px solid #26313d; background: #101820; display: grid; place-items: center;"><img src="assets/flowx-mark-white.svg" alt="" style="height: 13px; width: auto;" /></div>
+              <div style="min-width: 0; flex: 1;">
+                <div style="font: 400 12px/16px 'Open Sans', sans-serif; color: #8b98a5;"><b style="color: #c3cdd7; font-weight: 600;">Agent</b> · 09:31</div>
+                <div style="margin-top: 6px; font: 400 14px/23px 'Open Sans', sans-serif; color: #e7edf2; text-wrap: pretty;">Eleven steps, on the right — portfolio through signature. Each one owes a decision or two before I build it.</div>
+              </div>
+            </div>
+
+<!-- Agent · the lead -->
+            <div style="display: flex; gap: 12px; align-items: flex-start;">
+              <div style="flex: none; width: 28px; height: 28px; border-radius: 99px; border: 1px solid #26313d; background: #101820; display: grid; place-items: center;"><img src="assets/flowx-mark-white.svg" alt="" style="height: 13px; width: auto;" /></div>
+              <div style="min-width: 0; flex: 1;">
+                <div style="font: 400 12px/16px 'Open Sans', sans-serif; color: #8b98a5;"><b style="color: #c3cdd7; font-weight: 600;">Agent</b> · 09:32</div>
+                <div style="margin-top: 6px; font: 400 14px/23px 'Open Sans', sans-serif; color: #e7edf2; text-wrap: pretty;">{{ bpLead }}</div>
+              </div>
+            </div>
+
+<!-- The settled ones, folded to echo lines. -->
+            <sc-for list="{{ bpEchoes }}" as="e" hint-placeholder-count="3">
+            <div style="display: flex; gap: 12px; align-items: baseline; padding-left: 40px;">
+              <i class="ph ph-check-circle" style="font-size: 13px; color: #2ea86a; flex: none;"></i>
+              <div style="flex: none; font: 600 12px/18px 'Open Sans', sans-serif; color: #8b98a5; white-space: nowrap;">{{ e.subject }}</div>
+              <div style="min-width: 0; font: 400 12px/18px 'Open Sans', sans-serif; color: #c3cdd7; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;">— {{ e.answer }}</div>
+            </div>
+            </sc-for>
+
+<!-- The current question. -->
+<sc-if value="{{ bpCurShow }}" hint-placeholder-val="{{ true }}">
+            <div style="display: flex; gap: 12px; align-items: flex-start;">
+              <div style="flex: none; width: 28px; height: 28px; border-radius: 99px; border: 1px solid #26313d; background: #101820; display: grid; place-items: center;"><img src="assets/flowx-mark-white.svg" alt="" style="height: 13px; width: auto;" /></div>
+              <div style="min-width: 0; flex: 1;">
+                <div style="display: flex; align-items: center; gap: 8px;">
+                  <div style="font: 400 12px/16px 'Open Sans', sans-serif; color: #8b98a5;"><b style="color: #c3cdd7; font-weight: 600;">Agent</b> · {{ bpCurN }}</div>
+                  <div style="font: 600 9px/14px ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; letter-spacing: 0.08em; text-transform: uppercase; color: {{ bpCurTagColor }}; border: 1px solid {{ bpCurTagBorder }}; border-radius: 99px; padding: 1px 7px;">{{ bpCurTag }}</div>
+                </div>
+                <div style="margin-top: 8px; font: 700 17px/24px 'Open Sans', sans-serif; color: #f5f9fc; text-wrap: pretty;">{{ bpCurQ }}</div>
+                <div style="margin-top: 12px; display: flex; flex-direction: column; gap: 8px; max-width: 520px;">
+                  <sc-for list="{{ bpCurOptions }}" as="o" hint-placeholder-count="2">
+                  <div onClick="{{ o.act }}" tabindex="0" style="display: flex; align-items: center; gap: 10px; border: 1px solid {{ o.border }}; background: {{ o.bg }}; border-radius: 10px; padding: 11px 14px; cursor: pointer; outline: none; transition: border-color 160ms cubic-bezier(0.2, 0, 0.2, 1), background 160ms cubic-bezier(0.2, 0, 0.2, 1);" style-hover="border-color: #4d97ea;" style-focus="box-shadow: 0 0 0 3px rgba(43, 127, 228, 0.32);">
+                    <i class="ph {{ o.icon }}" style="font-size: 16px; color: {{ o.iconColor }}; flex: none;"></i>
+                    <div style="min-width: 0; font: 600 13px/20px 'Open Sans', sans-serif; color: {{ o.textColor }}; text-wrap: pretty;">{{ o.label }}</div>
+                  </div>
+                  </sc-for>
+                </div>
+              </div>
+            </div>
+</sc-if>
+
+<!-- The credentials follow-up — after picking a real connection on an Integration question. -->
+<sc-if value="{{ bpCredShow }}" hint-placeholder-val="{{ false }}">
+            <div style="display: flex; gap: 12px; align-items: flex-start;">
+              <div style="flex: none; width: 28px; height: 28px; border-radius: 99px; border: 1px solid #26313d; background: #101820; display: grid; place-items: center;"><img src="assets/flowx-mark-white.svg" alt="" style="height: 13px; width: auto;" /></div>
+              <div style="min-width: 0; flex: 1;">
+                <div style="font: 400 12px/16px 'Open Sans', sans-serif; color: #8b98a5;"><b style="color: #c3cdd7; font-weight: 600;">Agent</b> · follow-up</div>
+                <div style="margin-top: 7px; font: 400 14px/23px 'Open Sans', sans-serif; color: #e7edf2; text-wrap: pretty;">Good — I'll wire <b style="color: #f5f9fc; font-weight: 600;">{{ bpCredSystem }}</b>. What are the connection details?</div>
+                <div style="margin-top: 12px; border: 1px solid #26313d; border-radius: 10px; background: #0e161d; padding: 14px; display: flex; flex-direction: column; gap: 10px; max-width: 520px;">
+                  <sc-for list="{{ bpCredFields }}" as="cf" hint-placeholder-count="2">
+                  <div style="display: flex; flex-direction: column; gap: 4px;">
+                    <div style="font: 600 10px/14px 'Open Sans', sans-serif; letter-spacing: 0.04em; text-transform: uppercase; color: #8b98a5;">{{ cf.label }}</div>
+                    <input value="{{ cf.value }}" onChange="{{ cf.onType }}" placeholder="{{ cf.ph }}" style="padding: 8px 11px; background: #101820; border: 1px solid #26313d; border-radius: 7px; font: 400 13px/20px 'Open Sans', sans-serif; color: #f5f9fc; outline: none;" style-focus="border-color: #4d97ea; box-shadow: 0 0 0 3px rgba(43, 127, 228, 0.32);">
+                  </div>
+                  </sc-for>
+                  <div style="display: flex; align-items: center; gap: 10px; margin-top: 2px;">
+                    <div onClick="{{ bpCredSave }}" tabindex="0" style="display: inline-flex; align-items: center; gap: 6px; height: 30px; padding: 0 14px; border-radius: 8px; border: 1px solid transparent; background: #2b7fe4; color: #ffffff; font: 600 12px/16px 'Open Sans', sans-serif; cursor: pointer; outline: none;" style-hover="filter: brightness(1.12);" style-focus="box-shadow: 0 0 0 3px rgba(43, 127, 228, 0.32);"><i class="ph ph-check" style="font-size: 13px;"></i>Save these</div>
+                    <div onClick="{{ bpCredSave }}" tabindex="0" style="font: 600 12px/16px 'Open Sans', sans-serif; color: #8b98a5; cursor: pointer; outline: none;" style-hover="color: #c3cdd7;">Use env vars for now</div>
+                  </div>
+                  <div style="font: 400 11px/16px 'Open Sans', sans-serif; color: #6b7783;">Prototype only — nothing is stored or sent.</div>
+                </div>
+              </div>
+            </div>
+</sc-if>
+
+<!-- All settled. -->
+<sc-if value="{{ bpWalkDone }}" hint-placeholder-val="{{ false }}">
+            <div style="display: flex; gap: 12px; align-items: flex-start;">
+              <div style="flex: none; width: 28px; height: 28px; border-radius: 99px; border: 1px solid #26313d; background: #101820; display: grid; place-items: center;"><img src="assets/flowx-mark-white.svg" alt="" style="height: 13px; width: auto;" /></div>
+              <div style="min-width: 0; flex: 1;">
+                <div style="font: 400 12px/16px 'Open Sans', sans-serif; color: #8b98a5;"><b style="color: #c3cdd7; font-weight: 600;">Agent</b> · 09:41</div>
+                <div style="margin-top: 6px; font: 400 14px/23px 'Open Sans', sans-serif; color: #e7edf2; text-wrap: pretty;">That was everything — all {{ bpTotal }} settled on the recommended answers. The plan is ready to build; the one thing left is to see it run.</div>
+                <div style="margin-top: 12px;">
+                  <div onClick="{{ bpTabRun }}" tabindex="0" style="display: inline-flex; align-items: center; gap: 6px; height: 30px; padding: 0 14px; border-radius: 8px; border: 1px solid transparent; background: #1d9a5c; color: #ffffff; font: 600 12px/16px 'Open Sans', sans-serif; cursor: pointer; outline: none; transition: filter 160ms cubic-bezier(0.2, 0, 0.2, 1);" style-hover="filter: brightness(1.12);" style-focus="box-shadow: 0 0 0 3px rgba(46, 168, 106, 0.32);"><i class="ph ph-play" style="font-size: 13px;"></i>Test run</div>
+                </div>
+              </div>
+            </div>
+</sc-if>
+
+          </div>
+        </div>
+
+<!-- The composer, centred at the foot — staged text, the way the dispute opener holds its one line. -->
+        <div style="position: absolute; left: 0; right: 0; bottom: 24px; display: flex; justify-content: center; pointer-events: none;">
+          <div style="width: 680px; max-width: calc(100% - 400px); pointer-events: auto; display: flex; align-items: center; gap: 12px; padding: 12px 18px; border: 1px solid #26313d; border-radius: 12px; background: #0e161d;">
+            <div style="flex: 1; min-width: 0; font: 400 14px/20px 'Open Sans', sans-serif; color: #6b7783;">Reply to the agent, or pick an answer above</div>
+            <div style="font: 600 13px/16px 'Open Sans', sans-serif; color: #5c6975; flex: none;">Send</div>
+          </div>
+        </div>
+      </div>
+</sc-if>
+
+<!-- ── Plan tab ── the conversation on the left rail, the plan spine beside it; opening a step swaps
+     the spine for its detail pane, the same shape as the dispute Plan view. -->
+<sc-if value="{{ bpIsPlan }}" hint-placeholder-val="{{ false }}">
+      <div style="flex: 1; min-height: 0; display: flex;">
+
+<!-- Left: the conversation, on the rail. -->
+        <div style="flex: none; width: 340px; border-right: 1px solid #18212a; display: flex; flex-direction: column; min-height: 0;">
+          <div data-chat-scroll style="flex: 1; min-height: 0; overflow-y: auto; padding: 22px 20px; display: flex; flex-direction: column; gap: 20px;">
+<!-- You · the brief -->
+            <div style="display: flex; gap: 10px; align-items: flex-start;">
+              <div style="flex: none; width: 24px; height: 24px; border-radius: 99px; background: #2b7fe4; color: #ffffff; display: grid; place-items: center; font: 700 9px/12px 'Open Sans', sans-serif;">LC</div>
+              <div style="min-width: 0; flex: 1;">
+                <div style="font: 400 11px/15px 'Open Sans', sans-serif; color: #8b98a5;"><b style="color: #c3cdd7; font-weight: 600;">You</b> · 09:29</div>
+                <div style="margin-top: 5px; font: 400 13px/21px 'Open Sans', sans-serif; color: #e7edf2; text-wrap: pretty;">Build the AI Investment Assistant for Triglav — portfolio, risk, an AI fund allocation, KYC, documents, a BetrSign signature, a summary.</div>
+              </div>
+            </div>
+<!-- Agent · the lead -->
+            <div style="display: flex; gap: 10px; align-items: flex-start;">
+              <div style="flex: none; width: 24px; height: 24px; border-radius: 99px; border: 1px solid #26313d; background: #101820; display: grid; place-items: center;"><img src="assets/flowx-mark-white.svg" alt="" style="height: 11px; width: auto;" /></div>
+              <div style="min-width: 0; flex: 1;">
+                <div style="font: 400 11px/15px 'Open Sans', sans-serif; color: #8b98a5;"><b style="color: #c3cdd7; font-weight: 600;">Agent</b> · 09:32</div>
+                <div style="margin-top: 5px; font: 400 13px/21px 'Open Sans', sans-serif; color: #e7edf2; text-wrap: pretty;">{{ bpLead }}</div>
+              </div>
+            </div>
+<!-- Echoes of what is settled. -->
+            <sc-for list="{{ bpEchoes }}" as="e" hint-placeholder-count="3">
+            <div style="display: flex; gap: 8px; align-items: baseline; padding-left: 34px;">
+              <i class="ph ph-check-circle" style="font-size: 12px; color: #2ea86a; flex: none;"></i>
+              <div style="flex: none; font: 600 11px/16px 'Open Sans', sans-serif; color: #8b98a5; white-space: nowrap;">{{ e.subject }}</div>
+              <div style="min-width: 0; font: 400 11px/16px 'Open Sans', sans-serif; color: #c3cdd7; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;">— {{ e.answer }}</div>
+            </div>
+            </sc-for>
+<!-- The current question. -->
+<sc-if value="{{ bpCurShow }}" hint-placeholder-val="{{ true }}">
+            <div style="display: flex; gap: 10px; align-items: flex-start;">
+              <div style="flex: none; width: 24px; height: 24px; border-radius: 99px; border: 1px solid #26313d; background: #101820; display: grid; place-items: center;"><img src="assets/flowx-mark-white.svg" alt="" style="height: 11px; width: auto;" /></div>
+              <div style="min-width: 0; flex: 1;">
+                <div style="display: flex; align-items: center; gap: 8px;">
+                  <div style="font: 400 11px/15px 'Open Sans', sans-serif; color: #8b98a5;"><b style="color: #c3cdd7; font-weight: 600;">Agent</b> · {{ bpCurN }}</div>
+                  <div style="font: 600 8px/13px ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; letter-spacing: 0.08em; text-transform: uppercase; color: {{ bpCurTagColor }}; border: 1px solid {{ bpCurTagBorder }}; border-radius: 99px; padding: 1px 6px;">{{ bpCurTag }}</div>
+                </div>
+                <div style="margin-top: 7px; font: 700 15px/21px 'Open Sans', sans-serif; color: #f5f9fc; text-wrap: pretty;">{{ bpCurQ }}</div>
+                <div style="margin-top: 10px; display: flex; flex-direction: column; gap: 7px;">
+                  <sc-for list="{{ bpCurOptions }}" as="o" hint-placeholder-count="2">
+                  <div onClick="{{ o.act }}" tabindex="0" style="display: flex; align-items: center; gap: 9px; border: 1px solid {{ o.border }}; background: {{ o.bg }}; border-radius: 9px; padding: 9px 11px; cursor: pointer; outline: none; transition: border-color 160ms cubic-bezier(0.2, 0, 0.2, 1);" style-hover="border-color: #4d97ea;" style-focus="box-shadow: 0 0 0 3px rgba(43, 127, 228, 0.32);">
+                    <i class="ph {{ o.icon }}" style="font-size: 15px; color: {{ o.iconColor }}; flex: none;"></i>
+                    <div style="min-width: 0; font: 600 12px/18px 'Open Sans', sans-serif; color: {{ o.textColor }}; text-wrap: pretty;">{{ o.label }}</div>
+                  </div>
+                  </sc-for>
+                </div>
+              </div>
+            </div>
+</sc-if>
+<!-- Credentials follow-up on the rail. -->
+<sc-if value="{{ bpCredShow }}" hint-placeholder-val="{{ false }}">
+            <div style="display: flex; gap: 10px; align-items: flex-start;">
+              <div style="flex: none; width: 24px; height: 24px; border-radius: 99px; border: 1px solid #26313d; background: #101820; display: grid; place-items: center;"><img src="assets/flowx-mark-white.svg" alt="" style="height: 11px; width: auto;" /></div>
+              <div style="min-width: 0; flex: 1;">
+                <div style="font: 400 11px/15px 'Open Sans', sans-serif; color: #8b98a5;"><b style="color: #c3cdd7; font-weight: 600;">Agent</b> · follow-up</div>
+                <div style="margin-top: 5px; font: 400 13px/21px 'Open Sans', sans-serif; color: #e7edf2; text-wrap: pretty;">Good — I'll wire <b style="color: #f5f9fc; font-weight: 600;">{{ bpCredSystem }}</b>. What are the connection details?</div>
+                <div style="margin-top: 10px; border: 1px solid #26313d; border-radius: 9px; background: #0e161d; padding: 12px; display: flex; flex-direction: column; gap: 9px;">
+                  <sc-for list="{{ bpCredFields }}" as="cf" hint-placeholder-count="2">
+                  <div style="display: flex; flex-direction: column; gap: 4px;">
+                    <div style="font: 600 9px/13px 'Open Sans', sans-serif; letter-spacing: 0.04em; text-transform: uppercase; color: #8b98a5;">{{ cf.label }}</div>
+                    <input value="{{ cf.value }}" onChange="{{ cf.onType }}" placeholder="{{ cf.ph }}" style="padding: 7px 10px; background: #101820; border: 1px solid #26313d; border-radius: 6px; font: 400 12px/18px 'Open Sans', sans-serif; color: #f5f9fc; outline: none;" style-focus="border-color: #4d97ea; box-shadow: 0 0 0 3px rgba(43, 127, 228, 0.32);">
+                  </div>
+                  </sc-for>
+                  <div style="display: flex; align-items: center; gap: 10px; margin-top: 2px;">
+                    <div onClick="{{ bpCredSave }}" tabindex="0" style="display: inline-flex; align-items: center; gap: 5px; height: 28px; padding: 0 12px; border-radius: 7px; border: 1px solid transparent; background: #2b7fe4; color: #ffffff; font: 600 11px/16px 'Open Sans', sans-serif; cursor: pointer; outline: none;" style-hover="filter: brightness(1.12);" style-focus="box-shadow: 0 0 0 3px rgba(43, 127, 228, 0.32);"><i class="ph ph-check" style="font-size: 12px;"></i>Save these</div>
+                    <div onClick="{{ bpCredSave }}" tabindex="0" style="font: 600 11px/16px 'Open Sans', sans-serif; color: #8b98a5; cursor: pointer; outline: none;" style-hover="color: #c3cdd7;">Use env vars</div>
+                  </div>
+                </div>
+              </div>
+            </div>
+</sc-if>
+<sc-if value="{{ bpWalkDone }}" hint-placeholder-val="{{ false }}">
+            <div style="display: flex; gap: 10px; align-items: flex-start;">
+              <div style="flex: none; width: 24px; height: 24px; border-radius: 99px; border: 1px solid #26313d; background: #101820; display: grid; place-items: center;"><img src="assets/flowx-mark-white.svg" alt="" style="height: 11px; width: auto;" /></div>
+              <div style="min-width: 0; flex: 1; font: 400 13px/21px 'Open Sans', sans-serif; color: #e7edf2; text-wrap: pretty;">That was everything — all {{ bpTotal }} settled. The plan is ready to build.</div>
+            </div>
+</sc-if>
+          </div>
+<!-- Composer, pinned to the rail's foot. -->
+          <div style="flex: none; padding: 12px 16px; border-top: 1px solid #18212a;">
+            <div style="display: flex; align-items: center; gap: 10px; padding: 10px 14px; border: 1px solid #26313d; border-radius: 10px; background: #0e161d;">
+              <div style="flex: 1; min-width: 0; font: 400 13px/18px 'Open Sans', sans-serif; color: #6b7783;">Reply to the agent</div>
+              <div style="font: 600 12px/16px 'Open Sans', sans-serif; color: #5c6975; flex: none;">Send</div>
+            </div>
+          </div>
+        </div>
+
+<!-- Right: the plan area — the spine, and the open step's detail beside it. -->
+        <div data-chat-scroll style="flex: 1; min-height: 0; overflow-y: auto;">
+          <div style="display: flex; align-items: flex-start; min-height: 100%;">
+
+<!-- The spine. Wide when nothing is open; a narrow rail once a step's detail is up. -->
+            <div style="flex: {{ bpSpineFlex }}; min-width: 0; padding: 32px 36px 80px; align-self: stretch;">
+              <div style="font: 700 22px/28px 'Open Sans', sans-serif; color: #f5f9fc;">The plan</div>
+              <div style="margin-top: 12px; display: flex; align-items: center; gap: 12px;">
+                <div style="display: flex; gap: 5px; flex: none;">
+                  <sc-for list="{{ bpCardSteps }}" as="cs" hint-placeholder-count="11">
+                  <div style="width: 16px; height: 3px; border-radius: 2px; background: {{ cs.tickBg }};"></div>
+                  </sc-for>
+                </div>
+                <div style="font: 400 12px/16px 'Open Sans', sans-serif; color: #6b7783;">{{ bpPlanLedger }}</div>
+              </div>
+
+<!-- The steps, on a connector spine. -->
+              <div style="margin-top: 22px; position: relative;">
+                <sc-for list="{{ bpSpine }}" as="sp" hint-placeholder-count="11">
+                <div onClick="{{ sp.toggle }}" tabindex="0" style="position: relative; display: flex; gap: 12px; align-items: flex-start; padding: 11px 12px; border-radius: 10px; background: {{ sp.rowBg }}; cursor: pointer; outline: none; transition: background 160ms cubic-bezier(0.2, 0, 0.2, 1);" style-hover="background: #131d26;" style-focus="box-shadow: inset 0 0 0 2px rgba(43, 127, 228, 0.32);">
+<!-- Dot on the connector. -->
+                  <div style="flex: none; width: 20px; display: flex; justify-content: center; padding-top: 1px;">
+                    <div style="width: 20px; height: 20px; border-radius: 99px; border: 1.5px solid {{ sp.dotBorder }}; background: {{ sp.dotBg }}; display: grid; place-items: center;"><i class="ph {{ sp.dotGlyph }}" style="font-size: 11px; color: {{ sp.dotGlyphColor }}; display: {{ sp.dotGlyphShow }};"></i></div>
+                  </div>
+<!-- Title takes the width and wraps; the settle badge sits at the top-right, never crowding it. -->
+                  <div style="min-width: 0; flex: 1; display: flex; align-items: flex-start; gap: 10px;">
+                    <div style="min-width: 0; flex: 1;">
+                      <div style="font: 600 14px/20px 'Open Sans', sans-serif; color: {{ sp.titleColor }}; text-wrap: pretty;">{{ sp.title }}</div>
+                      <div style="display: {{ bpDescShow }}; margin-top: 4px; font: 400 12px/18px 'Open Sans', sans-serif; color: #8b98a5; text-wrap: pretty;">{{ sp.desc }}</div>
+                    </div>
+                    <div style="display: {{ sp.owedShow }}; align-items: center; font: 600 10px/16px ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; color: #e6a34a; background: rgba(230, 163, 74, 0.10); border: 1px solid rgba(230, 163, 74, 0.30); border-radius: 99px; padding: 2px 9px; flex: none; white-space: nowrap;">{{ sp.owedText }}</div>
+                    <div style="display: {{ sp.settledShow }}; align-items: center; gap: 4px; font: 600 10px/16px ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; color: #2ea86a; background: rgba(46, 168, 106, 0.10); border: 1px solid rgba(46, 168, 106, 0.30); border-radius: 99px; padding: 2px 9px; flex: none; white-space: nowrap;"><i class="ph ph-check" style="font-size: 11px;"></i>settled</div>
+                  </div>
+                </div>
+                </sc-for>
+              </div>
+
+<!-- Dependency summary, only under the wide spine. -->
+              <div style="display: {{ bpDepShow }}; margin-top: 30px;">
+                <div style="font: 600 10px/14px 'Open Sans', sans-serif; letter-spacing: 0.06em; text-transform: uppercase; color: #6b7783;">Dependency summary</div>
+                <div style="margin-top: 10px; border: 1px solid #1c2530; border-radius: 10px; background: #0e161d; padding: 16px; overflow-x: auto;"><pre style="margin: 0; font: 400 12px/20px ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; color: #8b98a5; white-space: pre;">{{ bpDeps }}</pre></div>
+              </div>
+            </div>
+
+<!-- The open step's detail pane. -->
+<sc-if value="{{ bpHasOpen }}" hint-placeholder-val="{{ false }}">
+            <div data-chat-scroll style="flex: 1; min-width: 0; border-left: 1px solid #18212a; align-self: stretch; padding: 32px 40px 80px;">
+              <div style="display: flex; align-items: center;">
+                <div style="font: 600 11px/16px ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; letter-spacing: 0.1em; text-transform: uppercase; color: #6b7783;">{{ bpDetail.num }}</div>
+                <div style="flex: 1;"></div>
+                <div onClick="{{ bpCloseStep }}" tabindex="0" title="Back to the plan" style="width: 26px; height: 26px; border-radius: 6px; border: 1px solid #26313d; background: #161f28; display: inline-flex; align-items: center; justify-content: center; color: #c3cdd7; cursor: pointer; outline: none; transition: background 160ms cubic-bezier(0.2, 0, 0.2, 1);" style-hover="background: #1c2632; color: #f5f9fc;" style-focus="box-shadow: 0 0 0 3px rgba(43, 127, 228, 0.32);"><i class="ph ph-x" style="font-size: 13px;"></i></div>
+              </div>
+              <div style="margin-top: 12px; font: 700 24px/31px 'Open Sans', sans-serif; color: #f5f9fc; text-wrap: pretty;">{{ bpDetail.title }}</div>
+              <div style="margin-top: 8px; font: 400 14px/22px 'Open Sans', sans-serif; color: #8b98a5; text-wrap: pretty;">{{ bpDetail.desc }}</div>
+
+<!-- How to test -->
+              <div style="margin-top: 20px; border: 1px solid rgba(46, 168, 106, 0.30); border-radius: 10px; background: rgba(46, 168, 106, 0.06); padding: 12px 14px;">
+                <div style="display: inline-flex; align-items: center; gap: 6px; font: 600 10px/14px 'Open Sans', sans-serif; letter-spacing: 0.06em; text-transform: uppercase; color: #2ea86a;"><i class="ph ph-play-circle" style="font-size: 13px;"></i>How to test this step</div>
+                <div style="margin-top: 7px; font: 400 13px/21px 'Open Sans', sans-serif; color: #c3cdd7; text-wrap: pretty;">{{ bpDetail.test }}</div>
+              </div>
+
+<!-- What I need from you -->
+              <div style="margin-top: 24px; display: flex; align-items: baseline; gap: 12px;">
+                <div style="font: 600 10px/14px 'Open Sans', sans-serif; letter-spacing: 0.06em; text-transform: uppercase; color: #6b7783;">What I need from you</div>
+                <div style="flex: 1;"></div>
+                <div style="font: 400 12px/16px ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; color: #8b98a5;">? {{ bpDetail.needHead }}</div>
+              </div>
+              <div style="margin-top: 12px; display: flex; flex-direction: column; gap: 12px;">
+                <sc-for list="{{ bpDetail.questions }}" as="qq" hint-placeholder-count="2">
+                <div style="border: 1px solid #1c2530; border-radius: 10px; background: #0e161d; padding: 14px 16px;">
+                  <div style="display: flex; align-items: center; gap: 10px;">
+                    <div style="font: 600 9px/14px 'Open Sans', sans-serif; letter-spacing: 0.07em; text-transform: uppercase; color: {{ qq.statusColor }};">{{ qq.statusText }}</div>
+                    <div style="flex: 1;"></div>
+                    <div style="font: 600 9px/14px ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; letter-spacing: 0.08em; text-transform: uppercase; color: {{ qq.tagColor }}; border: 1px solid {{ qq.tagBorder }}; border-radius: 99px; padding: 1px 7px;">{{ qq.tag }}</div>
+                  </div>
+                  <div style="margin-top: 8px; font: 700 15px/22px 'Open Sans', sans-serif; color: #f5f9fc; text-wrap: pretty;">{{ qq.q }}</div>
+                  <div style="margin-top: 12px; display: flex; flex-direction: column; gap: 7px;">
+                    <sc-for list="{{ qq.options }}" as="o" hint-placeholder-count="2">
+                    <div onClick="{{ o.act }}" tabindex="0" style="display: flex; align-items: center; gap: 10px; border: 1px solid #26313d; border-radius: 9px; padding: 10px 13px; cursor: pointer; outline: none; transition: border-color 160ms cubic-bezier(0.2, 0, 0.2, 1);" style-hover="border-color: #4d97ea;" style-focus="box-shadow: 0 0 0 3px rgba(43, 127, 228, 0.32);">
+                      <div style="flex: none; width: 16px; height: 16px; border-radius: 99px; border: 1.6px solid {{ o.dotBorder }}; display: grid; place-items: center;"><div style="width: 8px; height: 8px; border-radius: 99px; background: {{ o.dot }};"></div></div>
+                      <div style="min-width: 0; flex: 1; font: 500 13px/20px 'Open Sans', sans-serif; color: {{ o.textColor }}; text-wrap: pretty;">{{ o.label }}</div>
+                      <div style="display: {{ o.chipShow }}; align-items: center; font: 600 9px/14px ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; letter-spacing: 0.06em; text-transform: uppercase; color: #4d97ea; border: 1px solid rgba(77, 151, 234, 0.4); border-radius: 6px; padding: 1px 6px; flex: none;">I would do this</div>
+                    </div>
+                    </sc-for>
+                  </div>
+<!-- Credentials — inline once the real connection is chosen. -->
+                  <div style="display: {{ qq.credShow }}; flex-direction: column; gap: 9px; margin-top: 10px; border-top: 1px dashed #26313d; padding-top: 12px;">
+                    <div style="display: inline-flex; align-items: center; gap: 6px; font: 600 9px/14px 'Open Sans', sans-serif; letter-spacing: 0.06em; text-transform: uppercase; color: #4d97ea;"><i class="ph ph-plugs" style="font-size: 12px;"></i>Connection details</div>
+                    <sc-for list="{{ qq.credFields }}" as="cf" hint-placeholder-count="2">
+                    <div style="display: flex; flex-direction: column; gap: 4px;">
+                      <div style="font: 600 9px/13px 'Open Sans', sans-serif; letter-spacing: 0.04em; text-transform: uppercase; color: #8b98a5;">{{ cf.label }}</div>
+                      <input value="{{ cf.value }}" onChange="{{ cf.onType }}" placeholder="{{ cf.ph }}" style="padding: 7px 10px; background: #101820; border: 1px solid #26313d; border-radius: 6px; font: 400 12px/18px 'Open Sans', sans-serif; color: #f5f9fc; outline: none;" style-focus="border-color: #4d97ea; box-shadow: 0 0 0 3px rgba(43, 127, 228, 0.32);">
+                    </div>
+                    </sc-for>
+                    <div style="font: 400 10px/15px 'Open Sans', sans-serif; color: #6b7783;">Prototype only — nothing is stored or sent.</div>
+                  </div>
+                </div>
+                </sc-for>
+              </div>
+
+<!-- Technical detail -->
+              <div style="margin-top: 24px; border-top: 1px solid #18212a; padding-top: 18px; display: flex; flex-direction: column; gap: 14px;">
+                <div style="font: 600 10px/14px 'Open Sans', sans-serif; letter-spacing: 0.06em; text-transform: uppercase; color: #6b7783;">Technical detail</div>
+                <div>
+                  <div style="font: 600 9px/14px 'Open Sans', sans-serif; letter-spacing: 0.06em; text-transform: uppercase; color: #4a5764;">Create</div>
+                  <div style="margin-top: 8px; display: flex; flex-direction: column; gap: 6px;">
+                    <sc-for list="{{ bpDetail.create }}" as="c" hint-placeholder-count="4">
+                    <div style="display: flex; gap: 10px;">
+                      <div style="flex: none; width: 4px; height: 4px; border-radius: 99px; background: #4a5764; margin-top: 8px;"></div>
+                      <div style="font: 400 13px/20px 'Open Sans', sans-serif; color: #b0bcc8; text-wrap: pretty;">{{ c.t }}</div>
+                    </div>
+                    </sc-for>
+                  </div>
+                </div>
+                <div style="display: {{ bpDetail.editShow }}; gap: 10px;">
+                  <div style="flex: none; font: 600 9px/18px 'Open Sans', sans-serif; letter-spacing: 0.06em; text-transform: uppercase; color: #f2762b; width: 72px;">Edit Main</div>
+                  <div style="font: 400 13px/20px 'Open Sans', sans-serif; color: #b0bcc8; text-wrap: pretty;">{{ bpDetail.edit }}</div>
+                </div>
+                <div style="display: {{ bpDetail.dependsShow }}; gap: 10px;">
+                  <div style="flex: none; font: 600 9px/18px 'Open Sans', sans-serif; letter-spacing: 0.06em; text-transform: uppercase; color: #6b7783; width: 72px;">Depends</div>
+                  <div style="font: 400 13px/20px 'Open Sans', sans-serif; color: #8b98a5; text-wrap: pretty;">{{ bpDetail.depends }}</div>
+                </div>
+              </div>
+
+<!-- Build this step -->
+              <div style="margin-top: 24px; display: flex; align-items: center; gap: 12px;">
+                <div style="display: inline-flex; align-items: center; gap: 6px; height: 30px; padding: 0 14px; border-radius: 8px; border: 1px solid #26313d; background: #131c24; color: #6b7783; font: 600 12px/16px 'Open Sans', sans-serif;"><i class="ph ph-hammer" style="font-size: 13px;"></i>Build this step</div>
+                <div style="font: 400 12px/16px ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; color: #6b7783;">? {{ bpDetail.buildFact }}</div>
+              </div>
+            </div>
+</sc-if>
+
+          </div>
+        </div>
+      </div>
+</sc-if>
+
+<!-- ── Test run tab ── the conversation on the rail, the happy-path prototype running beside it,
+     and comment mode (arm from the header) dropping numbered pins on it. -->
+<sc-if value="{{ bpIsRun }}" hint-placeholder-val="{{ false }}">
+      <div style="flex: 1; min-height: 0; display: flex;">
+
+<!-- Left: the conversation, on the rail (same as the Plan tab). -->
+        <div style="flex: none; width: 340px; border-right: 1px solid #18212a; display: flex; flex-direction: column; min-height: 0;">
+          <div data-chat-scroll style="flex: 1; min-height: 0; overflow-y: auto; padding: 22px 20px; display: flex; flex-direction: column; gap: 20px;">
+            <div style="display: flex; gap: 10px; align-items: flex-start;">
+              <div style="flex: none; width: 24px; height: 24px; border-radius: 99px; background: #2b7fe4; color: #ffffff; display: grid; place-items: center; font: 700 9px/12px 'Open Sans', sans-serif;">LC</div>
+              <div style="min-width: 0; flex: 1;">
+                <div style="font: 400 11px/15px 'Open Sans', sans-serif; color: #8b98a5;"><b style="color: #c3cdd7; font-weight: 600;">You</b> · 09:29</div>
+                <div style="margin-top: 5px; font: 400 13px/21px 'Open Sans', sans-serif; color: #e7edf2; text-wrap: pretty;">Build the AI Investment Assistant for Triglav — portfolio, risk, an AI fund allocation, KYC, documents, a BetrSign signature, a summary.</div>
+              </div>
+            </div>
+            <div style="display: flex; gap: 10px; align-items: flex-start;">
+              <div style="flex: none; width: 24px; height: 24px; border-radius: 99px; border: 1px solid #26313d; background: #101820; display: grid; place-items: center;"><img src="assets/flowx-mark-white.svg" alt="" style="height: 11px; width: auto;" /></div>
+              <div style="min-width: 0; flex: 1;">
+                <div style="font: 400 11px/15px 'Open Sans', sans-serif; color: #8b98a5;"><b style="color: #c3cdd7; font-weight: 600;">Agent</b> · 09:34</div>
+                <div style="margin-top: 5px; font: 400 13px/21px 'Open Sans', sans-serif; color: #e7edf2; text-wrap: pretty;">This is the happy path, end to end — dashboard, portfolio, risk, the AI allocation, KYC, documents, the signature and the summary. Walk it on the right; hit <b style="color: #f5f9fc; font-weight: 600;">Comment</b> to pin a change anywhere on it.</div>
+              </div>
+            </div>
+<!-- Echoes of what is settled, so the rail matches the other tabs. -->
+            <sc-for list="{{ bpEchoes }}" as="e" hint-placeholder-count="3">
+            <div style="display: flex; gap: 8px; align-items: baseline; padding-left: 34px;">
+              <i class="ph ph-check-circle" style="font-size: 12px; color: #2ea86a; flex: none;"></i>
+              <div style="flex: none; font: 600 11px/16px 'Open Sans', sans-serif; color: #8b98a5; white-space: nowrap;">{{ e.subject }}</div>
+              <div style="min-width: 0; font: 400 11px/16px 'Open Sans', sans-serif; color: #c3cdd7; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;">— {{ e.answer }}</div>
+            </div>
+            </sc-for>
+<!-- The comments, fired: the agent works through the list, a spinner then a check, one per note. -->
+<sc-if value="{{ bpCnShow }}" hint-placeholder-val="{{ false }}">
+            <div style="display: flex; gap: 10px; align-items: flex-start;">
+              <div style="flex: none; width: 24px; height: 24px; border-radius: 99px; border: 1px solid #26313d; background: #101820; display: grid; place-items: center;"><img src="assets/flowx-mark-white.svg" alt="" style="height: 11px; width: auto;" /></div>
+              <div style="min-width: 0; flex: 1;">
+                <div style="font: 400 11px/15px 'Open Sans', sans-serif; color: #8b98a5;"><b style="color: #c3cdd7; font-weight: 600;">Agent</b> · comments</div>
+                <div style="margin-top: 5px; font: 400 13px/21px 'Open Sans', sans-serif; color: #e7edf2; text-wrap: pretty;">{{ bpCnLead }}</div>
+                <div style="margin-top: 10px; display: flex; flex-direction: column; gap: 8px;">
+                  <sc-for list="{{ bpCnRows }}" as="cn" hint-placeholder-count="2">
+                  <div style="display: flex; gap: 9px; align-items: flex-start;">
+                    <i class="ph {{ cn.glyph }}" style="font-size: 14px; color: {{ cn.glyphColor }}; flex: none; margin-top: 2px; animation: {{ cn.anim }};"></i>
+                    <div style="min-width: 0; flex: 1;">
+                      <div style="font: 600 12px/18px 'Open Sans', sans-serif; color: {{ cn.color }}; text-wrap: pretty;">{{ cn.title }}</div>
+                      <div style="display: {{ cn.subShow }}; margin-top: 2px; font: 400 11px/16px 'Open Sans', sans-serif; color: #6b7783; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;">{{ cn.note }}</div>
+                    </div>
+                  </div>
+                  </sc-for>
+                </div>
+              </div>
+            </div>
+</sc-if>
+          </div>
+          <div style="flex: none; padding: 12px 16px; border-top: 1px solid #18212a;">
+            <div style="display: flex; align-items: center; gap: 10px; padding: 10px 14px; border: 1px solid #26313d; border-radius: 10px; background: #0e161d;">
+              <div style="flex: 1; min-width: 0; font: 400 13px/18px 'Open Sans', sans-serif; color: #6b7783;">Reply to the agent</div>
+              <div style="font: 600 12px/16px 'Open Sans', sans-serif; color: #5c6975; flex: none;">Send</div>
+            </div>
+          </div>
+        </div>
+
+<!-- Middle: the running prototype, with the comment overlay + pins on top. -->
+        <div style="flex: 1; min-width: 0; position: relative; background: #0b1218;">
+          <iframe data-bp-iframe src="{{ bpRunSrc }}" title="Investment Assistant — happy path" style="width: 100%; height: 100%; border: 0; display: block; background: #ffffff;"></iframe>
+<!-- Click layer, armed only in comment mode. Hover reads the element under the pointer; a click pins to it. -->
+          <div data-bp-note-overlay onClick="{{ bpNotePick }}" onMouseMove="{{ bpNoteMove }}" onMouseLeave="{{ bpNoteLeave }}" style="position: absolute; inset: 0; cursor: crosshair; pointer-events: {{ bpNoteOverlayPE }};"></div>
+<!-- Highlights and pins, above the click layer. -->
+          <div style="position: absolute; inset: 0; pointer-events: none;">
+<!-- The hover glow — written frame by frame in bpNoteMove, so it glides between elements. -->
+            <div data-bp-note-glow style="position: absolute; top: 0; left: 0; width: 0; height: 0; border: 1.5px solid #2b7fe4; background: rgba(43, 127, 228, 0.12); border-radius: 6px; opacity: 0; transition: top 90ms cubic-bezier(0.2, 0, 0.2, 1), left 90ms cubic-bezier(0.2, 0, 0.2, 1), width 90ms cubic-bezier(0.2, 0, 0.2, 1), height 90ms cubic-bezier(0.2, 0, 0.2, 1), opacity 120ms linear;"></div>
+<!-- The box of the element being commented on, held while the note is composed. -->
+            <div style="display: {{ bpNoteSelShow }}; position: absolute; top: {{ bpNoteSelTop }}; left: {{ bpNoteSelLeft }}; width: {{ bpNoteSelW }}; height: {{ bpNoteSelH }}; border: 1.5px solid #2b7fe4; background: rgba(43, 127, 228, 0.12); border-radius: 6px;"></div>
+            <sc-for list="{{ bpPins }}" as="p" hint-placeholder-count="2">
+            <div title="{{ p.title }}" style="position: absolute; top: {{ p.y }}; left: {{ p.x }}; transform: translate(-50%, -50%); width: 22px; height: 22px; border-radius: 99px 99px 99px 3px; background: {{ p.bg }}; border: 2px solid #0b1218; box-shadow: 0 2px 10px rgba(0, 0, 0, 0.45); display: grid; place-items: center; font: 700 10px/12px 'Open Sans', sans-serif; color: #ffffff; animation: {{ p.anim }};">{{ p.n }}</div>
+            </sc-for>
+            <div style="display: {{ bpNoteDraftShow }}; position: absolute; top: {{ bpNoteDraftY }}; left: {{ bpNoteDraftX }}; pointer-events: auto;">
+              <div style="position: absolute; top: -11px; left: -11px; width: 22px; height: 22px; border-radius: 99px 99px 99px 3px; background: #2b7fe4; border: 2px solid #0b1218; box-shadow: 0 2px 10px rgba(0, 0, 0, 0.45);"></div>
+              <div style="position: absolute; top: 16px; left: 16px; width: 300px; background: #101820; border: 1px solid #26313d; border-radius: 10px; box-shadow: 0 12px 40px rgba(0, 0, 0, 0.5); padding: 12px; display: flex; flex-direction: column; gap: 8px;">
+                <div style="display: flex; align-items: center; gap: 8px;">
+                  <div style="flex: 1; min-width: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; font: 400 11px/16px 'Open Sans', sans-serif; color: #8b98a5;">On &ldquo;{{ bpNoteDraftLabel }}&rdquo;</div>
+                  <div onClick="{{ bpNoteCancel }}" title="Drop it" style="width: 20px; height: 20px; border-radius: 6px; display: inline-flex; align-items: center; justify-content: center; color: #8b98a5; cursor: pointer; flex: none;" style-hover="background: #1c2632;"><i class="ph ph-x" style="font-size: 12px;"></i></div>
+                </div>
+                <input data-bp-note-input value="{{ bpNoteText }}" onChange="{{ bpNoteType }}" placeholder="What should change here?" style="padding: 6px 10px; background: #0e161d; border: 1px solid #26313d; border-radius: 6px; font: 400 13px/20px 'Open Sans', sans-serif; color: #f5f9fc; outline: none;" style-focus="border-color: #4d97ea; box-shadow: 0 0 0 3px rgba(43, 127, 228, 0.32);">
+                <div style="display: flex; justify-content: flex-end;">
+                  <div onClick="{{ bpNoteAdd }}" style="display: inline-flex; align-items: center; height: 26px; padding: 0 12px; border-radius: 8px; border: 1px solid #26313d; background: {{ bpNoteAddBg }}; color: {{ bpNoteAddColor }}; font: 600 12px/16px 'Open Sans', sans-serif; cursor: pointer; pointer-events: {{ bpNoteAddPE }};" style-hover="filter: brightness(1.15);">Comment</div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+<!-- Right: the comments panel — shows in comment mode or once there are comments. -->
+<sc-if value="{{ bpNotesPanelShow }}" hint-placeholder-val="{{ false }}">
+        <div style="flex: none; width: 320px; border-left: 1px solid #18212a; background: #101820; display: flex; flex-direction: column; min-height: 0;">
+          <div style="flex: none; height: 48px; display: flex; align-items: center; gap: 8px; padding: 0 16px; border-bottom: 1px solid #18212a;">
+            <i class="ph ph-chat-teardrop-text" style="font-size: 14px; color: #8b98a5;"></i>
+            <div style="font: 600 13px/18px 'Open Sans', sans-serif; color: #f5f9fc;">Comments</div>
+            <div style="font: 600 11px/16px 'Open Sans', sans-serif; color: #6b7783;">{{ bpNoteCount }}</div>
+          </div>
+          <div data-chat-scroll style="flex: 1; min-height: 0; overflow-y: auto; padding: 14px 16px; display: flex; flex-direction: column; gap: 10px;">
+<sc-if value="{{ bpNoteEmpty }}" hint-placeholder-val="{{ true }}">
+            <div style="font: 400 12px/19px 'Open Sans', sans-serif; color: #6b7783; text-wrap: pretty;">Comment mode is on. Click anywhere on the running prototype to drop a numbered pin and leave a note.</div>
+</sc-if>
+            <sc-for list="{{ bpNoteRows }}" as="nr" hint-placeholder-count="2">
+            <div style="display: flex; gap: 10px; align-items: flex-start;">
+              <div style="flex: none; width: 20px; height: 20px; border-radius: 99px 99px 99px 3px; background: {{ nr.pinBg }}; display: grid; place-items: center; font: 700 9px/12px 'Open Sans', sans-serif; color: #ffffff;">{{ nr.n }}</div>
+              <div style="min-width: 0; flex: 1;">
+                <div style="font: 400 13px/20px 'Open Sans', sans-serif; color: #e7edf2; text-wrap: pretty;">{{ nr.text }}</div>
+                <div style="margin-top: 2px; font: 400 11px/15px 'Open Sans', sans-serif; color: #6b7783; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;">On &ldquo;{{ nr.label }}&rdquo;</div>
+              </div>
+              <i class="ph {{ nr.glyph }}" style="font-size: 14px; color: {{ nr.glyphColor }}; flex: none; margin-top: 3px; animation: {{ nr.anim }};"></i>
+            </div>
+            </sc-for>
+          </div>
+          <div style="flex: none; padding: 12px 16px; border-top: 1px solid #18212a; display: flex; flex-direction: column; gap: 8px;">
+            <div onClick="{{ bpNoteGo }}" style="display: inline-flex; align-items: center; justify-content: center; gap: 6px; height: 32px; border-radius: 8px; border: 1px solid transparent; background: #2b7fe4; color: #ffffff; font: 600 12px/16px 'Open Sans', sans-serif; cursor: pointer; pointer-events: {{ bpNoteGoPE }};" style-hover="filter: brightness(1.12);"><i class="ph ph-sparkle" style="font-size: 13px;"></i>{{ bpNoteGoLabel }}</div>
+            <div onClick="{{ bpNoteClear }}" style="text-align: center; font: 600 11px/16px 'Open Sans', sans-serif; color: #6b7783; cursor: pointer;" style-hover="color: #c3cdd7;">Clear the list</div>
+          </div>
+        </div>
+</sc-if>
+      </div>
+</sc-if>
+
+<!-- ── Canvas tab ── the solution on one poster: the nine screens over the backbone lanes, in an
+     iframe beside the rail; comment mode works over it the same way it does over the Test run. -->
+<sc-if value="{{ bpIsCanvas }}" hint-placeholder-val="{{ false }}">
+      <div style="flex: 1; min-height: 0; display: flex;">
+
+<!-- Left: the conversation, on the rail (same as the other tabs). -->
+        <div style="flex: none; width: 340px; border-right: 1px solid #18212a; display: flex; flex-direction: column; min-height: 0;">
+          <div data-chat-scroll style="flex: 1; min-height: 0; overflow-y: auto; padding: 22px 20px; display: flex; flex-direction: column; gap: 20px;">
+            <div style="display: flex; gap: 10px; align-items: flex-start;">
+              <div style="flex: none; width: 24px; height: 24px; border-radius: 99px; background: #2b7fe4; color: #ffffff; display: grid; place-items: center; font: 700 9px/12px 'Open Sans', sans-serif;">LC</div>
+              <div style="min-width: 0; flex: 1;">
+                <div style="font: 400 11px/15px 'Open Sans', sans-serif; color: #8b98a5;"><b style="color: #c3cdd7; font-weight: 600;">You</b> · 09:29</div>
+                <div style="margin-top: 5px; font: 400 13px/21px 'Open Sans', sans-serif; color: #e7edf2; text-wrap: pretty;">Build the AI Investment Assistant for Triglav — portfolio, risk, an AI fund allocation, KYC, documents, a BetrSign signature, a summary.</div>
+              </div>
+            </div>
+            <div style="display: flex; gap: 10px; align-items: flex-start;">
+              <div style="flex: none; width: 24px; height: 24px; border-radius: 99px; border: 1px solid #26313d; background: #101820; display: grid; place-items: center;"><img src="assets/flowx-mark-white.svg" alt="" style="height: 11px; width: auto;" /></div>
+              <div style="min-width: 0; flex: 1;">
+                <div style="font: 400 11px/15px 'Open Sans', sans-serif; color: #8b98a5;"><b style="color: #c3cdd7; font-weight: 600;">Agent</b> · 09:36</div>
+                <div style="margin-top: 5px; font: 400 13px/21px 'Open Sans', sans-serif; color: #e7edf2; text-wrap: pretty;">The whole solution on one canvas — the nine screens across the top, and underneath them the workflows each one triggers. Hover anything to trace what it touches; a <b style="color: #f5f9fc; font-weight: 600;">step</b> chip opens that step in the plan, and <b style="color: #f5f9fc; font-weight: 600;">Comment</b> pins a change anywhere on it.</div>
+              </div>
+            </div>
+<!-- Echoes of what is settled, so the rail matches the other tabs. -->
+            <sc-for list="{{ bpEchoes }}" as="e" hint-placeholder-count="3">
+            <div style="display: flex; gap: 8px; align-items: baseline; padding-left: 34px;">
+              <i class="ph ph-check-circle" style="font-size: 12px; color: #2ea86a; flex: none;"></i>
+              <div style="flex: none; font: 600 11px/16px 'Open Sans', sans-serif; color: #8b98a5; white-space: nowrap;">{{ e.subject }}</div>
+              <div style="min-width: 0; font: 400 11px/16px 'Open Sans', sans-serif; color: #c3cdd7; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;">— {{ e.answer }}</div>
+            </div>
+            </sc-for>
+<!-- The comments, fired: the same walk the Test run rail shows. -->
+<sc-if value="{{ bpCnShow }}" hint-placeholder-val="{{ false }}">
+            <div style="display: flex; gap: 10px; align-items: flex-start;">
+              <div style="flex: none; width: 24px; height: 24px; border-radius: 99px; border: 1px solid #26313d; background: #101820; display: grid; place-items: center;"><img src="assets/flowx-mark-white.svg" alt="" style="height: 11px; width: auto;" /></div>
+              <div style="min-width: 0; flex: 1;">
+                <div style="font: 400 11px/15px 'Open Sans', sans-serif; color: #8b98a5;"><b style="color: #c3cdd7; font-weight: 600;">Agent</b> · comments</div>
+                <div style="margin-top: 5px; font: 400 13px/21px 'Open Sans', sans-serif; color: #e7edf2; text-wrap: pretty;">{{ bpCnLead }}</div>
+                <div style="margin-top: 10px; display: flex; flex-direction: column; gap: 8px;">
+                  <sc-for list="{{ bpCnRows }}" as="cn" hint-placeholder-count="2">
+                  <div style="display: flex; gap: 9px; align-items: flex-start;">
+                    <i class="ph {{ cn.glyph }}" style="font-size: 14px; color: {{ cn.glyphColor }}; flex: none; margin-top: 2px; animation: {{ cn.anim }};"></i>
+                    <div style="min-width: 0; flex: 1;">
+                      <div style="font: 600 12px/18px 'Open Sans', sans-serif; color: {{ cn.color }}; text-wrap: pretty;">{{ cn.title }}</div>
+                      <div style="display: {{ cn.subShow }}; margin-top: 2px; font: 400 11px/16px 'Open Sans', sans-serif; color: #6b7783; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;">{{ cn.note }}</div>
+                    </div>
+                  </div>
+                  </sc-for>
+                </div>
+              </div>
+            </div>
+</sc-if>
+          </div>
+          <div style="flex: none; padding: 12px 16px; border-top: 1px solid #18212a;">
+            <div style="display: flex; align-items: center; gap: 10px; padding: 10px 14px; border: 1px solid #26313d; border-radius: 10px; background: #0e161d;">
+              <div style="flex: 1; min-width: 0; font: 400 13px/18px 'Open Sans', sans-serif; color: #6b7783;">Reply to the agent</div>
+              <div style="font: 600 12px/16px 'Open Sans', sans-serif; color: #5c6975; flex: none;">Send</div>
+            </div>
+          </div>
+        </div>
+
+<!-- Middle: the canvas, with the same comment overlay + pins on top as the Test run. -->
+        <div style="flex: 1; min-width: 0; position: relative; background: #0b1218;">
+          <iframe data-bp-iframe src="{{ bpCanvasSrc }}" title="Investment Assistant — solution canvas" style="width: 100%; height: 100%; border: 0; display: block; background: #0b1218;"></iframe>
+          <div data-bp-note-overlay onClick="{{ bpNotePick }}" onMouseMove="{{ bpNoteMove }}" onMouseLeave="{{ bpNoteLeave }}" style="position: absolute; inset: 0; cursor: crosshair; pointer-events: {{ bpNoteOverlayPE }};"></div>
+          <div style="position: absolute; inset: 0; pointer-events: none;">
+            <div data-bp-note-glow style="position: absolute; top: 0; left: 0; width: 0; height: 0; border: 1.5px solid #2b7fe4; background: rgba(43, 127, 228, 0.12); border-radius: 6px; opacity: 0; transition: top 90ms cubic-bezier(0.2, 0, 0.2, 1), left 90ms cubic-bezier(0.2, 0, 0.2, 1), width 90ms cubic-bezier(0.2, 0, 0.2, 1), height 90ms cubic-bezier(0.2, 0, 0.2, 1), opacity 120ms linear;"></div>
+            <div style="display: {{ bpNoteSelShow }}; position: absolute; top: {{ bpNoteSelTop }}; left: {{ bpNoteSelLeft }}; width: {{ bpNoteSelW }}; height: {{ bpNoteSelH }}; border: 1.5px solid #2b7fe4; background: rgba(43, 127, 228, 0.12); border-radius: 6px;"></div>
+            <sc-for list="{{ bpPins }}" as="p" hint-placeholder-count="2">
+            <div title="{{ p.title }}" style="position: absolute; top: {{ p.y }}; left: {{ p.x }}; transform: translate(-50%, -50%); width: 22px; height: 22px; border-radius: 99px 99px 99px 3px; background: {{ p.bg }}; border: 2px solid #0b1218; box-shadow: 0 2px 10px rgba(0, 0, 0, 0.45); display: grid; place-items: center; font: 700 10px/12px 'Open Sans', sans-serif; color: #ffffff; animation: {{ p.anim }};">{{ p.n }}</div>
+            </sc-for>
+            <div style="display: {{ bpNoteDraftShow }}; position: absolute; top: {{ bpNoteDraftY }}; left: {{ bpNoteDraftX }}; pointer-events: auto;">
+              <div style="position: absolute; top: -11px; left: -11px; width: 22px; height: 22px; border-radius: 99px 99px 99px 3px; background: #2b7fe4; border: 2px solid #0b1218; box-shadow: 0 2px 10px rgba(0, 0, 0, 0.45);"></div>
+              <div style="position: absolute; top: 16px; left: 16px; width: 300px; background: #101820; border: 1px solid #26313d; border-radius: 10px; box-shadow: 0 12px 40px rgba(0, 0, 0, 0.5); padding: 12px; display: flex; flex-direction: column; gap: 8px;">
+                <div style="display: flex; align-items: center; gap: 8px;">
+                  <div style="flex: 1; min-width: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; font: 400 11px/16px 'Open Sans', sans-serif; color: #8b98a5;">On &ldquo;{{ bpNoteDraftLabel }}&rdquo;</div>
+                  <div onClick="{{ bpNoteCancel }}" title="Drop it" style="width: 20px; height: 20px; border-radius: 6px; display: inline-flex; align-items: center; justify-content: center; color: #8b98a5; cursor: pointer; flex: none;" style-hover="background: #1c2632;"><i class="ph ph-x" style="font-size: 12px;"></i></div>
+                </div>
+                <input data-bp-note-input value="{{ bpNoteText }}" onChange="{{ bpNoteType }}" placeholder="What should change here?" style="padding: 6px 10px; background: #0e161d; border: 1px solid #26313d; border-radius: 6px; font: 400 13px/20px 'Open Sans', sans-serif; color: #f5f9fc; outline: none;" style-focus="border-color: #4d97ea; box-shadow: 0 0 0 3px rgba(43, 127, 228, 0.32);">
+                <div style="display: flex; justify-content: flex-end;">
+                  <div onClick="{{ bpNoteAdd }}" style="display: inline-flex; align-items: center; height: 26px; padding: 0 12px; border-radius: 8px; border: 1px solid #26313d; background: {{ bpNoteAddBg }}; color: {{ bpNoteAddColor }}; font: 600 12px/16px 'Open Sans', sans-serif; cursor: pointer; pointer-events: {{ bpNoteAddPE }};" style-hover="filter: brightness(1.15);">Comment</div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+<!-- Right: the comments panel — the same list the Test run shows. -->
+<sc-if value="{{ bpNotesPanelShow }}" hint-placeholder-val="{{ false }}">
+        <div style="flex: none; width: 320px; border-left: 1px solid #18212a; background: #101820; display: flex; flex-direction: column; min-height: 0;">
+          <div style="flex: none; height: 48px; display: flex; align-items: center; gap: 8px; padding: 0 16px; border-bottom: 1px solid #18212a;">
+            <i class="ph ph-chat-teardrop-text" style="font-size: 14px; color: #8b98a5;"></i>
+            <div style="font: 600 13px/18px 'Open Sans', sans-serif; color: #f5f9fc;">Comments</div>
+            <div style="font: 600 11px/16px 'Open Sans', sans-serif; color: #6b7783;">{{ bpNoteCount }}</div>
+          </div>
+          <div data-chat-scroll style="flex: 1; min-height: 0; overflow-y: auto; padding: 14px 16px; display: flex; flex-direction: column; gap: 10px;">
+<sc-if value="{{ bpNoteEmpty }}" hint-placeholder-val="{{ true }}">
+            <div style="font: 400 12px/19px 'Open Sans', sans-serif; color: #6b7783; text-wrap: pretty;">Comment mode is on. Click anywhere on the canvas to drop a numbered pin and leave a note.</div>
+</sc-if>
+            <sc-for list="{{ bpNoteRows }}" as="nr" hint-placeholder-count="2">
+            <div style="display: flex; gap: 10px; align-items: flex-start;">
+              <div style="flex: none; width: 20px; height: 20px; border-radius: 99px 99px 99px 3px; background: {{ nr.pinBg }}; display: grid; place-items: center; font: 700 9px/12px 'Open Sans', sans-serif; color: #ffffff;">{{ nr.n }}</div>
+              <div style="min-width: 0; flex: 1;">
+                <div style="font: 400 13px/20px 'Open Sans', sans-serif; color: #e7edf2; text-wrap: pretty;">{{ nr.text }}</div>
+                <div style="margin-top: 2px; font: 400 11px/15px 'Open Sans', sans-serif; color: #6b7783; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;">On &ldquo;{{ nr.label }}&rdquo;</div>
+              </div>
+              <i class="ph {{ nr.glyph }}" style="font-size: 14px; color: {{ nr.glyphColor }}; flex: none; margin-top: 3px; animation: {{ nr.anim }};"></i>
+            </div>
+            </sc-for>
+          </div>
+          <div style="flex: none; padding: 12px 16px; border-top: 1px solid #18212a; display: flex; flex-direction: column; gap: 8px;">
+            <div onClick="{{ bpNoteGo }}" style="display: inline-flex; align-items: center; justify-content: center; gap: 6px; height: 32px; border-radius: 8px; border: 1px solid transparent; background: #2b7fe4; color: #ffffff; font: 600 12px/16px 'Open Sans', sans-serif; cursor: pointer; pointer-events: {{ bpNoteGoPE }};" style-hover="filter: brightness(1.12);"><i class="ph ph-sparkle" style="font-size: 13px;"></i>{{ bpNoteGoLabel }}</div>
+            <div onClick="{{ bpNoteClear }}" style="text-align: center; font: 600 11px/16px 'Open Sans', sans-serif; color: #6b7783; cursor: pointer;" style-hover="color: #c3cdd7;">Clear the list</div>
+          </div>
+        </div>
+</sc-if>
+      </div>
+</sc-if>
+    </div>
+</sc-if>
+
   </div>
 
 </div>
@@ -2005,6 +2657,25 @@ class Component extends DCLogic {
     return {
       step,
       ask,
+      // The second plan is its own overlay, reached by ?buildplan=1; it ignores the rest of state.
+      buildplan: q.get('buildplan') === '1',
+      // Which of the three tabs the overlay shows, and which step is expanded on its Plan tab.
+      // ?tab=run|chat|plan deep-links a tab; bpStep 0 means the spine is showing, nothing opened.
+      bpTab: ['plan', 'run', 'chat', 'canvas'].indexOf(q.get('tab')) !== -1 ? q.get('tab') : 'plan',
+      bpStep: 0,
+      // The Plan tab opens on the spine (no step expanded); bpAns maps a settled question
+      // ('step-qIndex') to the option taken (0 recommended, 1 the other) — shared by Chat and Plan.
+      bpAns: {},
+      // Choosing the real connection on an Integration question asks a follow-up: bpCredAsk holds the
+      // question id being asked in the Chat walk; bpCreds keeps the typed values (mock — never sent).
+      bpCredAsk: null,
+      bpCreds: {},
+      // Test run comment mode: armed by the Comment button, a note is a numbered pin at a click
+      // point over the running prototype plus its words; the panel lists them and walks them done.
+      bpNoteMode: false,
+      bpNoteDraft: null,
+      bpNoteText: '',
+      bpNotes: [],
       // The plan and the first ask arrive together, so the chain is the walk from ?planned=1 on.
       guided: walk || planned,
       // The walk lives in the conversation, so `guided` is an intro state — never a view.
@@ -2153,7 +2824,9 @@ class Component extends DCLogic {
     RULE:        ['#f2762b', 'rgba(242, 118, 43, 0.34)'],
     INTEGRATION: ['#8ad3ab', 'rgba(138, 211, 171, 0.34)'],
     HUMAN:       ['#b0bcc8', 'rgba(176, 188, 200, 0.30)'],
-    TIMER:       ['#b0bcc8', 'rgba(176, 188, 200, 0.30)']
+    TIMER:       ['#b0bcc8', 'rgba(176, 188, 200, 0.30)'],
+    AI:          ['#a879e6', 'rgba(168, 121, 230, 0.34)'],
+    KB:          ['#e6b455', 'rgba(230, 180, 85, 0.34)']
   };
 
   // The plan, per row. `dot` is the row's mark BEFORE it is built — built is always the green
@@ -2430,6 +3103,197 @@ class Component extends DCLogic {
 
   static WORD = ['nothing', 'one', 'two', 'three', 'four', 'five'];
 
+  // A second, separate plan opened by ?buildplan=1 — the AI Investment Assistant build plan, read
+  // straight, not built. It shares nothing with the dispute plan above; it is a reader, not a state.
+  static PLAN = [
+    { n: 1, tag: 'SCREEN', title: 'Requests dashboard + client search (entry gate)',
+      test: 'Log in as an agent and land on the Requests dashboard — the task list (Full Name, Birth date, Policy number, Top-up, Assignee, Submitted, Status, Last updated), empty at first. Open the client-search modal, search by tax number / surname / first name, and pick a matching Triglav client to launch a request (a stub wizard opens, a row appears).',
+      create: [
+        'Data types (skeletons): Client, request, agent — extended in later steps',
+        'System: Triglav API Portal (REST — AdInsure3), getCustomers wired',
+        'workflow initClient — search customers, filter natural persons',
+        'workflow getPermissions — displayNewRequest from Keycloak /KB_VIEWER',
+        'ui-flow Requests (WEB) with a TaskManagement area + the client-search modal',
+        'view TriglavRequest — the task list, sourced from Main instances',
+        'process Main (stub) — the START_PROCESS-able spine, one placeholder USER_TASK' ],
+      edit: '', depends: '' },
+    { n: 2, tag: 'SCREEN', title: 'Wizard bootstrap + Client Portfolio + Header',
+      test: 'Selecting a client opens the wizard; after a loader the Client Portfolio screen shows the real policies, funds and portfolio, with the Header bar showing client context. Clicking an outside fund opens a description modal. The request now tracks as a row in the dashboard.',
+      create: [
+        'Data types: policy, fundGrup, fund, outsideFund, contactInformation, address; extend Client (policies, allFunds, outsideFunds, contact), agent, request',
+        'workflows: initClientDetails, initAgentDetails; process GetPoliciesDetails → getPolicyDetails',
+        'process setEnumerationLabel — enum codes → display labels',
+        'processes Header (embedded) and OutsideFundDescriptionModal',
+        'Mongo system AutoClose + workflow insertInstanceForAutoClose — registers the request' ],
+      edit: 'Main: add the bootstrap chain after loader (RetreiveClient → CallForPolicies → verifyListEnums → SendForAgentData → SendInstance → ShowAllElements); replace the placeholder with the ClientPortofolio USER_TASK + Header embed.',
+      depends: '' },
+    { n: 3, tag: 'SCREEN', title: 'Risk Profiling screen',
+      test: 'From the portfolio, advance to Risk Profiling and complete the 4-part questionnaire (income, situation, time horizon, attitude/statement). Answers save to the request and the wizard advances.',
+      create: [
+        'Data type: riskProfiling; extend request',
+        'Enumerations: riskProfilingIncome / Situation / Time / Statement (4-value scales, low→high)' ],
+      edit: 'Main: add the RiskProfiling USER_TASK after ClientPortofolio, bound to riskProfiling + the four enums; wire the advance gateway.',
+      depends: '' },
+    { n: 4, tag: 'KB', title: 'Knowledge base: house rules + volatility crawl (KB_VIEWER)',
+      test: 'As a KB_VIEWER: upload/refresh the house-rules document (the HouseRules store is replaced); trigger the volatility crawl and see fund data crawled from Triglav pages, a per-fund LLM summary written to FundsInfo, and crawl versions listed on the viewer screen.',
+      create: [
+        'System FileDownloader (document-plugin REST)',
+        'Mongo systems: HouseRules, FundsInfo, WebCrawl (WEB_PAGE_EXTRACTOR for triglavinvestments.si)',
+        'process HouseRulesUpdate → workflow readHouseRuleDocument (replace HouseRules)',
+        'Crawl chain: automatedUpdateKB (timer) → crawlForVolatility → extractVol; workflows crawlExcel, webCrawlPages, readFromExcelVolatility (Python), summariseFundsVolatility (LLM), crawlAndSave, findVersion(s)' ],
+      edit: 'Requests ui-flow: add the KB_VIEWER entry buttons (house-rules upload, crawl, versions).',
+      depends: 'Independent of the wizard screens, but MUST be run before Step 5 produces sensible output.' },
+    { n: 5, tag: 'AI', flag: 'flagship', title: 'AI fund allocation + Funds Selection screen',
+      test: 'After risk profiling, a loader runs and the Funds Selection screen shows the AI-proposed allocation (≤5 funds, weights summing to 100%, EUR amounts sized to the top-up, respecting the risk score) plus a plain-Slovenian rationale. The agent edits the table, Add fund and Set strategy; totals recompute.',
+      create: [
+        'Data type: allocationsOption; extend request + Client (topUpAmount)',
+        'Mongo system ClientData + workflow getClientData',
+        'workflow findWeightsNew — reads ClientData + HouseRules + FundsInfo; Agent 1 (allocation JSON), Python normalizer, Agent 2 (Slovenian justification, ~200 words)',
+        'processes ModalAddFund, ModalSetStrategy' ],
+      edit: 'Main: after RiskProfiling insert the AI chain (insertClientData → getClientData → findWeightsNew → organizeData), then the FundsSelection USER_TASK with tableEdits, Add fund / Set strategy modals.',
+      depends: 'Steps 3 + 4.' },
+    { n: 6, tag: 'RULE', title: 'Top-up minimum + reallocation options',
+      test: 'A top-up below the minimum shows a blocking message and prevents advancing; a valid amount advances. Reallocation choices (AI vs specific vs unchanged, reallocation date) are selectable and stored on the request’s allocationsOption.',
+      create: [
+        'process Top-upMinCondition (modal; validates the minimum)',
+        'Enumerations: TopUpPremiumAllocation (+ option/AI variants), existingFondsReallocation (AI/specific), dateReallocationOption, outsideInvestments' ],
+      edit: 'Main: wire showMessageTop-up → Top-upMinCondition + the advanceValid catch; surface the reallocation enums on the allocation screens.',
+      depends: 'Step 5.' },
+    { n: 7, tag: 'RULE', title: 'Personal Data (KYC) screen + validations',
+      test: 'The Personal Data screen captures tax residency, citizenship(s), temporary address, source of funds/assets and compliance (FATCA/CRS/PEP), with dropdowns from reference data. Validations fire live: Slovenian tax-number check, postal-code, high-risk-country flagging, and the “Slovenia if no CRS” rule.',
+      create: [
+        'Data types: identityDocument, citizenship, financialStatus, source, fatcaStatus, CRS, PEPStatus, temporaryAddress; extend Client with these + GDPR, birth place',
+        'Enumerations + reference data: gender, employementStatus, documentTypes, GDPRConsent, sourceOfFunds, and the Slovenia lists countries / postalCodes / postalOffices / towns',
+        'Rule logic: SlovenianTaxNumberValidation, postalCodeVerification, highRiskCountriesAndCountryList, SloveniaIfNoCRS' ],
+      edit: 'Main: add SetButtonLabel3 (validations) → PersonalData USER_TASK bound to the Client contact/identity/compliance sub-objects; wire validation gateways.',
+      depends: 'Step 2 (client loaded).' },
+    { n: 8, tag: 'INTEGRATION', title: 'Investment Overview + Signature City + Document generation',
+      test: 'The Investment Overview screen shows a consolidated summary; Signature City captures the city of signing (from towns); advancing generates the request’s PDFs (Agent / Specification / GDPR / Supplemental), previewable in a modal.',
+      create: [
+        'Data type: document; extend request (documents, extra)',
+        'process GenerateDocuments → workflow createDocuments (Triglav createPdf, attach PDFs, FileDownloader upload)',
+        'process DocumentPreviewModal',
+        'workflow updateRequestInstance (update the tracked instance status)' ],
+      edit: 'Main: add InvestmentOverview → SetSignatureCity USER_TASK → calldocs (GenerateDocuments) → updateInstance; wire openDocument → DocumentPreviewModal.',
+      depends: 'Step 7; Triglav createPdf reachable.' },
+    { n: 9, tag: 'INTEGRATION', title: 'Digital signature (BetrSign)',
+      test: 'On the Document Sign screen the agent retrieves the documents, launches the BetrSign session (login ticket, signing job, PDFs uploaded), the job status is polled, and signed documents come back. A “recreate ticket” action regenerates the link; documents preview in a modal.',
+      create: [
+        'BetrSign system (REST + PKCS12 client cert)',
+        'process DigitalSignature → workflow signingJob → accessBetrSign, createBetrSignUser, login-ticket workflows, signingJobUploadDocs',
+        'process RetriveSignDocs → getSignDocuments; process CreateLoginTicket' ],
+      edit: 'Main: add the DocumentSign USER_TASK; wire getSignDocuments, DigitalSignature, recreateTicket, openDocument; add job-status polling.',
+      depends: 'Step 8 (documents must exist before signing).' },
+    { n: 10, tag: 'TIMER', title: 'Final Summary + request lifecycle / auto-close / discard',
+      test: 'After signing, the Final Summary screen confirms the completed request and shows the signed PDFs; the final status is written and reflected in the dashboard. A Discard modal cancels from any screen, and stale requests (Started/Documents) are auto-closed by a timer and drop off the dashboard.',
+      create: [
+        'process DiscardRequestConfirmation (modal)',
+        'process AutoCloseRules (timer) → workflow findInstancesForAutoClose + process CloseRequests' ],
+      edit: 'Main: add the FinalSummary USER_TASK → End; add updateInstance for final status; add the RequestDiscard catch on every screen.',
+      depends: 'Step 9; instance registration from Step 2.' },
+    { n: 11, tag: 'AI', flag: 'optional', title: 'AI document-read & bulk tooling (KB_VIEWER)',
+      test: 'As KB_VIEWER, AI-read an uploaded client document to prefill client data, and run a bulk AI read that shows results in a table. For data import/eval, not part of the per-client wizard.',
+      create: [
+        'Mongo system BulkAI; workflows insertBulkAi, retrieveBulkAi, readFromDocument, Bulk client data; processes DocumentAiRead, BulkAiRead' ],
+      edit: 'Requests ui-flow: add KB_VIEWER entry points for these tools.',
+      depends: 'Step 4 (data stores) + Step 5 (allocation engine).' }
+  ];
+
+  // The dependency map, drawn as the plan's md drew it — a fixed block, not derived.
+  static PLAN_DEPS = [
+    'Step 1 (dashboard + search)            ── each step below is UI-testable in the running app',
+    '   └─> Step 2 (bootstrap + portfolio + header + instance register)',
+    '          └─> Step 3 (risk profiling)',
+    'Step 4 (KB: house rules + volatility crawl)  ── independent, KB_VIEWER; MUST run before Step 5',
+    '   └───────────────────────────────┐',
+    'Step 3 + Step 4 ──> Step 5 (AI allocation + funds selection)  ★',
+    '          └─> Step 6 (top-up / reallocation)',
+    '                 └─> Step 7 (KYC + validations)',
+    '                        └─> Step 8 (overview + signature city + document generation)',
+    '                               └─> Step 9 (BetrSign signing)',
+    '                                      └─> Step 10 (final summary + lifecycle / auto-close)',
+    'Step 11 (AI read / bulk tooling)  ── optional, KB_VIEWER, feeds off Steps 4+5'
+  ].join('\n');
+
+  // Up to two open questions per step — the ones a building agent asks the initiator before
+  // starting. `tag` is Integration / UI / Path; `rec` is the recommended answer (the ✅ default the
+  // agent takes if unanswered), `alt` the other option. Straight from the plan's Open questions.
+  static PLAN_Q = {
+    1: [
+      { tag: 'Integration', q: 'For client search, connect to the real Triglav API Portal (AdInsure3), or mock it with sample clients?',
+        rec: 'Mock with a handful of sample clients so search + list work immediately', alt: 'Wire the real Triglav API Portal now (base URL + auth)',
+        system: 'the Triglav API Portal', creds: [{ label: 'Base URL', ph: '${triglavUrl}' }, { label: 'Auth', ph: 'API key / OAuth client + secret / bearer token' }] },
+      { tag: 'UI', q: 'A plain data table (8 columns + search + New request), or a richer dashboard?',
+        rec: 'Plain TaskManagement table — 8 columns + search + New request, Triglav-green accent', alt: 'Richer dashboard with status filters / grouping and summary cards' }
+    ],
+    2: [
+      { tag: 'Integration', q: 'Register the request in a real Mongo “AutoClose” collection, or mock instance-tracking in memory?',
+        rec: 'Mock in-memory instance tracking so rows appear / track without a real DB', alt: 'Real MongoDB — connection string / DB / credentials',
+        system: 'the AutoClose MongoDB', creds: [{ label: 'Connection string', ph: 'mongodb://…' }, { label: 'Database', ph: 'db name' }, { label: 'Credentials', ph: 'user / password' }] },
+      { tag: 'UI', q: 'Lay policies + funds out as expandable policy cards, or a flat list — and what does the header carry?',
+        rec: 'Expandable policy cards with nested holdings table; header = name + tax + policy', alt: 'Flat combined holdings list' }
+    ],
+    3: [
+      { tag: 'UI', q: 'All 4 questions on one screen, or a one-question-at-a-time mini-stepper — and show the risk band live?',
+        rec: 'All 4 on one screen with the computed risk band shown live', alt: 'One-question-at-a-time mini-stepper' },
+      { tag: 'Path', q: 'When answers conflict (high income but low tolerance), which governs the SRI cap?',
+        rec: 'The most conservative answer governs the SRI cap', alt: 'A weighted score across answers' }
+    ],
+    4: [
+      { tag: 'Integration', q: 'Run the crawl, document download, volatility + LLM summaries live, or preload a fixed sample dataset?',
+        rec: 'Preload a fixed sample dataset (mock crawl + summaries) so Step 5 has data to read', alt: 'Run all live — crawl URL + document-plugin + Mongo + LLM model / credentials',
+        system: 'the live crawl + LLM', creds: [{ label: 'Crawl target URL', ph: 'triglavinvestments.si/…' }, { label: 'document-plugin URL', ph: 'https://…' }, { label: 'Mongo connection', ph: 'mongodb://…' }, { label: 'LLM model + credentials', ph: 'model + API key' }] },
+      { tag: 'UI', q: 'A simple set of action buttons + results table, or a fuller management console?',
+        rec: 'Simple action buttons (upload rules, run crawl, view versions) + results table', alt: 'Fuller management console' }
+    ],
+    5: [
+      { tag: 'Integration', q: 'Allocation from a real LLM agent (findWeightsNew), or a mocked fixed allocation response?',
+        rec: 'Mock a fixed, schema-valid allocation + rationale; swap in the real LLM later', alt: 'Real findWeightsNew LLM now — model + credentials',
+        system: 'the findWeightsNew LLM', creds: [{ label: 'Model', ph: 'e.g. claude-…' }, { label: 'Credentials', ph: 'API key' }] },
+      { tag: 'UI', q: 'How is the allocation presented and edited, and where does the Slovenian rationale sit?',
+        rec: 'Inline-editable weights table (live 100% + validation); rationale in a collapsible panel', alt: 'Rationale in an always-visible side panel' }
+    ],
+    6: [
+      { tag: 'Path', q: 'When the top-up is below the policy minimum, hard-block advancing, or allow with a warning / override?',
+        rec: 'Hard-block advancing below the tariff minimum, with a clear message', alt: 'Allow with a warning / override' },
+      { tag: 'UI', q: 'Present the reallocation choices as radio groups on the Funds screen, or inside the top-up modal?',
+        rec: 'Radio groups on the Funds screen', alt: 'Inside the top-up modal' }
+    ],
+    7: [
+      { tag: 'UI', q: 'Group the field-dense form into collapsible sections, or one long form?',
+        rec: 'Collapsible sections — identity, tax residency, address, source of funds, compliance', alt: 'A single long form' },
+      { tag: 'Path', q: 'When a validation fails (tax number, postal code, high-risk country), hard-block or allow with an override?',
+        rec: 'Hard-block submission until validations pass (regulated KYC)', alt: 'Allow with an agent justification / override' }
+    ],
+    8: [
+      { tag: 'Integration', q: 'Generate real PDFs via Triglav’s createPdf, or mock with placeholder sample PDFs?',
+        rec: 'Mock placeholder sample PDFs so preview / sign flows work without Triglav', alt: 'Real createPdf via Triglav — endpoint / auth + document-plugin upload target',
+        system: 'Triglav createPdf', creds: [{ label: 'createPdf endpoint + auth', ph: 'https://… + auth' }, { label: 'document-plugin upload target', ph: 'https://…' }] },
+      { tag: 'UI', q: 'Organise the read-only Investment Overview as one summary page, or sectioned cards?',
+        rec: 'Sectioned cards — client + agent + allocation + documents', alt: 'One flat summary page' }
+    ],
+    9: [
+      { tag: 'Integration', q: 'Connect to the real BetrSign e-signature service, or mock the signing job + status?',
+        rec: 'Mock the signing job + status (simulate progress to Signed) for a credential-free demo', alt: 'Real BetrSign — URL + PKCS12 client certificate + password',
+        system: 'the real BetrSign', creds: [{ label: 'BetrSign URL', ph: '${betrSignUrl}' }, { label: 'PKCS12 client certificate', ph: 'certificate file' }, { label: 'Certificate password', ph: '••••••' }] },
+      { tag: 'Path', q: 'If a signature is declined or polling times out, what happens?',
+        rec: 'Agent recreates the link and retries; park as “Documents” if abandoned', alt: 'Silent auto-retry' }
+    ],
+    10: [
+      { tag: 'Path', q: 'For auto-close: after how long, in which statuses, and warn the agent first?',
+        rec: 'Close after 7 days in Started / Documents, notify the assignee first', alt: 'Close after 30 days, no notification' },
+      { tag: 'UI', q: 'What does Final Summary show, and how should the manual Discard confirmation read?',
+        rec: 'Completion banner + recap + signed-doc downloads; a concise “Discard request?” confirm', alt: 'Minimal confirmation + back-to-dashboard link' }
+    ],
+    11: [
+      { tag: 'Integration', q: 'Run the read / bulk tools against a live LLM + Mongo “BulkAI” store, or mock the AI reads?',
+        rec: 'Mock the AI read responses + an in-memory BulkAI store', alt: 'Real LLM + Mongo — model / credentials + connection',
+        system: 'the live read / bulk tools', creds: [{ label: 'LLM model + credentials', ph: 'model + API key' }, { label: 'Mongo connection', ph: 'mongodb://…' }] },
+      { tag: 'UI', q: 'Present bulk-read results as a table with per-record status, or a simpler upload-and-preview panel?',
+        rec: 'Results table with per-record status', alt: 'Upload-and-preview panel' }
+    ]
+  };
+
   // Deal the next ghost plan: out on its own opacity, swapped while it is invisible, back in. The
   // hover is dropped with it — the step you were reading is not the step that arrives.
   // Where it lands is held on the instance, not in state: a second deal mid-fade RETARGETS the one
@@ -2510,6 +3374,13 @@ class Component extends DCLogic {
     };
     document.addEventListener('keydown', this.onKey);
 
+    // The canvas iframe's step chips post {bpStep}; landing is the Plan tab with that step open.
+    this.onBpMsg = e => {
+      const n = e.data && e.data.bpStep;
+      if (n >= 1 && n <= 11) this.setState({ bpTab: 'plan', bpStep: n });
+    };
+    window.addEventListener('message', this.onBpMsg);
+
       // Zoom and layout size are read off the window; this state is only a bump.
     this.onResize = () => this.setState(p => ({ resized: (p.resized || 0) + 1 }));
     window.addEventListener('resize', this.onResize);
@@ -2550,6 +3421,7 @@ class Component extends DCLogic {
 
   componentWillUnmount() {
     document.removeEventListener('keydown', this.onKey);
+    window.removeEventListener('message', this.onBpMsg);
     window.removeEventListener('resize', this.onResize);
     cancelAnimationFrame(this.stickRaf);
     clearInterval(this.eTimer);
@@ -3364,8 +4236,370 @@ class Component extends DCLogic {
       this.timers.push(setTimeout(() => this.setState({ replied: true }), 2200));
     };
 
+    // ── The second builder: shared plan + guided walk ────────────────────
+    // The open questions flattened into walk order — two per step, eleven steps. `bpAns` is the one
+    // source of truth (id -> option taken); the Chat asks the first unanswered, the Plan detail pane
+    // answers any of them, and both stay in sync. No cursor — "answered" is simply having an entry.
+    const BPQTAG = { Integration: Component.TAGS.INTEGRATION, UI: Component.TAGS.SCREEN, Path: Component.TAGS.RULE };
+    const BP_SHORT = ['Requests + client search', 'Client portfolio + header', 'Risk profiling',
+      'Knowledge base (KB_VIEWER)', 'AI allocation + funds', 'Top-up + reallocation',
+      'Personal data (KYC)', 'Overview + documents', 'Digital signature', 'Final summary + lifecycle',
+      'AI read + bulk (optional)'];
+    const BP_DESC = [
+      'The agent finds an existing client and launches a request from the dashboard.',
+      'The wizard opens on the client’s real policies, funds and portfolio.',
+      'A four-part questionnaire sets the client’s risk band.',
+      'The KB_VIEWER loads house rules and crawls fund volatility for the AI.',
+      'The AI proposes an allocation for the top-up, which the agent can edit.',
+      'A minimum guards the top-up, and the reallocation options are chosen.',
+      'KYC captures residency, address, source of funds and compliance — validated live.',
+      'A summary, the signing city, then the request’s PDFs are generated.',
+      'The generated documents are signed through a BetrSign session.',
+      'The final summary confirms the request; stale ones auto-close.',
+      'Optional KB_VIEWER tooling: AI-read a document to prefill, or bulk-read many.'];
+    const bpWalk = [];
+    Component.PLAN.forEach(s => (Component.PLAN_Q[s.n] || []).forEach((qq, qi) =>
+      bpWalk.push({ id: s.n + '-' + qi, step: s.n, tag: qq.tag, q: qq.q, rec: qq.rec, alt: qq.alt,
+        system: qq.system || '', creds: qq.creds || [] })));
+    const bpTotal = bpWalk.length;
+    const bpById = {};
+    bpWalk.forEach(w => { bpById[w.id] = w; });
+    const bpIsAns = id => S.bpAns[id] !== undefined && S.bpAns[id] !== null;
+    const bpAnsList = bpWalk.filter(w => bpIsAns(w.id));
+    const bpRemain = bpTotal - bpAnsList.length;
+    // Choosing the real connection (option 1) on an Integration question opens the credentials
+    // follow-up in the Chat walk; any other choice clears a follow-up left on that same question.
+    const bpChoose = (id, idx) => {
+      const w = bpById[id];
+      const real = w && w.tag === 'Integration' && idx === 1 && w.creds.length > 0;
+      return leave({ bpAns: { ...S.bpAns, [id]: idx },
+        bpCredAsk: real ? id : (S.bpCredAsk === id ? null : S.bpCredAsk) });
+    };
+    // The Plan detail pane answers in place: the credentials show inline under the option, so it
+    // never opens the walk's blocking follow-up (and clears one if it was left on this question).
+    const bpChoosePlan = (id, idx) => leave({ bpAns: { ...S.bpAns, [id]: idx },
+      bpCredAsk: S.bpCredAsk === id ? null : S.bpCredAsk });
+    // Comment mode reads INTO the running prototype (same-origin iframe): the element under the
+    // pointer, its box, and a label — so hovering highlights it and a pin knows what it is on.
+    const bpNoteAt = e => {
+      const ifr = document.querySelector('[data-bp-iframe]');
+      if (!ifr) return null;
+      let doc; try { doc = ifr.contentDocument; } catch (_) { return null; }
+      if (!doc) return null;
+      const r = ifr.getBoundingClientRect();
+      const ix = (e.clientX - r.left) / z, iy = (e.clientY - r.top) / z;
+      const el = doc.elementFromPoint(ix, iy);
+      if (!el || el === doc.body || el === doc.documentElement) return null;
+      const b = el.getBoundingClientRect();
+      const t = ((el.getAttribute && (el.getAttribute('aria-label') || el.getAttribute('title'))) || el.innerText || '')
+        .replace(/\s+/g, ' ').trim();
+      return { x: ix, y: iy,
+        rect: { top: b.top, left: b.left, width: b.width, height: b.height },
+        label: t ? (t.length > 46 ? t.slice(0, 46).trim() + '…' : t) : el.tagName.toLowerCase() };
+    };
+    // Type into a credential field (mock — kept only in local state, never sent anywhere).
+    const bpCredType = (id, fi) => e => {
+      const v = e.target.value;
+      this.setState(p => ({ bpCreds: { ...p.bpCreds, [id]: { ...(p.bpCreds[id] || {}), [fi]: v } } }));
+    };
+    const bpCredFieldsFor = id => {
+      const w = bpById[id];
+      if (!w) return [];
+      const vals = S.bpCreds[id] || {};
+      return w.creds.map((f, fi) => ({ label: f.label, ph: f.ph, value: vals[fi] || '', onType: bpCredType(id, fi) }));
+    };
+    const bpCredW = S.bpCredAsk ? bpById[S.bpCredAsk] : null;
+    // Per-step settle counts: how many of a step's questions are still owed.
+    const bpStepOwed = n => (Component.PLAN_Q[n] || []).filter((qq, qi) => !bpIsAns(n + '-' + qi)).length;
+    // The Chat asks the first still-owed question; null once every one is settled.
+    const bpCur = bpWalk.find(w => !bpIsAns(w.id)) || null;
+    const bpCurTag = bpCur ? (BPQTAG[bpCur.tag] || Component.TAGS.HUMAN) : ['', ''];
+    // A step's dot fills once it owes nothing; the "current" step is the one the walk is on.
+    const bpCardSteps = Component.PLAN.map((s, i) => {
+      const owed = bpStepOwed(s.n);
+      const settled = (Component.PLAN_Q[s.n] || []).length > 0 && owed === 0;
+      const current = bpCur && bpCur.step === s.n;
+      return {
+        title: BP_SHORT[i],
+        tickBg: settled ? '#2ea86a' : (current ? '#4d97ea' : '#33404d'),
+        dotBg: settled ? '#2ea86a' : 'transparent',
+        dotBorder: settled ? '#2ea86a' : (current ? '#4d97ea' : '#3a4650'),
+        dotGlyphShow: settled ? 'inline-flex' : 'none',
+        titleColor: settled ? '#c3cdd7' : (current ? '#f5f9fc' : '#8b98a5')
+      };
+    });
+
+    // ── The Plan tab's spine (rows) and the open-step detail pane ─────────
+    const bpOpenN = S.bpStep >= 1 && S.bpStep <= Component.PLAN.length ? S.bpStep : 0;
+    const bpSpine = Component.PLAN.map((s, i) => {
+      const pal = Component.TAGS[s.tag] || Component.TAGS.HUMAN;
+      const owed = bpStepOwed(s.n);
+      const settled = (Component.PLAN_Q[s.n] || []).length > 0 && owed === 0;
+      const current = bpCur && bpCur.step === s.n;
+      return {
+        n: s.n, title: BP_SHORT[i], desc: BP_DESC[i], barColor: pal[0],
+        open: bpOpenN === s.n,
+        toggle: leave({ bpStep: bpOpenN === s.n ? 0 : s.n }),
+        // The connector dot: filled green when settled, a person glyph on the last step like the dispute.
+        dotBg: settled ? '#2ea86a' : 'transparent',
+        dotBorder: settled ? '#2ea86a' : (current ? '#4d97ea' : '#3a4650'),
+        dotGlyph: settled ? 'ph-check' : (s.n === 11 ? 'ph-user' : ''),
+        dotGlyphColor: settled ? '#ffffff' : '#6b7783',
+        dotGlyphShow: (settled || s.n === 11) ? 'inline-flex' : 'none',
+        titleColor: current ? '#f5f9fc' : '#e7edf2',
+        owed: owed,
+        owedText: owed === 1 ? '? 1 to settle' : '? ' + owed + ' to settle',
+        owedShow: owed > 0 ? 'inline-flex' : 'none',
+        settledShow: (settled ? 'inline-flex' : 'none'),
+        rowBg: bpOpenN === s.n ? '#131d26' : 'transparent'
+      };
+    });
+    // The open step's detail — description, how-to-test, its questions (answerable), technical detail.
+    const bpOpen = bpOpenN ? Component.PLAN[bpOpenN - 1] : null;
+    const bpDetail = bpOpen ? (() => {
+      const pal = Component.TAGS[bpOpen.tag] || Component.TAGS.HUMAN;
+      const owed = bpStepOwed(bpOpen.n);
+      return {
+        num: 'Step ' + bpOpen.n + ' of 11',
+        title: bpOpen.title,
+        desc: BP_DESC[bpOpen.n - 1],
+        tag: bpOpen.tag, tagColor: pal[0], tagBorder: pal[1],
+        test: bpOpen.test,
+        owed: owed,
+        needHead: owed === 0 ? 'Every question settled' : (owed === 1 ? 'One question still to settle' : owed + ' questions still to settle'),
+        buildFact: owed === 0 ? 'Every question settled — ready to build.' : (owed === 1 ? 'One question still to settle before I build it.' : owed + ' questions still to settle before I build it.'),
+        questions: (Component.PLAN_Q[bpOpen.n] || []).map((qq, qi) => {
+          const id = bpOpen.n + '-' + qi;
+          const ans = S.bpAns[id];
+          const qp = BPQTAG[qq.tag] || Component.TAGS.HUMAN;
+          const answered = ans !== undefined && ans !== null;
+          const credOn = qq.tag === 'Integration' && ans === 1 && (qq.creds || []).length > 0;
+          return {
+            tag: qq.tag, tagColor: qp[0], tagBorder: qp[1],
+            q: qq.q,
+            statusText: answered ? 'Answered' : 'Not answered',
+            statusColor: answered ? '#2ea86a' : '#e6a34a',
+            // Real connection chosen → a credentials sub-form appears under the options.
+            credShow: credOn ? 'flex' : 'none',
+            credFields: credOn ? bpCredFieldsFor(id) : [],
+            options: [
+              { label: qq.rec, chosen: ans === 0, dot: ans === 0 ? '#2b7fe4' : 'transparent',
+                dotBorder: ans === 0 ? '#2b7fe4' : '#3a4650', chipShow: !answered ? 'inline-flex' : 'none',
+                textColor: ans === 0 ? '#f5f9fc' : '#c3cdd7', act: bpChoosePlan(id, 0) },
+              { label: qq.alt, chosen: ans === 1, dot: ans === 1 ? '#2b7fe4' : 'transparent',
+                dotBorder: ans === 1 ? '#2b7fe4' : '#3a4650', chipShow: 'none',
+                textColor: ans === 1 ? '#f5f9fc' : '#c3cdd7', act: bpChoosePlan(id, 1) }
+            ]
+          };
+        }),
+        create: bpOpen.create.map(t => ({ t })),
+        edit: bpOpen.edit, editShow: bpOpen.edit ? 'flex' : 'none',
+        depends: bpOpen.depends, dependsShow: bpOpen.depends ? 'flex' : 'none'
+      };
+    })() : { num: '', title: '', desc: '', tag: '', tagColor: '', tagBorder: '', test: '', owed: 0, needHead: '', buildFact: '', questions: [], create: [], edit: '', editShow: 'none', depends: '', dependsShow: 'none' };
+
     return {
       rows: rows,
+
+      // ── The second plan (?buildplan=1) ───────────────────────────────────
+      // A second builder, same chrome as the dispute one: Chat / Plan / Test run over the
+      // Investment Assistant. Its own state (bpTab, bpStep) — it never touches the dispute flow.
+      buildplan: S.buildplan,
+      bpOpen: () => location.assign(location.pathname + '?buildplan=1'),
+      // The three tabs, driven by setState so switching never reloads. Blur so a withdrawn ring goes.
+      bpTab: S.bpTab,
+      bpIsPlan: S.bpTab === 'plan',
+      bpIsRun: S.bpTab === 'run',
+      bpIsChat: S.bpTab === 'chat',
+      bpIsCanvas: S.bpTab === 'canvas',
+      bpTabChat: leave({ bpTab: 'chat' }),
+      bpTabPlan: leave({ bpTab: 'plan' }),
+      bpTabRun: leave({ bpTab: 'run' }),
+      bpTabCanvas: leave({ bpTab: 'canvas' }),
+      // The active segment takes the white "you are here"; the other two are the live controls.
+      bpChatBg: S.bpTab === 'chat' ? '#1c2632' : 'transparent',
+      bpChatColor: S.bpTab === 'chat' ? '#ffffff' : '#8b98a5',
+      bpPlanBg: S.bpTab === 'plan' ? '#1c2632' : 'transparent',
+      bpPlanColor: S.bpTab === 'plan' ? '#ffffff' : '#8b98a5',
+      bpRunBg: S.bpTab === 'run' ? '#1c2632' : 'transparent',
+      bpRunColor: S.bpTab === 'run' ? '#ffffff' : '#8b98a5',
+      bpCanvasBg: S.bpTab === 'canvas' ? '#1c2632' : 'transparent',
+      bpCanvasColor: S.bpTab === 'canvas' ? '#ffffff' : '#8b98a5',
+      // The Test run tab is the attached happy-path prototype, served beside this file; the Canvas
+      // is the one-view solution poster, same-origin so comment mode can read into it too.
+      bpRunSrc: 'investment-happy-path.html',
+      bpCanvasSrc: 'investment-canvas.html',
+      bpSteps: Component.PLAN.map(s => {
+        const pal = Component.TAGS[s.tag] || Component.TAGS.HUMAN;
+        const open = S.bpStep === s.n;
+        const QTAG = { Integration: Component.TAGS.INTEGRATION, UI: Component.TAGS.SCREEN, Path: Component.TAGS.RULE };
+        return {
+          n: s.n,
+          num: 'Step ' + s.n,
+          title: s.title,
+          tag: s.tag,
+          tagColor: pal[0],
+          tagBorder: pal[1],
+          barColor: pal[0],
+          flag: s.flag === 'flagship' ? 'Flagship' : (s.flag === 'optional' ? 'Optional' : ''),
+          flagShow: s.flag ? 'inline-flex' : 'none',
+          flagColor: s.flag === 'flagship' ? '#e6b455' : '#8b98a5',
+          flagBorder: s.flag === 'flagship' ? 'rgba(230, 180, 85, 0.40)' : '#2a3540',
+          // The row is a control: clicking toggles this step open, closing whatever was.
+          toggle: leave({ bpStep: open ? 0 : s.n }),
+          open: open,
+          caret: open ? '90deg' : '0deg',
+          bodyRows: open ? '1fr' : '0fr',
+          rowBg: open ? '#111a22' : '#101820',
+          rowBorder: open ? '#26313d' : '#1c2530',
+          test: s.test,
+          create: s.create.map(t => ({ t })),
+          edit: s.edit,
+          editShow: s.edit ? 'flex' : 'none',
+          depends: s.depends,
+          dependsShow: s.depends ? 'flex' : 'none',
+          // The step's open questions, each with its recommended answer marked.
+          questions: (Component.PLAN_Q[s.n] || []).map(qq => {
+            const qp = QTAG[qq.tag] || Component.TAGS.HUMAN;
+            return { tag: qq.tag, tagColor: qp[0], tagBorder: qp[1], q: qq.q, rec: qq.rec, alt: qq.alt };
+          }),
+          qCount: (Component.PLAN_Q[s.n] || []).length
+        };
+      }),
+      bpDeps: Component.PLAN_DEPS,
+
+      // ── The Chat tab's conversation + guided walk (bpAns-driven) ─────────
+      bpTotal: bpTotal,
+      bpLead: bpTotal + ' questions to settle, across eleven steps. I will ask them here, one at a time — the moment the last one settles, I build the rest.',
+      bpCardLedger: bpRemain === 0 ? 'Nothing built yet · all settled' : ('Nothing built yet · ' + bpRemain + ' to settle'),
+      bpCardSteps: bpCardSteps,
+      // Answered questions, folded to echo lines, in walk order.
+      bpEchoes: bpAnsList.map(w => ({
+        subject: 'Step ' + w.step + ' · ' + w.tag,
+        answer: (S.bpAns[w.id] === 1 ? w.alt : w.rec)
+      })),
+      bpCurShow: !!bpCur && !S.bpCredAsk,
+      bpWalkDone: !bpCur && !S.bpCredAsk,
+      bpCurN: Math.min(bpAnsList.length + 1, bpTotal) + ' of ' + bpTotal,
+      // The credentials follow-up, shown in the Chat walk after picking a real connection.
+      bpCredShow: !!bpCredW,
+      bpCredSystem: bpCredW ? bpCredW.system : '',
+      bpCredFields: bpCredW ? bpCredFieldsFor(bpCredW.id) : [],
+      bpCredSave: leave({ bpCredAsk: null }),
+      bpCurTag: bpCur ? bpCur.tag : '',
+      bpCurTagColor: bpCurTag[0],
+      bpCurTagBorder: bpCurTag[1],
+      bpCurQ: bpCur ? bpCur.q : '',
+      // The two answers — recommended checked, the other hollow; either one settles and advances.
+      bpCurOptions: bpCur ? [
+        { label: bpCur.rec, icon: 'ph-check-circle', iconColor: '#2ea86a', border: 'rgba(46, 168, 106, 0.34)', bg: 'rgba(46, 168, 106, 0.07)', textColor: '#f5f9fc', act: bpChoose(bpCur.id, 0) },
+        { label: bpCur.alt, icon: 'ph-circle', iconColor: '#6b7783', border: '#26313d', bg: 'transparent', textColor: '#c3cdd7', act: bpChoose(bpCur.id, 1) }
+      ] : [],
+
+      // ── The Plan tab: spine + open-step detail pane ──────────────────────
+      bpPlanLedger: bpOpenN >= 1
+        ? (bpRemain === 0 ? 'all settled' : '? ' + bpRemain + ' to settle')
+        : (bpRemain === 0 ? 'Nothing built yet · all settled' : 'Nothing built yet · ? ' + bpRemain + ' to settle'),
+      bpSpine: bpSpine,
+      bpHasOpen: bpOpenN >= 1,
+      bpNoOpen: bpOpenN < 1,
+      // The spine is wide alone, a narrow rail once a detail pane is up beside it.
+      bpSpineFlex: bpOpenN >= 1 ? '0 0 320px' : '1 1 auto',
+      bpDescShow: bpOpenN >= 1 ? 'none' : 'block',
+      bpDepShow: bpOpenN >= 1 ? 'none' : 'block',
+      bpCloseStep: leave({ bpStep: 0 }),
+      bpDetail: bpDetail,
+
+      // ── Test run + Canvas tabs: comment mode over the embedded frame ─────
+      bpNoteBtnShow: S.bpTab === 'run' || S.bpTab === 'canvas',
+      bpNoteOn: S.bpNoteMode,
+      bpNoteToggle: e => {
+        const el = e && e.currentTarget; if (el && el.blur) el.blur();
+        this.setState(p => ({ bpNoteMode: !p.bpNoteMode, bpNoteDraft: null, bpNoteText: '' }));
+      },
+      bpNoteBtnBg: S.bpNoteMode ? '#2b7fe4' : '#161f28',
+      bpNoteBtnBorder: S.bpNoteMode ? '#2b7fe4' : '#26313d',
+      bpNoteBtnColor: S.bpNoteMode ? '#ffffff' : '#c3cdd7',
+      bpNoteBtnTitle: S.bpNoteMode ? 'Leave comment mode' : 'Comment on the running prototype',
+      bpNoteOverlayPE: S.bpNoteMode ? 'auto' : 'none',
+      // Hover highlights the element under the pointer — written frame by frame, never through state.
+      bpNoteMove: e => {
+        const g = document.querySelector('[data-bp-note-glow]');
+        if (!g) return;
+        const hit = bpNoteAt(e);
+        if (!hit) { g.style.opacity = '0'; return; }
+        g.style.top = hit.rect.top + 'px'; g.style.left = hit.rect.left + 'px';
+        g.style.width = hit.rect.width + 'px'; g.style.height = hit.rect.height + 'px';
+        g.style.opacity = '1';
+      },
+      bpNoteLeave: () => { const g = document.querySelector('[data-bp-note-glow]'); if (g) g.style.opacity = '0'; },
+      // Click pins the note to that element: its box is remembered, and the label says what it is on.
+      bpNotePick: e => {
+        const hit = bpNoteAt(e);
+        if (!hit) return;
+        this.setState({ bpNoteDraft: { x: hit.x, y: hit.y, rect: hit.rect, label: hit.label }, bpNoteText: '' },
+          () => { const f = document.querySelector('[data-bp-note-input]'); if (f) f.focus(); });
+      },
+      bpNoteDraftShow: S.bpNoteDraft ? 'block' : 'none',
+      bpNoteDraftX: (S.bpNoteDraft ? S.bpNoteDraft.x : 0) + 'px',
+      bpNoteDraftY: (S.bpNoteDraft ? S.bpNoteDraft.y : 0) + 'px',
+      bpNoteDraftLabel: S.bpNoteDraft ? S.bpNoteDraft.label : '',
+      // The highlight box for the spot being commented on, held while the note is composed.
+      bpNoteSelShow: S.bpNoteDraft ? 'block' : 'none',
+      bpNoteSelTop: (S.bpNoteDraft ? S.bpNoteDraft.rect.top : 0) + 'px',
+      bpNoteSelLeft: (S.bpNoteDraft ? S.bpNoteDraft.rect.left : 0) + 'px',
+      bpNoteSelW: (S.bpNoteDraft ? S.bpNoteDraft.rect.width : 0) + 'px',
+      bpNoteSelH: (S.bpNoteDraft ? S.bpNoteDraft.rect.height : 0) + 'px',
+      bpNoteText: S.bpNoteText,
+      bpNoteType: e => this.setState({ bpNoteText: e.target.value }),
+      bpNoteAddPE: S.bpNoteText.trim() ? 'auto' : 'none',
+      bpNoteAddBg: S.bpNoteText.trim() ? '#2b7fe4' : 'transparent',
+      bpNoteAddColor: S.bpNoteText.trim() ? '#ffffff' : '#8b98a5',
+      bpNoteAdd: e => {
+        const el = e && e.currentTarget; if (el && el.blur) el.blur();
+        if (!S.bpNoteText.trim()) return;
+        this.setState(p => ({ bpNotes: p.bpNotes.concat([{ n: p.bpNotes.length + 1, on: p.bpTab, x: p.bpNoteDraft.x, y: p.bpNoteDraft.y, rect: p.bpNoteDraft.rect, label: p.bpNoteDraft.label, text: p.bpNoteText.trim(), state: 'open' }]), bpNoteDraft: null, bpNoteText: '' }));
+      },
+      bpNoteCancel: () => this.setState({ bpNoteDraft: null, bpNoteText: '' }),
+      // Pins draw only on the tab they were dropped on — the two frames share one notes list.
+      bpPins: S.bpNotes.filter(n => (n.on || 'run') === S.bpTab).map(n => ({ n: String(n.n), x: n.x + 'px', y: n.y + 'px', title: n.label,
+        bg: n.state === 'done' ? '#2ea86a' : '#2b7fe4', anim: n.state === 'busy' ? 'build-pulse 1400ms ease-in-out infinite' : 'none' })),
+      bpNotesPanelShow: (S.bpNoteMode || S.bpNotes.length > 0),
+      bpNoteEmpty: S.bpNotes.length === 0,
+      bpNoteCount: S.bpNotes.length ? String(S.bpNotes.length) : '',
+      bpNoteRows: S.bpNotes.map(n => ({ n: String(n.n), text: n.text, label: n.label,
+        pinBg: n.state === 'done' ? '#2ea86a' : '#2b7fe4',
+        glyph: n.state === 'done' ? 'ph-check-circle' : (n.state === 'busy' ? 'ph-circle-notch' : 'ph-circle-dashed'),
+        glyphColor: n.state === 'done' ? '#8ad3ab' : (n.state === 'busy' ? '#4d97ea' : '#8b98a5'),
+        anim: n.state === 'busy' ? 'run-spin 900ms linear infinite' : 'none' })),
+      bpNoteGoPE: (S.bpNotes.some(n => n.state === 'open')) ? 'auto' : 'none',
+      bpNoteGoLabel: S.bpNotes.some(n => n.state === 'busy') ? 'Making the changes…'
+        : (S.bpNotes.length && S.bpNotes.every(n => n.state === 'done') ? 'All of them are in' : 'Make these changes'),
+      bpNoteGo: e => {
+        const el = e && e.currentTarget; if (el && el.blur) el.blur();
+        const ids = S.bpNotes.filter(n => n.state === 'open').map(n => n.n);
+        if (!ids.length) return;
+        this.setState(p => ({ bpNoteMode: false, bpNoteDraft: null, bpNoteText: '',
+          bpNotes: p.bpNotes.map(n => ids.indexOf(n.n) !== -1 ? { ...n, state: 'busy' } : n) }));
+        ids.forEach((id, i) => this.timers.push(setTimeout(() =>
+          this.setState(p => ({ bpNotes: p.bpNotes.map(n => n.n === id ? { ...n, state: 'done' } : n) })), 1400 + i * 1100)));
+      },
+      bpNoteClear: () => this.setState({ bpNotes: [] }),
+      // Firing the comments echoes into the chat: one line per fired note, a spinner and "Working on
+      // it" while busy, a check once it lands — the same language the dispute uses.
+      bpCnShow: S.bpNotes.some(n => n.state === 'busy' || n.state === 'done'),
+      bpCnLead: (S.bpNotes.filter(n => n.state === 'busy' || n.state === 'done').length === 1)
+        ? 'Making the change from your comment.' : 'Making the changes from your comments.',
+      bpCnAllDone: S.bpNotes.some(n => n.state === 'busy' || n.state === 'done') && !S.bpNotes.some(n => n.state === 'busy'),
+      bpCnRows: S.bpNotes.filter(n => n.state === 'busy' || n.state === 'done').map(n => ({
+        title: '“' + (n.text.length > 80 ? n.text.slice(0, 80).trim() + '…' : n.text) + '”',
+        note: 'Working on it — On “' + n.label + '”',
+        busy: n.state === 'busy', done: n.state === 'done',
+        color: n.state === 'done' ? '#c3cdd7' : '#8b98a5',
+        glyph: n.state === 'done' ? 'ph-check-circle' : 'ph-circle-notch',
+        glyphColor: n.state === 'done' ? '#8ad3ab' : '#4d97ea',
+        anim: n.state === 'busy' ? 'run-spin 900ms linear infinite' : 'none',
+        subShow: n.state === 'busy' ? 'block' : 'none' })),
 
       // ── The plan's ledger ────────────────────────────────────────────────
       ledBuilt: builtN ? cap(WORD[builtN]) + ' of five built' : 'Nothing built yet',
