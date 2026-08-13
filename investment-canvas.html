@@ -68,7 +68,8 @@
   .sys { border: 1px solid rgba(138,211,171,.4); color: #8ad3ab; border-radius: 99px; padding: 1px 8px; font: 600 9px/14px ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; letter-spacing: 0.05em; }
   .tarr { color: #4a5764; font: 600 11px/16px ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; }
   .dim-t { font: 500 10px/16px ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; color: #4a5764; }
-  .lane .note { margin-top: 6px; font: 400 10px/15px 'Open Sans', system-ui, sans-serif; color: #5c6975; }
+  .note { margin-top: 7px; font: 400 10.5px/16px 'Open Sans', system-ui, sans-serif; color: #7a8894; text-wrap: pretty; }
+  .note b { font-weight: 600; color: #b8c3ce; }
   /* KB box */
   .kbx { flex: none; width: 330px; border: 1px dashed #2e3c34; border-radius: 10px; background: rgba(230,180,85,.03); padding: 9px 14px 12px; transition: opacity 160ms linear; }
   .kbx .lane-head .t { color: #e6b455; }
@@ -131,24 +132,28 @@
           <div class="nolane" id="nolane"></div>
           <div class="lane" id="laneA">
             <div class="lane-head"><span class="t">Lane A · Client &amp; policy data</span><span class="sys">TRIGLAV · AdInsure3 REST</span><span style="flex:1"></span><button class="step" data-go="1" title="Open step 1 in the plan">step 1</button><button class="step" data-go="2" title="Open step 2 in the plan">step 2</button></div>
-            <div class="track"><span class="node" data-nid="a1" id="a1">initClient</span><span class="tarr">→</span><span class="node" data-nid="a2" id="a2">initClientDetails</span><span class="tarr">→</span><span class="node" data-nid="a3" id="a3">getPolicyDetails</span><span class="tarr">→</span><span class="node" data-nid="a4" id="a4">initAgentDetails</span></div>
+            <div class="track"><span class="node" data-nid="a1" id="a1" title="Triglav getCustomers — the dashboard's client search">initClient</span><span class="tarr">→</span><span class="node" data-nid="a2" id="a2" title="Loads the selected client's master data">initClientDetails</span><span class="tarr">→</span><span class="node" data-nid="a3" id="a3" title="Loads the client's policies and funds">getPolicyDetails</span><span class="tarr">→</span><span class="node" data-nid="a4" id="a4" title="Loads the advising agent's own record">initAgentDetails</span></div>
+            <div class="note">Searching on the <b>Requests dashboard (0)</b> calls initClient against Triglav; opening a client's <b>Portfolio (1)</b> pulls their master data, policies, funds and the agent's own record — all live from AdInsure3.</div>
           </div>
           <div class="lane" id="laneB">
             <div class="lane-head"><span class="t" style="color:#a879e6;">Lane B · AI fund allocation ★ the flagship</span><span style="flex:1"></span><button class="step" data-go="5" title="Open step 5 in the plan">step 5</button></div>
-            <div class="track"><span class="node" data-nid="b1" id="b1">getClientData</span><span class="tarr">→</span><span class="node ai" data-nid="b2" id="b2">findWeightsNew ★</span><span class="dim-t">reads</span><span class="node store" data-nid="cd" id="cd">ClientData</span><span class="node store" data-nid="hr" id="hr">HouseRules</span><span class="node store" data-nid="fi" id="fi">FundsInfo</span></div>
-            <div class="note">Agent 1 · investment consultant → allocation JSON &nbsp;·&nbsp; Python weight-normalizer &nbsp;·&nbsp; Agent 2 · Slovenian rationale</div>
+            <div class="track"><span class="node" data-nid="b1" id="b1" title="Writes the request snapshot to the ClientData store">getClientData</span><span class="tarr">→</span><span class="node ai" data-nid="b2" id="b2" title="The AI engine — reads the three stores, returns the allocation + rationale">findWeightsNew ★</span><span class="dim-t">reads</span><span class="node store" data-nid="cd" id="cd" title="MongoDB — the request snapshot">ClientData</span><span class="node store" data-nid="hr" id="hr" title="MongoDB — allocation house rules, fed by the KB pipeline">HouseRules</span><span class="node store" data-nid="fi" id="fi" title="MongoDB — per-fund KID summaries + volatility, fed by the KB pipeline">FundsInfo</span></div>
+            <div class="note">Reaching <b>Funds selection (3)</b> writes the request to ClientData, then findWeightsNew reads all three stores and returns the allocation with its Slovenian rationale — the <b>Risk band (2)</b> caps what it may propose. Inside it: Agent 1 · investment consultant → allocation JSON · Python weight-normalizer · Agent 2 · Slovenian rationale.</div>
           </div>
           <div class="lane" id="laneC">
             <div class="lane-head"><span class="t">Lane C · Document generation</span><span class="sys">TRIGLAV</span><span class="sys">DOCUMENT-PLUGIN</span><span style="flex:1"></span><button class="step" data-go="8" title="Open step 8 in the plan">step 8</button></div>
-            <div class="track"><span class="node" data-nid="c1" id="c1">createDocuments</span><span class="tarr">→</span><span class="node" data-nid="c2" id="c2">createPdf</span><span class="tarr">→</span><span class="node" data-nid="c3" id="c3">FileDownloader</span><span class="dim-t">create-and-upload</span></div>
+            <div class="track"><span class="node" data-nid="c1" id="c1" title="Collects the request data for the PDFs">createDocuments</span><span class="tarr">→</span><span class="node" data-nid="c2" id="c2" title="Triglav renders the contract PDFs">createPdf</span><span class="tarr">→</span><span class="node" data-nid="c3" id="c3" title="Uploads the rendered files (create-and-upload)">FileDownloader</span><span class="dim-t">create-and-upload</span></div>
+            <div class="note">Advancing past <b>Signature city (6)</b> collects the request into createDocuments, Triglav renders the contract PDFs, and the document plugin uploads them — ready for the signing session on the next screen.</div>
           </div>
           <div class="lane" id="laneD">
             <div class="lane-head"><span class="t">Lane D · Digital signature</span><span class="sys">BETRSIGN · REST + client cert</span><span style="flex:1"></span><button class="step" data-go="9" title="Open step 9 in the plan">step 9</button></div>
-            <div class="track"><span class="node" data-nid="d1" id="d1">signingJob</span><span class="tarr">→</span><span class="node" data-nid="d2" id="d2">create user · login ticket · upload docs</span><span class="dim-t">·</span><span class="node" data-nid="d5" id="d5">getSignDocuments</span><span class="dim-t">status polling</span></div>
+            <div class="track"><span class="node" data-nid="d1" id="d1" title="Opens the BetrSign signing job">signingJob</span><span class="tarr">→</span><span class="node" data-nid="d2" id="d2" title="BetrSign session setup, over REST with a client certificate">create user · login ticket · upload docs</span><span class="dim-t">·</span><span class="node" data-nid="d5" id="d5" title="Triglav signature package — polls the signing status">getSignDocuments</span><span class="dim-t">status polling</span></div>
+            <div class="note"><b>Document sign (7)</b> opens a BetrSign session — creates the signing user and job, uploads the generated PDFs, fetches a login ticket — while getSignDocuments polls Triglav until every signature is in.</div>
           </div>
           <div class="lane" id="laneE">
             <div class="lane-head"><span class="t">Lane E · Request lifecycle</span><span class="node store" style="padding:1px 8px; font-size:9px;">AutoClose</span><span style="flex:1"></span><button class="step" data-go="10" title="Open step 10 in the plan">step 10</button></div>
-            <div class="track"><span class="node" data-nid="e1" id="e1">insertInstanceForAutoClose</span><span class="tarr">→</span><span class="node" data-nid="e2" id="e2">updateRequestInstance</span><span class="tarr">→</span><span class="node timer" data-nid="e3" id="e3">AutoCloseRules</span><span class="tarr">→</span><span class="node" data-nid="e4" id="e4">CloseRequests</span></div>
+            <div class="track"><span class="node" data-nid="e1" id="e1" title="Registers the new request in the AutoClose tracker">insertInstanceForAutoClose</span><span class="tarr">→</span><span class="node" data-nid="e2" id="e2" title="Updates the tracked status — at documents and at completion">updateRequestInstance</span><span class="tarr">→</span><span class="node timer" data-nid="e3" id="e3" title="Background timer sweeping the tracker">AutoCloseRules</span><span class="tarr">→</span><span class="node" data-nid="e4" id="e4" title="Closes requests that were never finished">CloseRequests</span></div>
+            <div class="note">A request enters the tracker when the <b>Portfolio (1)</b> opens, and its status updates at <b>Signature city (6)</b> and the <b>Final summary (8)</b>; the timer then sweeps the tracker and closes any request that was started but never finished.</div>
           </div>
         </div>
 
@@ -157,8 +162,8 @@
           <div class="row"><span class="node" data-nid="kbh" id="kbh">readHouseRuleDocument</span><span class="tarr">→</span><span class="node store">HouseRules</span></div>
           <div class="row"><span class="node" data-nid="kc1" id="kc1">crawlAndSave</span><span class="tarr">→</span><span class="node" data-nid="kc2" id="kc2">webCrawlPages</span><span class="tarr">→</span><span class="node store" data-nid="wc" id="wc">WebCrawl</span></div>
           <div class="row"><span class="node" data-nid="kv" id="kv">readFromExcelVolatility</span><span class="dim-t">volatility · Python</span></div>
-          <div class="row"><span class="tarr">↳</span><span class="node ai" data-nid="ks" id="ks">summariseFundsVolatility ★ LLM</span><span class="tarr">→</span><span class="node store">FundsInfo</span></div>
-          <div class="note">Run by KB_VIEWER or a timer. The AI can’t allocate well until this has filled HouseRules + FundsInfo.</div>
+          <div class="row"><span class="tarr">↳</span><span class="node ai" data-nid="ks" id="ks" title="An LLM writes a per-fund KID summary from the crawled pages + volatility sheet">summariseFundsVolatility ★ LLM</span><span class="tarr">→</span><span class="node store">FundsInfo</span></div>
+          <div class="note">Run by KB_VIEWER or a timer, ahead of any request: house-rule documents fill <b>HouseRules</b>, and a crawl + volatility sheet are summarised per fund into <b>FundsInfo</b>. Until both are filled, the AI on <b>Funds selection (3)</b> has nothing to reason from.</div>
         </div>
       </div>
     </div>
