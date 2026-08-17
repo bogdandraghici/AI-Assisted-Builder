@@ -3537,6 +3537,14 @@ class Component extends DCLogic {
         const ifr = document.querySelector('[data-bp-iframe]');
         if (ifr && ifr.contentWindow) { try { ifr.contentWindow.postMessage({ bpSys: this.state.bpSys || {} }, '*'); } catch (_) {} }
       }
+      // canvas connection board toggled/configured a connection — mirror into parent state
+      if (d.bpSysSet && d.bpSysSet.key) {
+        const { key, mode, creds } = d.bpSysSet;
+        this.setState(p => ({
+          bpSys: { ...p.bpSys, [key]: mode },
+          bpSysCreds: creds ? { ...p.bpSysCreds, [key]: { ...(p.bpSysCreds[key] || {}), ...creds } } : p.bpSysCreds
+        }));
+      }
     };
     window.addEventListener('message', this.onBpMsg);
 
