@@ -4667,9 +4667,7 @@ class Component extends DCLogic {
     const BP_SYS = [
       { group: 'Integrations', items: [
         { k: 'triglav', kind: 'sys', name: 'Triglav AdInsure3', mock: 'Sample clients + policies, in-memory', live: 'https://api.triglav.si/adinsure3 · getCustomers · getPolicyDetails · createPdf', fields: [['Base URL', 'https://api.triglav.si/adinsure3'], ['Auth', 'API key / OAuth client + secret']] },
-        { k: 'betrsign', kind: 'sys', name: 'BetrSign', mock: 'Simulated signing job, progresses to Signed', live: 'https://api.betrsign.si · PKCS12 client cert · signingJob · getSignDocuments', fields: [['BetrSign URL', 'https://api.betrsign.si'], ['PKCS12 certificate', 'certificate file'], ['Certificate password', '••••••']] },
-        { k: 'docplugin', kind: 'sys', name: 'Document plugin', mock: 'Placeholder sample PDFs', live: 'https://docplugin.internal/upload · FileDownloader', fields: [['Plugin URL', 'https://docplugin.internal/upload']] },
-        { k: 'webcrawl', kind: 'sys', name: 'Web page extractor', mock: 'Preloaded crawl snapshot', live: 'triglavinvestments.si · WEB_PAGE_EXTRACTOR', fields: [['Crawl target URL', 'triglavinvestments.si/…']] } ] },
+        { k: 'betrsign', kind: 'sys', name: 'BetrSign', mock: 'Simulated signing job, progresses to Signed', live: 'https://api.betrsign.si · PKCS12 client cert · signingJob · getSignDocuments', fields: [['BetrSign URL', 'https://api.betrsign.si'], ['PKCS12 certificate', 'certificate file'], ['Certificate password', '••••••']] } ] },
       { group: 'Agents', items: [
         { k: 'allocai', kind: 'ai', name: 'Fund allocation agent · findWeightsNew', mock: 'Fixed schema-valid allocation + rationale', live: 'claude-sonnet-4-5 · /v1/messages · reads ClientData + HouseRules + FundsInfo', fields: [['Model', 'claude-sonnet-4-5'], ['API key', 'sk-…']] },
         { k: 'riskai', kind: 'ai', name: 'Risk profiling agent', mock: 'Fixed risk-band estimate', live: 'claude-sonnet-4-5 · /v1/messages · reads portfolio + KYC', fields: [['Model', 'claude-sonnet-4-5'], ['API key', 'sk-…']] },
