@@ -55,6 +55,9 @@
   /* lanes */
   .lanes { margin-top: 34px; display: none; gap: 14px; align-items: stretch; position: relative; z-index: 1; }
   body.expanded .lanes { display: flex; }
+  /* focused on a step whose lanes span the KB box too: stack them as rows, not columns */
+  .lanes.stack { flex-direction: column; }
+  .lanes.stack .kbx { width: auto; }
   .lane-col { flex: 1; min-width: 0; display: flex; flex-direction: column; gap: 10px; }
   .lane { border: 1px solid #1c2530; border-radius: 10px; background: #0e161d; padding: 9px 14px 11px; transition: opacity 160ms linear; }
   .lane-head { display: flex; align-items: center; gap: 8px; font: 600 10px/15px 'Open Sans', system-ui, sans-serif; letter-spacing: 0.06em; text-transform: uppercase; color: #6b7783; }
@@ -298,6 +301,8 @@
       const el = document.getElementById(id);
       el.style.display = open && (!sel || LANES[sel].indexOf(id) !== -1) ? '' : 'none';
     });
+    // focused step with the KB box + a normal lane → stack rows instead of columns
+    $('.lanes').classList.toggle('stack', !!sel && LANES[sel].indexOf('kbx') !== -1 && LANES[sel].length > 1);
     const nl = $('#nolane');
     nl.style.display = sel && !LANES[sel].length ? 'block' : 'none';
     if (sel && NOLANE[sel]) nl.textContent = NOLANE[sel];
