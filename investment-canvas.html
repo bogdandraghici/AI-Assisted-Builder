@@ -76,16 +76,23 @@
   /* per-lane connections — systems, LLM agents, data stores, below the workflow flow */
   .lane-res { margin-top: 9px; padding-top: 10px; border-top: 1px solid #18212a; }
   .lane-res-h { font: 600 9px/13px ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; letter-spacing: 0.08em; text-transform: uppercase; color: #5c6975; margin-bottom: 8px; }
-  .lane-res-cols { display: flex; gap: 26px; flex-wrap: wrap; }
-  .rgrp { min-width: 0; }
-  .rh { font: 600 8px/13px ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; letter-spacing: 0.08em; text-transform: uppercase; color: #4a5764; margin-bottom: 5px; }
-  .ri { display: flex; align-items: center; gap: 7px; padding: 1px 0; font: 500 10.5px/17px ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; color: #b0bcc8; }
-  .ri.ai { color: #cba9f2; } .ri.sys { color: #8ad3ab; } .ri.store { color: #e6b455; }
-  .rg { flex: none; width: 11px; text-align: center; font-size: 9px; color: #5c6975; }
-  .rg.wf::before { content: '▪'; }
-  .rg.ai::before { content: '★'; color: #a879e6; }
-  .rg.sys::before { content: '⬡'; color: #8ad3ab; }
-  .rg.store::before { content: '⛁'; color: #e6b455; }
+  /* connection board — external systems + data stores only, each mock or connected */
+  .cboard { display: flex; flex-direction: column; }
+  .cbar { display: flex; align-items: center; gap: 8px; padding: 6px 10px; border-radius: 8px; margin-bottom: 8px; font: 600 10.5px/15px 'Open Sans', system-ui, sans-serif; }
+  .cbar.warning { background: rgba(230,180,85,.09); color: #e6b455; }
+  .cbar.success { background: rgba(138,211,171,.10); color: #8ad3ab; }
+  .cbar .cdot { flex: none; width: 7px; height: 7px; border-radius: 50%; background: currentColor; }
+  .crow { display: flex; align-items: center; gap: 10px; padding: 7px 2px; border-bottom: 1px solid #18212a; transition: opacity 160ms linear, border-color 160ms linear; }
+  .crow:last-child { border-bottom: 0; }
+  .crow .cg { flex: none; width: 16px; text-align: center; font-size: 12px; }
+  .crow.sys .cg { color: #8ad3ab; }
+  .crow.store .cg { color: #e6b455; }
+  .cmain { flex: 1; min-width: 0; }
+  .cname { font: 600 11px/15px 'Open Sans', system-ui, sans-serif; color: #c3cdd7; }
+  .cname .ctype { font-weight: 400; font-size: 9.5px; color: #6b7783; }
+  .cep { font: 500 9.5px/14px ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; color: #7a8894; margin-top: 1px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+  .cby { font: 400 9px/13px 'Open Sans', system-ui, sans-serif; color: #5c6975; margin-top: 1px; }
+  .crow.lit { border-color: rgba(77,151,234,.55); }
   /* mock / connected flag on integrations — synced from the parent's Systems modal */
   .sysflag { display: inline-block; margin-left: 6px; font: 600 6.5px/11px ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; letter-spacing: 0.08em; text-transform: uppercase; padding: 0 4px; border-radius: 99px; vertical-align: middle; }
   .sysflag.mock { color: #e6b455; border: 1px solid rgba(230,180,85,.42); }
@@ -154,31 +161,31 @@
             <div class="lane-head"><span class="t">Lane A · Client &amp; policy data</span><span style="flex:1"></span><button class="step" data-go="1" title="Open step 1 in the plan">step 1</button><button class="step" data-go="2" title="Open step 2 in the plan">step 2</button></div>
             <div class="track"><span class="node" data-nid="a1" id="a1" title="Triglav getCustomers — the dashboard's client search">initClient</span><span class="tarr">→</span><span class="node" data-nid="a2" id="a2" title="Loads the selected client's master data">initClientDetails</span><span class="tarr">→</span><span class="node" data-nid="a3" id="a3" title="Loads the client's policies and funds">getPolicyDetails</span><span class="tarr">→</span><span class="node" data-nid="a4" id="a4" title="Loads the advising agent's own record">initAgentDetails</span></div>
             <div class="note">Searching on the <b>Requests dashboard (0)</b> calls initClient against Triglav; opening a client's <b>Portfolio (1)</b> pulls their master data, policies, funds and the agent's own record — all live from AdInsure3.</div>
-            <div class="lane-res"><div class="lane-res-h">Connections</div><div class="lane-res-cols"><div class="rgrp"><div class="rh">Systems</div><div class="ri sys" data-sys="triglav"><span class="rg sys"></span>TRIGLAV · AdInsure3 REST<span class="sysflag mock">mock</span></div></div></div></div>
+            <div class="lane-res"><div class="lane-res-h">Connections</div><div class="cboard"><div class="cbar warning"><span class="cdot"></span><span class="ctext">0 of 1 connected · 1 on mock data</span></div><div class="crow sys" data-sys="triglav" data-mock="Sample clients + policies" data-live="api.triglav.si/adinsure3"><span class="cg">⬡</span><div class="cmain"><div class="cname">Triglav AdInsure3 <span class="ctype">· External system</span></div><div class="cep">Sample clients + policies</div><div class="cby">used by initClient · getPolicyDetails</div></div><span class="sysflag mock">mock</span></div></div></div>
           </div>
           <div class="lane" id="laneB">
             <div class="lane-head"><span class="t" style="color:#a879e6;">Lane B · AI fund allocation ★ the flagship</span><span style="flex:1"></span><button class="step" data-go="5" title="Open step 5 in the plan">step 5</button></div>
             <div class="track"><span class="node" data-nid="b1" id="b1" title="Writes the request snapshot to the ClientData store">getClientData</span><span class="tarr">→</span><span class="node ai" data-nid="b2" id="b2" title="The AI engine — reads the stores below, returns the allocation + rationale">findWeightsNew ★</span></div>
             <div class="note">Reaching <b>Funds selection (3)</b> writes the request to ClientData, then findWeightsNew reads all three stores and returns the allocation with its Slovenian rationale — the <b>Risk band (2)</b> caps what it may propose. Inside it: Agent 1 · investment consultant → allocation JSON · Python weight-normalizer · Agent 2 · Slovenian rationale.</div>
-            <div class="lane-res"><div class="lane-res-h">Connections</div><div class="lane-res-cols"><div class="rgrp"><div class="rh">LLM agents</div><div class="ri ai" data-sys="allocai"><span class="rg ai"></span>findWeightsNew · LLM<span class="sysflag mock">mock</span></div></div><div class="rgrp"><div class="rh">Data stores</div><div class="ri store" data-nid="cd" id="cd" data-sys="clientdata"><span class="rg store"></span>ClientData<span class="sysflag mock">mock</span></div><div class="ri store" data-nid="hr" id="hr" data-sys="houserules"><span class="rg store"></span>HouseRules<span class="sysflag mock">mock</span></div><div class="ri store" data-nid="fi" id="fi" data-sys="fundsinfo"><span class="rg store"></span>FundsInfo<span class="sysflag mock">mock</span></div></div></div></div>
+            <div class="lane-res"><div class="lane-res-h">Connections</div><div class="cboard"><div class="cbar warning"><span class="cdot"></span><span class="ctext">0 of 3 connected · 3 on mock data</span></div><div class="crow store" data-sys="clientdata" data-mock="In-memory request snapshot" data-live="mongodb://…/ClientData" data-nid="cd" id="cd"><span class="cg">⛁</span><div class="cmain"><div class="cname">ClientData <span class="ctype">· Data store</span></div><div class="cep">In-memory request snapshot</div><div class="cby">used by getClientData</div></div><span class="sysflag mock">mock</span></div><div class="crow store" data-sys="houserules" data-mock="Sample house rules" data-live="mongodb://…/HouseRules" data-nid="hr" id="hr"><span class="cg">⛁</span><div class="cmain"><div class="cname">HouseRules <span class="ctype">· Data store</span></div><div class="cep">Sample house rules</div><div class="cby">used by findWeightsNew</div></div><span class="sysflag mock">mock</span></div><div class="crow store" data-sys="fundsinfo" data-mock="Sample fund volatility" data-live="mongodb://…/FundsInfo" data-nid="fi" id="fi"><span class="cg">⛁</span><div class="cmain"><div class="cname">FundsInfo <span class="ctype">· Data store</span></div><div class="cep">Sample fund volatility</div><div class="cby">used by findWeightsNew</div></div><span class="sysflag mock">mock</span></div></div></div>
           </div>
           <div class="lane" id="laneC">
             <div class="lane-head"><span class="t">Lane C · Document generation</span><span style="flex:1"></span><button class="step" data-go="8" title="Open step 8 in the plan">step 8</button></div>
             <div class="track"><span class="node" data-nid="c1" id="c1" title="Collects the request data for the PDFs">createDocuments</span><span class="tarr">→</span><span class="node" data-nid="c2" id="c2" title="Triglav renders the contract PDFs">createPdf</span><span class="tarr">→</span><span class="node" data-nid="c3" id="c3" title="Uploads the rendered files">FileDownloader</span></div>
             <div class="note">Advancing past <b>Signature city (6)</b> collects the request into createDocuments, Triglav renders the contract PDFs, and the document plugin uploads them — ready for the signing session on the next screen.</div>
-            <div class="lane-res"><div class="lane-res-h">Connections</div><div class="lane-res-cols"><div class="rgrp"><div class="rh">Systems</div><div class="ri sys" data-sys="triglav"><span class="rg sys"></span>TRIGLAV · createPdf<span class="sysflag mock">mock</span></div></div></div></div>
+            <div class="lane-res"><div class="lane-res-h">Connections</div><div class="cboard"><div class="cbar warning"><span class="cdot"></span><span class="ctext">0 of 1 connected · 1 on mock data</span></div><div class="crow sys" data-sys="triglav" data-mock="Placeholder sample PDFs" data-live="api.triglav.si/adinsure3 · createPdf"><span class="cg">⬡</span><div class="cmain"><div class="cname">Triglav · createPdf <span class="ctype">· External system</span></div><div class="cep">Placeholder sample PDFs</div><div class="cby">used by createPdf</div></div><span class="sysflag mock">mock</span></div></div></div>
           </div>
           <div class="lane" id="laneD">
             <div class="lane-head"><span class="t">Lane D · Digital signature</span><span style="flex:1"></span><button class="step" data-go="9" title="Open step 9 in the plan">step 9</button></div>
             <div class="track"><span class="node" data-nid="d1" id="d1" title="Opens the BetrSign signing job">signingJob</span><span class="tarr">→</span><span class="node" data-nid="d2" id="d2" title="BetrSign session setup — create user, login ticket, upload docs">create user · login ticket · upload docs</span><span class="tarr">→</span><span class="node" data-nid="d5" id="d5" title="Triglav signature package — polls the signing status">getSignDocuments</span></div>
             <div class="note"><b>Document sign (7)</b> opens a BetrSign session — creates the signing user and job, uploads the generated PDFs, fetches a login ticket — while getSignDocuments polls Triglav until every signature is in.</div>
-            <div class="lane-res"><div class="lane-res-h">Connections</div><div class="lane-res-cols"><div class="rgrp"><div class="rh">Systems</div><div class="ri sys" data-sys="betrsign"><span class="rg sys"></span>BETRSIGN · REST + client cert<span class="sysflag mock">mock</span></div></div></div></div>
+            <div class="lane-res"><div class="lane-res-h">Connections</div><div class="cboard"><div class="cbar warning"><span class="cdot"></span><span class="ctext">0 of 1 connected · 1 on mock data</span></div><div class="crow sys" data-sys="betrsign" data-mock="Simulated signing job" data-live="api.betrsign.si · client cert"><span class="cg">⬡</span><div class="cmain"><div class="cname">BetrSign <span class="ctype">· External system</span></div><div class="cep">Simulated signing job</div><div class="cby">used by signingJob</div></div><span class="sysflag mock">mock</span></div></div></div>
           </div>
           <div class="lane" id="laneE">
             <div class="lane-head"><span class="t">Lane E · Request lifecycle</span><span style="flex:1"></span><button class="step" data-go="10" title="Open step 10 in the plan">step 10</button></div>
             <div class="track"><span class="node" data-nid="e1" id="e1" title="Registers the new request in the AutoClose tracker">insertInstanceForAutoClose</span><span class="tarr">→</span><span class="node" data-nid="e2" id="e2" title="Updates the tracked status — at documents and at completion">updateRequestInstance</span><span class="tarr">→</span><span class="node timer" data-nid="e3" id="e3" title="Background timer sweeping the tracker">AutoCloseRules</span><span class="tarr">→</span><span class="node" data-nid="e4" id="e4" title="Closes requests that were never finished">CloseRequests</span></div>
             <div class="note">A request enters the tracker when the <b>Portfolio (1)</b> opens, and its status updates at <b>Signature city (6)</b> and the <b>Final summary (8)</b>; the timer then sweeps the tracker and closes any request that was started but never finished.</div>
-            <div class="lane-res"><div class="lane-res-h">Connections</div><div class="lane-res-cols"><div class="rgrp"><div class="rh">Data stores</div><div class="ri store" data-nid="ac" id="ac" data-sys="autoclose"><span class="rg store"></span>AutoClose · MongoDB<span class="sysflag mock">mock</span></div></div></div></div>
+            <div class="lane-res"><div class="lane-res-h">Connections</div><div class="cboard"><div class="cbar warning"><span class="cdot"></span><span class="ctext">0 of 1 connected · 1 on mock data</span></div><div class="crow store" data-sys="autoclose" data-mock="In-memory instance tracking" data-live="mongodb://…/AutoClose" data-nid="ac" id="ac"><span class="cg">⛁</span><div class="cmain"><div class="cname">AutoClose <span class="ctype">· Data store</span></div><div class="cep">In-memory instance tracking</div><div class="cby">used by insertInstanceForAutoClose</div></div><span class="sysflag mock">mock</span></div></div></div>
           </div>
         </div>
 
@@ -189,7 +196,7 @@
           <div class="row"><span class="dim-t" style="width:52px;flex:none;"></span><span class="node" data-nid="kv" id="kv" title="Reads the volatility spreadsheet">readFromExcelVolatility</span></div>
           <div class="row"><span class="tarr" style="width:52px;flex:none;text-align:right;">↳ both</span><span class="node ai" data-nid="ks" id="ks" title="An LLM summarises the crawl + volatility per fund">summariseFundsVolatility ★ LLM</span></div>
           <div class="note">Run by KB_VIEWER or a timer, ahead of any request: house-rule documents fill <b>HouseRules</b>, and a crawl + volatility sheet are summarised per fund into <b>FundsInfo</b>. Until both are filled, the AI on <b>Funds selection (3)</b> has nothing to reason from.</div>
-          <div class="lane-res"><div class="lane-res-h">Connections</div><div class="lane-res-cols"><div class="rgrp"><div class="rh">LLM agents</div><div class="ri ai" data-sys="volai"><span class="rg ai"></span>summariseFundsVolatility · LLM<span class="sysflag mock">mock</span></div></div><div class="rgrp"><div class="rh">Data stores</div><div class="ri store" data-sys="houserules"><span class="rg store"></span>HouseRules<span class="sysflag mock">mock</span></div><div class="ri store" data-nid="wc" id="wc" data-sys="webcrawlstore"><span class="rg store"></span>WebCrawl<span class="sysflag mock">mock</span></div><div class="ri store" data-sys="fundsinfo"><span class="rg store"></span>FundsInfo<span class="sysflag mock">mock</span></div></div></div></div>
+          <div class="lane-res"><div class="lane-res-h">Connections</div><div class="cboard"><div class="cbar warning"><span class="cdot"></span><span class="ctext">0 of 3 connected · 3 on mock data</span></div><div class="crow store" data-sys="houserules" data-mock="Sample house rules" data-live="mongodb://…/HouseRules"><span class="cg">⛁</span><div class="cmain"><div class="cname">HouseRules <span class="ctype">· Data store</span></div><div class="cep">Sample house rules</div><div class="cby">used by readHouseRuleDocument</div></div><span class="sysflag mock">mock</span></div><div class="crow store" data-sys="webcrawlstore" data-mock="Sample crawl pages" data-live="mongodb://…/WebCrawl" data-nid="wc" id="wc"><span class="cg">⛁</span><div class="cmain"><div class="cname">WebCrawl <span class="ctype">· Data store</span></div><div class="cep">Sample crawl pages</div><div class="cby">used by webCrawlPages</div></div><span class="sysflag mock">mock</span></div><div class="crow store" data-sys="fundsinfo" data-mock="Sample fund volatility" data-live="mongodb://…/FundsInfo"><span class="cg">⛁</span><div class="cmain"><div class="cname">FundsInfo <span class="ctype">· Data store</span></div><div class="cep">Sample fund volatility</div><div class="cby">used by summariseFundsVolatility</div></div><span class="sysflag mock">mock</span></div></div></div>
         </div>
       </div>
     </div>
@@ -353,7 +360,18 @@
         el.classList.toggle('live', live);
         const f = el.querySelector('.sysflag');
         if (f) { f.textContent = live ? 'live' : 'mock'; f.className = 'sysflag ' + (live ? 'live' : 'mock'); }
+        const ep = el.querySelector('.cep'); // connection board row: swap mock/live endpoint
+        if (ep) ep.textContent = live ? (el.dataset.live || ep.textContent) : (el.dataset.mock || ep.textContent);
       });
+    });
+    // recompute each lane's readiness bar from its rows
+    $$('.cboard').forEach(board => {
+      const rows = board.querySelectorAll('.crow'), total = rows.length;
+      let real = 0; rows.forEach(r => { if (r.classList.contains('live')) real++; });
+      const ready = total > 0 && real === total, bar = board.querySelector('.cbar');
+      if (!bar) return;
+      bar.className = 'cbar ' + (ready ? 'success' : 'warning');
+      bar.querySelector('.ctext').textContent = real + ' of ' + total + ' connected · ' + (ready ? 'ready to go live' : (total - real) + ' on mock data');
     });
   }
   window.addEventListener('message', e => { const m = e.data && e.data.bpSys; if (m) applySys(m); });
