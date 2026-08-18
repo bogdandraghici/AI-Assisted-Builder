@@ -2063,10 +2063,65 @@
 <sc-if value="{{ bpNoteBtnShow }}" hint-placeholder-val="{{ false }}">
         <div onClick="{{ bpNoteToggle }}" tabindex="0" title="{{ bpNoteBtnTitle }}" style="display: inline-flex; align-items: center; gap: 6px; height: 28px; padding: 0 10px; border-radius: 8px; border: 1px solid {{ bpNoteBtnBorder }}; background: {{ bpNoteBtnBg }}; color: {{ bpNoteBtnColor }}; font: 600 12px/16px 'Open Sans', sans-serif; cursor: pointer; outline: none; flex: none; transition: all 160ms cubic-bezier(0.2, 0, 0.2, 1);" style-hover="filter: brightness(1.15);" style-focus="box-shadow: 0 0 0 3px rgba(43, 127, 228, 0.32);"><i class="ph ph-chat-teardrop-text" style="font-size: 13px;"></i>Comment</div>
 </sc-if>
+<!-- Share — invite people to the solution on this environment. -->
+        <div onClick="{{ bpShareOpenAct }}" tabindex="0" title="Share this solution" style="display: inline-flex; align-items: center; gap: 6px; height: 28px; padding: 0 14px; border-radius: 8px; border: 1px solid transparent; background: #2b7fe4; color: #ffffff; font: 600 12px/16px 'Open Sans', sans-serif; cursor: pointer; outline: none; flex: none; transition: filter 160ms cubic-bezier(0.2, 0, 0.2, 1);" style-hover="filter: brightness(1.12);" style-focus="box-shadow: 0 0 0 3px rgba(43, 127, 228, 0.32);"><i class="ph ph-share-network" style="font-size: 13px;"></i>Share</div>
       </div>
 <!-- Click-away: any open nav menu closes on a click outside it. -->
 <sc-if value="{{ bpNavAnyOpen }}" hint-placeholder-val="{{ false }}">
       <div onClick="{{ bpNavClose }}" style="position: fixed; inset: 0; z-index: 50;"></div>
+</sc-if>
+<!-- Share dialog — invite people/groups to the solution on this environment (mock). -->
+<sc-if value="{{ bpShareOpen }}" hint-placeholder-val="{{ false }}">
+      <div onClick="{{ bpShareClose }}" style="position: fixed; inset: 0; z-index: 80; background: rgba(4, 8, 11, 0.62); display: flex; align-items: flex-start; justify-content: center; padding: 48px 20px;">
+        <div onClick="{{ bpNavStop }}" style="width: 100%; max-width: 520px; max-height: 84vh; overflow: auto; background: #101820; border: 1px solid #26313d; border-radius: 16px; box-shadow: 0 24px 80px rgba(0, 0, 0, 0.6); padding: 22px 22px 16px;">
+          <div style="position: relative; text-align: center; margin-bottom: 6px;">
+            <div style="font: 600 18px/24px 'Open Sans', sans-serif; color: #f5f9fc;">Share</div>
+            <div onClick="{{ bpShareClose }}" tabindex="0" title="Close" style="position: absolute; top: -2px; right: -2px; color: #8b98a5; cursor: pointer; padding: 4px; outline: none;" style-hover="color: #f5f9fc;" style-focus="box-shadow: 0 0 0 3px rgba(43, 127, 228, 0.32); border-radius: 6px;"><i class="ph ph-x" style="font-size: 18px;"></i></div>
+          </div>
+          <div style="display: flex; align-items: center; justify-content: center; gap: 8px; margin-bottom: 18px;">
+            <i class="ph ph-rocket-launch" style="font-size: 14px; color: #8b98a5;"></i>
+            <span style="font: 600 13px/16px 'Open Sans', sans-serif; color: #c3cdd7;">Investment Assistant</span>
+            <span style="font: 600 11px/14px 'Open Sans', sans-serif; letter-spacing: 0.03em; padding: 3px 10px; border-radius: 99px; background: #2b7fe4; color: #ffffff;">{{ bpShareEnv }}</span>
+          </div>
+
+          <div style="display: flex; align-items: center; gap: 8px; margin-bottom: 18px;">
+            <i class="ph ph-warning" style="font-size: 15px; color: #e6b455; flex: none;"></i>
+            <span style="flex: 1; min-width: 0; font: 400 12.5px/16px 'Open Sans', sans-serif; color: #c3cdd7;">3 of 5 connections on mock data — viewers will see sample data</span>
+            <div onClick="{{ bpShareReview }}" tabindex="0" style="flex: none; font: 600 12px/16px 'Open Sans', sans-serif; color: #c3cdd7; border: 1px solid #26313d; border-radius: 8px; padding: 4px 12px; cursor: pointer; outline: none;" style-hover="border-color: #4d97ea; color: #ffffff;" style-focus="box-shadow: 0 0 0 3px rgba(43, 127, 228, 0.32);">Review</div>
+          </div>
+
+          <div style="font: 600 14px/18px 'Open Sans', sans-serif; color: #f5f9fc; margin-bottom: 8px;">Invite Users</div>
+          <div style="display: flex; gap: 10px; margin-bottom: 16px;">
+            <input placeholder="Add comma separated names, emails or groups" style="flex: 1; min-width: 0; height: 38px; padding: 0 12px; border-radius: 8px; border: 1px solid #26313d; background: #0b1218; color: #e8eef3; font: 400 13px/38px 'Open Sans', sans-serif; outline: none;" style-focus="border-color: #4d97ea;">
+            <div tabindex="0" style="flex: none; display: inline-flex; align-items: center; height: 38px; padding: 0 20px; border-radius: 8px; background: #2b7fe4; color: #ffffff; font: 600 13px/16px 'Open Sans', sans-serif; cursor: pointer; outline: none;" style-hover="filter: brightness(1.12);" style-focus="box-shadow: 0 0 0 3px rgba(43, 127, 228, 0.32);">Invite</div>
+          </div>
+
+          <div style="display: flex; align-items: center; gap: 12px; background: #0e161d; border: 1px solid #1c2632; border-radius: 8px; padding: 12px 14px; margin-bottom: 18px;">
+            <i class="ph ph-lock-simple" style="font-size: 18px; color: #8b98a5; flex: none;"></i>
+            <div style="flex: 1; min-width: 0;">
+              <div style="font: 600 13px/17px 'Open Sans', sans-serif; color: #f5f9fc;">Only invited people</div>
+              <div style="font: 400 12px/16px 'Open Sans', sans-serif; color: #8b98a5;">Access is restricted to specifically invited users and groups.</div>
+            </div>
+            <i class="ph ph-caret-right" style="font-size: 15px; color: #6b7783; flex: none;"></i>
+          </div>
+
+          <div style="display: flex; align-items: center; gap: 12px; margin-bottom: 4px;">
+            <span style="font: 400 12px/16px 'Open Sans', sans-serif; color: #6b7783;">Users</span>
+            <span style="flex: 1; height: 1px; background: #1c2632;"></span>
+          </div>
+          <sc-for list="{{ bpShareUsers }}" as="u" hint-placeholder-count="4">
+          <div style="display: flex; align-items: center; gap: 12px; padding: 9px 0;">
+            <span style="flex: none; width: 34px; height: 34px; border-radius: 50%; border: 1.5px dashed #3a4650; display: inline-flex; align-items: center; justify-content: center; color: #6b7783;"><i class="ph ph-user" style="font-size: 16px;"></i></span>
+            <div style="flex: 1; min-width: 0; font: 400 13px/17px 'Open Sans', sans-serif; color: #c3cdd7; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;">{{ u.email }} <span style="color: #6b7783;">(Pending)</span></div>
+            <div tabindex="0" style="flex: none; display: inline-flex; align-items: center; gap: 3px; color: #4d97ea; font: 400 13px/17px 'Open Sans', sans-serif; cursor: pointer; outline: none;" style-focus="box-shadow: 0 0 0 3px rgba(43, 127, 228, 0.32); border-radius: 6px;">Viewer<i class="ph ph-caret-down" style="font-size: 13px;"></i></div>
+          </div>
+          </sc-for>
+
+          <div style="border-top: 1px solid #1c2632; margin-top: 10px; padding-top: 14px;">
+            <div onClick="{{ bpShareCopyAct }}" tabindex="0" style="display: inline-flex; align-items: center; gap: 9px; color: #4d97ea; font: 400 14px/18px 'Open Sans', sans-serif; cursor: pointer; outline: none;" style-hover="color: #6facef;" style-focus="box-shadow: 0 0 0 3px rgba(43, 127, 228, 0.32); border-radius: 6px;"><i class="ph {{ bpShareCopyIcon }}" style="font-size: 17px;"></i>{{ bpShareCopyLabel }}</div>
+          </div>
+        </div>
+      </div>
 </sc-if>
 <!-- Read-only banner — non-Sandbox environments are promoted, locked versions. -->
 <sc-if value="{{ bpLocked }}" hint-placeholder-val="{{ false }}">
@@ -2817,6 +2872,9 @@ class Component extends DCLogic {
       // default mock) + typed connection details (mock creds, key → {fieldIndex → value}).
       bpSys: {},
       bpSysCreds: {},
+      // Share dialog: invite people/groups to the solution on this env (mock; nothing is sent).
+      bpShareOpen: false,
+      bpShareCopied: false,
       // The Plan tab opens on the spine (no step expanded); bpAns maps a settled question
       // ('step-qIndex') to the option taken (0 recommended, 1 the other) — shared by Chat and Plan.
       bpAns: {},
@@ -4761,6 +4819,23 @@ class Component extends DCLogic {
       bpRunColor: S.bpTab === 'run' ? '#ffffff' : '#8b98a5',
       bpCanvasBg: S.bpTab === 'canvas' ? '#1c2632' : 'transparent',
       bpCanvasColor: S.bpTab === 'canvas' ? '#ffffff' : '#8b98a5',
+      // ── Share dialog ─────────────────────────────────────────────────────
+      bpShareOpen: S.bpShareOpen,
+      bpShareOpenAct: leave({ bpShareOpen: true }),
+      bpShareClose: leave({ bpShareOpen: false, bpShareCopied: false }),
+      bpShareEnv: (S.bpEnv || 'Sandbox').toUpperCase(),
+      bpShareReview: leave({ bpShareOpen: false, bpTab: 'canvas', bpCanvasView: 'systems' }),
+      bpShareCopied: S.bpShareCopied,
+      bpShareCopyLabel: S.bpShareCopied ? 'Link copied' : 'Copy Solution Link',
+      bpShareCopyIcon: S.bpShareCopied ? 'ph-check' : 'ph-link-simple',
+      bpShareCopyAct: () => { this.setState({ bpShareCopied: true }); setTimeout(() => this.setState({ bpShareCopied: false }), 1600); },
+      bpNavStop: e => { if (e && e.stopPropagation) e.stopPropagation(); },
+      bpShareUsers: [
+        { email: 'george.tudose+999@gmail.com' },
+        { email: 'alexandra+designer@flowx.ai' },
+        { email: 'antonia+2311@flowx.ai' },
+        { email: 'antonia+11@flowx.ai' }
+      ],
       // ── Platform nav — light-touch selects in the header ─────────────────
       bpEnvName: S.bpEnv,
       bpEnvDot: bpEnvMeta.dot,
@@ -4929,8 +5004,8 @@ class Component extends DCLogic {
         if (w) { try { w.postMessage({ bpSys: bpSysAll }, '*'); } catch (_) {} }
       },
 
-      // ── Test run + Canvas tabs: comment mode over the embedded frame ─────
-      bpNoteBtnShow: S.bpTab === 'run' || S.bpTab === 'canvas',
+      // ── Test run tab: comment mode over the embedded frame ─────
+      bpNoteBtnShow: S.bpTab === 'run',
       bpNoteOn: S.bpNoteMode,
       bpNoteToggle: e => {
         const el = e && e.currentTarget; if (el && el.blur) el.blur();
