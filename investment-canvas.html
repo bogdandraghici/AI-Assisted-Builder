@@ -328,13 +328,15 @@
     // synchronous — rAF starves when the frame isn't painting, leaving stale wires
     fit(); draw();
   }
-  xp.addEventListener('click', () => { allOpen = sel ? true : !allOpen; sel = null; render(); });
+  xp.addEventListener('click', () => { allOpen = sel ? true : !allOpen; sel = null; render(); try { parent.postMessage({ bpScreen: null }, '*'); } catch (_) {} });
 
   // clicking a card focuses its lanes; the same card again folds back
   $$('.shot').forEach(sh => sh.addEventListener('click', e => {
     if (e.target.closest('.step') || e.target.closest('.zoom')) return;
     sel = sel === sh.dataset.nid ? null : sh.dataset.nid;
     render();
+    const lbl = sh.querySelector('.lbl'); // tell the parent which screen is focused (inspector)
+    try { parent.postMessage({ bpScreen: sel ? { id: sel, name: lbl ? lbl.textContent : sel } : null }, '*'); } catch (_) {}
   }));
 
   // step chips jump to that step on the parent's Plan tab
