@@ -4862,16 +4862,17 @@ class Component extends DCLogic {
 
     // Canvas inspector — resources each screen uses; a row opens its config, its sparkle opens with
     // chat focused (mock — these deep-links don't lead to real editors, just the placeholder view).
+    const uiFlow = ['uiflow', 'Investment request', 'UI flow', 'ui flow'];
     const SCREEN_RES = {
-      s0: [['Workflow & AI', [['initClient', 'initClient', 'Integration Designer', 'workflow']]], ['Systems', [['triglav', 'Triglav AdInsure3', 'Integration', 'integration']]]],
-      s1: [['Workflow & AI', [['initClientDetails', 'initClientDetails', 'Integration Designer', 'workflow'], ['getPolicyDetails', 'getPolicyDetails', 'Integration Designer', 'workflow']]], ['Systems', [['triglav', 'Triglav AdInsure3', 'Integration', 'integration']]]],
-      s2: [['Data', [['riskmodel', 'Risk profile', 'Data model', 'data model']]], ['UI', [['riskform', 'Risk questions', 'UI Designer', 'reusable UI']]]],
-      s3: [['Workflow & AI', [['getClientData', 'getClientData', 'Integration Designer', 'workflow'], ['findWeightsNew', 'findWeightsNew', 'Integration Designer · AI node', 'AI node']]], ['Data', [['clientdata', 'ClientData', 'Data store', 'data store'], ['houserules', 'HouseRules', 'Data store', 'data store'], ['fundsinfo', 'FundsInfo', 'Data store', 'data store']]], ['UI', [['fundcard', 'Fund card', 'UI Designer', 'reusable UI']]]],
-      s4: [['Workflow & AI', [['kycrule', 'KYC validation', 'Business rule', 'business rule']]], ['Data', [['clientmodel', 'Client', 'Data model', 'data model']]]],
-      s5: [],
-      s6: [['Workflow & AI', [['createDocuments', 'createDocuments', 'Integration Designer', 'workflow'], ['createPdf', 'createPdf', 'Integration Designer', 'workflow']]], ['Systems', [['triglav', 'Triglav AdInsure3', 'Integration', 'integration'], ['docplugin', 'Document plugin', 'Integration', 'integration']]]],
-      s7: [['Workflow & AI', [['signingJob', 'signingJob', 'Integration Designer', 'workflow'], ['getSignDocuments', 'getSignDocuments', 'Integration Designer', 'workflow']]], ['Systems', [['betrsign', 'BetrSign', 'Integration', 'integration']]]],
-      s8: [['Workflow & AI', [['updateRequestInstance', 'updateRequestInstance', 'Integration Designer', 'workflow']]], ['Data', [['autoclose', 'AutoClose', 'Data store', 'data store']]]]
+      s0: [['Workflow & AI', [['initClient', 'initClient', 'Integration Designer', 'workflow']]], ['Systems', [['triglav', 'Triglav AdInsure3', 'Integration', 'integration']]], ['UI', [uiFlow]]],
+      s1: [['Workflow & AI', [['initClientDetails', 'initClientDetails', 'Integration Designer', 'workflow'], ['getPolicyDetails', 'getPolicyDetails', 'Integration Designer', 'workflow']]], ['Systems', [['triglav', 'Triglav AdInsure3', 'Integration', 'integration']]], ['UI', [uiFlow]]],
+      s2: [['Data', [['riskmodel', 'Risk profile', 'Data model', 'data model']]], ['UI', [uiFlow, ['riskform', 'Risk questions', 'UI Designer', 'reusable UI']]]],
+      s3: [['Workflow & AI', [['getClientData', 'getClientData', 'Integration Designer', 'workflow'], ['findWeightsNew', 'findWeightsNew', 'Integration Designer · AI node', 'AI node']]], ['Data', [['clientdata', 'ClientData', 'Data store', 'data store'], ['houserules', 'HouseRules', 'Data store', 'data store'], ['fundsinfo', 'FundsInfo', 'Data store', 'data store']]], ['UI', [uiFlow, ['fundcard', 'Fund card', 'UI Designer', 'reusable UI']]]],
+      s4: [['Workflow & AI', [['kycrule', 'KYC validation', 'Business rule', 'business rule']]], ['Data', [['clientmodel', 'Client', 'Data model', 'data model']]], ['UI', [uiFlow]]],
+      s5: [['UI', [uiFlow]]],
+      s6: [['Workflow & AI', [['createDocuments', 'createDocuments', 'Integration Designer', 'workflow'], ['createPdf', 'createPdf', 'Integration Designer', 'workflow']]], ['Systems', [['triglav', 'Triglav AdInsure3', 'Integration', 'integration'], ['docplugin', 'Document plugin', 'Integration', 'integration']]], ['UI', [uiFlow]]],
+      s7: [['Workflow & AI', [['signingJob', 'signingJob', 'Integration Designer', 'workflow'], ['getSignDocuments', 'getSignDocuments', 'Integration Designer', 'workflow']]], ['Systems', [['betrsign', 'BetrSign', 'Integration', 'integration']]], ['UI', [uiFlow]]],
+      s8: [['Workflow & AI', [['updateRequestInstance', 'updateRequestInstance', 'Integration Designer', 'workflow']]], ['Data', [['autoclose', 'AutoClose', 'Data store', 'data store']]], ['UI', [uiFlow]]]
     };
     const insId = S.bpInsScreen && S.bpInsScreen.id;
     const insGroups = (insId && SCREEN_RES[insId]) || [];
