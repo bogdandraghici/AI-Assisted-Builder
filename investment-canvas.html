@@ -48,7 +48,7 @@
   .step { font: 600 8px/13px ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; letter-spacing: 0.05em; color: #4d97ea; background: transparent; border: 1px solid rgba(77,151,234,.4); border-radius: 99px; padding: 1px 6px; cursor: pointer; flex: none; transition: background 160ms linear; }
   .step:hover, .step:focus-visible { background: rgba(77,151,234,.16); outline: none; }
   /* backbone expander — the lanes stay folded until asked for */
-  .xpand { display: flex; justify-content: center; margin-top: 18px; position: relative; z-index: 1; }
+  .xpand { display: none; } /* one surface: lanes off — the map is pure screen navigation, resources live in the inspector */
   .xpand button { display: inline-flex; align-items: center; gap: 7px; border: 1px solid #26313d; background: #101820; color: #c3cdd7; border-radius: 99px; padding: 6px 16px; font: 600 11px/16px 'Open Sans', system-ui, sans-serif; cursor: pointer; transition: border-color 160ms linear, color 160ms linear; }
   .xpand button:hover, .xpand button:focus-visible { border-color: #4d97ea; color: #ffffff; outline: none; }
   .xpand .car { font: 600 10px/10px ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; color: #6b7783; }
@@ -311,7 +311,7 @@
   // one render for the three states: folded, one card focused, everything open
   const xp = $('#xp');
   function render() {
-    const open = !!sel || allOpen;
+    const open = false; // one surface: lanes never expand; clicking a screen only selects it + opens the inspector
     root.classList.toggle('expanded', open);
     ['laneA','laneB','laneC','laneD','laneE','kbx'].forEach(id => {
       const el = document.getElementById(id);
