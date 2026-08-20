@@ -3472,15 +3472,16 @@ class Component extends DCLogic {
   };
 
   // What a plan step touches, by kind of thing — the label + glyph a create/delete row carries.
+  // Deliberately colourless: the row's hue belongs to the action, not the kind. See bpKindRow.
   static KINDS = {
-    process:  ['Process',  'ph-flow-arrow',   '#4d97ea'],
-    workflow: ['Workflow', 'ph-git-branch',   '#8ad3ab'],
-    ai:       ['AI',       'ph-sparkle',      '#a879e6'],
-    data:     ['Data',     'ph-database',     '#e6b455'],
-    enum:     ['Enum',     'ph-list-dashes',  '#e6b455'],
-    system:   ['System',   'ph-plugs',        '#8ad3ab'],
-    rule:     ['Rule',     'ph-shield-check', '#f2762b'],
-    ui:       ['UI',       'ph-app-window',   '#4d97ea']
+    process:  ['Process',  'ph-flow-arrow'],
+    workflow: ['Workflow', 'ph-git-branch'],
+    ai:       ['AI',       'ph-sparkle'],
+    data:     ['Data',     'ph-database'],
+    enum:     ['Enum',     'ph-list-dashes'],
+    system:   ['System',   'ph-plugs'],
+    rule:     ['Rule',     'ph-shield-check'],
+    ui:       ['UI',       'ph-app-window']
   };
 
   // The plan, per row. `dot` is the row's mark BEFORE it is built — built is always the green
@@ -5101,13 +5102,16 @@ class Component extends DCLogic {
     // ── What a step touches ───────────────────────────────────────────────
     // Create / Edit / Delete rows, one shape for all three: a left label (the kind of thing, or the
     // thing being edited), the name, and a note. Same rows feed the step pane and the plan roll-up.
+    // ONE colour system per block: the hue is the action (created green / edited amber / deleted red)
+    // and lives on the header + rule only. The kind is the glyph and the word — never a second hue,
+    // or a data-amber label inside a green Created block reads as "edited".
     const bpKindRow = (it, step) => {
-      const k = Component.KINDS[it[0]] || ['Thing', 'ph-circle', '#8b98a5'];
-      return { label: k[0], glyph: k[1], color: k[2], name: it[1],
+      const k = Component.KINDS[it[0]] || ['Thing', 'ph-circle'];
+      return { label: k[0], glyph: k[1], color: '#6b7783', name: it[1],
         note: it[2] || '', noteShow: it[2] ? 'inline' : 'none',
         step: step ? 'Step ' + step : '', stepShow: step ? 'inline-flex' : 'none' };
     };
-    const bpEditRow = (it, step) => ({ label: it[0], glyph: 'ph-pencil-simple', color: '#e6a34a',
+    const bpEditRow = (it, step) => ({ label: it[0], glyph: 'ph-pencil-simple', color: '#6b7783',
       name: it[1], note: '', noteShow: 'none',
       step: step ? 'Step ' + step : '', stepShow: step ? 'inline-flex' : 'none' });
     const bpTouchOf = (s, step) => ({
