@@ -775,8 +775,8 @@
               </div>
               </sc-if>
 
-<!-- The rail's copy: the same three across, drawn at 60 in 84 of width. The badge is 96px and the
-     column is 84, so here alone the proposal is a glyph on the label instead. -->
+<!-- The rail's copy: the same three across, drawn at 60 in 84 of width. `I would do this` is 96px
+     and the column is 84, so here alone the badge says the sheet's short word for the same thing. -->
               <sc-if value="{{ gaShaped }}" hint-placeholder-val="{{ false }}">
               <div style="display: flex; gap: 12px;">
                 <sc-for list="{{ gaShapes }}" as="s" hint-placeholder-count="3">
@@ -786,9 +786,11 @@
                     <div style="flex: {{ b.f }}; width: {{ b.w }}; background: {{ b.bg }}; border: {{ b.bd }}; border-radius: {{ b.r }};"></div>
                     </sc-for>
                   </div>
-                  <div style="display: flex; align-items: flex-start; gap: 6px;">
-                    <i class="ph {{ s.icon }}" style="font-size: 12px; color: {{ s.iconColor }}; flex: none; padding-top: 2px;"></i>
+                  <div style="display: flex; flex-direction: column; align-items: flex-start; gap: 4px;">
                     <div style="min-width: 0; font: 600 12px/16px 'Open Sans', sans-serif; color: {{ s.color }};">{{ s.label }}</div>
+                    <sc-if value="{{ s.proposed }}" hint-placeholder-val="{{ false }}">
+                    <div style="display: inline-flex; align-items: center; height: 18px; padding: 0 6px; border-radius: 4px; background: rgba(43, 127, 228, 0.14); border: 1px solid rgba(43, 127, 228, 0.28); color: #4d97ea; font: 400 10px/12px ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; text-transform: uppercase; letter-spacing: 0.14em; flex: none;">proposed</div>
+                    </sc-if>
                   </div>
                 </div>
                 </sc-for>
@@ -5864,8 +5866,6 @@ class Component extends DCLogic {
         label: x.r.label,
         bars: barsOn(x.r, 'chat'),
         proposed: x.i === CARDS[gShow].proposal,
-        icon: x.i === CARDS[gShow].proposal ? 'ph-check' : 'ph-circle',
-        iconColor: x.i === CARDS[gShow].proposal ? '#4d97ea' : '#8b98a5',
         color: x.i === CARDS[gShow].proposal ? '#f5f9fc' : '#c3cdd7',
         act: gaTake(x.i)
       })),
