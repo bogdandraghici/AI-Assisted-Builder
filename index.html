@@ -404,10 +404,18 @@
               <div style="font: 400 12px/16px ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;">{{ gaSrc }}</div>
             </div>
             <sc-if value="{{ gaPlain }}" hint-placeholder-val="{{ true }}">
-            <div style="display: flex; flex-direction: column; gap: 8px; align-items: flex-start; padding-top: 4px;">
+<!-- Wider than the prose above it, like the sheet's own cards: the badge takes 106 off the row, and
+     at 470 the longest answer wrapped to buy it. -->
+            <div style="display: flex; flex-direction: column; gap: 8px; max-width: 560px; padding-top: 4px;">
               <sc-for list="{{ gaRows }}" as="g" hint-placeholder-count="2">
-              <div onClick="{{ g.act }}" tabindex="{{ iga.tab }}" style="display: flex; align-items: center; gap: 8px; min-height: 36px; padding: 6px 16px; border-radius: 8px; border: 1px solid #26313d; background: #101820; color: #f5f9fc; font: 600 14px/22px 'Open Sans', sans-serif; cursor: pointer; outline: none; pointer-events: {{ iga.pe }}; transition: all 160ms cubic-bezier(0.2, 0, 0.2, 1);" style-hover="border-color: #4d97ea; background: #161f28;" style-focus="box-shadow: 0 0 0 3px rgba(43, 127, 228, 0.32);">
-                <i class="ph {{ g.icon }}" style="font-size: 14px; color: {{ g.iconColor }}; flex: none;"></i><span style="min-width: 0;">{{ g.label }}</span>
+<!-- Hover lifts the ground and never borrows the border: blue is the selection, and a row that
+     borrows it reads as taken before it is. -->
+              <div onClick="{{ g.act }}" tabindex="{{ iga.tab }}" style="display: flex; align-items: center; gap: 10px; padding: 8px 12px; border-radius: 8px; border: 1px solid #26313d; background: #131c24; color: #c3cdd7; cursor: pointer; outline: none; pointer-events: {{ iga.pe }}; transition: background 160ms cubic-bezier(0.2, 0, 0.2, 1), color 160ms cubic-bezier(0.2, 0, 0.2, 1);" style-hover="background: #1c2632; color: #f5f9fc;" style-focus="box-shadow: 0 0 0 3px rgba(43, 127, 228, 0.32);">
+                <div style="width: 14px; height: 14px; flex: none; border-radius: 99px; border: 1px solid #8b98a5;"></div>
+                <div style="min-width: 0; font: 400 14px/22px 'Open Sans', sans-serif;">{{ g.label }}</div>
+                <sc-if value="{{ g.proposed }}" hint-placeholder-val="{{ false }}">
+                <div style="display: inline-flex; align-items: center; height: 18px; padding: 0 6px; border-radius: 4px; background: rgba(43, 127, 228, 0.14); border: 1px solid rgba(43, 127, 228, 0.28); color: #4d97ea; font: 400 10px/12px ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; text-transform: uppercase; letter-spacing: 0.14em; flex: none; margin-left: auto;">I would do this</div>
+                </sc-if>
               </div>
               </sc-for>
             </div>
@@ -419,16 +427,18 @@
             <div style="display: flex; gap: 12px; max-width: 470px; padding-top: 4px;">
               <sc-for list="{{ gaShapes }}" as="s" hint-placeholder-count="3">
               <div onClick="{{ s.act }}" tabindex="{{ iga.tab }}" style="flex: 1; min-width: 0; display: flex; flex-direction: column; gap: 8px; cursor: pointer; outline: none; border-radius: 8px; pointer-events: {{ iga.pe }};" style-focus="box-shadow: 0 0 0 3px rgba(43, 127, 228, 0.32);">
-                <div style="height: 96px; background: #0b1218; border: 1px solid {{ s.border }}; border-radius: 8px; padding: 8px; display: flex; flex-direction: column; gap: 4px; transition: all 160ms cubic-bezier(0.2, 0, 0.2, 1);" style-hover="background: #131c25; border-color: #4d97ea;">
+                <div style="height: 96px; background: #0b1218; border: 1px solid #26313d; border-radius: 8px; padding: 8px; display: flex; flex-direction: column; gap: 4px; transition: background 160ms cubic-bezier(0.2, 0, 0.2, 1);" style-hover="background: #1c2632;">
                   <sc-for list="{{ s.bars }}" as="b" hint-placeholder-count="4">
                   <div style="flex: {{ b.f }}; width: {{ b.w }}; background: {{ b.bg }}; border: {{ b.bd }}; border-radius: {{ b.r }};"></div>
                   </sc-for>
                 </div>
-<!-- The proposal wears the walk's own mark — the checked row, not the card's chip: the other four
-     asks in this same conversation say it with this glyph. -->
-                <div style="display: flex; align-items: center; gap: 8px;">
-                  <i class="ph {{ s.icon }}" style="font-size: 14px; color: {{ s.iconColor }}; flex: none;"></i>
-                  <div style="min-width: 0; font: 600 14px/22px 'Open Sans', sans-serif; color: {{ s.color }};">{{ s.label }}</div>
+<!-- The proposal wears the same badge the written rows wear — the reply is a shape, not a
+     different kind of answer. It wraps to its own line under the label at this width. -->
+                <div style="display: flex; align-items: center; gap: 8px; flex-wrap: wrap;">
+                  <div style="min-width: 0; font: 600 12px/16px 'Open Sans', sans-serif; color: {{ s.color }};">{{ s.label }}</div>
+                  <sc-if value="{{ s.proposed }}" hint-placeholder-val="{{ false }}">
+                  <div style="display: inline-flex; align-items: center; height: 18px; padding: 0 6px; border-radius: 4px; background: rgba(43, 127, 228, 0.14); border: 1px solid rgba(43, 127, 228, 0.28); color: #4d97ea; font: 400 10px/12px ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; text-transform: uppercase; letter-spacing: 0.14em; flex: none;">I would do this</div>
+                  </sc-if>
                 </div>
               </div>
               </sc-for>
@@ -749,20 +759,29 @@
               <sc-if value="{{ gaPlain }}" hint-placeholder-val="{{ true }}">
               <div style="display: flex; flex-direction: column; gap: 8px;">
                 <sc-for list="{{ gaRows }}" as="g" hint-placeholder-count="2">
-                <div onClick="{{ g.act }}" tabindex="{{ ga.tab }}" style="display: flex; align-items: center; gap: 8px; min-height: 32px; padding: 6px 12px; border-radius: 8px; border: 1px solid #26313d; background: #101820; color: #f5f9fc; font: 600 12px/16px 'Open Sans', sans-serif; cursor: pointer; outline: none; pointer-events: {{ ga.pe }}; transition: all 160ms cubic-bezier(0.2, 0, 0.2, 1);" style-hover="border-color: #4d97ea; background: #161f28;" style-focus="box-shadow: 0 0 0 3px rgba(43, 127, 228, 0.32);">
-                  <i class="ph {{ g.icon }}" style="font-size: 12px; color: {{ g.iconColor }}; flex: none;"></i><span style="min-width: 0;">{{ g.label }}</span>
+<!-- The same row one type step down, which is what this measure does everywhere. The badge is
+     96px and the label column is 229 — so it goes under the label rather than beside it, and the
+     ring goes to the first line instead of the middle. -->
+                <div onClick="{{ g.act }}" tabindex="{{ ga.tab }}" style="display: flex; align-items: flex-start; gap: 10px; padding: 8px 12px; border-radius: 8px; border: 1px solid #26313d; background: #131c24; color: #c3cdd7; cursor: pointer; outline: none; pointer-events: {{ ga.pe }}; transition: background 160ms cubic-bezier(0.2, 0, 0.2, 1), color 160ms cubic-bezier(0.2, 0, 0.2, 1);" style-hover="background: #1c2632; color: #f5f9fc;" style-focus="box-shadow: 0 0 0 3px rgba(43, 127, 228, 0.32);">
+                  <div style="width: 14px; height: 14px; flex: none; margin-top: 2px; border-radius: 99px; border: 1px solid #8b98a5;"></div>
+                  <div style="min-width: 0; display: flex; flex-direction: column; align-items: flex-start; gap: 4px;">
+                    <div style="font: 400 12px/18px 'Open Sans', sans-serif;">{{ g.label }}</div>
+                    <sc-if value="{{ g.proposed }}" hint-placeholder-val="{{ false }}">
+                    <div style="display: inline-flex; align-items: center; height: 18px; padding: 0 6px; border-radius: 4px; background: rgba(43, 127, 228, 0.14); border: 1px solid rgba(43, 127, 228, 0.28); color: #4d97ea; font: 400 10px/12px ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; text-transform: uppercase; letter-spacing: 0.14em; flex: none;">I would do this</div>
+                    </sc-if>
+                  </div>
                 </div>
                 </sc-for>
               </div>
               </sc-if>
 
-<!-- The rail's copy: the same three across, drawn at 60 in 84 of width, and the proposal marked
-     with a glyph on the drawing instead of the chip — the chip is 24px this measure does not have. -->
+<!-- The rail's copy: the same three across, drawn at 60 in 84 of width. The badge is 96px and the
+     column is 84, so here alone the proposal is a glyph on the label instead. -->
               <sc-if value="{{ gaShaped }}" hint-placeholder-val="{{ false }}">
               <div style="display: flex; gap: 12px;">
                 <sc-for list="{{ gaShapes }}" as="s" hint-placeholder-count="3">
                 <div onClick="{{ s.act }}" tabindex="{{ ga.tab }}" style="flex: 1; min-width: 0; display: flex; flex-direction: column; gap: 6px; cursor: pointer; outline: none; border-radius: 8px; pointer-events: {{ ga.pe }};" style-focus="box-shadow: 0 0 0 3px rgba(43, 127, 228, 0.32);">
-                  <div style="height: 60px; background: #0b1218; border: 1px solid {{ s.border }}; border-radius: 6px; padding: 6px; display: flex; flex-direction: column; gap: 3px; transition: all 160ms cubic-bezier(0.2, 0, 0.2, 1);" style-hover="background: #131c25; border-color: #4d97ea;">
+                  <div style="height: 60px; background: #0b1218; border: 1px solid #26313d; border-radius: 6px; padding: 6px; display: flex; flex-direction: column; gap: 3px; transition: background 160ms cubic-bezier(0.2, 0, 0.2, 1);" style-hover="background: #1c2632;">
                     <sc-for list="{{ s.bars }}" as="b" hint-placeholder-count="4">
                     <div style="flex: {{ b.f }}; width: {{ b.w }}; background: {{ b.bg }}; border: {{ b.bd }}; border-radius: {{ b.r }};"></div>
                     </sc-for>
@@ -5832,10 +5851,11 @@ class Component extends DCLogic {
       // always empty and each is gated on its own flag: an empty sc-for still leaves its wrapper.
       gaPlain: !!gShow && !CARDS[gShow].shape,
       gaShaped: !!gShow && !!CARDS[gShow].shape,
+      // A ring and a label, and the badge on the one row I would take — the same choice row the
+      // sheet draws. Nothing here is chosen yet, so no ring is filled and no border is blue.
       gaRows: (!gShow || CARDS[gShow].shape) ? [] : gaAll.map(x => ({
         label: x.r.label,
-        icon: x.i === CARDS[gShow].proposal ? 'ph-check' : 'ph-circle',
-        iconColor: x.i === CARDS[gShow].proposal ? '#4d97ea' : '#8b98a5',
+        proposed: x.i === CARDS[gShow].proposal,
         act: gaTake(x.i)
       })),
       // The wireframes: one bar list per option, drawn at 96 in the chat and 60 on the rail — the
@@ -5843,9 +5863,9 @@ class Component extends DCLogic {
       gaShapes: (!gShow || !CARDS[gShow].shape) ? [] : gaAll.map(x => ({
         label: x.r.label,
         bars: barsOn(x.r, 'chat'),
+        proposed: x.i === CARDS[gShow].proposal,
         icon: x.i === CARDS[gShow].proposal ? 'ph-check' : 'ph-circle',
         iconColor: x.i === CARDS[gShow].proposal ? '#4d97ea' : '#8b98a5',
-        border: x.i === CARDS[gShow].proposal ? '#33404d' : '#26313d',
         color: x.i === CARDS[gShow].proposal ? '#f5f9fc' : '#c3cdd7',
         act: gaTake(x.i)
       })),
