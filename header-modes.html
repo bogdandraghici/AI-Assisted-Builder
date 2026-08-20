@@ -145,6 +145,54 @@
   #m7 .rseg .s { display: inline-flex; align-items: center; height: 20px; padding: 0 10px; border-radius: 5px; color: #b08040; font: 600 11.5px/15px 'Open Sans', sans-serif; }
   #m7 .rseg .s:hover { color: #f0c896; }
   #m7 .rseg .s.on { background: #3a2510; color: #f0c896; }
+
+  /* ══ Round 2 — Admin is a heavy manual workspace ══ */
+  .deck { height: 40px; background: #0d141b; border-bottom: 1px solid #141d26; display: flex; align-items: center; gap: 12px; padding: 0 16px; position: relative; }
+  .frame[data-mode="admin"] .ghost.keepa .a { display: block; width: 220px; }
+
+  /* ── M9: one prominent switch, colour-coded worlds. */
+  #m9 .fig { display: inline-flex; align-items: center; gap: 2px; height: 28px; padding: 3px; border-radius: 99px; background: #0e161d; border: 1px solid #26313d; flex: none; }
+  #m9 .fig .s { display: inline-flex; align-items: center; gap: 5px; height: 20px; padding: 0 11px; border-radius: 99px; color: #6b7783; font: 600 12px/16px 'Open Sans', sans-serif; }
+  #m9 .fig .s:hover { color: #c3cdd7; }
+  #m9 .frame[data-mode="build"] .fig [data-set-mode="build"] { background: #2b7fe4; color: #fff; }
+  #m9 .frame[data-mode="admin"] .fig [data-set-mode="admin"] { background: #b26a2c; color: #fff; }
+  #m9 .edge { height: 2px; background: #18212a; transition: background 220ms cubic-bezier(.2,0,.2,1); }
+  #m9 .frame[data-mode="admin"] .edge { background: #e6934a; }
+  #m9 .frame[data-mode="admin"] .bar { background: #1b130b; border-color: #2e2012; }
+  #m9 .frame[data-mode="admin"] .seg.views { background: #241708; }
+  #m9 .frame[data-mode="admin"] .seg.views .s.on { background: #3a2510; color: #f0c896; }
+  #m9 .frame[data-mode="admin"] .utabs .t.on::after { background: #e6934a; }
+  #m9 .frame[data-mode="admin"] .ghost .b { background: linear-gradient(180deg, #171009, #130d07); }
+  #m9 .frame[data-mode="admin"] .ghost.keepa .a { background: linear-gradient(180deg, #161009, #120d07); }
+
+  /* ── M10: doors, not a toggle. */
+  #m10 .sub { height: 34px; background: #0d141b; border-bottom: 1px solid #141d26; display: flex; align-items: center; gap: 12px; padding: 0 16px; }
+  #m10 .crumbs { display: flex; align-items: center; gap: 6px; font: 400 11.5px/16px 'Open Sans', sans-serif; color: #6b7783; }
+  #m10 .crumbs b { font-weight: 600; color: #c3cdd7; }
+  #m10 .btn.blue { background: #2b7fe4; border: none; color: #fff; }
+  #m10 .btn.blue:hover { filter: brightness(1.12); }
+
+  /* ── M11: the swap gains a direction. */
+  #m11 .frame[data-mode="admin"] .swap-a { animation: inR 220ms cubic-bezier(.2,0,.2,1); }
+  #m11 .frame[data-mode="build"] .swap-b { animation: inL 220ms cubic-bezier(.2,0,.2,1); }
+  @keyframes inR { from { opacity: 0; transform: translateX(22px); } }
+  @keyframes inL { from { opacity: 0; transform: translateX(-22px); } }
+
+  /* ── M12: the assistant is a docked panel over the one world. */
+  #m12 .p { width: 320px; flex: none; border-radius: 8px; background: #0e1620; border: 1px solid #1a232d; display: flex; flex-direction: column; gap: 8px; padding: 12px; }
+  #m12 .p .phead { display: flex; gap: 12px; font: 600 10.5px/14px 'Open Sans', sans-serif; color: #6b7783; padding-bottom: 4px; border-bottom: 1px solid #1a232d; }
+  #m12 .p .phead .on { color: #fff; }
+  #m12 .p .bub { border-radius: 7px; background: #121c27; height: 26px; }
+  #m12 .p .bub.me { background: #173049; width: 70%; align-self: flex-end; }
+  #m12 .btn.assist { background: #2b7fe4; border: none; color: #fff; }
+  #m12 .btn.assist:hover { filter: brightness(1.12); }
+
+  /* ── M13: world tabs above the bar. */
+  #m13 .wstrip { display: flex; align-items: flex-end; gap: 4px; padding: 8px 12px 0; background: #070c11; }
+  #m13 .wtab { display: inline-flex; align-items: center; gap: 7px; height: 32px; padding: 0 16px; border-radius: 9px 9px 0 0; color: #5c6a77; font: 600 12px/16px 'Open Sans', sans-serif; cursor: pointer; }
+  #m13 .wtab:hover { color: #c3cdd7; }
+  #m13 .frame[data-mode="build"] .wtab[data-set-mode="build"],
+  #m13 .frame[data-mode="admin"] .wtab[data-set-mode="admin"] { background: #101820; color: #fff; }
 </style>
 </head>
 <body>
@@ -405,6 +453,237 @@
       <span class="iconbtn hov" data-set-mode="admin" title="Platform admin"><i class="ph ph-gear-six" style="font-size: 15px;"></i></span>
     </div>
     <div class="ghost"><div class="a"></div><div class="b"></div></div>
+  </div>
+</section>
+
+<div class="intro" style="padding-top: 64px;">
+  <h1>Round 2 — Admin is not an errand</h1>
+  <p>Corrected model: in Build the agent drives; in Admin you drive — a heavy manual workspace with its own sidebars, subheaders and modals, still on the same project and branch. No rails, no sheets. The spine (mark · env · project · branch · Share) holds everywhere; the open question is where each world's furniture lives and how loudly the switch speaks.</p>
+</div>
+
+<!-- ═══ M8 · two decks, one crown ═══ -->
+<section class="v" id="m8">
+  <div class="cap"><b>M8 · Two decks, one crown</b><span>the 48px crown never changes an atom; each mode parks its furniture on its own deck below — Build's views, Admin's Config/Runtime + section nav. Admin needed a subheader anyway; Build pays 40px for total stability.</span></div>
+  <div class="frame" data-mode="build">
+    <div class="bar h48">
+      <img class="logo" src="assets/flowx-mark-white.svg" alt="FlowX">
+      <span class="env">SANDBOX</span>
+      <span class="place hov"><span class="pj">Triglav</span><span class="slash">/</span><span class="nm">Investment Assistant</span><span class="bchip"><i class="ph ph-git-branch" style="font-size: 10px;"></i>main</span><i class="ph ph-caret-down caret"></i></span>
+      <div class="grow"></div>
+      <span class="btn quiet hov"><i class="ph ph-share-network" style="font-size: 13px;"></i>Share</span>
+      <div class="vsep"></div>
+      <div class="seg mseg">
+        <span class="s hov" data-set-mode="build"><i class="ph ph-sparkle" style="font-size: 12px;"></i>Build</span>
+        <span class="s hov" data-set-mode="admin"><i class="ph ph-gear-six" style="font-size: 12px;"></i>Admin</span>
+      </div>
+    </div>
+    <div class="deck bld">
+      <div class="utabs" style="height: 40px;">
+        <span class="t hov on" data-tab>Chat</span>
+        <span class="t hov" data-tab>Plan</span>
+        <span class="t hov" data-tab>Canvas</span>
+        <span class="t hov" data-tab>Test run</span>
+      </div>
+      <div class="grow"></div>
+      <span class="btn quiet hov" style="height: 26px;"><i class="ph ph-chat-teardrop-text" style="font-size: 13px;"></i>Comment</span>
+    </div>
+    <div class="deck adm">
+      <div class="seg views" style="height: 26px; padding: 2px;">
+        <span class="s hov on" data-tab style="height: 22px;">Config</span>
+        <span class="s hov" data-tab style="height: 22px;">Runtime</span>
+      </div>
+      <div class="vsep" style="height: 16px;"></div>
+      <div class="utabs" style="height: 40px;">
+        <span class="t hov on" data-tab>Processes</span>
+        <span class="t hov" data-tab>Data model</span>
+        <span class="t hov" data-tab>Enums</span>
+        <span class="t hov" data-tab>Media</span>
+        <span class="t hov" data-tab>Integrations</span>
+      </div>
+      <div class="grow"></div>
+    </div>
+    <div class="ghost keepa"><div class="a"></div><div class="b"></div></div>
+  </div>
+</section>
+
+<!-- ═══ M9 · the Figma move ═══ -->
+<section class="v" id="m9">
+  <div class="cap"><b>M9 · The Figma move</b><span>one prominent switch, colour-coded worlds — blue when the agent drives, amber when you do. Same bones as today, but the whole chrome testifies to the mode; project context stays lit because it still applies.</span></div>
+  <div class="frame" data-mode="build">
+    <div class="edge"></div>
+    <div class="bar" style="height: 46px; gap: 12px;">
+      <img class="logo" src="assets/flowx-mark-white.svg" alt="FlowX">
+      <span class="env">SANDBOX</span>
+      <span class="place hov"><span class="pj">Triglav</span><span class="slash">/</span><span class="nm">Investment Assistant</span><span class="bchip"><i class="ph ph-git-branch" style="font-size: 10px;"></i>main</span><i class="ph ph-caret-down caret"></i></span>
+      <div class="grow"></div>
+      <div class="center bld"><div class="utabs" style="height: 46px;">
+        <span class="t hov on" data-tab>Chat</span>
+        <span class="t hov" data-tab>Plan</span>
+        <span class="t hov" data-tab>Canvas</span>
+        <span class="t hov" data-tab>Test run</span>
+      </div></div>
+      <div class="center adm"><div style="display: flex; align-items: center; gap: 12px; height: 46px;">
+        <div class="seg views">
+          <span class="s hov on" data-tab>Config</span>
+          <span class="s hov" data-tab>Runtime</span>
+        </div>
+        <div class="utabs" style="height: 46px;">
+          <span class="t hov on" data-tab>Processes</span>
+          <span class="t hov" data-tab>Data model</span>
+          <span class="t hov" data-tab>Enums</span>
+        </div>
+      </div></div>
+      <span class="btn quiet hov bld"><i class="ph ph-chat-teardrop-text" style="font-size: 13px;"></i>Comment</span>
+      <span class="btn quiet hov"><i class="ph ph-share-network" style="font-size: 13px;"></i>Share</span>
+      <div class="vsep"></div>
+      <div class="fig">
+        <span class="s" data-set-mode="build"><i class="ph ph-sparkle" style="font-size: 12px;"></i>Build</span>
+        <span class="s" data-set-mode="admin"><i class="ph ph-gear-six" style="font-size: 12px;"></i>Admin</span>
+      </div>
+    </div>
+    <div class="ghost keepa"><div class="a"></div><div class="b"></div></div>
+  </div>
+</section>
+
+<!-- ═══ M10 · doors, not a toggle ═══ -->
+<section class="v" id="m10">
+  <div class="cap"><b>M10 · Doors, not a toggle</b><span>no symmetric switch — Build offers "Edit manually" beside Share, Admin answers with one blue way back. Each door can deep-link to the thing you were looking at. The two headers stop pretending to be the same bar.</span></div>
+  <div class="frame" data-mode="build">
+    <div class="bar h48">
+      <img class="logo" src="assets/flowx-mark-white.svg" alt="FlowX">
+      <span class="env">SANDBOX</span>
+      <span class="place hov"><span class="pj">Triglav</span><span class="slash">/</span><span class="nm">Investment Assistant</span><span class="bchip"><i class="ph ph-git-branch" style="font-size: 10px;"></i>main</span><i class="ph ph-caret-down caret"></i></span>
+      <div class="grow"></div>
+      <div class="center bld"><div class="utabs" style="height: 48px;">
+        <span class="t hov on" data-tab>Chat</span>
+        <span class="t hov" data-tab>Plan</span>
+        <span class="t hov" data-tab>Canvas</span>
+        <span class="t hov" data-tab>Test run</span>
+      </div></div>
+      <div class="center adm"><div class="utabs" style="height: 48px;">
+        <span class="t hov on" data-tab>Processes</span>
+        <span class="t hov" data-tab>Data model</span>
+        <span class="t hov" data-tab>Enums</span>
+        <span class="t hov" data-tab>Media</span>
+        <span class="t hov" data-tab>Integrations</span>
+      </div></div>
+      <span class="btn quiet hov bld"><i class="ph ph-chat-teardrop-text" style="font-size: 13px;"></i>Comment</span>
+      <span class="btn quiet hov"><i class="ph ph-share-network" style="font-size: 13px;"></i>Share</span>
+      <div class="vsep"></div>
+      <span class="btn quiet hov bld" data-set-mode="admin"><i class="ph ph-sliders" style="font-size: 13px;"></i>Edit manually</span>
+      <span class="btn blue hov adm" data-set-mode="build"><i class="ph ph-sparkle" style="font-size: 13px;"></i>Back to Build</span>
+    </div>
+    <div class="sub adm">
+      <div class="crumbs"><span>Config</span><span class="slash">/</span><span>Processes</span><span class="slash">/</span><b>Client onboarding</b></div>
+      <div class="grow"></div>
+      <div class="seg views" style="height: 24px; padding: 2px;">
+        <span class="s hov on" data-tab style="height: 20px; padding: 0 10px;">Config</span>
+        <span class="s hov" data-tab style="height: 20px; padding: 0 10px;">Runtime</span>
+      </div>
+    </div>
+    <div class="ghost keepa"><div class="a"></div><div class="b"></div></div>
+  </div>
+</section>
+
+<!-- ═══ M11 · same bar, choreographed ═══ -->
+<section class="v" id="m11">
+  <div class="cap"><b>M11 · Same bar, choreographed</b><span>the minimum fix: today's layout untouched, but the swap gains a direction — Admin lives to the right, so its furniture arrives from the right and Build's returns from the left. Mutation becomes travel.</span></div>
+  <div class="frame" data-mode="build">
+    <div class="bar h48">
+      <img class="logo" src="assets/flowx-mark-white.svg" alt="FlowX">
+      <span class="env">SANDBOX</span>
+      <span class="place hov"><span class="pj">Triglav</span><span class="slash">/</span><span class="nm">Investment Assistant</span><span class="bchip"><i class="ph ph-git-branch" style="font-size: 10px;"></i>main</span><i class="ph ph-caret-down caret"></i></span>
+      <div class="grow"></div>
+      <div class="center bld"><div class="utabs swap-b" style="height: 48px;">
+        <span class="t hov on" data-tab>Chat</span>
+        <span class="t hov" data-tab>Plan</span>
+        <span class="t hov" data-tab>Canvas</span>
+        <span class="t hov" data-tab>Test run</span>
+      </div></div>
+      <div class="center adm"><div class="seg views swap-a">
+        <span class="s hov on" data-tab>Config</span>
+        <span class="s hov" data-tab>Runtime</span>
+      </div></div>
+      <span class="btn quiet hov bld"><i class="ph ph-chat-teardrop-text" style="font-size: 13px;"></i>Comment</span>
+      <span class="btn quiet hov"><i class="ph ph-share-network" style="font-size: 13px;"></i>Share</span>
+      <div class="vsep"></div>
+      <div class="seg mseg">
+        <span class="s hov" data-set-mode="build">Build</span>
+        <span class="s hov" data-set-mode="admin">Admin</span>
+      </div>
+    </div>
+    <div class="ghost"><div class="a"></div><div class="b"></div></div>
+  </div>
+</section>
+
+<!-- ═══ M12 · build is a panel, not a place ═══ -->
+<section class="v" id="m12">
+  <div class="cap"><b>M12 · Build is a panel, not a place</b><span>the wild one: there is only the platform. The agent is a summonable surface docked right — it watches while you tweak manually, "mode" stops existing, and the header never morphs because there is only one. Click Assistant.</span></div>
+  <div class="frame" data-mode="build">
+    <div class="bar h48">
+      <img class="logo" src="assets/flowx-mark-white.svg" alt="FlowX">
+      <span class="env">SANDBOX</span>
+      <span class="place hov"><span class="pj">Triglav</span><span class="slash">/</span><span class="nm">Investment Assistant</span><span class="bchip"><i class="ph ph-git-branch" style="font-size: 10px;"></i>main</span><i class="ph ph-caret-down caret"></i></span>
+      <div class="grow"></div>
+      <div class="center"><div class="utabs" style="height: 48px;">
+        <span class="t hov on" data-tab>Processes</span>
+        <span class="t hov" data-tab>Data model</span>
+        <span class="t hov" data-tab>Enums</span>
+        <span class="t hov" data-tab>Media</span>
+        <span class="t hov" data-tab>Integrations</span>
+      </div></div>
+      <span class="btn quiet hov"><i class="ph ph-share-network" style="font-size: 13px;"></i>Share</span>
+      <div class="vsep"></div>
+      <span class="btn quiet hov adm" data-set-mode="build"><i class="ph ph-sparkle" style="font-size: 13px;"></i>Assistant</span>
+      <span class="btn assist hov bld" data-set-mode="admin"><i class="ph ph-sparkle" style="font-size: 13px;"></i>Assistant</span>
+    </div>
+    <div class="ghost" style="height: 170px;">
+      <div class="a" style="width: 220px;"></div>
+      <div class="b"></div>
+      <div class="p bld">
+        <div class="phead"><span class="on">Chat</span><span>Plan</span><span>Canvas</span><span>Test run</span></div>
+        <div class="bub"></div>
+        <div class="bub me"></div>
+        <div class="bub" style="height: 40px;"></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ M13 · world tabs ═══ -->
+<section class="v" id="m13">
+  <div class="cap"><b>M13 · World tabs</b><span>browser logic — two app tabs above the bar own their worlds outright. Nobody accuses a browser tab of morphing; the container explains every difference below it, and Admin can be as heavy as it likes inside its tab.</span></div>
+  <div class="frame" data-mode="build">
+    <div class="wstrip">
+      <span class="wtab" data-set-mode="build"><i class="ph ph-sparkle" style="font-size: 13px;"></i>Build</span>
+      <span class="wtab" data-set-mode="admin"><i class="ph ph-gear-six" style="font-size: 13px;"></i>Admin</span>
+    </div>
+    <div class="bar h48">
+      <img class="logo" src="assets/flowx-mark-white.svg" alt="FlowX">
+      <span class="env">SANDBOX</span>
+      <span class="place hov"><span class="pj">Triglav</span><span class="slash">/</span><span class="nm">Investment Assistant</span><span class="bchip"><i class="ph ph-git-branch" style="font-size: 10px;"></i>main</span><i class="ph ph-caret-down caret"></i></span>
+      <div class="grow"></div>
+      <div class="center bld"><div class="utabs" style="height: 48px;">
+        <span class="t hov on" data-tab>Chat</span>
+        <span class="t hov" data-tab>Plan</span>
+        <span class="t hov" data-tab>Canvas</span>
+        <span class="t hov" data-tab>Test run</span>
+      </div></div>
+      <div class="center adm"><div style="display: flex; align-items: center; gap: 12px; height: 48px;">
+        <div class="seg views">
+          <span class="s hov on" data-tab>Config</span>
+          <span class="s hov" data-tab>Runtime</span>
+        </div>
+        <div class="utabs" style="height: 48px;">
+          <span class="t hov on" data-tab>Processes</span>
+          <span class="t hov" data-tab>Data model</span>
+          <span class="t hov" data-tab>Enums</span>
+        </div>
+      </div></div>
+      <span class="btn quiet hov bld"><i class="ph ph-chat-teardrop-text" style="font-size: 13px;"></i>Comment</span>
+      <span class="btn quiet hov"><i class="ph ph-share-network" style="font-size: 13px;"></i>Share</span>
+    </div>
+    <div class="ghost keepa"><div class="a"></div><div class="b"></div></div>
   </div>
 </section>
 
