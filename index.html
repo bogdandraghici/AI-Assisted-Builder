@@ -2082,7 +2082,7 @@
         <div style="flex: 1;"></div>
 <!-- Comment — on the Test run and the Canvas, arms comment mode over the embedded frame. -->
 <sc-if value="{{ bpNoteBtnShow }}" hint-placeholder-val="{{ false }}">
-        <div onClick="{{ bpNoteToggle }}" tabindex="0" title="{{ bpNoteBtnTitle }}" style="display: inline-flex; align-items: center; gap: 6px; height: 28px; padding: 0 10px; border-radius: 8px; border: 1px solid {{ bpNoteBtnBorder }}; background: {{ bpNoteBtnBg }}; color: {{ bpNoteBtnColor }}; font: 600 12px/16px 'Open Sans', sans-serif; cursor: pointer; outline: none; flex: none; transition: all 160ms cubic-bezier(0.2, 0, 0.2, 1);" style-hover="filter: brightness(1.15);" style-focus="box-shadow: 0 0 0 3px rgba(43, 127, 228, 0.32);"><i class="ph ph-chat-teardrop-text" style="font-size: 13px;"></i>Comment</div>
+        <div onClick="{{ bpNoteToggle }}" tabindex="0" title="{{ bpNoteBtnTitle }}" style="display: inline-flex; align-items: center; gap: 6px; height: 28px; padding: 0 10px; border-radius: 8px; border: 1px solid {{ bpNoteBtnBorder }}; background: {{ bpNoteBtnBg }}; color: {{ bpNoteBtnColor }}; font: 600 12px/16px 'Open Sans', sans-serif; cursor: pointer; outline: none; flex: none; transition: all 160ms cubic-bezier(0.2, 0, 0.2, 1);" style-hover="filter: brightness(1.15);" style-focus="box-shadow: 0 0 0 3px rgba(43, 127, 228, 0.32);"><i class="ph ph-chat-teardrop-text" style="font-size: 13px; color: {{ bpNoteBtnIcon }};"></i>Comment</div>
 </sc-if>
 <!-- Share — invite people to the solution on this environment. -->
         <div onClick="{{ bpShareOpenAct }}" tabindex="0" title="Share this solution" style="display: inline-flex; align-items: center; gap: 6px; height: 28px; padding: 0 14px; border-radius: 8px; border: 1px solid transparent; background: #2b7fe4; color: #ffffff; font: 600 12px/16px 'Open Sans', sans-serif; cursor: pointer; outline: none; flex: none; transition: filter 160ms cubic-bezier(0.2, 0, 0.2, 1);" style-hover="filter: brightness(1.12);" style-focus="box-shadow: 0 0 0 3px rgba(43, 127, 228, 0.32);"><i class="ph ph-share-network" style="font-size: 13px;"></i>Share</div>
@@ -5404,9 +5404,11 @@ class Component extends DCLogic {
         const el = e && e.currentTarget; if (el && el.blur) el.blur();
         this.setState(p => ({ bpNoteMode: !p.bpNoteMode, bpNoteDraft: null, bpNoteText: '' }));
       },
-      bpNoteBtnBg: S.bpNoteMode ? '#2b7fe4' : '#161f28',
-      bpNoteBtnBorder: S.bpNoteMode ? '#2b7fe4' : '#26313d',
+      // Armed is a pressed toggle, not a filled blue — Share is the only primary in this header.
+      bpNoteBtnBg: S.bpNoteMode ? '#1c2632' : '#161f28',
+      bpNoteBtnBorder: S.bpNoteMode ? '#4d97ea' : '#26313d',
       bpNoteBtnColor: S.bpNoteMode ? '#ffffff' : '#c3cdd7',
+      bpNoteBtnIcon: S.bpNoteMode ? '#4d97ea' : 'currentColor',
       bpNoteBtnTitle: S.bpNoteMode ? 'Leave comment mode' : 'Comment on the running prototype',
       bpNoteOverlayPE: S.bpNoteMode ? 'auto' : 'none',
       // Hover highlights the element under the pointer — written frame by frame, never through state.
