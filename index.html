@@ -3344,39 +3344,93 @@
     </div>
 </sc-if>
 
-<!-- ── The workspace hub ── The landing (a URL carrying no state): typed workspaces — a workspace
-     IS a Sandbox, UAT or Production — each holding its own projects. Picking a project opens its
-     builder; non-Sandbox opens read-only. One grid over the whole list, workspace heads spanning
-     it, so cards line up across sections. -->
+<!-- ── The workspace hub ── The landing (a URL carrying no state). A workspace IS a Sandbox, UAT
+     or Production, so the Triglav lineage is drawn as the promotion pipeline it is: Sandbox wide
+     and bright (all editing lives there), UAT and Production quieter in their own hue, arrows
+     carrying the story between them. Playground is scratch space — a dashed strip, not a peer. -->
 <sc-if value="{{ hub }}" hint-placeholder-val="{{ false }}">
     <div style="position: absolute; inset: 0; z-index: 45; background: #0b1218; display: flex; flex-direction: column; color: #f5f9fc;">
       <div style="height: 48px; flex: none; background: #101820; border-bottom: 1px solid #18212a; display: flex; align-items: center; padding: 0 16px;">
         <img src="assets/flowx-mark-white.svg" alt="FlowX" style="height: 22px; width: auto; flex: none;" />
       </div>
-      <div style="flex: 1; overflow: auto;">
-        <div style="max-width: 920px; margin: 0 auto; padding: 44px 32px 72px;">
-          <div style="font: 600 20px/28px 'Open Sans', sans-serif; color: #f5f9fc;">Workspaces</div>
-          <div style="font: 400 12.5px/18px 'Open Sans', sans-serif; color: #8b98a5; margin: 4px 0 6px;">Pick a project to open its builder. UAT and Production workspaces are read-only.</div>
-          <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px;">
-            <sc-for list="{{ hubRows }}" as="r" hint-placeholder-count="6">
-            <div style="grid-column: {{ r.span }}; min-width: 0; display: flex; flex-direction: column;">
-              <div style="display: {{ r.headShow }}; align-items: center; gap: 10px; margin: 26px 2px 2px;">
-                <span style="font: 600 15px/20px 'Open Sans', sans-serif; color: #f5f9fc;">{{ r.name }}</span>
-                <span style="background: {{ r.pillBg }}; color: #ffffff; font: 700 9.5px/13px 'Open Sans', sans-serif; letter-spacing: 0.06em; padding: 2px 8px; border-radius: 99px;">{{ r.pill }}</span>
-                <span style="flex: 1;"></span>
-                <span style="font: 400 11px/15px 'Open Sans', sans-serif; color: #6b7783;">{{ r.count }}</span>
+      <div style="flex: 1; overflow: auto; display: flex; flex-direction: column;">
+        <div style="width: 100%; max-width: 1150px; margin: auto; padding: 40px 40px 56px;">
+          <div style="font: 400 10.5px/14px 'Open Sans', sans-serif; letter-spacing: 0.08em; text-transform: uppercase; color: #6b7783;">FlowX platform</div>
+          <div style="display: flex; align-items: baseline; gap: 14px; margin-top: 6px;">
+            <div style="font: 600 26px/34px 'Open Sans', sans-serif; color: #f5f9fc;">Workspaces</div>
+            <div style="font: 400 12.5px/18px 'Open Sans', sans-serif; color: #8b98a5;">Pick a project to open its builder.</div>
+          </div>
+<!-- The lineage band: Sandbox ▸ promote ▸ UAT ▸ promote ▸ Production. -->
+          <div style="display: flex; align-items: stretch; margin-top: 30px;">
+            <div style="flex: 1.35; min-width: 0; border: 1px solid rgba(77, 151, 234, 0.28); background: rgba(77, 151, 234, 0.05); border-radius: 16px; padding: 18px 18px 16px;">
+              <div style="display: flex; align-items: center; gap: 10px;">
+                <span style="font: 600 15px/20px 'Open Sans', sans-serif; color: #f5f9fc; white-space: nowrap;">Triglav Sandbox</span>
+                <span style="background: #2b7fe4; color: #ffffff; font: 700 9.5px/13px 'Open Sans', sans-serif; letter-spacing: 0.06em; padding: 2px 8px; border-radius: 99px;">SANDBOX</span>
               </div>
-              <div onClick="{{ r.act }}" tabindex="0" style="display: {{ r.cardShow }}; flex-direction: column; gap: 8px; flex: 1; padding: 14px 16px; border: 1px solid #1a232d; border-radius: 12px; background: #101820; cursor: {{ r.cur }}; opacity: {{ r.dim }}; outline: none; transition: border-color 160ms cubic-bezier(0.2, 0, 0.2, 1);" style-hover="border-color: #35507a;" style-focus="box-shadow: 0 0 0 3px rgba(43, 127, 228, 0.32);">
-                <div style="display: flex; align-items: center; gap: 8px;">
-                  <i class="ph {{ r.ic }}" style="font-size: 16px; color: #8b98a5; flex: none;"></i>
-                  <span style="flex: 1; min-width: 0; font: 600 13px/18px 'Open Sans', sans-serif; color: #f5f9fc; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;">{{ r.name }}</span>
-                  <i class="ph ph-lock-simple" style="display: {{ r.lockShow }}; font-size: 12px; color: #6b7783;"></i>
+              <div style="font: 400 11.5px/16px 'Open Sans', sans-serif; color: #8b98a5; margin-top: 3px;">Build and experiment. All editing happens here.</div>
+              <div style="margin-top: 12px;">
+                <sc-for list="{{ hubSb }}" as="p" hint-placeholder-count="2">
+                <div onClick="{{ p.act }}" tabindex="0" style="display: flex; align-items: center; gap: 12px; margin-top: 8px; padding: 11px 14px; border: 1px solid #26313d; border-radius: 12px; background: #101820; cursor: pointer; outline: none; transition: border-color 160ms cubic-bezier(0.2, 0, 0.2, 1), transform 160ms cubic-bezier(0.2, 0, 0.2, 1);" style-hover="border-color: #4d97ea; transform: translateY(-1px);" style-focus="box-shadow: 0 0 0 3px rgba(43, 127, 228, 0.32);">
+                  <div style="width: 34px; height: 34px; flex: none; border-radius: 9px; background: rgba(77, 151, 234, 0.12); display: flex; align-items: center; justify-content: center;"><i class="ph {{ p.ic }}" style="font-size: 17px; color: #8fc0f4;"></i></div>
+                  <div style="flex: 1; min-width: 0;">
+                    <div style="font: 600 13px/18px 'Open Sans', sans-serif; color: #f5f9fc; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;">{{ p.n }}</div>
+                    <div style="font: 400 11px/15px 'Open Sans', sans-serif; color: #8b98a5; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;">{{ p.meta }}</div>
+                  </div>
+                  <i class="ph ph-caret-right" style="font-size: 12px; color: #4a5764; flex: none;"></i>
                 </div>
-                <div style="font: 400 11.5px/16px 'Open Sans', sans-serif; color: #8b98a5;">{{ r.desc }}</div>
-                <div style="font: 400 10.5px/14px 'Open Sans', sans-serif; color: #6b7783; margin-top: auto;">{{ r.meta }}</div>
+                </sc-for>
               </div>
             </div>
-            </sc-for>
+            <div style="flex: none; width: 62px; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 3px;">
+              <i class="ph ph-arrow-right" style="font-size: 15px; color: #3f4b59;"></i>
+              <span style="font: 600 8.5px/10px 'Open Sans', sans-serif; letter-spacing: 0.08em; text-transform: uppercase; color: #4a5764;">promote</span>
+            </div>
+            <div style="flex: 1; min-width: 0; border: 1px solid rgba(224, 163, 36, 0.22); background: rgba(224, 163, 36, 0.04); border-radius: 16px; padding: 18px 18px 16px;">
+              <div style="display: flex; align-items: center; gap: 10px;">
+                <span style="font: 600 15px/20px 'Open Sans', sans-serif; color: #f5f9fc; white-space: nowrap;">Triglav UAT</span>
+                <span style="background: #e0a324; color: #ffffff; font: 700 9.5px/13px 'Open Sans', sans-serif; letter-spacing: 0.06em; padding: 2px 8px; border-radius: 99px;">UAT</span>
+              </div>
+              <div style="font: 400 11.5px/16px 'Open Sans', sans-serif; color: #8b98a5; margin-top: 3px;">Business review. Read-only.</div>
+              <div onClick="{{ hubUatAct }}" tabindex="0" style="display: flex; align-items: center; gap: 12px; margin-top: 20px; padding: 11px 14px; border: 1px solid #1e2833; border-radius: 12px; background: rgba(13, 19, 26, 0.6); cursor: pointer; outline: none; transition: border-color 160ms cubic-bezier(0.2, 0, 0.2, 1);" style-hover="border-color: rgba(224, 163, 36, 0.45);" style-focus="box-shadow: 0 0 0 3px rgba(43, 127, 228, 0.32);">
+                <div style="width: 34px; height: 34px; flex: none; border-radius: 9px; background: rgba(224, 163, 36, 0.10); display: flex; align-items: center; justify-content: center;"><i class="ph ph-robot" style="font-size: 17px; color: #e0b968;"></i></div>
+                <div style="flex: 1; min-width: 0;">
+                  <div style="font: 600 13px/18px 'Open Sans', sans-serif; color: #f5f9fc; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;">Investment Assistant</div>
+                  <div style="font: 400 11px/15px 'Open Sans', sans-serif; color: #8b98a5;">main · promoted 1d ago</div>
+                </div>
+                <i class="ph ph-caret-right" style="font-size: 12px; color: #4a5764; flex: none;"></i>
+              </div>
+            </div>
+            <div style="flex: none; width: 62px; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 3px;">
+              <i class="ph ph-arrow-right" style="font-size: 15px; color: #3f4b59;"></i>
+              <span style="font: 600 8.5px/10px 'Open Sans', sans-serif; letter-spacing: 0.08em; text-transform: uppercase; color: #4a5764;">promote</span>
+            </div>
+            <div style="flex: 1; min-width: 0; border: 1px solid rgba(46, 168, 106, 0.22); background: rgba(46, 168, 106, 0.04); border-radius: 16px; padding: 18px 18px 16px;">
+              <div style="display: flex; align-items: center; gap: 10px;">
+                <span style="font: 600 15px/20px 'Open Sans', sans-serif; color: #f5f9fc; white-space: nowrap;">Triglav Production</span>
+                <span style="background: #2ea86a; color: #ffffff; font: 700 9.5px/13px 'Open Sans', sans-serif; letter-spacing: 0.06em; padding: 2px 8px; border-radius: 99px;">PRODUCTION</span>
+              </div>
+              <div style="font: 400 11.5px/16px 'Open Sans', sans-serif; color: #8b98a5; margin-top: 3px;">Live to advisors. Read-only.</div>
+              <div onClick="{{ hubProdAct }}" tabindex="0" style="display: flex; align-items: center; gap: 12px; margin-top: 20px; padding: 11px 14px; border: 1px solid #1e2833; border-radius: 12px; background: rgba(13, 19, 26, 0.6); cursor: pointer; outline: none; transition: border-color 160ms cubic-bezier(0.2, 0, 0.2, 1);" style-hover="border-color: rgba(46, 168, 106, 0.45);" style-focus="box-shadow: 0 0 0 3px rgba(43, 127, 228, 0.32);">
+                <div style="width: 34px; height: 34px; flex: none; border-radius: 9px; background: rgba(46, 168, 106, 0.10); display: flex; align-items: center; justify-content: center;"><i class="ph ph-robot" style="font-size: 17px; color: #6fca9c;"></i></div>
+                <div style="flex: 1; min-width: 0;">
+                  <div style="font: 600 13px/18px 'Open Sans', sans-serif; color: #f5f9fc; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;">Investment Assistant</div>
+                  <div style="font: 400 11px/15px 'Open Sans', sans-serif; color: #8b98a5;">main · promoted 3w ago</div>
+                </div>
+                <i class="ph ph-caret-right" style="font-size: 12px; color: #4a5764; flex: none;"></i>
+              </div>
+            </div>
+          </div>
+<!-- Scratch space: a different shape on purpose — dashed, one line, the parked project dimmed. -->
+          <div style="margin-top: 20px; display: flex; align-items: center; gap: 12px; border: 1px dashed #26313d; border-radius: 16px; padding: 14px 18px;">
+            <span style="font: 600 13px/18px 'Open Sans', sans-serif; color: #c3cdd7;">Playground</span>
+            <span style="background: #2b7fe4; color: #ffffff; font: 700 9.5px/13px 'Open Sans', sans-serif; letter-spacing: 0.06em; padding: 2px 8px; border-radius: 99px;">SANDBOX</span>
+            <span style="font: 400 11.5px/16px 'Open Sans', sans-serif; color: #6b7783;">Scratch space for experiments.</span>
+            <span style="flex: 1;"></span>
+            <div style="display: flex; align-items: center; gap: 10px; opacity: 0.55;">
+              <i class="ph ph-user-circle-plus" style="font-size: 15px; color: #8b98a5;"></i>
+              <span style="font: 600 12px/16px 'Open Sans', sans-serif; color: #c3cdd7;">Onboarding revamp</span>
+              <span style="font: 400 10.5px/14px 'Open Sans', sans-serif; color: #6b7783;">parked · edited 6w ago</span>
+            </div>
           </div>
         </div>
       </div>
@@ -5379,31 +5433,13 @@ class Component extends DCLogic {
     const bpBranchList = BP_BRANCHES[S.bpEnv] || [['main', '—']];
     const bpBranchCur = bpBranchList.some(b => b[0] === S.bpBranch) ? S.bpBranch : 'main';
 
-    // ── Workspace hub ── the landing: typed workspaces, each with its own project list. One flat
-    // row list under one grid — heads span it, cards fill it (the bpModelRows idiom).
-    const HUB = [
-      { ws: 'Triglav Sandbox', env: 'Sandbox', projects: [
-        { n: 'Investment Assistant', ic: 'ph-robot', d: 'Advisor-led investment requests, end to end.', meta: '2 branches · edited 5h ago', go: '?buildplan=1' },
-        { n: 'Card dispute', ic: 'ph-credit-card', d: 'Dispute a card payment from the app.', meta: '1 branch · edited 3d ago', go: '?dispute=1' } ] },
-      { ws: 'Playground', env: 'Sandbox', projects: [
-        { n: 'Onboarding revamp', ic: 'ph-user-circle-plus', d: 'Parked retail onboarding experiment.', meta: '1 branch · edited 6w ago', go: null } ] },
-      { ws: 'Triglav UAT', env: 'UAT', projects: [
-        { n: 'Investment Assistant', ic: 'ph-robot', d: 'Under business review.', meta: 'main · promoted 1d ago', go: '?buildplan=1&env=UAT' } ] },
-      { ws: 'Triglav Production', env: 'Production', projects: [
-        { n: 'Investment Assistant', ic: 'ph-robot', d: 'Live to advisors.', meta: 'main · promoted 3w ago', go: '?buildplan=1&env=Production' } ] },
+    // ── Workspace hub ── the landing. The Triglav lineage reads left to right — Sandbox is where
+    // work happens, UAT and Production hold what got promoted; Playground is scratch space.
+    const hubGo = go => () => location.assign(location.pathname + go);
+    const hubSb = [
+      { n: 'Investment Assistant', ic: 'ph-robot', meta: '2 branches · edited 5h ago', act: hubGo('?buildplan=1') },
+      { n: 'Card dispute', ic: 'ph-credit-card', meta: '1 branch · edited 3d ago', act: hubGo('?dispute=1') },
     ];
-    const hubRows = [];
-    HUB.forEach(w => {
-      const t = BP_ENVS.find(e => e.k === w.env);
-      hubRows.push({ span: '1 / -1', headShow: 'flex', cardShow: 'none', name: w.ws, pill: w.env.toUpperCase(),
-        pillBg: t.pill, count: w.projects.length + (w.projects.length > 1 ? ' projects' : ' project'),
-        ic: '', desc: '', meta: '', lockShow: 'none', dim: '1', cur: 'default', act: () => {} });
-      w.projects.forEach(p => hubRows.push({ span: 'auto', headShow: 'none', cardShow: 'flex', name: p.n,
-        pill: '', pillBg: 'transparent', count: '', ic: p.ic, desc: p.d, meta: p.meta,
-        lockShow: w.env === 'Sandbox' ? 'none' : 'inline-flex',
-        dim: p.go ? '1' : '0.55', cur: p.go ? 'pointer' : 'default',
-        act: p.go ? () => location.assign(location.pathname + p.go) : () => {} }));
-    });
 
     // ── Canvas › solution model (Pattern 2) ──────────────────────────────
     // The resource model as the source of truth: chat (AI) and designer (you) both edit it. The
@@ -5768,7 +5804,9 @@ class Component extends DCLogic {
       ],
       // ── Platform nav — the one title menu in the header ──────────────────
       hub: S.hub,
-      hubRows: hubRows,
+      hubSb: hubSb,
+      hubUatAct: hubGo('?buildplan=1&env=UAT'),
+      hubProdAct: hubGo('?buildplan=1&env=Production'),
       bpEnvBadge: (S.bpEnv || 'Sandbox').toUpperCase(),
       bpEnvPill: bpEnvMeta.pill,
       bpWs: bpWs,
