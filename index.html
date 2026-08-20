@@ -2024,7 +2024,7 @@
             </div>
             <div style="width: 1px; background: #1a232d; flex: none;"></div>
             <div style="flex: 1; min-width: 0;">
-              <div style="font: 400 10.5px/14px 'Open Sans', sans-serif; color: #6b7783; padding: 0 8px 4px; letter-spacing: 0.05em; text-transform: uppercase;">Branch</div>
+              <div style="font: 400 10.5px/14px 'Open Sans', sans-serif; color: #6b7783; padding: 0 8px 4px; letter-spacing: 0.05em; text-transform: uppercase;">My branches</div>
               <sc-for list="{{ bpBranchOpts }}" as="o" hint-placeholder-count="2">
               <div onClick="{{ o.act }}" tabindex="0" style="display: flex; align-items: center; gap: 8px; padding: 7px 8px; border-radius: 6px; background: {{ o.rowBg }}; cursor: pointer; outline: none;" style-hover="background: #161f28;" style-focus="box-shadow: 0 0 0 3px rgba(43, 127, 228, 0.32);">
                 <i class="ph ph-git-branch" style="font-size: 13px; color: #8b98a5; flex: none;"></i>
@@ -2032,7 +2032,7 @@
                 <i class="ph ph-check" style="font-size: 12px; color: #4d97ea; display: {{ o.checkShow }};"></i>
               </div>
               </sc-for>
-              <div tabindex="0" style="display: flex; align-items: center; gap: 8px; padding: 7px 8px; border-radius: 6px; color: #6b7783; font: 400 12px/16px 'Open Sans', sans-serif; cursor: pointer; outline: none;" style-hover="background: #161f28; color: #c3cdd7;" style-focus="box-shadow: 0 0 0 3px rgba(43, 127, 228, 0.32);"><i class="ph ph-plus" style="font-size: 13px;"></i>New branch</div>
+              <div tabindex="0" style="display: flex; align-items: center; gap: 8px; padding: 7px 8px; border-radius: 6px; color: #6b7783; font: 400 12px/16px 'Open Sans', sans-serif; cursor: pointer; outline: none;" style-hover="background: #161f28; color: #c3cdd7;" style-focus="box-shadow: 0 0 0 3px rgba(43, 127, 228, 0.32);"><i class="ph ph-list" style="font-size: 13px;"></i>See all branches</div>
             </div>
           </div>
           </sc-if>
