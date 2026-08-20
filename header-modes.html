@@ -147,8 +147,13 @@
   #m7 .rseg .s.on { background: #3a2510; color: #f0c896; }
 
   /* ══ Round 2 — Admin is a heavy manual workspace ══ */
-  .deck { height: 40px; background: #0d141b; border-bottom: 1px solid #141d26; display: flex; align-items: center; gap: 12px; padding: 0 16px; position: relative; }
   .frame[data-mode="admin"] .ghost.keepa .a { display: block; width: 220px; }
+
+  /* ── M8: Admin unfolds its Config/Runtime inside the switch itself. */
+  #m8 .mseg .sub { display: inline-flex; align-items: center; gap: 2px; overflow: hidden; }
+  #m8 .mseg .subsep { width: 1px; height: 14px; background: #26313d; margin: 0 4px; flex: none; }
+  #m8 .mseg .sub .s { padding: 0 10px; }
+  #m8 .mseg .sub .s.on { background: transparent; color: #4d97ea; }
 
   /* ── M9: one prominent switch, colour-coded worlds. */
   #m9 .fig { display: inline-flex; align-items: center; gap: 2px; height: 28px; padding: 3px; border-radius: 99px; background: #0e161d; border: 1px solid #26313d; flex: none; }
@@ -166,9 +171,6 @@
   #m9 .frame[data-mode="admin"] .ghost.keepa .a { background: linear-gradient(180deg, #161009, #120d07); }
 
   /* ── M10: doors, not a toggle. */
-  #m10 .sub { height: 34px; background: #0d141b; border-bottom: 1px solid #141d26; display: flex; align-items: center; gap: 12px; padding: 0 16px; }
-  #m10 .crumbs { display: flex; align-items: center; gap: 6px; font: 400 11.5px/16px 'Open Sans', sans-serif; color: #6b7783; }
-  #m10 .crumbs b { font-weight: 600; color: #c3cdd7; }
   #m10 .btn.blue { background: #2b7fe4; border: none; color: #fff; }
   #m10 .btn.blue:hover { filter: brightness(1.12); }
 
@@ -458,49 +460,36 @@
 
 <div class="intro" style="padding-top: 64px;">
   <h1>Round 2 — Admin is not an errand</h1>
-  <p>Corrected model: in Build the agent drives; in Admin you drive — a heavy manual workspace with its own sidebars, subheaders and modals, still on the same project and branch. No rails, no sheets. The spine (mark · env · project · branch · Share) holds everywhere; the open question is where each world's furniture lives and how loudly the switch speaks.</p>
+  <p>Corrected model: in Build the agent drives; in Admin you drive — the existing heavy manual workspace, which brings its own navigation below the header and is not this prototype's subject. The header owes Admin exactly one thing: the Config/Runtime switch. No rails, no sheets, no subheaders. The spine (mark · env · project · branch · Share) holds everywhere; the open question is where that one switch lives and how loudly the mode speaks.</p>
 </div>
 
-<!-- ═══ M8 · two decks, one crown ═══ -->
+<!-- ═══ M8 · the switch unfolds ═══ -->
 <section class="v" id="m8">
-  <div class="cap"><b>M8 · Two decks, one crown</b><span>the 48px crown never changes an atom; each mode parks its furniture on its own deck below — Build's views, Admin's Config/Runtime + section nav. Admin needed a subheader anyway; Build pays 40px for total stability.</span></div>
+  <div class="cap"><b>M8 · The switch unfolds</b><span>Admin's only furniture is Config/Runtime, so it lives inside the switch itself — selecting Admin unfolds the two options in place. Cause and effect are the same control; the centre just empties, nothing teleports.</span></div>
   <div class="frame" data-mode="build">
     <div class="bar h48">
       <img class="logo" src="assets/flowx-mark-white.svg" alt="FlowX">
       <span class="env">SANDBOX</span>
       <span class="place hov"><span class="pj">Triglav</span><span class="slash">/</span><span class="nm">Investment Assistant</span><span class="bchip"><i class="ph ph-git-branch" style="font-size: 10px;"></i>main</span><i class="ph ph-caret-down caret"></i></span>
       <div class="grow"></div>
+      <div class="center bld"><div class="utabs" style="height: 48px;">
+        <span class="t hov on" data-tab>Chat</span>
+        <span class="t hov" data-tab>Plan</span>
+        <span class="t hov" data-tab>Canvas</span>
+        <span class="t hov" data-tab>Test run</span>
+      </div></div>
+      <span class="btn quiet hov bld"><i class="ph ph-chat-teardrop-text" style="font-size: 13px;"></i>Comment</span>
       <span class="btn quiet hov"><i class="ph ph-share-network" style="font-size: 13px;"></i>Share</span>
       <div class="vsep"></div>
       <div class="seg mseg">
         <span class="s hov" data-set-mode="build"><i class="ph ph-sparkle" style="font-size: 12px;"></i>Build</span>
         <span class="s hov" data-set-mode="admin"><i class="ph ph-gear-six" style="font-size: 12px;"></i>Admin</span>
+        <span class="sub adm">
+          <span class="subsep"></span>
+          <span class="s hov on" data-tab>Config</span>
+          <span class="s hov" data-tab>Runtime</span>
+        </span>
       </div>
-    </div>
-    <div class="deck bld">
-      <div class="utabs" style="height: 40px;">
-        <span class="t hov on" data-tab>Chat</span>
-        <span class="t hov" data-tab>Plan</span>
-        <span class="t hov" data-tab>Canvas</span>
-        <span class="t hov" data-tab>Test run</span>
-      </div>
-      <div class="grow"></div>
-      <span class="btn quiet hov" style="height: 26px;"><i class="ph ph-chat-teardrop-text" style="font-size: 13px;"></i>Comment</span>
-    </div>
-    <div class="deck adm">
-      <div class="seg views" style="height: 26px; padding: 2px;">
-        <span class="s hov on" data-tab style="height: 22px;">Config</span>
-        <span class="s hov" data-tab style="height: 22px;">Runtime</span>
-      </div>
-      <div class="vsep" style="height: 16px;"></div>
-      <div class="utabs" style="height: 40px;">
-        <span class="t hov on" data-tab>Processes</span>
-        <span class="t hov" data-tab>Data model</span>
-        <span class="t hov" data-tab>Enums</span>
-        <span class="t hov" data-tab>Media</span>
-        <span class="t hov" data-tab>Integrations</span>
-      </div>
-      <div class="grow"></div>
     </div>
     <div class="ghost keepa"><div class="a"></div><div class="b"></div></div>
   </div>
@@ -522,16 +511,9 @@
         <span class="t hov" data-tab>Canvas</span>
         <span class="t hov" data-tab>Test run</span>
       </div></div>
-      <div class="center adm"><div style="display: flex; align-items: center; gap: 12px; height: 46px;">
-        <div class="seg views">
-          <span class="s hov on" data-tab>Config</span>
-          <span class="s hov" data-tab>Runtime</span>
-        </div>
-        <div class="utabs" style="height: 46px;">
-          <span class="t hov on" data-tab>Processes</span>
-          <span class="t hov" data-tab>Data model</span>
-          <span class="t hov" data-tab>Enums</span>
-        </div>
+      <div class="center adm"><div class="seg views">
+        <span class="s hov on" data-tab>Config</span>
+        <span class="s hov" data-tab>Runtime</span>
       </div></div>
       <span class="btn quiet hov bld"><i class="ph ph-chat-teardrop-text" style="font-size: 13px;"></i>Comment</span>
       <span class="btn quiet hov"><i class="ph ph-share-network" style="font-size: 13px;"></i>Share</span>
@@ -560,26 +542,15 @@
         <span class="t hov" data-tab>Canvas</span>
         <span class="t hov" data-tab>Test run</span>
       </div></div>
-      <div class="center adm"><div class="utabs" style="height: 48px;">
-        <span class="t hov on" data-tab>Processes</span>
-        <span class="t hov" data-tab>Data model</span>
-        <span class="t hov" data-tab>Enums</span>
-        <span class="t hov" data-tab>Media</span>
-        <span class="t hov" data-tab>Integrations</span>
+      <div class="center adm"><div class="seg views">
+        <span class="s hov on" data-tab>Config</span>
+        <span class="s hov" data-tab>Runtime</span>
       </div></div>
       <span class="btn quiet hov bld"><i class="ph ph-chat-teardrop-text" style="font-size: 13px;"></i>Comment</span>
       <span class="btn quiet hov"><i class="ph ph-share-network" style="font-size: 13px;"></i>Share</span>
       <div class="vsep"></div>
       <span class="btn quiet hov bld" data-set-mode="admin"><i class="ph ph-sliders" style="font-size: 13px;"></i>Edit manually</span>
       <span class="btn blue hov adm" data-set-mode="build"><i class="ph ph-sparkle" style="font-size: 13px;"></i>Back to Build</span>
-    </div>
-    <div class="sub adm">
-      <div class="crumbs"><span>Config</span><span class="slash">/</span><span>Processes</span><span class="slash">/</span><b>Client onboarding</b></div>
-      <div class="grow"></div>
-      <div class="seg views" style="height: 24px; padding: 2px;">
-        <span class="s hov on" data-tab style="height: 20px; padding: 0 10px;">Config</span>
-        <span class="s hov" data-tab style="height: 20px; padding: 0 10px;">Runtime</span>
-      </div>
     </div>
     <div class="ghost keepa"><div class="a"></div><div class="b"></div></div>
   </div>
@@ -618,26 +589,23 @@
 
 <!-- ═══ M12 · build is a panel, not a place ═══ -->
 <section class="v" id="m12">
-  <div class="cap"><b>M12 · Build is a panel, not a place</b><span>the wild one: there is only the platform. The agent is a summonable surface docked right — it watches while you tweak manually, "mode" stops existing, and the header never morphs because there is only one. Click Assistant.</span></div>
+  <div class="cap"><b>M12 · Build is a panel, not a place</b><span>the wild one: there is only the platform, with its own nav below and its Config/Runtime in the centre — permanently. The agent is a summonable surface docked right; "mode" stops existing and the header never morphs because there is only one. Click Assistant.</span></div>
   <div class="frame" data-mode="build">
     <div class="bar h48">
       <img class="logo" src="assets/flowx-mark-white.svg" alt="FlowX">
       <span class="env">SANDBOX</span>
       <span class="place hov"><span class="pj">Triglav</span><span class="slash">/</span><span class="nm">Investment Assistant</span><span class="bchip"><i class="ph ph-git-branch" style="font-size: 10px;"></i>main</span><i class="ph ph-caret-down caret"></i></span>
       <div class="grow"></div>
-      <div class="center"><div class="utabs" style="height: 48px;">
-        <span class="t hov on" data-tab>Processes</span>
-        <span class="t hov" data-tab>Data model</span>
-        <span class="t hov" data-tab>Enums</span>
-        <span class="t hov" data-tab>Media</span>
-        <span class="t hov" data-tab>Integrations</span>
+      <div class="center"><div class="seg views">
+        <span class="s hov on" data-tab>Config</span>
+        <span class="s hov" data-tab>Runtime</span>
       </div></div>
       <span class="btn quiet hov"><i class="ph ph-share-network" style="font-size: 13px;"></i>Share</span>
       <div class="vsep"></div>
       <span class="btn quiet hov adm" data-set-mode="build"><i class="ph ph-sparkle" style="font-size: 13px;"></i>Assistant</span>
       <span class="btn assist hov bld" data-set-mode="admin"><i class="ph ph-sparkle" style="font-size: 13px;"></i>Assistant</span>
     </div>
-    <div class="ghost" style="height: 170px;">
+    <div class="ghost keepa" style="height: 170px;">
       <div class="a" style="width: 220px;"></div>
       <div class="b"></div>
       <div class="p bld">
@@ -669,16 +637,9 @@
         <span class="t hov" data-tab>Canvas</span>
         <span class="t hov" data-tab>Test run</span>
       </div></div>
-      <div class="center adm"><div style="display: flex; align-items: center; gap: 12px; height: 48px;">
-        <div class="seg views">
-          <span class="s hov on" data-tab>Config</span>
-          <span class="s hov" data-tab>Runtime</span>
-        </div>
-        <div class="utabs" style="height: 48px;">
-          <span class="t hov on" data-tab>Processes</span>
-          <span class="t hov" data-tab>Data model</span>
-          <span class="t hov" data-tab>Enums</span>
-        </div>
+      <div class="center adm"><div class="seg views">
+        <span class="s hov on" data-tab>Config</span>
+        <span class="s hov" data-tab>Runtime</span>
       </div></div>
       <span class="btn quiet hov bld"><i class="ph ph-chat-teardrop-text" style="font-size: 13px;"></i>Comment</span>
       <span class="btn quiet hov"><i class="ph ph-share-network" style="font-size: 13px;"></i>Share</span>
