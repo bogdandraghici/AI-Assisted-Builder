@@ -243,8 +243,12 @@
   // screen → screen navigation: only the jumps and returns — the strip's › glyphs carry the straight path
   const LINKS = [
     ['s0','s5',{lbl:'resume a draft'}],
+    ['s0','s7',{lbl:'resume — out for signature'}],
+    ['s2','s0',{back:1,lbl:'client declines profiling'}],
     ['s3','s2',{back:1,lbl:'band too tight — redo profiling'}],
     ['s5','s3',{back:1,lbl:'adjust the allocation'}],
+    ['s5','s4',{back:1,lbl:'fix personal data'}],
+    ['s5','s0',{back:1,lbl:'park for later'}],
     ['s7','s6',{back:1,lbl:'signature declined'}],
     ['s8','s0',{back:1,lbl:'done — next request'}]
   ];
@@ -277,20 +281,41 @@
   let sel = null, allOpen = false;
 
   function draw() {
+    let out = '<defs><marker id="ah" viewBox="0 0 8 8" refX="7" refY="4" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M0,0 L8,4 L0,8 z" fill="context-stroke"/></marker></defs>';
+    // links: fan each screen's anchors across its card bottom, nest overlapping arcs into depth tracks
+    const idx = n => parseInt(n.slice(1), 10);
+    const vis = [];
+    LINKS.forEach(([f, t, o], i) => { if (!sel || f === sel || t === sel) vis.push({ f, t, o: o || {}, i }); });
+    const fans = {};
+    vis.forEach(v => {
+      (fans[v.f] = fans[v.f] || []).push({ v, end: 'fx', far: idx(v.t) });
+      (fans[v.t] = fans[v.t] || []).push({ v, end: 'tx', far: idx(v.f) });
+    });
+    Object.keys(fans).forEach(k => {
+      const list = fans[k].sort((a, b) => a.far - b.far || a.v.i - b.v.i), r = pos(document.getElementById(k));
+      list.forEach((e, j) => {
+        e.v[e.end] = r.x + r.w / 2 + (list.length > 1 ? -44 + j * (88 / (list.length - 1)) : 0);
+        e.v.y = r.y + r.h + 2;
+      });
+    });
+    const placed = []; let deep = 16;
+    vis.sort((a, b) => Math.abs(idx(a.f) - idx(a.t)) - Math.abs(idx(b.f) - idx(b.t)));
+    vis.forEach(v => {
+      const L = Math.min(v.fx, v.tx), R = Math.max(v.fx, v.tx);
+      let tr = 0;
+      placed.forEach(p => { if (!(p.R + 12 < L || R + 12 < p.L)) tr = Math.max(tr, p.tr + 1); });
+      placed.push({ L, R, tr });
+      v.dp = 16 + tr * 15; deep = Math.max(deep, v.dp);
+    });
+    inner.style.paddingBottom = Math.ceil(0.75 * deep + 20) + 'px'; // padding set before the viewBox is measured
     const W = inner.scrollWidth, H = inner.scrollHeight;
     svg.setAttribute('viewBox', '0 0 ' + W + ' ' + H);
     svg.setAttribute('width', W); svg.setAttribute('height', H);
-    let out = '<defs><marker id="ah" viewBox="0 0 8 8" refX="7" refY="4" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M0,0 L8,4 L0,8 z" fill="context-stroke"/></marker></defs>';
-    LINKS.forEach(([f, t, o], i) => {
-      if (sel && f !== sel && t !== sel) return; // focused: only the selected screen's own links
-      const a = pos(document.getElementById(f)), b = pos(document.getElementById(t));
-      const span = Math.abs(parseInt(f.slice(1), 10) - parseInt(t.slice(1), 10));
-      const dp = Math.min(56, 16 + span * 6); // deeper arc for longer jumps so they nest, not cross
-      const x1 = a.x + a.w / 2 + 9, x2 = b.x + b.w / 2 - 9, y = a.y + a.h + 2;
-      out += '<path class="lk" data-w="lk' + i + '" data-f="' + f + '" data-t="' + t + '" d="M' + x1 + ',' + y
-        + ' C' + x1 + ',' + (y + dp) + ' ' + x2 + ',' + (y + dp) + ' ' + x2 + ',' + y + '" marker-end="url(#ah)"'
-        + (o.back ? ' stroke-dasharray="4 4"' : '') + '/>';
-      if (o.lbl) out += '<text class="llbl" data-w="lk' + i + '" x="' + ((x1 + x2) / 2) + '" y="' + (y + 53) + '">' + o.lbl + '</text>'; // one baseline under every arc
+    vis.forEach(v => {
+      out += '<path class="lk" data-w="lk' + v.i + '" data-f="' + v.f + '" data-t="' + v.t + '" d="M' + v.fx + ',' + v.y
+        + ' C' + v.fx + ',' + (v.y + v.dp) + ' ' + v.tx + ',' + (v.y + v.dp) + ' ' + v.tx + ',' + v.y + '" marker-end="url(#ah)"'
+        + (v.o.back ? ' stroke-dasharray="4 4"' : '') + '/>';
+      if (v.o.lbl) out += '<text class="llbl" data-w="lk' + v.i + '" x="' + ((v.fx + v.tx) / 2) + '" y="' + (v.y + v.dp * 0.75 - 4) + '">' + v.o.lbl + '</text>'; // floats just above its own arc's flat bottom
     });
     if (!document.body.classList.contains('expanded')) { svg.innerHTML = out; return; }
     WIRES.forEach(([f, t, o], i) => {
