@@ -2226,11 +2226,14 @@
                   <div style="font: 600 9px/14px ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; letter-spacing: 0.08em; text-transform: uppercase; color: {{ bpCurTagColor }}; border: 1px solid {{ bpCurTagBorder }}; border-radius: 99px; padding: 1px 7px;">{{ bpCurTag }}</div>
                 </div>
                 <div style="margin-top: 8px; font: 700 17px/24px 'Open Sans', sans-serif; color: #f5f9fc; text-wrap: pretty;">{{ bpCurQ }}</div>
-                <div style="margin-top: 12px; display: flex; flex-direction: column; gap: 8px; max-width: 520px;">
+                <div style="margin-top: 12px; display: flex; flex-direction: column; gap: 8px; max-width: 560px;">
                   <sc-for list="{{ bpCurOptions }}" as="o" hint-placeholder-count="2">
-                  <div onClick="{{ o.act }}" tabindex="0" style="display: flex; align-items: center; gap: 10px; border: 1px solid {{ o.border }}; background: {{ o.bg }}; border-radius: 10px; padding: 11px 14px; cursor: pointer; outline: none; transition: border-color 160ms cubic-bezier(0.2, 0, 0.2, 1), background 160ms cubic-bezier(0.2, 0, 0.2, 1);" style-hover="border-color: #4d97ea;" style-focus="box-shadow: 0 0 0 3px rgba(43, 127, 228, 0.32);">
-                    <i class="ph {{ o.icon }}" style="font-size: 16px; color: {{ o.iconColor }}; flex: none;"></i>
-                    <div style="min-width: 0; font: 600 13px/20px 'Open Sans', sans-serif; color: {{ o.textColor }}; text-wrap: pretty;">{{ o.label }}</div>
+                  <div onClick="{{ o.act }}" tabindex="0" style="display: flex; align-items: flex-start; gap: 10px; border: 1px solid #26313d; background: #131c24; border-radius: 8px; padding: 8px 12px; cursor: pointer; outline: none; color: #c3cdd7; transition: background 160ms cubic-bezier(0.2, 0, 0.2, 1), color 160ms cubic-bezier(0.2, 0, 0.2, 1);" style-hover="background: #1c2632; color: #f5f9fc;" style-focus="box-shadow: 0 0 0 3px rgba(43, 127, 228, 0.32);">
+                    <div style="width: 14px; height: 14px; flex: none; margin-top: 4px; border-radius: 99px; border: 1px solid #8b98a5;"></div>
+                    <div style="min-width: 0; font: 400 14px/22px 'Open Sans', sans-serif; text-wrap: pretty;">{{ o.label }}</div>
+                    <sc-if value="{{ o.proposed }}" hint-placeholder-val="{{ true }}">
+                    <div style="display: inline-flex; align-items: center; height: 18px; padding: 0 6px; margin: 2px 0 0 auto; border-radius: 4px; background: rgba(43, 127, 228, 0.14); border: 1px solid rgba(43, 127, 228, 0.28); color: #4d97ea; font: 400 10px/12px ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; text-transform: uppercase; letter-spacing: 0.14em; flex: none;">I would do this</div>
+                    </sc-if>
                   </div>
                   </sc-for>
                 </div>
@@ -2363,11 +2366,17 @@
                   <div style="font: 600 8px/13px ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; letter-spacing: 0.08em; text-transform: uppercase; color: {{ bpCurTagColor }}; border: 1px solid {{ bpCurTagBorder }}; border-radius: 99px; padding: 1px 6px;">{{ bpCurTag }}</div>
                 </div>
                 <div style="margin-top: 7px; font: 700 15px/21px 'Open Sans', sans-serif; color: #f5f9fc; text-wrap: pretty;">{{ bpCurQ }}</div>
-                <div style="margin-top: 10px; display: flex; flex-direction: column; gap: 7px;">
+                <div style="margin-top: 10px; display: flex; flex-direction: column; gap: 8px;">
                   <sc-for list="{{ bpCurOptions }}" as="o" hint-placeholder-count="2">
-                  <div onClick="{{ o.act }}" tabindex="0" style="display: flex; align-items: center; gap: 9px; border: 1px solid {{ o.border }}; background: {{ o.bg }}; border-radius: 9px; padding: 9px 11px; cursor: pointer; outline: none; transition: border-color 160ms cubic-bezier(0.2, 0, 0.2, 1);" style-hover="border-color: #4d97ea;" style-focus="box-shadow: 0 0 0 3px rgba(43, 127, 228, 0.32);">
-                    <i class="ph {{ o.icon }}" style="font-size: 15px; color: {{ o.iconColor }}; flex: none;"></i>
-                    <div style="min-width: 0; font: 600 12px/18px 'Open Sans', sans-serif; color: {{ o.textColor }}; text-wrap: pretty;">{{ o.label }}</div>
+<!-- 340 of rail: the badge is 96 and would leave the sentence 120, so it goes under the label. -->
+                  <div onClick="{{ o.act }}" tabindex="0" style="display: flex; align-items: flex-start; gap: 10px; border: 1px solid #26313d; background: #131c24; border-radius: 8px; padding: 8px 12px; cursor: pointer; outline: none; color: #c3cdd7; transition: background 160ms cubic-bezier(0.2, 0, 0.2, 1), color 160ms cubic-bezier(0.2, 0, 0.2, 1);" style-hover="background: #1c2632; color: #f5f9fc;" style-focus="box-shadow: 0 0 0 3px rgba(43, 127, 228, 0.32);">
+                    <div style="width: 14px; height: 14px; flex: none; margin-top: 2px; border-radius: 99px; border: 1px solid #8b98a5;"></div>
+                    <div style="min-width: 0; display: flex; flex-direction: column; align-items: flex-start; gap: 4px;">
+                      <div style="font: 400 12px/18px 'Open Sans', sans-serif; text-wrap: pretty;">{{ o.label }}</div>
+                      <sc-if value="{{ o.proposed }}" hint-placeholder-val="{{ true }}">
+                      <div style="display: inline-flex; align-items: center; height: 18px; padding: 0 6px; border-radius: 4px; background: rgba(43, 127, 228, 0.14); border: 1px solid rgba(43, 127, 228, 0.28); color: #4d97ea; font: 400 10px/12px ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; text-transform: uppercase; letter-spacing: 0.14em; flex: none;">I would do this</div>
+                      </sc-if>
+                    </div>
                   </div>
                   </sc-for>
                 </div>
@@ -2641,11 +2650,17 @@
                   <div style="font: 600 8px/13px ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; letter-spacing: 0.08em; text-transform: uppercase; color: {{ bpCurTagColor }}; border: 1px solid {{ bpCurTagBorder }}; border-radius: 99px; padding: 1px 6px;">{{ bpCurTag }}</div>
                 </div>
                 <div style="margin-top: 7px; font: 700 15px/21px 'Open Sans', sans-serif; color: #f5f9fc; text-wrap: pretty;">{{ bpCurQ }}</div>
-                <div style="margin-top: 10px; display: flex; flex-direction: column; gap: 7px;">
+                <div style="margin-top: 10px; display: flex; flex-direction: column; gap: 8px;">
                   <sc-for list="{{ bpCurOptions }}" as="o" hint-placeholder-count="2">
-                  <div onClick="{{ o.act }}" tabindex="0" style="display: flex; align-items: center; gap: 9px; border: 1px solid {{ o.border }}; background: {{ o.bg }}; border-radius: 9px; padding: 9px 11px; cursor: pointer; outline: none; transition: border-color 160ms cubic-bezier(0.2, 0, 0.2, 1);" style-hover="border-color: #4d97ea;" style-focus="box-shadow: 0 0 0 3px rgba(43, 127, 228, 0.32);">
-                    <i class="ph {{ o.icon }}" style="font-size: 15px; color: {{ o.iconColor }}; flex: none;"></i>
-                    <div style="min-width: 0; font: 600 12px/18px 'Open Sans', sans-serif; color: {{ o.textColor }}; text-wrap: pretty;">{{ o.label }}</div>
+<!-- 340 of rail: the badge is 96 and would leave the sentence 120, so it goes under the label. -->
+                  <div onClick="{{ o.act }}" tabindex="0" style="display: flex; align-items: flex-start; gap: 10px; border: 1px solid #26313d; background: #131c24; border-radius: 8px; padding: 8px 12px; cursor: pointer; outline: none; color: #c3cdd7; transition: background 160ms cubic-bezier(0.2, 0, 0.2, 1), color 160ms cubic-bezier(0.2, 0, 0.2, 1);" style-hover="background: #1c2632; color: #f5f9fc;" style-focus="box-shadow: 0 0 0 3px rgba(43, 127, 228, 0.32);">
+                    <div style="width: 14px; height: 14px; flex: none; margin-top: 2px; border-radius: 99px; border: 1px solid #8b98a5;"></div>
+                    <div style="min-width: 0; display: flex; flex-direction: column; align-items: flex-start; gap: 4px;">
+                      <div style="font: 400 12px/18px 'Open Sans', sans-serif; text-wrap: pretty;">{{ o.label }}</div>
+                      <sc-if value="{{ o.proposed }}" hint-placeholder-val="{{ true }}">
+                      <div style="display: inline-flex; align-items: center; height: 18px; padding: 0 6px; border-radius: 4px; background: rgba(43, 127, 228, 0.14); border: 1px solid rgba(43, 127, 228, 0.28); color: #4d97ea; font: 400 10px/12px ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; text-transform: uppercase; letter-spacing: 0.14em; flex: none;">I would do this</div>
+                      </sc-if>
+                    </div>
                   </div>
                   </sc-for>
                 </div>
@@ -2828,11 +2843,17 @@
                   <div style="font: 600 8px/13px ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; letter-spacing: 0.08em; text-transform: uppercase; color: {{ bpCurTagColor }}; border: 1px solid {{ bpCurTagBorder }}; border-radius: 99px; padding: 1px 6px;">{{ bpCurTag }}</div>
                 </div>
                 <div style="margin-top: 7px; font: 700 15px/21px 'Open Sans', sans-serif; color: #f5f9fc; text-wrap: pretty;">{{ bpCurQ }}</div>
-                <div style="margin-top: 10px; display: flex; flex-direction: column; gap: 7px;">
+                <div style="margin-top: 10px; display: flex; flex-direction: column; gap: 8px;">
                   <sc-for list="{{ bpCurOptions }}" as="o" hint-placeholder-count="2">
-                  <div onClick="{{ o.act }}" tabindex="0" style="display: flex; align-items: center; gap: 9px; border: 1px solid {{ o.border }}; background: {{ o.bg }}; border-radius: 9px; padding: 9px 11px; cursor: pointer; outline: none; transition: border-color 160ms cubic-bezier(0.2, 0, 0.2, 1);" style-hover="border-color: #4d97ea;" style-focus="box-shadow: 0 0 0 3px rgba(43, 127, 228, 0.32);">
-                    <i class="ph {{ o.icon }}" style="font-size: 15px; color: {{ o.iconColor }}; flex: none;"></i>
-                    <div style="min-width: 0; font: 600 12px/18px 'Open Sans', sans-serif; color: {{ o.textColor }}; text-wrap: pretty;">{{ o.label }}</div>
+<!-- 340 of rail: the badge is 96 and would leave the sentence 120, so it goes under the label. -->
+                  <div onClick="{{ o.act }}" tabindex="0" style="display: flex; align-items: flex-start; gap: 10px; border: 1px solid #26313d; background: #131c24; border-radius: 8px; padding: 8px 12px; cursor: pointer; outline: none; color: #c3cdd7; transition: background 160ms cubic-bezier(0.2, 0, 0.2, 1), color 160ms cubic-bezier(0.2, 0, 0.2, 1);" style-hover="background: #1c2632; color: #f5f9fc;" style-focus="box-shadow: 0 0 0 3px rgba(43, 127, 228, 0.32);">
+                    <div style="width: 14px; height: 14px; flex: none; margin-top: 2px; border-radius: 99px; border: 1px solid #8b98a5;"></div>
+                    <div style="min-width: 0; display: flex; flex-direction: column; align-items: flex-start; gap: 4px;">
+                      <div style="font: 400 12px/18px 'Open Sans', sans-serif; text-wrap: pretty;">{{ o.label }}</div>
+                      <sc-if value="{{ o.proposed }}" hint-placeholder-val="{{ true }}">
+                      <div style="display: inline-flex; align-items: center; height: 18px; padding: 0 6px; border-radius: 4px; background: rgba(43, 127, 228, 0.14); border: 1px solid rgba(43, 127, 228, 0.28); color: #4d97ea; font: 400 10px/12px ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; text-transform: uppercase; letter-spacing: 0.14em; flex: none;">I would do this</div>
+                      </sc-if>
+                    </div>
                   </div>
                   </sc-for>
                 </div>
@@ -5287,10 +5308,11 @@ class Component extends DCLogic {
       bpCurTagColor: bpCurTag[0],
       bpCurTagBorder: bpCurTag[1],
       bpCurQ: bpCur ? bpCur.q : '',
-      // The two answers — recommended checked, the other hollow; either one settles and advances.
+      // The two answers, as choice rows: both hollow until one is taken, and the one I would take
+      // says so in words. A tick and a green ground on the recommendation read as already chosen.
       bpCurOptions: bpCur ? [
-        { label: bpCur.rec, icon: 'ph-check-circle', iconColor: '#2ea86a', border: 'rgba(46, 168, 106, 0.34)', bg: 'rgba(46, 168, 106, 0.07)', textColor: '#f5f9fc', act: bpChoose(bpCur.id, 0) },
-        { label: bpCur.alt, icon: 'ph-circle', iconColor: '#6b7783', border: '#26313d', bg: 'transparent', textColor: '#c3cdd7', act: bpChoose(bpCur.id, 1) }
+        { label: bpCur.rec, proposed: true, act: bpChoose(bpCur.id, 0) },
+        { label: bpCur.alt, proposed: false, act: bpChoose(bpCur.id, 1) }
       ] : [],
 
       // ── The Plan tab: spine + open-step detail pane ──────────────────────
