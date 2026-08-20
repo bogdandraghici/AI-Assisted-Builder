@@ -3255,12 +3255,14 @@
                       </div>
                       <div onClick="{{ r.aiAct }}" tabindex="0" title="AI on this resource" style="flex: none; color: #c9a2f5; cursor: pointer; padding: 3px; border-radius: 6px; outline: none;" style-hover="background: rgba(168, 121, 230, 0.16);" style-focus="box-shadow: 0 0 0 3px rgba(168, 121, 230, 0.4);"><i class="ph ph-sparkle" style="font-size: 15px;"></i></div>
                     </div>
-                    <div style="display: {{ r.metaShow }}; margin-top: auto; align-items: center; gap: 6px; flex-wrap: wrap;">
-                      <span onClick="{{ r.statusAct }}" title="{{ r.statusTitle }}" style="display: {{ r.statusShow }}; align-items: center; gap: 5px; font: 600 8px/13px 'Open Sans', sans-serif; letter-spacing: 0.05em; text-transform: uppercase; padding: 2px 7px; border-radius: 99px; color: {{ r.statusColor }}; border: 1px solid {{ r.statusBorder }}; cursor: {{ r.statusCursor }};" style-hover="filter: brightness(1.25);"><span style="width: 5px; height: 5px; border-radius: 99px; background: {{ r.statusColor }};"></span>{{ r.statusText }}</span>
-                      <span style="display: {{ r.usePrefixShow }}; font: 400 10px/14px 'Open Sans', sans-serif; color: #4a5764;">{{ r.usePrefix }}</span>
-                      <sc-for list="{{ r.uses }}" as="u" hint-placeholder-count="2">
-                      <span onClick="{{ u.act }}" title="{{ u.title }}" style="display: inline-flex; align-items: center; height: 18px; padding: 0 7px; border-radius: 5px; background: {{ u.bg }}; border: 1px solid {{ u.border }}; color: {{ u.color }}; font: 400 10px/14px 'Open Sans', sans-serif; white-space: nowrap; cursor: {{ u.cursor }};" style-hover="filter: brightness(1.35);">{{ u.name }}</span>
-                      </sc-for>
+<!-- The screens it is used on wrap; the mock/connected chip keeps the bottom-right corner. -->
+                    <div style="display: {{ r.metaShow }}; margin-top: auto; align-items: flex-end; gap: 8px;">
+                      <div style="flex: 1; min-width: 0; display: {{ r.usesShow }}; align-items: center; gap: 6px; flex-wrap: wrap;">
+                        <sc-for list="{{ r.uses }}" as="u" hint-placeholder-count="2">
+                        <span onClick="{{ u.act }}" title="{{ u.title }}" style="display: inline-flex; align-items: center; height: 18px; padding: 0 7px; border-radius: 5px; background: {{ u.bg }}; border: 1px solid {{ u.border }}; color: {{ u.color }}; font: 400 10px/14px 'Open Sans', sans-serif; white-space: nowrap; cursor: {{ u.cursor }};" style-hover="filter: brightness(1.35);">{{ u.name }}</span>
+                        </sc-for>
+                      </div>
+                      <span onClick="{{ r.statusAct }}" title="{{ r.statusTitle }}" style="display: {{ r.statusShow }}; flex: none; margin-left: auto; align-items: center; gap: 5px; font: 600 8px/13px 'Open Sans', sans-serif; letter-spacing: 0.05em; text-transform: uppercase; padding: 2px 7px; border-radius: 99px; color: {{ r.statusColor }}; border: 1px solid {{ r.statusBorder }}; cursor: {{ r.statusCursor }};" style-hover="filter: brightness(1.25);"><span style="width: 5px; height: 5px; border-radius: 99px; background: {{ r.statusColor }};"></span>{{ r.statusText }}</span>
                     </div>
                   </div>
                 </div>
@@ -5570,7 +5572,7 @@ class Component extends DCLogic {
       glyph: '', glyphColor: 'transparent', glyphBg: 'transparent', label: '', typeLine: '',
       openAct: null, aiAct: null, metaShow: 'none', statusShow: 'none', statusText: '', statusColor: 'transparent',
       statusBorder: 'transparent', statusCursor: 'default', statusTitle: '', statusAct: null,
-      usePrefixShow: 'none', usePrefix: '', uses: [] };
+      usesShow: 'none', uses: [] };
     const bpResRows = [];
     Object.keys(GORDER).forEach(g => {
       const items = resShown.filter(r => r.g === g);
@@ -5597,8 +5599,7 @@ class Component extends DCLogic {
           statusCursor: sk ? 'pointer' : 'default',
           statusTitle: live ? 'Connected — put it back on mock data' : 'On mock data — connect it',
           statusAct: sk ? resFlip(sk, live ? 'mock' : 'live') : null,
-          usePrefixShow: on.length ? 'inline' : 'none',
-          usePrefix: resAll ? 'on' : 'also on',
+          usesShow: on.length ? 'flex' : 'none',
           uses: on.map(sid => ({
             name: SCREEN_SHORT[sid] || sid,
             title: sid === 'kb' ? 'Runs offline, ahead of any request' : 'Show ' + (SCREEN_SHORT[sid] || sid) + ' on the map',
