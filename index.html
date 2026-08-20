@@ -2056,24 +2056,13 @@
           </div>
           </sc-if>
         </div>
-        </div>
-        <div style="flex: 1;"></div>
-<!-- The view switcher — dead center of the bar, absolute so the breadcrumb never pushes it; gone in Admin. -->
-<sc-if value="{{ bpNotAdmin }}" hint-placeholder-val="{{ true }}">
-        <div style="position: absolute; left: 50%; top: 50%; transform: translate(-50%, -50%); display: inline-flex; align-items: center; gap: 2px; height: 26px; padding: 2px; border: 1px solid #26313d; border-radius: 8px; background: #0e161d; flex: none;">
-          <div onClick="{{ bpTabChat }}" tabindex="0" title="The conversation" style="display: inline-flex; align-items: center; height: 20px; padding: 0 10px; border-radius: 6px; background: {{ bpChatBg }}; color: {{ bpChatColor }}; font: 600 12px/16px 'Open Sans', sans-serif; cursor: pointer; outline: none; transition: background 160ms cubic-bezier(0.2, 0, 0.2, 1), color 160ms cubic-bezier(0.2, 0, 0.2, 1);" style-hover="color: #ffffff;" style-focus="box-shadow: 0 0 0 3px rgba(43, 127, 228, 0.32);">Chat</div>
-          <div onClick="{{ bpTabPlan }}" tabindex="0" title="The plan" style="display: inline-flex; align-items: center; height: 20px; padding: 0 10px; border-radius: 6px; background: {{ bpPlanBg }}; color: {{ bpPlanColor }}; font: 600 12px/16px 'Open Sans', sans-serif; cursor: pointer; outline: none; transition: background 160ms cubic-bezier(0.2, 0, 0.2, 1), color 160ms cubic-bezier(0.2, 0, 0.2, 1);" style-hover="color: #ffffff;" style-focus="box-shadow: 0 0 0 3px rgba(43, 127, 228, 0.32);">Plan</div>
-          <div onClick="{{ bpTabCanvas }}" tabindex="0" title="The solution on one canvas" style="display: inline-flex; align-items: center; height: 20px; padding: 0 10px; border-radius: 6px; background: {{ bpCanvasBg }}; color: {{ bpCanvasColor }}; font: 600 12px/16px 'Open Sans', sans-serif; cursor: pointer; outline: none; transition: background 160ms cubic-bezier(0.2, 0, 0.2, 1), color 160ms cubic-bezier(0.2, 0, 0.2, 1);" style-hover="color: #ffffff;" style-focus="box-shadow: 0 0 0 3px rgba(43, 127, 228, 0.32);">Canvas</div>
-          <div onClick="{{ bpTabRun }}" tabindex="0" title="Run the happy path" style="display: inline-flex; align-items: center; height: 20px; padding: 0 10px; border-radius: 6px; background: {{ bpRunBg }}; color: {{ bpRunColor }}; font: 600 12px/16px 'Open Sans', sans-serif; cursor: pointer; outline: none; transition: background 160ms cubic-bezier(0.2, 0, 0.2, 1), color 160ms cubic-bezier(0.2, 0, 0.2, 1);" style-hover="color: #ffffff;" style-focus="box-shadow: 0 0 0 3px rgba(43, 127, 228, 0.32);">Test run</div>
-        </div>
-</sc-if>
-<!-- Environment select — the run context, kept right with the actions it scopes. -->
+<!-- Environment select — the run context, riding right beside the version it qualifies. -->
         <div style="position: relative; flex: none; z-index: 55;">
-          <div onClick="{{ bpNavEnvAct }}" tabindex="0" title="Environment" style="display: inline-flex; align-items: center; gap: 7px; height: 28px; padding: 0 10px; border-radius: 8px; border: 1px solid #26313d; background: #161f28; color: #c3cdd7; font: 600 12px/16px 'Open Sans', sans-serif; cursor: pointer; outline: none;" style-hover="border-color: #4d97ea; color: #ffffff;" style-focus="box-shadow: 0 0 0 3px rgba(43, 127, 228, 0.32);">
+          <div onClick="{{ bpNavEnvAct }}" tabindex="0" title="Environment" style="display: inline-flex; align-items: center; gap: 7px; height: 28px; padding: 0 8px; border-radius: 6px; color: #c3cdd7; font: 600 12px/16px 'Open Sans', sans-serif; cursor: pointer; outline: none; transition: background 160ms cubic-bezier(0.2, 0, 0.2, 1);" style-hover="background: #1c2632; color: #ffffff;" style-focus="box-shadow: 0 0 0 3px rgba(43, 127, 228, 0.32);">
             <span style="width: 7px; height: 7px; border-radius: 99px; background: {{ bpEnvDot }}; flex: none;"></span>{{ bpEnvName }}<i class="ph ph-caret-down" style="font-size: 10px; color: #6b7783;"></i>
           </div>
           <sc-if value="{{ bpNavEnvOpen }}" hint-placeholder-val="{{ false }}">
-          <div style="position: absolute; top: 34px; right: 0; z-index: 60; min-width: 230px; background: #101820; border: 1px solid #26313d; border-radius: 10px; box-shadow: 0 16px 48px rgba(0, 0, 0, 0.55); padding: 6px;">
+          <div style="position: absolute; top: 34px; left: 0; z-index: 60; min-width: 230px; background: #101820; border: 1px solid #26313d; border-radius: 10px; box-shadow: 0 16px 48px rgba(0, 0, 0, 0.55); padding: 6px;">
             <sc-for list="{{ bpEnvOpts }}" as="o" hint-placeholder-count="3">
             <div onClick="{{ o.act }}" tabindex="0" style="display: flex; align-items: center; gap: 9px; padding: 8px 9px; border-radius: 6px; background: {{ o.rowBg }}; cursor: pointer; outline: none;" style-hover="background: #161f28;" style-focus="box-shadow: 0 0 0 3px rgba(43, 127, 228, 0.32);">
               <span style="width: 8px; height: 8px; border-radius: 99px; background: {{ o.dot }}; flex: none;"></span>
@@ -2089,8 +2078,18 @@
           </div>
           </sc-if>
         </div>
+        </div>
+        <div style="flex: 1;"></div>
+<!-- The view switcher — dead center of the bar, absolute so the breadcrumb never pushes it; gone in Admin. -->
 <sc-if value="{{ bpNotAdmin }}" hint-placeholder-val="{{ true }}">
-        <div style="width: 1px; height: 20px; background: #1c2632; flex: none;"></div>
+        <div style="position: absolute; left: 50%; top: 50%; transform: translate(-50%, -50%); display: inline-flex; align-items: center; gap: 2px; height: 26px; padding: 2px; border: 1px solid #26313d; border-radius: 8px; background: #0e161d; flex: none;">
+          <div onClick="{{ bpTabChat }}" tabindex="0" title="The conversation" style="display: inline-flex; align-items: center; height: 20px; padding: 0 10px; border-radius: 6px; background: {{ bpChatBg }}; color: {{ bpChatColor }}; font: 600 12px/16px 'Open Sans', sans-serif; cursor: pointer; outline: none; transition: background 160ms cubic-bezier(0.2, 0, 0.2, 1), color 160ms cubic-bezier(0.2, 0, 0.2, 1);" style-hover="color: #ffffff;" style-focus="box-shadow: 0 0 0 3px rgba(43, 127, 228, 0.32);">Chat</div>
+          <div onClick="{{ bpTabPlan }}" tabindex="0" title="The plan" style="display: inline-flex; align-items: center; height: 20px; padding: 0 10px; border-radius: 6px; background: {{ bpPlanBg }}; color: {{ bpPlanColor }}; font: 600 12px/16px 'Open Sans', sans-serif; cursor: pointer; outline: none; transition: background 160ms cubic-bezier(0.2, 0, 0.2, 1), color 160ms cubic-bezier(0.2, 0, 0.2, 1);" style-hover="color: #ffffff;" style-focus="box-shadow: 0 0 0 3px rgba(43, 127, 228, 0.32);">Plan</div>
+          <div onClick="{{ bpTabCanvas }}" tabindex="0" title="The solution on one canvas" style="display: inline-flex; align-items: center; height: 20px; padding: 0 10px; border-radius: 6px; background: {{ bpCanvasBg }}; color: {{ bpCanvasColor }}; font: 600 12px/16px 'Open Sans', sans-serif; cursor: pointer; outline: none; transition: background 160ms cubic-bezier(0.2, 0, 0.2, 1), color 160ms cubic-bezier(0.2, 0, 0.2, 1);" style-hover="color: #ffffff;" style-focus="box-shadow: 0 0 0 3px rgba(43, 127, 228, 0.32);">Canvas</div>
+          <div onClick="{{ bpTabRun }}" tabindex="0" title="Run the happy path" style="display: inline-flex; align-items: center; height: 20px; padding: 0 10px; border-radius: 6px; background: {{ bpRunBg }}; color: {{ bpRunColor }}; font: 600 12px/16px 'Open Sans', sans-serif; cursor: pointer; outline: none; transition: background 160ms cubic-bezier(0.2, 0, 0.2, 1), color 160ms cubic-bezier(0.2, 0, 0.2, 1);" style-hover="color: #ffffff;" style-focus="box-shadow: 0 0 0 3px rgba(43, 127, 228, 0.32);">Test run</div>
+        </div>
+</sc-if>
+<sc-if value="{{ bpNotAdmin }}" hint-placeholder-val="{{ true }}">
 <!-- Comment — on the Test run and the Canvas, arms comment mode over the embedded frame. -->
 <sc-if value="{{ bpNoteBtnShow }}" hint-placeholder-val="{{ false }}">
         <div onClick="{{ bpNoteToggle }}" tabindex="0" title="{{ bpNoteBtnTitle }}" style="display: inline-flex; align-items: center; gap: 6px; height: 28px; padding: 0 10px; border-radius: 8px; border: 1px solid {{ bpNoteBtnBorder }}; background: {{ bpNoteBtnBg }}; color: {{ bpNoteBtnColor }}; font: 600 12px/16px 'Open Sans', sans-serif; cursor: pointer; outline: none; flex: none; transition: all 160ms cubic-bezier(0.2, 0, 0.2, 1);" style-hover="filter: brightness(1.15);" style-focus="box-shadow: 0 0 0 3px rgba(43, 127, 228, 0.32);"><i class="ph ph-chat-teardrop-text" style="font-size: 13px; color: {{ bpNoteBtnIcon }};"></i>Comment</div>

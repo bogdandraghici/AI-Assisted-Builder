@@ -1,0 +1,330 @@
+<!DOCTYPE html>
+<!-- Header explorations — seven takes on the builder's top bar, to pick one from.
+     Static mocks, no support.js; env always rides beside the branch. -->
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Header versions — FlowX AI-assisted builder</title>
+<link rel="stylesheet" href="https://unpkg.com/@phosphor-icons/web@2.1.1/src/regular/style.css" />
+<link rel="stylesheet" href="https://unpkg.com/@phosphor-icons/web@2.1.1/src/fill/style.css" />
+<style>
+  @font-face { font-family: 'Open Sans'; font-style: normal; font-weight: 400; font-display: swap; src: url('fonts/OpenSans-Regular.ttf') format('truetype'); }
+  @font-face { font-family: 'Open Sans'; font-style: normal; font-weight: 600; font-display: swap; src: url('fonts/OpenSans-SemiBold.ttf') format('truetype'); }
+  @font-face { font-family: 'Open Sans'; font-style: normal; font-weight: 700; font-display: swap; src: url('fonts/OpenSans-Bold.ttf') format('truetype'); }
+  *, *::before, *::after { box-sizing: border-box; }
+  html, body { margin: 0; padding: 0; background: #06090c; font-family: 'Open Sans', -apple-system, sans-serif; -webkit-font-smoothing: antialiased; color: #f5f9fc; }
+
+  .intro { max-width: 1520px; margin: 0 auto; padding: 40px 24px 8px; }
+  .intro h1 { font: 700 20px/26px 'Open Sans', sans-serif; margin: 0 0 6px; }
+  .intro p { font: 400 13px/19px 'Open Sans', sans-serif; color: #8b98a5; margin: 0; }
+
+  section.v { max-width: 1520px; margin: 36px auto 0; padding: 0 24px; }
+  section.v:last-of-type { padding-bottom: 80px; }
+  .cap { display: flex; align-items: baseline; gap: 10px; margin: 0 2px 10px; }
+  .cap b { font: 700 13px/18px 'Open Sans', sans-serif; color: #f5f9fc; }
+  .cap span { font: 400 12px/18px 'Open Sans', sans-serif; color: #6b7783; }
+  .frame { border: 1px solid #1a232d; border-radius: 12px; overflow: hidden; background: #0b1218; box-shadow: 0 20px 60px rgba(0,0,0,.45); }
+
+  /* Ghost content under each header, for scale. */
+  .ghost { height: 96px; display: flex; gap: 14px; padding: 16px; }
+  .ghost .a { width: 300px; border-radius: 8px; background: linear-gradient(180deg, #101820, #0d141b); }
+  .ghost .b { flex: 1; border-radius: 8px; background: linear-gradient(180deg, #0f171f, #0c1219); }
+
+  /* Shared header atoms. */
+  .bar { background: #101820; border-bottom: 1px solid #18212a; display: flex; align-items: center; padding: 0 16px; position: relative; }
+  .h48 { height: 48px; gap: 12px; }
+  .logo { height: 22px; width: auto; flex: none; display: block; }
+  .grow { flex: 1; }
+  .vsep { width: 1px; height: 20px; background: #1c2632; flex: none; }
+  .hov { transition: background 160ms cubic-bezier(.2,0,.2,1), color 160ms cubic-bezier(.2,0,.2,1), border-color 160ms cubic-bezier(.2,0,.2,1); cursor: pointer; }
+  .f12 { font: 600 12px/16px 'Open Sans', sans-serif; }
+  .muted { color: #8b98a5; }
+  .faint { color: #6b7783; }
+  .slash { font: 400 12px/16px 'Open Sans', sans-serif; color: #3a4653; flex: none; }
+  .dot { width: 7px; height: 7px; border-radius: 99px; background: #4d97ea; flex: none; display: inline-block; }
+  .dot.uat { background: #e6b455; }
+  .caret { font-size: 10px; color: #6b7783; }
+
+  .crumb { display: inline-flex; align-items: center; gap: 6px; height: 28px; padding: 0 8px; border-radius: 6px; color: #f5f9fc; flex: none; }
+  .crumb.q { color: #8b98a5; }
+  .crumb.hov:hover { background: #1c2632; color: #fff; }
+
+  .btn { display: inline-flex; align-items: center; gap: 6px; height: 28px; padding: 0 12px; border-radius: 8px; flex: none; font: 600 12px/16px 'Open Sans', sans-serif; }
+  .btn.primary { background: #2b7fe4; color: #fff; padding: 0 14px; }
+  .btn.primary:hover { filter: brightness(1.12); }
+  .btn.quiet { border: 1px solid #26313d; background: #161f28; color: #c3cdd7; }
+  .btn.quiet:hover { border-color: #4d97ea; color: #fff; }
+  .iconbtn { width: 28px; height: 28px; border-radius: 8px; display: inline-flex; align-items: center; justify-content: center; color: #8b98a5; flex: none; }
+  .iconbtn:hover { background: #1c2632; color: #fff; }
+
+  .seg { display: inline-flex; align-items: center; gap: 2px; height: 26px; padding: 2px; border: 1px solid #26313d; border-radius: 8px; background: #0e161d; flex: none; }
+  .seg .s { display: inline-flex; align-items: center; gap: 5px; height: 20px; padding: 0 10px; border-radius: 6px; color: #8b98a5; font: 600 12px/16px 'Open Sans', sans-serif; }
+  .seg .s:hover { color: #fff; }
+  .seg .s.on { background: #1c2632; color: #fff; }
+
+  /* Full-height underline tabs. */
+  .utabs { display: flex; align-items: stretch; align-self: stretch; }
+  .utabs .t { display: inline-flex; align-items: center; gap: 6px; padding: 0 14px; color: #8b98a5; font: 600 12px/16px 'Open Sans', sans-serif; position: relative; }
+  .utabs .t:hover { color: #e7edf2; }
+  .utabs .t.on { color: #fff; }
+  .utabs .t.on::after { content: ''; position: absolute; left: 10px; right: 10px; bottom: -1px; height: 2px; border-radius: 2px 2px 0 0; background: #2b7fe4; }
+
+  .center { position: absolute; left: 50%; top: 0; bottom: 0; transform: translateX(-50%); display: flex; align-items: center; }
+</style>
+</head>
+<body>
+
+<div class="intro">
+  <h1>Header versions</h1>
+  <p>Seven takes on the builder's top bar. Same ingredients everywhere — mark, Build/Admin mode, Triglav &rsaquo; project, branch + environment (always together), Chat/Plan/Canvas/Test&nbsp;run, Comment, Share — different architecture each time. Hover things; nothing else is wired.</p>
+</div>
+
+<!-- ═══ V1 ═══ -->
+<section class="v">
+  <div class="cap"><b>V1 · Flat &amp; typographic</b><span>no boxes at all — the views are full-height underline tabs, everything else is quiet text; hierarchy from weight, not chrome.</span></div>
+  <div class="frame">
+    <div class="bar h48" style="padding-bottom: 0;">
+      <img class="logo" src="assets/flowx-mark-white.svg" alt="FlowX">
+      <div style="display: inline-flex; align-items: center; gap: 10px; flex: none; font: 600 12px/16px 'Open Sans', sans-serif;">
+        <span class="hov" style="color: #fff;">Build</span>
+        <span class="slash">/</span>
+        <span class="hov faint" style="font-weight: 400;">Admin</span>
+      </div>
+      <div class="vsep"></div>
+      <div style="display: flex; align-items: center; gap: 2px; flex: none;">
+        <span class="crumb q" style="padding: 0 6px;">Triglav</span>
+        <span class="slash">/</span>
+        <span class="crumb hov">Investment Assistant <i class="ph ph-caret-down caret"></i></span>
+        <span class="slash">/</span>
+        <span class="crumb hov q"><i class="ph ph-git-branch" style="font-size: 12px;"></i>main <i class="ph ph-caret-down caret"></i></span>
+        <span class="crumb hov q"><span class="dot"></span>Sandbox <i class="ph ph-caret-down caret"></i></span>
+      </div>
+      <div class="grow"></div>
+      <div class="utabs">
+        <span class="t hov on">Chat</span>
+        <span class="t hov">Plan</span>
+        <span class="t hov">Canvas</span>
+        <span class="t hov">Test run</span>
+      </div>
+      <div class="grow"></div>
+      <span class="iconbtn hov" title="Comment"><i class="ph ph-chat-teardrop-text" style="font-size: 15px;"></i></span>
+      <span class="btn primary hov"><i class="ph ph-share-network" style="font-size: 13px;"></i>Share</span>
+    </div>
+    <div class="ghost"><div class="a"></div><div class="b"></div></div>
+  </div>
+</section>
+
+<!-- ═══ V2 ═══ -->
+<section class="v">
+  <div class="cap"><b>V2 · Two decks</b><span>top strip says where you are, bottom strip is what you're doing — mode, views and Comment live on the work deck.</span></div>
+  <div class="frame">
+    <div class="bar" style="height: 38px; gap: 12px; background: #0c1319; border-bottom: 1px solid #141d26;">
+      <img class="logo" src="assets/flowx-mark-white.svg" alt="FlowX" style="height: 19px;">
+      <div style="display: flex; align-items: center; gap: 2px; flex: none; font-size: 12px;">
+        <span class="crumb q" style="height: 24px; padding: 0 6px;">Triglav</span>
+        <span class="slash">/</span>
+        <span class="crumb hov" style="height: 24px;">Investment Assistant <i class="ph ph-caret-down caret"></i></span>
+        <span class="slash">/</span>
+        <span class="crumb hov q" style="height: 24px;"><i class="ph ph-git-branch" style="font-size: 12px;"></i>main <i class="ph ph-caret-down caret"></i></span>
+        <span class="crumb hov q" style="height: 24px;"><span class="dot"></span>Sandbox <i class="ph ph-caret-down caret"></i></span>
+      </div>
+      <div class="grow"></div>
+      <span class="hov muted f12" style="display: inline-flex; align-items: center; gap: 6px; height: 24px; padding: 0 8px; border-radius: 6px;"><i class="ph ph-share-network" style="font-size: 13px;"></i>Share</span>
+    </div>
+    <div class="bar" style="height: 40px; gap: 12px;">
+      <div class="seg" style="height: 24px;">
+        <span class="s on" style="height: 18px;"><i class="ph ph-sparkle" style="font-size: 11px;"></i>Build</span>
+        <span class="s hov" style="height: 18px;"><i class="ph ph-gear-six" style="font-size: 11px;"></i>Admin</span>
+      </div>
+      <div class="center utabs">
+        <span class="t hov on"><i class="ph ph-chats-circle" style="font-size: 13px;"></i>Chat</span>
+        <span class="t hov"><i class="ph ph-list-checks" style="font-size: 13px;"></i>Plan</span>
+        <span class="t hov"><i class="ph ph-polygon" style="font-size: 13px;"></i>Canvas</span>
+        <span class="t hov"><i class="ph ph-play" style="font-size: 13px;"></i>Test run</span>
+      </div>
+      <div class="grow"></div>
+      <span class="btn quiet hov" style="height: 26px;"><i class="ph ph-chat-teardrop-text" style="font-size: 13px;"></i>Comment</span>
+      <span class="btn primary hov" style="height: 26px;">Share</span>
+    </div>
+    <div class="ghost"><div class="a"></div><div class="b"></div></div>
+  </div>
+</section>
+
+<!-- ═══ V3 ═══ -->
+<section class="v">
+  <div class="cap"><b>V3 · Command capsule</b><span>the place is one address-bar pill dead center — project / branch / env in a single hand; views dock left by the mark, actions right.</span></div>
+  <div class="frame">
+    <div class="bar h48">
+      <img class="logo" src="assets/flowx-mark-white.svg" alt="FlowX">
+      <div class="seg">
+        <span class="s on"><i class="ph ph-chats-circle" style="font-size: 12px;"></i>Chat</span>
+        <span class="s hov"><i class="ph ph-list-checks" style="font-size: 12px;"></i>Plan</span>
+        <span class="s hov"><i class="ph ph-polygon" style="font-size: 12px;"></i>Canvas</span>
+        <span class="s hov"><i class="ph ph-play" style="font-size: 12px;"></i>Test run</span>
+      </div>
+      <div class="center">
+        <div class="hov" style="display: inline-flex; align-items: center; gap: 10px; height: 30px; padding: 0 6px 0 14px; border-radius: 99px; border: 1px solid #26313d; background: #0e161d;">
+          <span class="f12 faint" style="font-weight: 400;">Triglav</span>
+          <span class="slash">/</span>
+          <span class="f12" style="color: #fff;">Investment Assistant</span>
+          <span style="width: 1px; height: 14px; background: #26313d;"></span>
+          <span class="f12 muted" style="display: inline-flex; align-items: center; gap: 5px;"><i class="ph ph-git-branch" style="font-size: 12px;"></i>main</span>
+          <span class="f12" style="display: inline-flex; align-items: center; gap: 6px; height: 22px; padding: 0 10px; border-radius: 99px; background: rgba(43,127,228,.14); color: #7db3f2;"><span class="dot" style="width: 6px; height: 6px;"></span>Sandbox <i class="ph ph-caret-down" style="font-size: 9px; color: #5c7ea6;"></i></span>
+        </div>
+      </div>
+      <div class="grow"></div>
+      <div class="seg" title="Build / Admin">
+        <span class="s on" style="padding: 0 8px;"><i class="ph ph-sparkle" style="font-size: 13px;"></i></span>
+        <span class="s hov" style="padding: 0 8px;"><i class="ph ph-gear-six" style="font-size: 13px;"></i></span>
+      </div>
+      <span class="iconbtn hov" title="Comment"><i class="ph ph-chat-teardrop-text" style="font-size: 15px;"></i></span>
+      <span class="btn primary hov"><i class="ph ph-share-network" style="font-size: 13px;"></i>Share</span>
+    </div>
+    <div class="ghost"><div class="a"></div><div class="b"></div></div>
+  </div>
+</section>
+
+<!-- ═══ V4 ═══ -->
+<section class="v">
+  <div class="cap"><b>V4 · Environment-painted</b><span>the env stops being one more pill and becomes the frame's edge color + a fused version lozenge (main · Sandbox); mode is a dropdown on the mark.</span></div>
+  <div class="frame">
+    <div style="height: 2px; background: linear-gradient(90deg, #2b7fe4, #4d97ea);"></div>
+    <div class="bar" style="height: 46px; gap: 12px;">
+      <span class="hov" style="display: inline-flex; align-items: center; gap: 8px; height: 30px; padding: 0 8px; margin: 0 -8px 0 -4px; border-radius: 8px;">
+        <img class="logo" src="assets/flowx-mark-white.svg" alt="FlowX">
+        <span class="f12" style="color: #fff;">Build</span>
+        <i class="ph ph-caret-down caret"></i>
+      </span>
+      <div class="vsep"></div>
+      <div style="display: flex; align-items: center; gap: 2px; flex: none;">
+        <span class="crumb q" style="padding: 0 6px;">Triglav</span>
+        <span class="slash">/</span>
+        <span class="crumb hov">Investment Assistant <i class="ph ph-caret-down caret"></i></span>
+      </div>
+      <span style="display: inline-flex; align-items: stretch; height: 28px; border: 1px solid rgba(43,127,228,.38); border-radius: 8px; overflow: hidden; flex: none;">
+        <span class="hov f12 muted" style="display: inline-flex; align-items: center; gap: 5px; padding: 0 10px;"><i class="ph ph-git-branch" style="font-size: 12px;"></i>main</span>
+        <span style="width: 1px; background: rgba(43,127,228,.38);"></span>
+        <span class="hov f12" style="display: inline-flex; align-items: center; gap: 6px; padding: 0 10px; background: rgba(43,127,228,.12); color: #7db3f2;"><span class="dot" style="width: 6px; height: 6px;"></span>Sandbox <i class="ph ph-caret-down" style="font-size: 9px; color: #5c7ea6;"></i></span>
+      </span>
+      <div class="grow"></div>
+      <div style="display: flex; align-items: center; gap: 4px;">
+        <span class="btn hov" style="color: #fff; background: #1c2632;">Chat</span>
+        <span class="btn hov muted">Plan</span>
+        <span class="btn hov muted">Canvas</span>
+        <span class="btn hov muted">Test run</span>
+      </div>
+      <div class="grow"></div>
+      <span class="iconbtn hov" title="Comment"><i class="ph ph-chat-teardrop-text" style="font-size: 15px;"></i></span>
+      <span class="btn primary hov"><i class="ph ph-share-network" style="font-size: 13px;"></i>Share</span>
+    </div>
+    <div class="ghost"><div class="a"></div><div class="b"></div></div>
+  </div>
+</section>
+
+<!-- ═══ V5 ═══ -->
+<section class="v">
+  <div class="cap"><b>V5 · Full-height mode tabs</b><span>Build and Admin are the bar's two roots — folder tabs flush with the content, the active one fused to the page below.</span></div>
+  <div class="frame">
+    <div class="bar h48" style="padding-left: 0; gap: 0;">
+      <div style="align-self: stretch; display: flex; align-items: center; padding: 0 14px 0 16px; background: #0c1319; border-right: 1px solid #18212a;">
+        <img class="logo" src="assets/flowx-mark-white.svg" alt="FlowX">
+      </div>
+      <span class="hov" style="align-self: stretch; display: inline-flex; align-items: center; gap: 7px; padding: 0 16px; background: #0b1218; border-right: 1px solid #18212a; box-shadow: inset 0 2px 0 #2b7fe4; color: #fff; font: 600 12px/16px 'Open Sans', sans-serif; margin-bottom: -1px;"><i class="ph-fill ph-sparkle" style="font-size: 13px; color: #4d97ea;"></i>Build</span>
+      <span class="hov muted" style="align-self: stretch; display: inline-flex; align-items: center; gap: 7px; padding: 0 16px; border-right: 1px solid #18212a; font: 600 12px/16px 'Open Sans', sans-serif;"><i class="ph ph-gear-six" style="font-size: 13px;"></i>Admin</span>
+      <div style="display: flex; align-items: center; gap: 2px; flex: none; margin-left: 14px;">
+        <span class="crumb q" style="padding: 0 6px;">Triglav</span>
+        <span class="slash">/</span>
+        <span class="crumb hov">Investment Assistant <i class="ph ph-caret-down caret"></i></span>
+        <span class="slash">/</span>
+        <span class="crumb hov q"><i class="ph ph-git-branch" style="font-size: 12px;"></i>main <i class="ph ph-caret-down caret"></i></span>
+        <span class="crumb hov q"><span class="dot"></span>Sandbox <i class="ph ph-caret-down caret"></i></span>
+      </div>
+      <div class="grow"></div>
+      <div class="seg">
+        <span class="s on">Chat</span>
+        <span class="s hov">Plan</span>
+        <span class="s hov">Canvas</span>
+        <span class="s hov">Test run</span>
+      </div>
+      <div class="grow"></div>
+      <span class="btn quiet hov" style="margin-right: 8px;"><i class="ph ph-chat-teardrop-text" style="font-size: 13px;"></i>Comment</span>
+      <span class="btn primary hov" style="margin-right: 16px;"><i class="ph ph-share-network" style="font-size: 13px;"></i>Share</span>
+    </div>
+    <div class="ghost"><div class="a"></div><div class="b"></div></div>
+  </div>
+</section>
+
+<!-- ═══ V6 ═══ -->
+<section class="v">
+  <div class="cap"><b>V6 · Islands on a track</b><span>the bar goes near-black and each cluster floats as its own island — place, views, actions — so grouping is visible instead of implied.</span></div>
+  <div class="frame">
+    <div class="bar" style="height: 52px; gap: 10px; background: #090e13; border-bottom: 1px solid #131c26;">
+      <div style="display: inline-flex; align-items: center; gap: 10px; height: 32px; padding: 0 4px 0 10px; border-radius: 9px; background: #111a24; border: 1px solid #1e2935; flex: none;">
+        <img class="logo" src="assets/flowx-mark-white.svg" alt="FlowX" style="height: 18px;">
+        <span style="width: 1px; height: 16px; background: #1e2935;"></span>
+        <span class="hov f12" style="display: inline-flex; align-items: center; gap: 5px; height: 24px; padding: 0 8px; border-radius: 6px; background: #1c2632; color: #fff;"><i class="ph ph-sparkle" style="font-size: 12px;"></i>Build</span>
+        <span class="hov f12 faint" style="display: inline-flex; align-items: center; gap: 5px; height: 24px; padding: 0 8px; border-radius: 6px;"><i class="ph ph-gear-six" style="font-size: 12px;"></i>Admin</span>
+      </div>
+      <div style="display: inline-flex; align-items: center; gap: 2px; height: 32px; padding: 0 8px; border-radius: 9px; background: #111a24; border: 1px solid #1e2935; flex: none;">
+        <span class="crumb q" style="height: 24px; padding: 0 6px;">Triglav</span>
+        <span class="slash">/</span>
+        <span class="crumb hov" style="height: 24px;">Investment Assistant <i class="ph ph-caret-down caret"></i></span>
+        <span class="slash">/</span>
+        <span class="crumb hov q" style="height: 24px;"><i class="ph ph-git-branch" style="font-size: 12px;"></i>main <i class="ph ph-caret-down caret"></i></span>
+        <span class="crumb hov q" style="height: 24px;"><span class="dot"></span>Sandbox <i class="ph ph-caret-down caret"></i></span>
+      </div>
+      <div class="grow"></div>
+      <div class="seg" style="height: 32px; border-radius: 9px; border-color: #1e2935; background: #111a24; padding: 3px;">
+        <span class="s on" style="height: 24px;">Chat</span>
+        <span class="s hov" style="height: 24px;">Plan</span>
+        <span class="s hov" style="height: 24px;">Canvas</span>
+        <span class="s hov" style="height: 24px;">Test run</span>
+      </div>
+      <div class="grow"></div>
+      <div style="display: inline-flex; align-items: center; gap: 4px; height: 32px; padding: 0 4px; border-radius: 9px; background: #111a24; border: 1px solid #1e2935; flex: none;">
+        <span class="iconbtn hov" style="width: 24px; height: 24px; border-radius: 6px;" title="Comment"><i class="ph ph-chat-teardrop-text" style="font-size: 14px;"></i></span>
+        <span class="btn primary hov" style="height: 24px; border-radius: 6px; padding: 0 12px;">Share</span>
+      </div>
+    </div>
+    <div class="ghost"><div class="a"></div><div class="b"></div></div>
+  </div>
+</section>
+
+<!-- ═══ V7 ═══ -->
+<section class="v">
+  <div class="cap"><b>V7 · Title lockup</b><span>the project reads like a document title with its whole context — Triglav · main · Sandbox — tucked beneath; a taller, calmer 56px bar.</span></div>
+  <div class="frame">
+    <div class="bar" style="height: 56px; gap: 14px;">
+      <img class="logo" src="assets/flowx-mark-white.svg" alt="FlowX">
+      <div class="vsep" style="height: 26px;"></div>
+      <div style="display: flex; flex-direction: column; gap: 1px; flex: none;">
+        <span class="hov" style="display: inline-flex; align-items: center; gap: 6px; font: 700 13px/18px 'Open Sans', sans-serif; color: #fff; border-radius: 4px;">Investment Assistant <i class="ph ph-caret-down" style="font-size: 10px; color: #6b7783;"></i></span>
+        <span style="display: inline-flex; align-items: center; gap: 8px; font: 400 11px/15px 'Open Sans', sans-serif; color: #6b7783;">
+          Triglav
+          <span class="hov" style="display: inline-flex; align-items: center; gap: 4px; color: #8b98a5; border-radius: 4px;"><i class="ph ph-git-branch" style="font-size: 11px;"></i>main</span>
+          <span class="hov" style="display: inline-flex; align-items: center; gap: 5px; color: #8b98a5; border-radius: 4px;"><span class="dot" style="width: 6px; height: 6px;"></span>Sandbox</span>
+        </span>
+      </div>
+      <div class="center">
+        <div class="seg" style="height: 30px;">
+          <span class="s on" style="height: 24px; padding: 0 14px;">Chat</span>
+          <span class="s hov" style="height: 24px; padding: 0 14px;">Plan</span>
+          <span class="s hov" style="height: 24px; padding: 0 14px;">Canvas</span>
+          <span class="s hov" style="height: 24px; padding: 0 14px;">Test run</span>
+        </div>
+      </div>
+      <div class="grow"></div>
+      <div class="seg" title="Build / Admin">
+        <span class="s on" style="padding: 0 9px;"><i class="ph ph-sparkle" style="font-size: 13px;"></i></span>
+        <span class="s hov" style="padding: 0 9px;"><i class="ph ph-gear-six" style="font-size: 13px;"></i></span>
+      </div>
+      <span class="iconbtn hov" title="Comment"><i class="ph ph-chat-teardrop-text" style="font-size: 15px;"></i></span>
+      <span class="btn primary hov"><i class="ph ph-share-network" style="font-size: 13px;"></i>Share</span>
+    </div>
+    <div class="ghost"><div class="a"></div><div class="b"></div></div>
+  </div>
+</section>
+
+</body>
+</html>
