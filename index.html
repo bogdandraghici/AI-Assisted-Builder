@@ -2190,14 +2190,19 @@
               </div>
             </div>
 
-<!-- The settled ones, folded to echo lines. -->
-            <sc-for list="{{ bpEchoes }}" as="e" hint-placeholder-count="3">
-            <div style="display: flex; gap: 12px; align-items: baseline; padding-left: 40px;">
-              <i class="ph ph-check-circle" style="font-size: 13px; color: #2ea86a; flex: none;"></i>
-              <div style="flex: none; font: 600 12px/18px 'Open Sans', sans-serif; color: #8b98a5; white-space: nowrap;">{{ e.subject }}</div>
-              <div style="min-width: 0; font: 400 12px/18px 'Open Sans', sans-serif; color: #c3cdd7; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;">— {{ e.answer }}</div>
+<!-- The settled ones, one tight block of echo lines — the older ones fold behind the count. -->
+<sc-if value="{{ bpEchoAny }}" hint-placeholder-val="{{ true }}">
+            <div style="display: flex; flex-direction: column; gap: 2px; padding-left: 40px;">
+              <div onClick="{{ bpEchoToggle }}" tabindex="0" style="display: {{ bpEchoFoldShow }}; align-items: center; gap: 6px; align-self: flex-start; padding: 1px 7px 1px 5px; margin: 0 0 2px -5px; border-radius: 6px; font: 600 11px/16px 'Open Sans', sans-serif; color: #6b7783; cursor: pointer; outline: none; transition: color 160ms cubic-bezier(0.2, 0, 0.2, 1), background 160ms cubic-bezier(0.2, 0, 0.2, 1);" style-hover="color: #c3cdd7; background: #131c24;" style-focus="box-shadow: 0 0 0 3px rgba(43, 127, 228, 0.32);"><i class="ph {{ bpEchoCaret }}" style="font-size: 10px;"></i>{{ bpEchoFoldLabel }}</div>
+              <sc-for list="{{ bpEchoRows }}" as="e" hint-placeholder-count="3">
+              <div style="display: flex; gap: 8px; align-items: baseline;">
+                <i class="ph ph-check" style="font-size: 11px; color: #2ea86a; flex: none;"></i>
+                <div style="flex: none; font: 600 12px/18px 'Open Sans', sans-serif; color: #8b98a5; white-space: nowrap;">{{ e.subject }}</div>
+                <div style="min-width: 0; font: 400 12px/18px 'Open Sans', sans-serif; color: #c3cdd7; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;">— {{ e.answer }}</div>
+              </div>
+              </sc-for>
             </div>
-            </sc-for>
+</sc-if>
 
 <!-- The current question. -->
 <sc-if value="{{ bpCurShow }}" hint-placeholder-val="{{ true }}">
@@ -2297,13 +2302,18 @@
               </div>
             </div>
 <!-- Echoes of what is settled. -->
-            <sc-for list="{{ bpEchoes }}" as="e" hint-placeholder-count="3">
-            <div style="display: flex; gap: 8px; align-items: baseline; padding-left: 34px;">
-              <i class="ph ph-check-circle" style="font-size: 12px; color: #2ea86a; flex: none;"></i>
-              <div style="flex: none; font: 600 11px/16px 'Open Sans', sans-serif; color: #8b98a5; white-space: nowrap;">{{ e.subject }}</div>
-              <div style="min-width: 0; font: 400 11px/16px 'Open Sans', sans-serif; color: #c3cdd7; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;">— {{ e.answer }}</div>
+<sc-if value="{{ bpEchoAny }}" hint-placeholder-val="{{ true }}">
+            <div style="display: flex; flex-direction: column; gap: 2px; padding-left: 34px;">
+              <div onClick="{{ bpEchoToggle }}" tabindex="0" style="display: {{ bpEchoFoldShow }}; align-items: center; gap: 5px; align-self: flex-start; padding: 1px 7px 1px 5px; margin: 0 0 2px -5px; border-radius: 6px; font: 600 10px/15px 'Open Sans', sans-serif; color: #6b7783; cursor: pointer; outline: none; transition: color 160ms cubic-bezier(0.2, 0, 0.2, 1), background 160ms cubic-bezier(0.2, 0, 0.2, 1);" style-hover="color: #c3cdd7; background: #131c24;" style-focus="box-shadow: 0 0 0 3px rgba(43, 127, 228, 0.32);"><i class="ph {{ bpEchoCaret }}" style="font-size: 9px;"></i>{{ bpEchoFoldLabel }}</div>
+              <sc-for list="{{ bpEchoRows }}" as="e" hint-placeholder-count="3">
+              <div style="display: flex; gap: 6px; align-items: baseline;">
+                <i class="ph ph-check" style="font-size: 10px; color: #2ea86a; flex: none;"></i>
+                <div style="flex: none; font: 600 11px/16px 'Open Sans', sans-serif; color: #8b98a5; white-space: nowrap;">{{ e.subject }}</div>
+                <div style="min-width: 0; font: 400 11px/16px 'Open Sans', sans-serif; color: #c3cdd7; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;">— {{ e.answer }}</div>
+              </div>
+              </sc-for>
             </div>
-            </sc-for>
+</sc-if>
 <!-- The current question. -->
 <sc-if value="{{ bpCurShow }}" hint-placeholder-val="{{ true }}">
             <div style="display: flex; gap: 10px; align-items: flex-start;">
@@ -2537,13 +2547,18 @@
               </div>
             </div>
 <!-- Echoes of what is settled, so the rail matches the other tabs. -->
-            <sc-for list="{{ bpEchoes }}" as="e" hint-placeholder-count="3">
-            <div style="display: flex; gap: 8px; align-items: baseline; padding-left: 34px;">
-              <i class="ph ph-check-circle" style="font-size: 12px; color: #2ea86a; flex: none;"></i>
-              <div style="flex: none; font: 600 11px/16px 'Open Sans', sans-serif; color: #8b98a5; white-space: nowrap;">{{ e.subject }}</div>
-              <div style="min-width: 0; font: 400 11px/16px 'Open Sans', sans-serif; color: #c3cdd7; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;">— {{ e.answer }}</div>
+<sc-if value="{{ bpEchoAny }}" hint-placeholder-val="{{ true }}">
+            <div style="display: flex; flex-direction: column; gap: 2px; padding-left: 34px;">
+              <div onClick="{{ bpEchoToggle }}" tabindex="0" style="display: {{ bpEchoFoldShow }}; align-items: center; gap: 5px; align-self: flex-start; padding: 1px 7px 1px 5px; margin: 0 0 2px -5px; border-radius: 6px; font: 600 10px/15px 'Open Sans', sans-serif; color: #6b7783; cursor: pointer; outline: none; transition: color 160ms cubic-bezier(0.2, 0, 0.2, 1), background 160ms cubic-bezier(0.2, 0, 0.2, 1);" style-hover="color: #c3cdd7; background: #131c24;" style-focus="box-shadow: 0 0 0 3px rgba(43, 127, 228, 0.32);"><i class="ph {{ bpEchoCaret }}" style="font-size: 9px;"></i>{{ bpEchoFoldLabel }}</div>
+              <sc-for list="{{ bpEchoRows }}" as="e" hint-placeholder-count="3">
+              <div style="display: flex; gap: 6px; align-items: baseline;">
+                <i class="ph ph-check" style="font-size: 10px; color: #2ea86a; flex: none;"></i>
+                <div style="flex: none; font: 600 11px/16px 'Open Sans', sans-serif; color: #8b98a5; white-space: nowrap;">{{ e.subject }}</div>
+                <div style="min-width: 0; font: 400 11px/16px 'Open Sans', sans-serif; color: #c3cdd7; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;">— {{ e.answer }}</div>
+              </div>
+              </sc-for>
             </div>
-            </sc-for>
+</sc-if>
 <!-- The comments, fired: the agent works through the list, a spinner then a check, one per note. -->
 <sc-if value="{{ bpCnShow }}" hint-placeholder-val="{{ false }}">
             <div style="display: flex; gap: 10px; align-items: flex-start;">
@@ -2659,13 +2674,18 @@
               </div>
             </div>
 <!-- Echoes of what is settled, so the rail matches the other tabs. -->
-            <sc-for list="{{ bpEchoes }}" as="e" hint-placeholder-count="3">
-            <div style="display: flex; gap: 8px; align-items: baseline; padding-left: 34px;">
-              <i class="ph ph-check-circle" style="font-size: 12px; color: #2ea86a; flex: none;"></i>
-              <div style="flex: none; font: 600 11px/16px 'Open Sans', sans-serif; color: #8b98a5; white-space: nowrap;">{{ e.subject }}</div>
-              <div style="min-width: 0; font: 400 11px/16px 'Open Sans', sans-serif; color: #c3cdd7; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;">— {{ e.answer }}</div>
+<sc-if value="{{ bpEchoAny }}" hint-placeholder-val="{{ true }}">
+            <div style="display: flex; flex-direction: column; gap: 2px; padding-left: 34px;">
+              <div onClick="{{ bpEchoToggle }}" tabindex="0" style="display: {{ bpEchoFoldShow }}; align-items: center; gap: 5px; align-self: flex-start; padding: 1px 7px 1px 5px; margin: 0 0 2px -5px; border-radius: 6px; font: 600 10px/15px 'Open Sans', sans-serif; color: #6b7783; cursor: pointer; outline: none; transition: color 160ms cubic-bezier(0.2, 0, 0.2, 1), background 160ms cubic-bezier(0.2, 0, 0.2, 1);" style-hover="color: #c3cdd7; background: #131c24;" style-focus="box-shadow: 0 0 0 3px rgba(43, 127, 228, 0.32);"><i class="ph {{ bpEchoCaret }}" style="font-size: 9px;"></i>{{ bpEchoFoldLabel }}</div>
+              <sc-for list="{{ bpEchoRows }}" as="e" hint-placeholder-count="3">
+              <div style="display: flex; gap: 6px; align-items: baseline;">
+                <i class="ph ph-check" style="font-size: 10px; color: #2ea86a; flex: none;"></i>
+                <div style="flex: none; font: 600 11px/16px 'Open Sans', sans-serif; color: #8b98a5; white-space: nowrap;">{{ e.subject }}</div>
+                <div style="min-width: 0; font: 400 11px/16px 'Open Sans', sans-serif; color: #c3cdd7; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;">— {{ e.answer }}</div>
+              </div>
+              </sc-for>
             </div>
-            </sc-for>
+</sc-if>
 <!-- The comments, fired: the same walk the Test run rail shows. -->
 <sc-if value="{{ bpCnShow }}" hint-placeholder-val="{{ false }}">
             <div style="display: flex; gap: 10px; align-items: flex-start;">
@@ -2953,6 +2973,8 @@ class Component extends DCLogic {
       // question id being asked in the Chat walk; bpCreds keeps the typed values (mock — never sent).
       bpCredAsk: null,
       bpCreds: {},
+      // Settled answers echo as one-line rows; past the third only the last two stay out.
+      bpEchoOpen: false,
       // Test run comment mode: armed by the Comment button, a note is a numbered pin at a click
       // point over the running prototype plus its words; the panel lists them and walks them done.
       bpNoteMode: false,
@@ -4609,6 +4631,14 @@ class Component extends DCLogic {
     const bpIsAns = id => S.bpAns[id] !== undefined && S.bpAns[id] !== null;
     const bpAnsList = bpWalk.filter(w => bpIsAns(w.id));
     const bpRemain = bpTotal - bpAnsList.length;
+    // The settled answers as echo lines. Three fit; past that the last two stay out and the rest
+    // fold behind the count, so a long walk costs the rail three lines, not eleven.
+    const bpEchoes = bpAnsList.map(w => ({
+      subject: 'Step ' + w.step + ' · ' + w.tag,
+      answer: (S.bpAns[w.id] === 1 ? w.alt : w.rec)
+    }));
+    const bpEchoFold = bpEchoes.length > 3;
+    const bpEchoOpen = !bpEchoFold || S.bpEchoOpen;
     // Choosing the real connection (option 1) on an Integration question opens the credentials
     // follow-up in the Chat walk; any other choice clears a follow-up left on that same question.
     const bpChoose = (id, idx) => {
@@ -5051,11 +5081,14 @@ class Component extends DCLogic {
         : 'Build the AI Investment Assistant for Triglav — portfolio, risk, an AI fund allocation, KYC, documents, a BetrSign signature, a summary.',
       bpCardLedger: bpRemain === 0 ? 'Nothing built yet · all settled' : ('Nothing built yet · ' + bpRemain + ' to settle'),
       bpCardSteps: bpCardSteps,
-      // Answered questions, folded to echo lines, in walk order.
-      bpEchoes: bpAnsList.map(w => ({
-        subject: 'Step ' + w.step + ' · ' + w.tag,
-        answer: (S.bpAns[w.id] === 1 ? w.alt : w.rec)
-      })),
+      // Answered questions, folded to echo lines, in walk order — see bpEchoRows for what shows.
+      bpEchoes: bpEchoes,
+      bpEchoAny: bpEchoes.length > 0,
+      bpEchoRows: bpEchoOpen ? bpEchoes : bpEchoes.slice(-2),
+      bpEchoFoldShow: bpEchoFold ? 'inline-flex' : 'none',
+      bpEchoFoldLabel: S.bpEchoOpen ? 'Fold the earlier answers' : (bpEchoes.length - 2) + ' earlier answers',
+      bpEchoCaret: S.bpEchoOpen ? 'ph-caret-up' : 'ph-caret-down',
+      bpEchoToggle: leave({ bpEchoOpen: !S.bpEchoOpen }),
       bpCurShow: !!bpCur && !S.bpCredAsk,
       bpWalkDone: !bpCur && !S.bpCredAsk,
       bpCurN: Math.min(bpAnsList.length + 1, bpTotal) + ' of ' + bpTotal,
