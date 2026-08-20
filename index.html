@@ -5451,10 +5451,10 @@ class Component extends DCLogic {
       // Pins draw only on the tab they were dropped on — the two frames share one notes list.
       bpPins: S.bpNotes.filter(n => (n.on || 'run') === S.bpTab).map(n => ({ n: String(n.n), x: n.x + 'px', y: n.y + 'px', title: n.label,
         bg: n.state === 'done' ? '#2ea86a' : '#2b7fe4', anim: n.state === 'busy' ? 'build-pulse 1400ms ease-in-out infinite' : 'none' })),
-      // The panel takes the rail's ground, so it lets go once the notes are fired — the echo of the
-      // work lands in the conversation underneath it.
-      bpNotesPanelShow: (S.bpNoteMode || S.bpNotes.some(n => n.state === 'open')),
-      bpRailShow: !(S.bpNoteMode || S.bpNotes.some(n => n.state === 'open')),
+      // The panel is comment mode itself — the button closes what it opened, and the notes it holds
+      // outlive it as pins on the frame.
+      bpNotesPanelShow: S.bpNoteMode,
+      bpRailShow: !S.bpNoteMode,
       bpNoteEmpty: S.bpNotes.length === 0,
       bpNoteCount: S.bpNotes.length ? String(S.bpNotes.length) : '',
       bpNoteRows: S.bpNotes.map(n => ({ n: String(n.n), text: n.text, label: n.label,
