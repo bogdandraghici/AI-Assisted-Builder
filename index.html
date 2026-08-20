@@ -35,6 +35,9 @@
   /* Twin fades: swapping the name restarts the animation, which a text change alone never does. */
   @keyframes note-in-a { from { opacity: 0; transform: translateY(4px); } to { opacity: 1; transform: none; } }
   @keyframes note-in-b { from { opacity: 0; transform: translateY(4px); } to { opacity: 1; transform: none; } }
+  /* Mode swap travels: Build's views return from the left, Admin's switch arrives from the right. */
+  @keyframes mode-in-l { from { opacity: 0; transform: translateX(-22px); } to { opacity: 1; transform: none; } }
+  @keyframes mode-in-r { from { opacity: 0; transform: translateX(22px); } to { opacity: 1; transform: none; } }
   @media (prefers-reduced-motion: reduce) {
     * { transition-duration: 0s !important; transition-delay: 0s !important; animation: none !important; }
   }
@@ -2038,20 +2041,25 @@
           </sc-if>
         </div>
         <div style="flex: 1;"></div>
-<!-- The view switcher — full-height underline tabs dead center; gone in Admin. -->
+<!-- The view switcher — a segmented control dead center, same grammar as Admin's Config/Runtime,
+     so the mode swap reads as one control changing its options. It returns from the left. -->
 <sc-if value="{{ bpNotAdmin }}" hint-placeholder-val="{{ true }}">
-        <div style="position: absolute; left: 50%; top: 0; bottom: 0; transform: translateX(-50%); display: flex; align-items: stretch;">
-          <div onClick="{{ bpTabChat }}" tabindex="0" title="The conversation" style="display: inline-flex; align-items: center; padding: 0 14px; position: relative; color: {{ bpChatColor }}; font: 600 12px/16px 'Open Sans', sans-serif; cursor: pointer; outline: none; transition: color 160ms cubic-bezier(0.2, 0, 0.2, 1);" style-hover="color: #ffffff;" style-focus="box-shadow: inset 0 0 0 3px rgba(43, 127, 228, 0.32);">Chat<span style="position: absolute; left: 10px; right: 10px; bottom: 0; height: 2px; border-radius: 2px 2px 0 0; background: {{ bpChatBg }};"></span></div>
-          <div onClick="{{ bpTabPlan }}" tabindex="0" title="The plan" style="display: inline-flex; align-items: center; padding: 0 14px; position: relative; color: {{ bpPlanColor }}; font: 600 12px/16px 'Open Sans', sans-serif; cursor: pointer; outline: none; transition: color 160ms cubic-bezier(0.2, 0, 0.2, 1);" style-hover="color: #ffffff;" style-focus="box-shadow: inset 0 0 0 3px rgba(43, 127, 228, 0.32);">Plan<span style="position: absolute; left: 10px; right: 10px; bottom: 0; height: 2px; border-radius: 2px 2px 0 0; background: {{ bpPlanBg }};"></span></div>
-          <div onClick="{{ bpTabCanvas }}" tabindex="0" title="The solution on one canvas" style="display: inline-flex; align-items: center; padding: 0 14px; position: relative; color: {{ bpCanvasColor }}; font: 600 12px/16px 'Open Sans', sans-serif; cursor: pointer; outline: none; transition: color 160ms cubic-bezier(0.2, 0, 0.2, 1);" style-hover="color: #ffffff;" style-focus="box-shadow: inset 0 0 0 3px rgba(43, 127, 228, 0.32);">Canvas<span style="position: absolute; left: 10px; right: 10px; bottom: 0; height: 2px; border-radius: 2px 2px 0 0; background: {{ bpCanvasBg }};"></span></div>
-          <div onClick="{{ bpTabRun }}" tabindex="0" title="Run the happy path" style="display: inline-flex; align-items: center; padding: 0 14px; position: relative; color: {{ bpRunColor }}; font: 600 12px/16px 'Open Sans', sans-serif; cursor: pointer; outline: none; transition: color 160ms cubic-bezier(0.2, 0, 0.2, 1);" style-hover="color: #ffffff;" style-focus="box-shadow: inset 0 0 0 3px rgba(43, 127, 228, 0.32);">Test run<span style="position: absolute; left: 10px; right: 10px; bottom: 0; height: 2px; border-radius: 2px 2px 0 0; background: {{ bpRunBg }};"></span></div>
+        <div style="position: absolute; left: 50%; top: 50%; transform: translate(-50%, -50%);">
+          <div style="display: inline-flex; align-items: center; gap: 2px; height: 28px; padding: 3px; border-radius: 8px; background: #161f28; animation: mode-in-l 200ms cubic-bezier(0.2, 0, 0.2, 1);">
+            <div onClick="{{ bpTabChat }}" tabindex="0" title="The conversation" style="display: inline-flex; align-items: center; height: 22px; padding: 0 12px; border-radius: 6px; background: {{ bpChatBg }}; color: {{ bpChatColor }}; font: 600 12px/16px 'Open Sans', sans-serif; cursor: pointer; outline: none; transition: background 160ms cubic-bezier(0.2, 0, 0.2, 1), color 160ms cubic-bezier(0.2, 0, 0.2, 1);" style-hover="color: #ffffff;" style-focus="box-shadow: 0 0 0 3px rgba(43, 127, 228, 0.32);">Chat</div>
+            <div onClick="{{ bpTabPlan }}" tabindex="0" title="The plan" style="display: inline-flex; align-items: center; height: 22px; padding: 0 12px; border-radius: 6px; background: {{ bpPlanBg }}; color: {{ bpPlanColor }}; font: 600 12px/16px 'Open Sans', sans-serif; cursor: pointer; outline: none; transition: background 160ms cubic-bezier(0.2, 0, 0.2, 1), color 160ms cubic-bezier(0.2, 0, 0.2, 1);" style-hover="color: #ffffff;" style-focus="box-shadow: 0 0 0 3px rgba(43, 127, 228, 0.32);">Plan</div>
+            <div onClick="{{ bpTabCanvas }}" tabindex="0" title="The solution on one canvas" style="display: inline-flex; align-items: center; height: 22px; padding: 0 12px; border-radius: 6px; background: {{ bpCanvasBg }}; color: {{ bpCanvasColor }}; font: 600 12px/16px 'Open Sans', sans-serif; cursor: pointer; outline: none; transition: background 160ms cubic-bezier(0.2, 0, 0.2, 1), color 160ms cubic-bezier(0.2, 0, 0.2, 1);" style-hover="color: #ffffff;" style-focus="box-shadow: 0 0 0 3px rgba(43, 127, 228, 0.32);">Canvas</div>
+            <div onClick="{{ bpTabRun }}" tabindex="0" title="Run the happy path" style="display: inline-flex; align-items: center; height: 22px; padding: 0 12px; border-radius: 6px; background: {{ bpRunBg }}; color: {{ bpRunColor }}; font: 600 12px/16px 'Open Sans', sans-serif; cursor: pointer; outline: none; transition: background 160ms cubic-bezier(0.2, 0, 0.2, 1), color 160ms cubic-bezier(0.2, 0, 0.2, 1);" style-hover="color: #ffffff;" style-focus="box-shadow: 0 0 0 3px rgba(43, 127, 228, 0.32);">Test run</div>
+          </div>
         </div>
 </sc-if>
-<!-- Admin's own switch — Config vs Runtime, taking the centre the view tabs vacate. -->
+<!-- Admin's own switch — Config vs Runtime, the same segmented in the same spot; arrives from the right. -->
 <sc-if value="{{ bpIsAdmin }}" hint-placeholder-val="{{ false }}">
-        <div style="position: absolute; left: 50%; top: 50%; transform: translate(-50%, -50%); display: inline-flex; align-items: center; gap: 2px; height: 28px; padding: 3px; border-radius: 8px; background: #161f28;">
-          <div onClick="{{ bpAdmCfgAct }}" tabindex="0" title="Platform configuration" style="display: inline-flex; align-items: center; height: 22px; padding: 0 12px; border-radius: 6px; background: {{ bpAdmCfgBg }}; color: {{ bpAdmCfgColor }}; font: 600 12px/16px 'Open Sans', sans-serif; cursor: pointer; outline: none; transition: background 160ms cubic-bezier(0.2, 0, 0.2, 1), color 160ms cubic-bezier(0.2, 0, 0.2, 1);" style-hover="color: #ffffff;" style-focus="box-shadow: 0 0 0 3px rgba(43, 127, 228, 0.32);">Config</div>
-          <div onClick="{{ bpAdmRunAct }}" tabindex="0" title="What is running right now" style="display: inline-flex; align-items: center; height: 22px; padding: 0 12px; border-radius: 6px; background: {{ bpAdmRunBg }}; color: {{ bpAdmRunColor }}; font: 600 12px/16px 'Open Sans', sans-serif; cursor: pointer; outline: none; transition: background 160ms cubic-bezier(0.2, 0, 0.2, 1), color 160ms cubic-bezier(0.2, 0, 0.2, 1);" style-hover="color: #ffffff;" style-focus="box-shadow: 0 0 0 3px rgba(43, 127, 228, 0.32);">Runtime</div>
+        <div style="position: absolute; left: 50%; top: 50%; transform: translate(-50%, -50%);">
+          <div style="display: inline-flex; align-items: center; gap: 2px; height: 28px; padding: 3px; border-radius: 8px; background: #161f28; animation: mode-in-r 200ms cubic-bezier(0.2, 0, 0.2, 1);">
+            <div onClick="{{ bpAdmCfgAct }}" tabindex="0" title="Platform configuration" style="display: inline-flex; align-items: center; height: 22px; padding: 0 12px; border-radius: 6px; background: {{ bpAdmCfgBg }}; color: {{ bpAdmCfgColor }}; font: 600 12px/16px 'Open Sans', sans-serif; cursor: pointer; outline: none; transition: background 160ms cubic-bezier(0.2, 0, 0.2, 1), color 160ms cubic-bezier(0.2, 0, 0.2, 1);" style-hover="color: #ffffff;" style-focus="box-shadow: 0 0 0 3px rgba(43, 127, 228, 0.32);">Config</div>
+            <div onClick="{{ bpAdmRunAct }}" tabindex="0" title="What is running right now" style="display: inline-flex; align-items: center; height: 22px; padding: 0 12px; border-radius: 6px; background: {{ bpAdmRunBg }}; color: {{ bpAdmRunColor }}; font: 600 12px/16px 'Open Sans', sans-serif; cursor: pointer; outline: none; transition: background 160ms cubic-bezier(0.2, 0, 0.2, 1), color 160ms cubic-bezier(0.2, 0, 0.2, 1);" style-hover="color: #ffffff;" style-focus="box-shadow: 0 0 0 3px rgba(43, 127, 228, 0.32);">Runtime</div>
+          </div>
         </div>
 </sc-if>
 <!-- Comment — on the Test run, arms comment mode over the embedded frame. Everything that comes
@@ -2059,9 +2067,12 @@
 <sc-if value="{{ bpNoteBtnShow }}" hint-placeholder-val="{{ false }}">
         <div onClick="{{ bpNoteToggle }}" tabindex="0" title="{{ bpNoteBtnTitle }}" style="display: inline-flex; align-items: center; gap: 6px; height: 28px; padding: 0 10px; border-radius: 8px; border: 1px solid {{ bpNoteBtnBorder }}; background: {{ bpNoteBtnBg }}; color: {{ bpNoteBtnColor }}; font: 600 12px/16px 'Open Sans', sans-serif; cursor: pointer; outline: none; flex: none; transition: all 160ms cubic-bezier(0.2, 0, 0.2, 1);" style-hover="filter: brightness(1.15);" style-focus="box-shadow: 0 0 0 3px rgba(43, 127, 228, 0.32);"><i class="ph ph-chat-teardrop-text" style="font-size: 13px; color: {{ bpNoteBtnIcon }};"></i>Comment</div>
 </sc-if>
-<!-- Share — invite people to the solution on this environment; stays put across modes. -->
+<!-- Share — invite people to the solution; it belongs to Build, so Admin's right side holds
+     only the mode switch. The separator leaves with it. -->
+<sc-if value="{{ bpNotAdmin }}" hint-placeholder-val="{{ true }}">
         <div onClick="{{ bpShareOpenAct }}" tabindex="0" title="Share this solution" style="display: inline-flex; align-items: center; gap: 6px; height: 28px; padding: 0 13px; border-radius: 8px; border: 1px solid #26313d; background: #161f28; color: #c3cdd7; font: 600 12px/16px 'Open Sans', sans-serif; cursor: pointer; outline: none; flex: none; transition: border-color 160ms cubic-bezier(0.2, 0, 0.2, 1), color 160ms cubic-bezier(0.2, 0, 0.2, 1);" style-hover="border-color: #4d97ea; color: #ffffff;" style-focus="box-shadow: 0 0 0 3px rgba(43, 127, 228, 0.32);"><i class="ph ph-share-network" style="font-size: 13px;"></i>Share</div>
         <div style="width: 1px; height: 20px; background: #1c2632; flex: none;"></div>
+</sc-if>
 <!-- Mode — Build vs Admin in the open, styled like the admin header's Config/Runtime switch. Last
      in the row on purpose: it is the anchor the eye keeps when the mode changes under it. -->
         <div style="display: inline-flex; align-items: center; gap: 2px; height: 28px; padding: 3px; border-radius: 8px; background: #161f28; flex: none;">
@@ -5198,7 +5209,7 @@ class Component extends DCLogic {
       bpTabRun: leave({ bpTab: 'run' }),
       bpTabCanvas: leave({ bpTab: 'canvas' }),
       // The active segment takes the white "you are here"; the other two are the live controls.
-      // Bg is the tab's 2px underline, not a fill.
+      // Bg is the segment's fill, same blue grammar as Admin's Config/Runtime.
       bpChatBg: S.bpTab === 'chat' ? '#2b7fe4' : 'transparent',
       bpChatColor: S.bpTab === 'chat' ? '#ffffff' : '#8b98a5',
       bpPlanBg: S.bpTab === 'plan' ? '#2b7fe4' : 'transparent',
