@@ -1993,15 +1993,15 @@
 <!-- Header, the frame's own 48px bar — one control on the left (project + branch, opening a
      two-pane menu; no environment anywhere), view tabs dead center, Build/Admin out in the open
      on the right beside Share. Mark goes home. -->
-      <div style="height: 48px; flex: none; position: relative; background: #101820; border-bottom: 1px solid #18212a; display: flex; align-items: center; gap: 10px; padding: 0 14px;">
+      <div style="height: 48px; flex: none; position: relative; background: #101820; border-bottom: 1px solid #18212a; display: flex; align-items: center; gap: 12px; padding: 0 16px;">
         <div onClick="{{ homeAct }}" tabindex="0" title="Back to the builder — Esc" style="display: inline-flex; align-items: center; justify-content: center; padding: 3px; margin: -3px; border-radius: 6px; cursor: pointer; flex: none; outline: none; transition: background 160ms cubic-bezier(0.2, 0, 0.2, 1);" style-hover="background: #1c2632;" style-focus="box-shadow: 0 0 0 3px rgba(43, 127, 228, 0.32);">
           <img src="assets/flowx-mark-white.svg" alt="FlowX" style="height: 22px; width: auto; flex: none;" />
         </div>
 <!-- Environment — a badge now, not a select: the admin header's blue pill. -->
-        <div title="Environment" style="flex: none; background: #2b7fe4; color: #ffffff; font: 700 9.5px/13px 'Open Sans', sans-serif; letter-spacing: 0.06em; padding: 2px 8px; border-radius: 99px;">{{ bpEnvBadge }}</div>
+        <div title="Environment" style="flex: none; margin-left: 6px; background: #2b7fe4; color: #ffffff; font: 700 9.5px/13px 'Open Sans', sans-serif; letter-spacing: 0.06em; padding: 2px 8px; border-radius: 99px;">{{ bpEnvBadge }}</div>
 <!-- The place — Triglav / project as a quiet path, the branch riding as an amber version chip;
      the whole thing is still the one control opening the two-pane menu. -->
-        <div style="position: relative; flex: none; z-index: 55; margin-left: -4px;">
+        <div style="position: relative; flex: none; z-index: 55; margin-left: 2px;">
           <div onClick="{{ bpNavAppAct }}" tabindex="0" title="Project and branch" style="display: inline-flex; align-items: center; gap: 6px; height: 28px; padding: 0 6px; border-radius: 8px; cursor: pointer; outline: none; transition: background 160ms cubic-bezier(0.2, 0, 0.2, 1);" style-hover="background: #1c2632;" style-focus="box-shadow: 0 0 0 3px rgba(43, 127, 228, 0.32);">
             <span style="font: 400 11.5px/16px 'Open Sans', sans-serif; color: #6b7783;">Triglav</span>
             <span style="font: 400 11.5px/16px 'Open Sans', sans-serif; color: #2f3945;">/</span>
