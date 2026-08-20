@@ -1997,11 +1997,17 @@
         <div onClick="{{ homeAct }}" tabindex="0" title="Back to the builder — Esc" style="display: inline-flex; align-items: center; justify-content: center; padding: 3px; margin: -3px; border-radius: 6px; cursor: pointer; flex: none; outline: none; transition: background 160ms cubic-bezier(0.2, 0, 0.2, 1);" style-hover="background: #1c2632;" style-focus="box-shadow: 0 0 0 3px rgba(43, 127, 228, 0.32);">
           <img src="assets/flowx-mark-white.svg" alt="FlowX" style="height: 22px; width: auto; flex: none;" />
         </div>
-<!-- The place — project and branch in one hand; the menu is two panes side by side. -->
+<!-- Environment — a badge now, not a select: the admin header's blue pill. -->
+        <div title="Environment" style="flex: none; background: #2b7fe4; color: #ffffff; font: 700 10px/14px 'Open Sans', sans-serif; letter-spacing: 0.07em; padding: 3px 10px; border-radius: 99px;">{{ bpEnvBadge }}</div>
+<!-- The place — Triglav / project as a quiet path, the branch riding as an amber version chip;
+     the whole thing is still the one control opening the two-pane menu. -->
         <div style="position: relative; flex: none; z-index: 55;">
-          <div onClick="{{ bpNavAppAct }}" tabindex="0" title="Project and branch" style="display: inline-flex; align-items: center; gap: 8px; height: 30px; padding: 0 10px; margin-left: -4px; border-radius: 8px; background: #161f28; cursor: pointer; outline: none; transition: background 160ms cubic-bezier(0.2, 0, 0.2, 1);" style-hover="background: #1c2632;" style-focus="box-shadow: 0 0 0 3px rgba(43, 127, 228, 0.32);">
-            <span style="font: 700 13px/18px 'Open Sans', sans-serif; color: #f5f9fc;">Investment Assistant</span>
-            <span style="display: inline-flex; align-items: center; gap: 4px; font: 400 11px/15px 'Open Sans', sans-serif; color: #6b7783;"><i class="ph ph-git-branch" style="font-size: 11px;"></i>{{ bpBranch }}</span>
+          <div onClick="{{ bpNavAppAct }}" tabindex="0" title="Project and branch" style="display: inline-flex; align-items: center; gap: 7px; height: 30px; padding: 0 8px; border-radius: 8px; cursor: pointer; outline: none; transition: background 160ms cubic-bezier(0.2, 0, 0.2, 1);" style-hover="background: #1c2632;" style-focus="box-shadow: 0 0 0 3px rgba(43, 127, 228, 0.32);">
+            <span style="font: 400 12px/16px 'Open Sans', sans-serif; color: #8b98a5;">Triglav</span>
+            <span style="font: 400 12px/16px 'Open Sans', sans-serif; color: #3a4653;">/</span>
+            <i class="ph ph-folder-simple" style="font-size: 13px; color: #8b98a5;"></i>
+            <span style="font: 600 12.5px/18px 'Open Sans', sans-serif; color: #f5f9fc;">Investment Assistant</span>
+            <span style="display: inline-flex; align-items: center; gap: 4px; padding: 2px 8px; border-radius: 99px; border: 1px solid rgba(230, 180, 85, 0.45); color: #e6b455; font: 600 11px/15px 'Open Sans', sans-serif;"><i class="ph ph-git-branch" style="font-size: 11px;"></i>{{ bpBranch }}</span>
             <i class="ph {{ bpNavCaret }}" style="font-size: 10px; color: {{ bpNavCaretColor }};"></i>
           </div>
           <sc-if value="{{ bpNavAppOpen }}" hint-placeholder-val="{{ false }}">
@@ -2042,10 +2048,10 @@
           <div onClick="{{ bpTabRun }}" tabindex="0" title="Run the happy path" style="display: inline-flex; align-items: center; padding: 0 14px; position: relative; color: {{ bpRunColor }}; font: 600 12px/16px 'Open Sans', sans-serif; cursor: pointer; outline: none; transition: color 160ms cubic-bezier(0.2, 0, 0.2, 1);" style-hover="color: #ffffff;" style-focus="box-shadow: inset 0 0 0 3px rgba(43, 127, 228, 0.32);">Test run<span style="position: absolute; left: 10px; right: 10px; bottom: 0; height: 2px; border-radius: 2px 2px 0 0; background: {{ bpRunBg }};"></span></div>
         </div>
 </sc-if>
-<!-- Mode — Build vs Admin, out in the open so it can be spotted. -->
-        <div style="display: inline-flex; align-items: center; gap: 2px; height: 26px; padding: 2px; border: 1px solid #26313d; border-radius: 8px; background: #0e161d; flex: none;">
-          <div onClick="{{ bpModeBuildAct }}" tabindex="0" title="The AI-assisted builder" style="display: inline-flex; align-items: center; gap: 5px; height: 20px; padding: 0 10px; border-radius: 6px; background: {{ bpModeBuildBg }}; color: {{ bpModeBuildColor }}; font: 600 12px/16px 'Open Sans', sans-serif; cursor: pointer; outline: none; transition: background 160ms cubic-bezier(0.2, 0, 0.2, 1), color 160ms cubic-bezier(0.2, 0, 0.2, 1);" style-hover="color: #ffffff;" style-focus="box-shadow: 0 0 0 3px rgba(43, 127, 228, 0.32);"><i class="ph ph-sparkle" style="font-size: 12px;"></i>Build</div>
-          <div onClick="{{ bpModeAdminAct }}" tabindex="0" title="Platform admin config" style="display: inline-flex; align-items: center; gap: 5px; height: 20px; padding: 0 10px; border-radius: 6px; background: {{ bpModeAdminBg }}; color: {{ bpModeAdminColor }}; font: 600 12px/16px 'Open Sans', sans-serif; cursor: pointer; outline: none; transition: background 160ms cubic-bezier(0.2, 0, 0.2, 1), color 160ms cubic-bezier(0.2, 0, 0.2, 1);" style-hover="color: #ffffff;" style-focus="box-shadow: 0 0 0 3px rgba(43, 127, 228, 0.32);"><i class="ph ph-gear-six" style="font-size: 12px;"></i>Admin</div>
+<!-- Mode — Build vs Admin in the open, styled like the admin header's Config/Runtime switch. -->
+        <div style="display: inline-flex; align-items: center; gap: 2px; height: 28px; padding: 3px; border-radius: 8px; background: #161f28; flex: none;">
+          <div onClick="{{ bpModeBuildAct }}" tabindex="0" title="The AI-assisted builder" style="display: inline-flex; align-items: center; height: 22px; padding: 0 12px; border-radius: 6px; background: {{ bpModeBuildBg }}; color: {{ bpModeBuildColor }}; font: 600 12px/16px 'Open Sans', sans-serif; cursor: pointer; outline: none; transition: background 160ms cubic-bezier(0.2, 0, 0.2, 1), color 160ms cubic-bezier(0.2, 0, 0.2, 1);" style-hover="color: #ffffff;" style-focus="box-shadow: 0 0 0 3px rgba(43, 127, 228, 0.32);">Build</div>
+          <div onClick="{{ bpModeAdminAct }}" tabindex="0" title="Platform admin config" style="display: inline-flex; align-items: center; height: 22px; padding: 0 12px; border-radius: 6px; background: {{ bpModeAdminBg }}; color: {{ bpModeAdminColor }}; font: 600 12px/16px 'Open Sans', sans-serif; cursor: pointer; outline: none; transition: background 160ms cubic-bezier(0.2, 0, 0.2, 1), color 160ms cubic-bezier(0.2, 0, 0.2, 1);" style-hover="color: #ffffff;" style-focus="box-shadow: 0 0 0 3px rgba(43, 127, 228, 0.32);">Admin</div>
         </div>
 <sc-if value="{{ bpNotAdmin }}" hint-placeholder-val="{{ true }}">
         <div style="width: 1px; height: 20px; background: #1c2632; flex: none;"></div>
@@ -5160,9 +5166,9 @@ class Component extends DCLogic {
       bpNotAdmin: S.bpMode !== 'admin',
       bpModeBuildAct: leave({ bpMode: 'build', bpNav: null }),
       bpModeAdminAct: leave({ bpMode: 'admin', bpNav: null, bpNoteMode: false, bpNoteDraft: null }),
-      bpModeBuildBg: S.bpMode !== 'admin' ? '#1c2632' : 'transparent',
+      bpModeBuildBg: S.bpMode !== 'admin' ? '#2b7fe4' : 'transparent',
       bpModeBuildColor: S.bpMode !== 'admin' ? '#ffffff' : '#8b98a5',
-      bpModeAdminBg: S.bpMode === 'admin' ? '#1c2632' : 'transparent',
+      bpModeAdminBg: S.bpMode === 'admin' ? '#2b7fe4' : 'transparent',
       bpModeAdminColor: S.bpMode === 'admin' ? '#ffffff' : '#8b98a5',
       bpIsPlan: S.bpMode !== 'admin' && S.bpTab === 'plan',
       bpIsRun: S.bpMode !== 'admin' && S.bpTab === 'run',
@@ -5200,6 +5206,7 @@ class Component extends DCLogic {
         { email: 'antonia+11@flowx.ai' }
       ],
       // ── Platform nav — the one title menu in the header ──────────────────
+      bpEnvBadge: (S.bpEnv || 'Sandbox').toUpperCase(),
       bpBranch: bpBranchCur,
       bpLocked: bpLocked,
       bpLockBg: bpEnvMeta.bg, bpLockBorder: bpEnvMeta.border, bpLockText: bpEnvMeta.text,
