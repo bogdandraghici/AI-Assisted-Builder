@@ -2504,11 +2504,6 @@
                 <div onClick="{{ bpTabRun }}" tabindex="0" style="align-self: flex-start; display: inline-flex; align-items: center; gap: 6px; height: 30px; padding: 0 14px; border-radius: 8px; border: 1px solid transparent; background: #1d9a5c; color: #ffffff; font: 600 12px/16px 'Open Sans', sans-serif; cursor: pointer; outline: none;" style-hover="filter: brightness(1.12);" style-focus="box-shadow: 0 0 0 3px rgba(46, 168, 106, 0.32);"><i class="ph ph-play" style="font-size: 13px;"></i>Open the Test run</div>
               </div>
 
-<!-- Dependency summary, only under the wide spine. -->
-              <div style="display: {{ bpDepShow }}; margin-top: 30px;">
-                <div style="font: 600 10px/14px 'Open Sans', sans-serif; letter-spacing: 0.06em; text-transform: uppercase; color: #6b7783;">Dependency summary</div>
-                <div style="margin-top: 10px; border: 1px solid #1c2530; border-radius: 10px; background: #0e161d; padding: 16px; overflow-x: auto;"><pre style="margin: 0; font: 400 12px/20px ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; color: #8b98a5; white-space: pre;">{{ bpDeps }}</pre></div>
-              </div>
             </div>
 
 <!-- The open step's detail pane. -->
@@ -3727,22 +3722,6 @@ class Component extends DCLogic {
       edit: 'Requests ui-flow: add KB_VIEWER entry points for these tools.',
       depends: 'Step 4 (data stores) + Step 5 (allocation engine).' }
   ];
-
-  // The dependency map, drawn as the plan's md drew it — a fixed block, not derived.
-  static PLAN_DEPS = [
-    'Step 1 (dashboard + search)            ── each step below is UI-testable in the running app',
-    '   └─> Step 2 (bootstrap + portfolio + header + instance register)',
-    '          └─> Step 3 (risk profiling)',
-    'Step 4 (KB: house rules + volatility crawl)  ── independent, KB_VIEWER; MUST run before Step 5',
-    '   └───────────────────────────────┐',
-    'Step 3 + Step 4 ──> Step 5 (AI allocation + funds selection)  ★',
-    '          └─> Step 6 (top-up / reallocation)',
-    '                 └─> Step 7 (KYC + validations)',
-    '                        └─> Step 8 (overview + signature city + document generation)',
-    '                               └─> Step 9 (BetrSign signing)',
-    '                                      └─> Step 10 (final summary + lifecycle / auto-close)',
-    'Step 11 (AI read / bulk tooling)  ── optional, KB_VIEWER, feeds off Steps 4+5'
-  ].join('\n');
 
   // Up to two open questions per step — the ones a building agent asks the initiator before
   // starting. `tag` is Integration / UI / Path; `rec` is the recommended answer (the ✅ default the
@@ -5303,7 +5282,6 @@ class Component extends DCLogic {
           qCount: (Component.PLAN_Q[s.n] || []).length
         };
       }),
-      bpDeps: Component.PLAN_DEPS,
 
       // ── The Chat tab's conversation + guided walk (bpAns-driven) ─────────
       bpTotal: bpTotal,
@@ -5352,7 +5330,6 @@ class Component extends DCLogic {
       // The spine is wide alone, a narrow rail once a detail pane is up beside it.
       bpSpineFlex: bpOpenN >= 1 ? '0 0 320px' : '1 1 auto',
       bpDescShow: bpOpenN >= 1 ? 'none' : 'block',
-      bpDepShow: (bpChangeMode || bpOpenN >= 1) ? 'none' : 'block',
       bpCloseStep: leave({ bpStep: 0 }),
       bpDetail: bpDetail,
 
