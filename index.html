@@ -56,7 +56,7 @@
     <div style="flex: none; height: {{ hdrH }}; overflow: hidden; opacity: {{ hdrOp }}; transition: height {{ iColDur }} {{ iColEase }} {{ hdrDl }}, opacity {{ hdrOpDur }} {{ moveEase }} {{ hdrDl }};">
       <div style="height: 48px; background: #101820; border-bottom: 1px solid #18212a; display: flex; align-items: center; gap: 16px; padding: 0 16px;">
 <!-- The negative margin pays back the padding, or the mark leaves its 16px and the gap tightens. -->
-        <div onClick="{{ homeAct }}" tabindex="0" title="Start over" style="display: inline-flex; align-items: center; justify-content: center; padding: 3px; margin: -3px; border-radius: 6px; cursor: pointer; flex: none; outline: none; transition: background 160ms cubic-bezier(0.2, 0, 0.2, 1);" style-hover="background: #1c2632;" style-focus="box-shadow: 0 0 0 3px rgba(43, 127, 228, 0.32);">
+        <div onClick="{{ homeAct }}" tabindex="0" title="All workspaces" style="display: inline-flex; align-items: center; justify-content: center; padding: 3px; margin: -3px; border-radius: 6px; cursor: pointer; flex: none; outline: none; transition: background 160ms cubic-bezier(0.2, 0, 0.2, 1);" style-hover="background: #1c2632;" style-focus="box-shadow: 0 0 0 3px rgba(43, 127, 228, 0.32);">
           <img src="assets/flowx-mark-white.svg" alt="FlowX" style="height: 22px; width: auto; flex: none;" />
         </div>
 
@@ -1994,20 +1994,20 @@
      attached happy-path prototype in an iframe; Plan is the steps, each opening to its questions. -->
 <sc-if value="{{ buildplan }}" hint-placeholder-val="{{ false }}">
     <div style="position: absolute; inset: 0; z-index: 40; background: #0b1218; display: flex; flex-direction: column; color: #f5f9fc;">
-<!-- Header, the frame's own 48px bar — one control on the left (project + branch, opening a
-     two-pane menu; no environment anywhere), view tabs dead center, Build/Admin out in the open
-     on the right beside Share. Mark goes home. -->
+<!-- Header, the frame's own 48px bar — the workspace's type pill, then one control (project +
+     branch, opening a two-pane menu), view tabs dead center, Build/Admin out in the open on the
+     right beside Share. Mark goes to the hub — switching workspace happens there. -->
       <div style="height: 48px; flex: none; position: relative; background: #101820; border-bottom: 1px solid #18212a; display: flex; align-items: center; gap: 12px; padding: 0 16px;">
-        <div onClick="{{ homeAct }}" tabindex="0" title="Back to the builder — Esc" style="display: inline-flex; align-items: center; justify-content: center; padding: 3px; margin: -3px; border-radius: 6px; cursor: pointer; flex: none; outline: none; transition: background 160ms cubic-bezier(0.2, 0, 0.2, 1);" style-hover="background: #1c2632;" style-focus="box-shadow: 0 0 0 3px rgba(43, 127, 228, 0.32);">
+        <div onClick="{{ homeAct }}" tabindex="0" title="All workspaces — Esc" style="display: inline-flex; align-items: center; justify-content: center; padding: 3px; margin: -3px; border-radius: 6px; cursor: pointer; flex: none; outline: none; transition: background 160ms cubic-bezier(0.2, 0, 0.2, 1);" style-hover="background: #1c2632;" style-focus="box-shadow: 0 0 0 3px rgba(43, 127, 228, 0.32);">
           <img src="assets/flowx-mark-white.svg" alt="FlowX" style="height: 22px; width: auto; flex: none;" />
         </div>
-<!-- Environment — a badge now, not a select: the admin header's blue pill. -->
-        <div title="Environment" style="flex: none; margin-left: 6px; background: #2b7fe4; color: #ffffff; font: 700 9.5px/13px 'Open Sans', sans-serif; letter-spacing: 0.06em; padding: 2px 8px; border-radius: 99px;">{{ bpEnvBadge }}</div>
-<!-- The place — Triglav / project as a quiet path, the branch riding as an amber version chip;
+<!-- The workspace's type — a badge, not a select, in the type's color. -->
+        <div title="Workspace type" style="flex: none; margin-left: 6px; background: {{ bpEnvPill }}; color: #ffffff; font: 700 9.5px/13px 'Open Sans', sans-serif; letter-spacing: 0.06em; padding: 2px 8px; border-radius: 99px;">{{ bpEnvBadge }}</div>
+<!-- The place — workspace / project as a quiet path, the branch riding as an amber version chip;
      the whole thing is still the one control opening the two-pane menu. -->
         <div style="position: relative; flex: none; z-index: 55; margin-left: 2px;">
           <div onClick="{{ bpNavAppAct }}" tabindex="0" title="Project and branch" style="display: inline-flex; align-items: center; gap: 6px; height: 28px; padding: 0 6px; border-radius: 8px; cursor: pointer; outline: none; transition: background 160ms cubic-bezier(0.2, 0, 0.2, 1);" style-hover="background: #1c2632;" style-focus="box-shadow: 0 0 0 3px rgba(43, 127, 228, 0.32);">
-            <span style="font: 400 11.5px/16px 'Open Sans', sans-serif; color: #6b7783;">Triglav</span>
+            <span style="font: 400 11.5px/16px 'Open Sans', sans-serif; color: #6b7783;">{{ bpWs }}</span>
             <span style="font: 400 11.5px/16px 'Open Sans', sans-serif; color: #2f3945;">/</span>
             <span style="font: 600 13px/18px 'Open Sans', sans-serif; color: #f5f9fc;">Investment Assistant</span>
             <span style="display: inline-flex; align-items: center; gap: 4px; padding: 1px 7px; border-radius: 99px; border: 1px solid rgba(230, 180, 85, 0.45); color: #e6b455; font: 600 10.5px/14px 'Open Sans', sans-serif;"><i class="ph ph-git-branch" style="font-size: 10px;"></i>{{ bpBranch }}</span>
@@ -2016,7 +2016,7 @@
           <sc-if value="{{ bpNavAppOpen }}" hint-placeholder-val="{{ false }}">
           <div style="position: absolute; top: 36px; left: -4px; z-index: 60; width: 430px; background: #101820; border: 1px solid #26313d; border-radius: 12px; box-shadow: 0 24px 70px rgba(0, 0, 0, 0.6); padding: 10px; display: flex; gap: 10px;">
             <div style="flex: 1.2; min-width: 0;">
-              <div style="font: 400 10.5px/14px 'Open Sans', sans-serif; color: #6b7783; padding: 0 8px 4px; letter-spacing: 0.05em; text-transform: uppercase;">Project · Triglav</div>
+              <div style="font: 400 10.5px/14px 'Open Sans', sans-serif; color: #6b7783; padding: 0 8px 4px; letter-spacing: 0.05em; text-transform: uppercase;">Projects · {{ bpWs }}</div>
               <sc-for list="{{ bpAppOpts }}" as="o" hint-placeholder-count="2">
               <div onClick="{{ o.act }}" tabindex="0" style="display: flex; align-items: center; gap: 8px; padding: 7px 8px; border-radius: 6px; background: {{ o.rowBg }}; cursor: pointer; outline: none;" style-hover="background: #161f28;" style-focus="box-shadow: 0 0 0 3px rgba(43, 127, 228, 0.32);">
                 <i class="ph {{ o.icon }}" style="font-size: 13px; color: #8b98a5; flex: none;"></i>
@@ -2024,7 +2024,8 @@
                 <i class="ph ph-check" style="font-size: 12px; color: #4d97ea; display: {{ o.checkShow }};"></i>
               </div>
               </sc-for>
-              <div tabindex="0" style="display: flex; align-items: center; gap: 8px; padding: 7px 8px; border-radius: 6px; color: #6b7783; font: 400 12px/16px 'Open Sans', sans-serif; cursor: pointer; outline: none;" style-hover="background: #161f28; color: #c3cdd7;" style-focus="box-shadow: 0 0 0 3px rgba(43, 127, 228, 0.32);"><i class="ph ph-plus" style="font-size: 13px;"></i>New project</div>
+              <div tabindex="0" style="display: {{ bpNewProjShow }}; align-items: center; gap: 8px; padding: 7px 8px; border-radius: 6px; color: #6b7783; font: 400 12px/16px 'Open Sans', sans-serif; cursor: pointer; outline: none;" style-hover="background: #161f28; color: #c3cdd7;" style-focus="box-shadow: 0 0 0 3px rgba(43, 127, 228, 0.32);"><i class="ph ph-plus" style="font-size: 13px;"></i>New project</div>
+              <div onClick="{{ homeAct }}" tabindex="0" style="display: flex; align-items: center; gap: 8px; padding: 7px 8px; border-radius: 6px; color: #6b7783; font: 400 12px/16px 'Open Sans', sans-serif; cursor: pointer; outline: none;" style-hover="background: #161f28; color: #c3cdd7;" style-focus="box-shadow: 0 0 0 3px rgba(43, 127, 228, 0.32);"><i class="ph ph-squares-four" style="font-size: 13px;"></i>All workspaces</div>
             </div>
             <div style="width: 1px; background: #1a232d; flex: none;"></div>
             <div style="flex: 1; min-width: 0;">
@@ -3343,6 +3344,45 @@
     </div>
 </sc-if>
 
+<!-- ── The workspace hub ── The landing (a URL carrying no state): typed workspaces — a workspace
+     IS a Sandbox, UAT or Production — each holding its own projects. Picking a project opens its
+     builder; non-Sandbox opens read-only. One grid over the whole list, workspace heads spanning
+     it, so cards line up across sections. -->
+<sc-if value="{{ hub }}" hint-placeholder-val="{{ false }}">
+    <div style="position: absolute; inset: 0; z-index: 45; background: #0b1218; display: flex; flex-direction: column; color: #f5f9fc;">
+      <div style="height: 48px; flex: none; background: #101820; border-bottom: 1px solid #18212a; display: flex; align-items: center; padding: 0 16px;">
+        <img src="assets/flowx-mark-white.svg" alt="FlowX" style="height: 22px; width: auto; flex: none;" />
+      </div>
+      <div style="flex: 1; overflow: auto;">
+        <div style="max-width: 920px; margin: 0 auto; padding: 44px 32px 72px;">
+          <div style="font: 600 20px/28px 'Open Sans', sans-serif; color: #f5f9fc;">Workspaces</div>
+          <div style="font: 400 12.5px/18px 'Open Sans', sans-serif; color: #8b98a5; margin: 4px 0 6px;">Pick a project to open its builder. UAT and Production workspaces are read-only.</div>
+          <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px;">
+            <sc-for list="{{ hubRows }}" as="r" hint-placeholder-count="6">
+            <div style="grid-column: {{ r.span }}; min-width: 0; display: flex; flex-direction: column;">
+              <div style="display: {{ r.headShow }}; align-items: center; gap: 10px; margin: 26px 2px 2px;">
+                <span style="font: 600 15px/20px 'Open Sans', sans-serif; color: #f5f9fc;">{{ r.name }}</span>
+                <span style="background: {{ r.pillBg }}; color: #ffffff; font: 700 9.5px/13px 'Open Sans', sans-serif; letter-spacing: 0.06em; padding: 2px 8px; border-radius: 99px;">{{ r.pill }}</span>
+                <span style="flex: 1;"></span>
+                <span style="font: 400 11px/15px 'Open Sans', sans-serif; color: #6b7783;">{{ r.count }}</span>
+              </div>
+              <div onClick="{{ r.act }}" tabindex="0" style="display: {{ r.cardShow }}; flex-direction: column; gap: 8px; flex: 1; padding: 14px 16px; border: 1px solid #1a232d; border-radius: 12px; background: #101820; cursor: {{ r.cur }}; opacity: {{ r.dim }}; outline: none; transition: border-color 160ms cubic-bezier(0.2, 0, 0.2, 1);" style-hover="border-color: #35507a;" style-focus="box-shadow: 0 0 0 3px rgba(43, 127, 228, 0.32);">
+                <div style="display: flex; align-items: center; gap: 8px;">
+                  <i class="ph {{ r.ic }}" style="font-size: 16px; color: #8b98a5; flex: none;"></i>
+                  <span style="flex: 1; min-width: 0; font: 600 13px/18px 'Open Sans', sans-serif; color: #f5f9fc; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;">{{ r.name }}</span>
+                  <i class="ph ph-lock-simple" style="display: {{ r.lockShow }}; font-size: 12px; color: #6b7783;"></i>
+                </div>
+                <div style="font: 400 11.5px/16px 'Open Sans', sans-serif; color: #8b98a5;">{{ r.desc }}</div>
+                <div style="font: 400 10.5px/14px 'Open Sans', sans-serif; color: #6b7783; margin-top: auto;">{{ r.meta }}</div>
+              </div>
+            </div>
+            </sc-for>
+          </div>
+        </div>
+      </div>
+    </div>
+</sc-if>
+
   </div>
 
 </div>
@@ -3389,6 +3429,8 @@ class Component extends DCLogic {
     return {
       step,
       ask,
+      // The workspace hub is the landing: only a URL carrying no state at all opens it.
+      hub: ![...q.keys()].length,
       // The second plan is its own overlay, reached by ?buildplan=1; it ignores the rest of state.
       buildplan: q.get('buildplan') === '1',
       // Which of the three tabs the overlay shows, and which step is expanded on its Plan tab.
@@ -3399,9 +3441,9 @@ class Component extends DCLogic {
       // Admin's own switch: Config (what is set up) vs Runtime (what is running). Both placeholders.
       bpAdmin: q.get('admin') === 'runtime' ? 'runtime' : 'config',
       bpStep: 0,
-      // Platform nav (light-touch): Triglav ▸ environment ▸ app ▸ branch. Env + branch are states on
-      // this overlay; bpNav is which header menu is open (env | app | branch | null).
-      bpEnv: 'Sandbox',
+      // Platform nav (light-touch): workspace ▸ project ▸ branch. A workspace IS an environment
+      // (its type); the hub picks it and ?env= carries it in. bpNav is which header menu is open.
+      bpEnv: ['UAT', 'Production'].indexOf(q.get('env')) !== -1 ? q.get('env') : 'Sandbox',
       bpBranch: 'main',
       bpNav: q.get('menu') === '1' ? 'app' : null,
       // agentic-funds scenario: the solution is already built; a prompt stages a change as a brand-new
@@ -5323,18 +5365,45 @@ class Component extends DCLogic {
       create: [], createShow: 'none', createN: 0, edit: [], editShow: 'none', editN: 0, del: [], delShow: 'none', delN: 0, depends: '', dependsShow: 'none' };
 
     // ── Platform nav (light-touch) ─────────────────────────────────────────
-    // Triglav ▸ environment ▸ app ▸ branch. Env + branch are states on this overlay; "Card dispute"
-    // is the other project — picking it leaves to the dispute builder. Non-Sandbox envs are read-only.
+    // Workspace ▸ project ▸ branch. A workspace IS a Sandbox, UAT or Production — switching
+    // environment is switching workspace, on the hub. Non-Sandbox workspaces are read-only.
     const BP_ENVS = [
-      { k: 'Sandbox', desc: 'Build + experiment', dot: '#4d97ea', bg: 'rgba(77,151,234,0.12)', border: 'rgba(77,151,234,0.30)', text: '#8fc0f4' },
-      { k: 'UAT', desc: 'Business review', dot: '#e0a324', bg: 'rgba(224,163,36,0.12)', border: 'rgba(224,163,36,0.30)', text: '#e0b968' },
-      { k: 'Production', desc: 'Live to advisors', dot: '#2ea86a', bg: 'rgba(46,168,106,0.12)', border: 'rgba(46,168,106,0.30)', text: '#6fca9c' },
+      { k: 'Sandbox', desc: 'Build + experiment', pill: '#2b7fe4', dot: '#4d97ea', bg: 'rgba(77,151,234,0.12)', border: 'rgba(77,151,234,0.30)', text: '#8fc0f4' },
+      { k: 'UAT', desc: 'Business review', pill: '#e0a324', dot: '#e0a324', bg: 'rgba(224,163,36,0.12)', border: 'rgba(224,163,36,0.30)', text: '#e0b968' },
+      { k: 'Production', desc: 'Live to advisors', pill: '#2ea86a', dot: '#2ea86a', bg: 'rgba(46,168,106,0.12)', border: 'rgba(46,168,106,0.30)', text: '#6fca9c' },
     ];
     const BP_BRANCHES = { Sandbox: [['main', '5h ago'], ['agentic-funds', '2d ago']], UAT: [['main', '1d ago']], Production: [['main', '3w ago']] };
     const bpEnvMeta = BP_ENVS.find(e => e.k === S.bpEnv) || BP_ENVS[0];
     const bpLocked = S.bpEnv !== 'Sandbox';
+    const bpWs = 'Triglav ' + S.bpEnv;
     const bpBranchList = BP_BRANCHES[S.bpEnv] || [['main', '—']];
     const bpBranchCur = bpBranchList.some(b => b[0] === S.bpBranch) ? S.bpBranch : 'main';
+
+    // ── Workspace hub ── the landing: typed workspaces, each with its own project list. One flat
+    // row list under one grid — heads span it, cards fill it (the bpModelRows idiom).
+    const HUB = [
+      { ws: 'Triglav Sandbox', env: 'Sandbox', projects: [
+        { n: 'Investment Assistant', ic: 'ph-robot', d: 'Advisor-led investment requests, end to end.', meta: '2 branches · edited 5h ago', go: '?buildplan=1' },
+        { n: 'Card dispute', ic: 'ph-credit-card', d: 'Dispute a card payment from the app.', meta: '1 branch · edited 3d ago', go: '?dispute=1' } ] },
+      { ws: 'Playground', env: 'Sandbox', projects: [
+        { n: 'Onboarding revamp', ic: 'ph-user-circle-plus', d: 'Parked retail onboarding experiment.', meta: '1 branch · edited 6w ago', go: null } ] },
+      { ws: 'Triglav UAT', env: 'UAT', projects: [
+        { n: 'Investment Assistant', ic: 'ph-robot', d: 'Under business review.', meta: 'main · promoted 1d ago', go: '?buildplan=1&env=UAT' } ] },
+      { ws: 'Triglav Production', env: 'Production', projects: [
+        { n: 'Investment Assistant', ic: 'ph-robot', d: 'Live to advisors.', meta: 'main · promoted 3w ago', go: '?buildplan=1&env=Production' } ] },
+    ];
+    const hubRows = [];
+    HUB.forEach(w => {
+      const t = BP_ENVS.find(e => e.k === w.env);
+      hubRows.push({ span: '1 / -1', headShow: 'flex', cardShow: 'none', name: w.ws, pill: w.env.toUpperCase(),
+        pillBg: t.pill, count: w.projects.length + (w.projects.length > 1 ? ' projects' : ' project'),
+        ic: '', desc: '', meta: '', lockShow: 'none', dim: '1', cur: 'default', act: () => {} });
+      w.projects.forEach(p => hubRows.push({ span: 'auto', headShow: 'none', cardShow: 'flex', name: p.n,
+        pill: '', pillBg: 'transparent', count: '', ic: p.ic, desc: p.d, meta: p.meta,
+        lockShow: w.env === 'Sandbox' ? 'none' : 'inline-flex',
+        dim: p.go ? '1' : '0.55', cur: p.go ? 'pointer' : 'default',
+        act: p.go ? () => location.assign(location.pathname + p.go) : () => {} }));
+    });
 
     // ── Canvas › solution model (Pattern 2) ──────────────────────────────
     // The resource model as the source of truth: chat (AI) and designer (you) both edit it. The
@@ -5698,21 +5767,28 @@ class Component extends DCLogic {
         { email: 'antonia+11@flowx.ai' }
       ],
       // ── Platform nav — the one title menu in the header ──────────────────
+      hub: S.hub,
+      hubRows: hubRows,
       bpEnvBadge: (S.bpEnv || 'Sandbox').toUpperCase(),
+      bpEnvPill: bpEnvMeta.pill,
+      bpWs: bpWs,
       bpBranch: bpBranchCur,
       bpLocked: bpLocked,
       bpLockBg: bpEnvMeta.bg, bpLockBorder: bpEnvMeta.border, bpLockText: bpEnvMeta.text,
-      bpLockLabel: 'Read-only in ' + S.bpEnv + ' — promoted from Sandbox. Switch to Sandbox to edit.',
+      bpLockLabel: 'Read-only in ' + bpWs + ' — promoted from Triglav Sandbox. Open the Sandbox workspace to edit.',
       bpNavAnyOpen: !!S.bpNav,
       bpNavClose: leave({ bpNav: null }),
       bpNavAppAct: leave({ bpNav: S.bpNav === 'app' ? null : 'app' }),
       bpNavAppOpen: S.bpNav === 'app',
       bpNavCaret: S.bpNav === 'app' ? 'ph-caret-up' : 'ph-caret-down',
       bpNavCaretColor: S.bpNav === 'app' ? '#4d97ea' : '#6b7783',
+      // Only Triglav Sandbox holds both projects; a read-only workspace lists what was promoted.
       bpAppOpts: [
         { name: 'Investment Assistant', icon: 'ph-robot', checkShow: 'inline-flex', rowBg: '#161f28', act: leave({ bpNav: null }) },
-        { name: 'Card dispute', icon: 'ph-credit-card', checkShow: 'none', rowBg: 'transparent', act: () => location.assign(location.pathname) },
-      ],
+      ].concat(bpLocked ? [] : [
+        { name: 'Card dispute', icon: 'ph-credit-card', checkShow: 'none', rowBg: 'transparent', act: () => location.assign(location.pathname + '?dispute=1') },
+      ]),
+      bpNewProjShow: bpLocked ? 'none' : 'flex',
       bpBranchOpts: bpBranchList.map(b => ({
         name: b[0],
         meta: 'edited ' + b[1] + (b[0] === bpBranchCur ? ' · you’re here' : ''),
