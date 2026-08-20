@@ -598,7 +598,12 @@
     });
   });
 
-  window.addEventListener('message', e => { const m = e.data && e.data.bpSys; if (m) applySys(m); });
+  window.addEventListener('message', e => {
+    const d = e.data || {};
+    if (d.bpSys) applySys(d.bpSys);
+    // the parent's resource panel selecting a screen — same selection a card click makes, no echo back
+    if ('bpSelect' in d) { sel = d.bpSelect && $('#' + d.bpSelect) ? d.bpSelect : null; render(); }
+  });
   // ask the parent for the current mock/connected map on load
   try { parent.postMessage({ bpSysReq: 1 }, '*'); } catch (_) {}
 })();
