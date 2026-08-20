@@ -1,0 +1,427 @@
+<!DOCTYPE html>
+<!-- Header modes — the Build/Admin switch is the subject this time, not the bar's layout.
+     Every frame is live: click the mode control and watch what the header does. -->
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Header modes — Build vs Admin</title>
+<link rel="stylesheet" href="https://unpkg.com/@phosphor-icons/web@2.1.1/src/regular/style.css" />
+<link rel="stylesheet" href="https://unpkg.com/@phosphor-icons/web@2.1.1/src/fill/style.css" />
+<style>
+  @font-face { font-family: 'Open Sans'; font-style: normal; font-weight: 400; font-display: swap; src: url('fonts/OpenSans-Regular.ttf') format('truetype'); }
+  @font-face { font-family: 'Open Sans'; font-style: normal; font-weight: 600; font-display: swap; src: url('fonts/OpenSans-SemiBold.ttf') format('truetype'); }
+  @font-face { font-family: 'Open Sans'; font-style: normal; font-weight: 700; font-display: swap; src: url('fonts/OpenSans-Bold.ttf') format('truetype'); }
+  *, *::before, *::after { box-sizing: border-box; }
+  html, body { margin: 0; padding: 0; background: #06090c; font-family: 'Open Sans', -apple-system, sans-serif; -webkit-font-smoothing: antialiased; color: #f5f9fc; }
+
+  .intro { max-width: 1520px; margin: 0 auto; padding: 40px 24px 8px; }
+  .intro h1 { font: 700 20px/26px 'Open Sans', sans-serif; margin: 0 0 6px; }
+  .intro p { font: 400 13px/19px 'Open Sans', sans-serif; color: #8b98a5; margin: 0; max-width: 900px; }
+
+  section.v { max-width: 1520px; margin: 36px auto 0; padding: 0 24px; }
+  section.v:last-of-type { padding-bottom: 80px; }
+  .cap { display: flex; align-items: baseline; gap: 10px; margin: 0 2px 10px; }
+  .cap b { font: 700 13px/18px 'Open Sans', sans-serif; color: #f5f9fc; }
+  .cap span { font: 400 12px/18px 'Open Sans', sans-serif; color: #6b7783; }
+  .frame { border: 1px solid #1a232d; border-radius: 12px; overflow: hidden; background: #0b1218; box-shadow: 0 20px 60px rgba(0,0,0,.45); position: relative; }
+
+  .ghost { height: 96px; display: flex; gap: 14px; padding: 16px; }
+  .ghost .a { width: 300px; border-radius: 8px; background: linear-gradient(180deg, #101820, #0d141b); }
+  .ghost .b { flex: 1; border-radius: 8px; background: linear-gradient(180deg, #0f171f, #0c1219); }
+  .frame[data-mode="admin"] .ghost .a { display: none; }
+
+  .bar { background: #101820; border-bottom: 1px solid #18212a; display: flex; align-items: center; padding: 0 16px; position: relative; transition: background 200ms cubic-bezier(.2,0,.2,1), border-color 200ms cubic-bezier(.2,0,.2,1); }
+  .h48 { height: 48px; gap: 12px; }
+  .logo { height: 22px; width: auto; flex: none; display: block; }
+  .grow { flex: 1; }
+  .vsep { width: 1px; height: 20px; background: #1c2632; flex: none; }
+  .hov { transition: background 160ms cubic-bezier(.2,0,.2,1), color 160ms cubic-bezier(.2,0,.2,1), border-color 160ms cubic-bezier(.2,0,.2,1); cursor: pointer; }
+  .f12 { font: 600 12px/16px 'Open Sans', sans-serif; }
+  .muted { color: #8b98a5; }
+  .faint { color: #6b7783; }
+  .slash { font: 400 12px/16px 'Open Sans', sans-serif; color: #3a4653; flex: none; }
+  .caret { font-size: 10px; color: #6b7783; }
+
+  .env { flex: none; background: #2b7fe4; color: #fff; font: 700 9.5px/13px 'Open Sans', sans-serif; letter-spacing: .06em; padding: 2px 8px; border-radius: 99px; }
+  .bchip { display: inline-flex; align-items: center; gap: 4px; padding: 1px 7px; border-radius: 99px; border: 1px solid rgba(230,180,85,.45); color: #e6b455; font: 600 10.5px/14px 'Open Sans', sans-serif; flex: none; }
+  .place { display: inline-flex; align-items: center; gap: 6px; height: 28px; padding: 0 6px; border-radius: 8px; flex: none; transition: opacity 200ms cubic-bezier(.2,0,.2,1); }
+  .place:hover { background: #1c2632; }
+  .place .pj { font: 400 11.5px/16px 'Open Sans', sans-serif; color: #6b7783; }
+  .place .nm { font: 600 13px/18px 'Open Sans', sans-serif; color: #f5f9fc; }
+
+  .btn { display: inline-flex; align-items: center; gap: 6px; height: 28px; padding: 0 13px; border-radius: 8px; flex: none; font: 600 12px/16px 'Open Sans', sans-serif; }
+  .btn.quiet { border: 1px solid #26313d; background: #161f28; color: #c3cdd7; }
+  .btn.quiet:hover { border-color: #4d97ea; color: #fff; }
+  .iconbtn { width: 28px; height: 28px; border-radius: 8px; display: inline-flex; align-items: center; justify-content: center; color: #8b98a5; flex: none; }
+  .iconbtn:hover { background: #1c2632; color: #fff; }
+
+  .seg { display: inline-flex; align-items: center; gap: 2px; height: 28px; padding: 3px; border-radius: 8px; background: #161f28; flex: none; }
+  .seg .s { display: inline-flex; align-items: center; gap: 5px; height: 22px; padding: 0 12px; border-radius: 6px; color: #8b98a5; font: 600 12px/16px 'Open Sans', sans-serif; }
+  .seg .s:hover { color: #fff; }
+  .seg .s.on { background: #1c2632; color: #fff; }
+
+  .utabs { display: flex; align-items: stretch; align-self: stretch; height: 100%; }
+  .utabs .t { display: inline-flex; align-items: center; gap: 6px; padding: 0 14px; color: #8b98a5; font: 600 12px/16px 'Open Sans', sans-serif; position: relative; }
+  .utabs .t:hover { color: #e7edf2; }
+  .utabs .t.on { color: #fff; }
+  .utabs .t.on::after { content: ''; position: absolute; left: 10px; right: 10px; bottom: 0; height: 2px; border-radius: 2px 2px 0 0; background: #2b7fe4; }
+  .center { position: absolute; left: 50%; top: 0; bottom: 0; transform: translateX(-50%); display: flex; align-items: center; }
+
+  /* Mode plumbing: .bld lives only in Build, .adm only in Admin; swapped-in parts rise 3px. */
+  .frame[data-mode="build"] .adm { display: none !important; }
+  .frame[data-mode="admin"] .bld { display: none !important; }
+  .frame[data-mode="admin"] .adm, .frame[data-mode="build"] .bld { animation: rise 200ms cubic-bezier(.2,0,.2,1); }
+  @keyframes rise { from { opacity: 0; } }
+  [data-set-mode] { cursor: pointer; }
+  .frame[data-mode="build"] .mseg [data-set-mode="build"],
+  .frame[data-mode="admin"] .mseg [data-set-mode="admin"] { background: #1c2632; color: #fff; }
+
+  /* ── M0: Comment only exists on the Test run view. */
+  #m0 .frame:not([data-view="run"]) .cbtn { display: none; }
+
+  /* ── M1: mode fused to the views — world level filled blue, view level soft. */
+  .fused { display: inline-flex; align-items: stretch; height: 32px; border: 1px solid #26313d; border-radius: 9px; background: #0e161d; overflow: hidden; }
+  .fused .m { display: inline-flex; align-items: center; gap: 6px; padding: 0 12px; color: #6b7783; font: 600 12px/16px 'Open Sans', sans-serif; }
+  .fused .m:hover { color: #c3cdd7; }
+  #m1 .frame[data-mode="build"] .fused [data-set-mode="build"],
+  #m1 .frame[data-mode="admin"] .fused [data-set-mode="admin"] { background: #2b7fe4; color: #fff; }
+  .fused .fsep { width: 1px; background: #26313d; }
+  .fused .t { display: inline-flex; align-items: center; padding: 0 13px; color: #8b98a5; font: 600 12px/16px 'Open Sans', sans-serif; }
+  .fused .t:hover { color: #fff; }
+  .fused .t.on { background: #1c2632; color: #fff; }
+
+  /* ── M2: Admin repaints the world amber. */
+  #m2 .frame { transition: background 220ms cubic-bezier(.2,0,.2,1); }
+  #m2 .edge { height: 2px; background: #18212a; transition: background 220ms cubic-bezier(.2,0,.2,1); }
+  #m2 .frame[data-mode="admin"] .edge { background: #e6934a; }
+  #m2 .frame[data-mode="admin"] .bar { background: #1b130b; border-color: #2e2012; }
+  #m2 .frame[data-mode="admin"] .place { opacity: .45; }
+  #m2 .frame[data-mode="admin"] .env { background: #b26a2c; }
+  #m2 .frame[data-mode="admin"] .mseg [data-set-mode="admin"] { background: #b26a2c; color: #fff; }
+  #m2 .frame[data-mode="admin"] .seg.views { background: #241708; }
+  #m2 .frame[data-mode="admin"] .seg.views .s.on { background: #3a2510; color: #f0c896; }
+  #m2 .frame[data-mode="admin"] .ghost .b { background: linear-gradient(180deg, #171009, #130d07); }
+  #m2 .admtag { display: none; font: 700 9.5px/13px 'Open Sans', sans-serif; letter-spacing: .1em; color: #e6934a; }
+  #m2 .frame[data-mode="admin"] .admtag { display: inline; animation: rise 220ms cubic-bezier(.2,0,.2,1); }
+
+  /* ── M3: Admin is a sheet over the builder; the bar itself never changes. */
+  #m3 .sheet { position: absolute; inset: 0; z-index: 4; background: #0d1117; display: flex; flex-direction: column; }
+  #m3 .sheet .shbar { height: 48px; flex: none; background: #131a23; border-bottom: 1px solid #1d2733; display: flex; align-items: center; gap: 12px; padding: 0 16px; }
+  #m3 .sheet .rows { flex: 1; display: flex; flex-direction: column; gap: 10px; padding: 16px; }
+  #m3 .sheet .rows div { height: 34px; border-radius: 8px; background: linear-gradient(180deg, #121a24, #0f161e); }
+
+  /* ── M4: modes live on a rail, the bar belongs to the current mode. */
+  #m4 .railwrap { display: flex; align-items: stretch; }
+  #m4 .rail { width: 46px; flex: none; background: #0c1319; border-right: 1px solid #141d26; display: flex; flex-direction: column; align-items: center; gap: 6px; padding: 12px 0; }
+  #m4 .rail .ric { width: 32px; height: 32px; border-radius: 9px; display: inline-flex; align-items: center; justify-content: center; color: #5c6a77; font-size: 16px; }
+  #m4 .rail .ric:hover { color: #c3cdd7; background: #141d26; }
+  #m4 .frame[data-mode="build"] .rail [data-set-mode="build"],
+  #m4 .frame[data-mode="admin"] .rail [data-set-mode="admin"] { background: #1c2632; color: #fff; }
+  #m4 .railmain { flex: 1; min-width: 0; }
+
+  /* ── M6: Admin flips to a light theme — a different room, unmistakably. */
+  #m6 .frame[data-mode="admin"] .bar { background: #eef1f4; border-color: #d7dde3; }
+  #m6 .frame[data-mode="admin"] .place .pj { color: #7b8794; }
+  #m6 .frame[data-mode="admin"] .place .nm { color: #1b2530; }
+  #m6 .frame[data-mode="admin"] .place:hover { background: #dfe5ea; }
+  #m6 .frame[data-mode="admin"] .caret { color: #93a0ac; }
+  #m6 .frame[data-mode="admin"] .vsep { background: #d7dde3; }
+  #m6 .frame[data-mode="admin"] .seg.views { background: #dfe5ea; }
+  #m6 .frame[data-mode="admin"] .seg.views .s { color: #5d6a77; }
+  #m6 .frame[data-mode="admin"] .seg.views .s.on { background: #ffffff; color: #1b2530; box-shadow: 0 1px 3px rgba(20,35,50,.14); }
+  #m6 .frame[data-mode="admin"] .mseg { background: #dfe5ea; }
+  #m6 .frame[data-mode="admin"] .mseg .s { color: #5d6a77; }
+  #m6 .frame[data-mode="admin"] .mseg [data-set-mode="admin"] { background: #ffffff; color: #1b2530; box-shadow: 0 1px 3px rgba(20,35,50,.14); }
+  #m6 .frame[data-mode="admin"] .btn.quiet { border-color: #c9d2da; background: #ffffff; color: #3d4a58; }
+  #m6 .frame[data-mode="admin"] .ghost .b { background: linear-gradient(180deg, #e6ebef, #dde3e9); }
+  #m6 .frame[data-mode="admin"] { background: #d8dee4; }
+
+  /* ── M7: Admin is a ribbon over a locked builder. */
+  #m7 .ribbon { height: 34px; display: flex; align-items: center; gap: 12px; padding: 0 14px; background: #241708; border-bottom: 1px solid #3a2510; }
+  #m7 .frame[data-mode="admin"] .bar { opacity: .4; filter: saturate(.5); pointer-events: none; }
+  #m7 .frame[data-mode="admin"] .ghost { opacity: .4; }
+  #m7 .rseg { display: inline-flex; align-items: center; gap: 2px; height: 24px; padding: 2px; border-radius: 7px; background: #170e05; }
+  #m7 .rseg .s { display: inline-flex; align-items: center; height: 20px; padding: 0 10px; border-radius: 5px; color: #b08040; font: 600 11.5px/15px 'Open Sans', sans-serif; }
+  #m7 .rseg .s:hover { color: #f0c896; }
+  #m7 .rseg .s.on { background: #3a2510; color: #f0c896; }
+</style>
+</head>
+<body>
+
+<div class="intro">
+  <h1>Header modes — Build vs Admin</h1>
+  <p>The complaint: the mode toggle sits far right, but what it changes is dead centre — cause and effect are strangers. Worse, Build/Admin and Config/Runtime wear the same segmented-control clothes, the left side stays project-scoped while the centre jumps to platform scope, and the only trace of which world you're in is one small highlight. Eight answers below, each live — <b style="color:#c3cdd7;">click the mode controls</b> and watch what moves.</p>
+</div>
+
+<!-- ═══ M0 · what ships today ═══ -->
+<section class="v" id="m0">
+  <div class="cap"><b>M0 · Today, for reference</b><span>switch at the far right, centre teleports; in Admin two identical segments coexist. Click Test run to also see Comment pop in and out.</span></div>
+  <div class="frame" data-mode="build" data-view="chat">
+    <div class="bar h48">
+      <img class="logo" src="assets/flowx-mark-white.svg" alt="FlowX">
+      <span class="env">SANDBOX</span>
+      <span class="place hov"><span class="pj">Triglav</span><span class="slash">/</span><span class="nm">Investment Assistant</span><span class="bchip"><i class="ph ph-git-branch" style="font-size: 10px;"></i>main</span><i class="ph ph-caret-down caret"></i></span>
+      <div class="grow"></div>
+      <div class="center bld"><div class="utabs" style="height: 48px;">
+        <span class="t hov on" data-tab data-view="chat">Chat</span>
+        <span class="t hov" data-tab data-view="plan">Plan</span>
+        <span class="t hov" data-tab data-view="canvas">Canvas</span>
+        <span class="t hov" data-tab data-view="run">Test run</span>
+      </div></div>
+      <div class="center adm"><div class="seg views">
+        <span class="s hov on" data-tab>Config</span>
+        <span class="s hov" data-tab>Runtime</span>
+      </div></div>
+      <span class="btn quiet hov cbtn bld"><i class="ph ph-chat-teardrop-text" style="font-size: 13px;"></i>Comment</span>
+      <span class="btn quiet hov"><i class="ph ph-share-network" style="font-size: 13px;"></i>Share</span>
+      <div class="vsep"></div>
+      <div class="seg mseg">
+        <span class="s hov" data-set-mode="build">Build</span>
+        <span class="s hov" data-set-mode="admin">Admin</span>
+      </div>
+    </div>
+    <div class="ghost"><div class="a"></div><div class="b"></div></div>
+  </div>
+</section>
+
+<!-- ═══ M1 · cause beside effect ═══ -->
+<section class="v" id="m1">
+  <div class="cap"><b>M1 · Cause beside effect</b><span>the mode is welded to the views it commands — one centre capsule, mode on its left lip. Two grammars: world = filled blue, view = soft fill. Nothing else ever moves.</span></div>
+  <div class="frame" data-mode="build">
+    <div class="bar h48">
+      <img class="logo" src="assets/flowx-mark-white.svg" alt="FlowX">
+      <span class="env">SANDBOX</span>
+      <span class="place hov"><span class="pj">Triglav</span><span class="slash">/</span><span class="nm">Investment Assistant</span><span class="bchip"><i class="ph ph-git-branch" style="font-size: 10px;"></i>main</span><i class="ph ph-caret-down caret"></i></span>
+      <div class="grow"></div>
+      <div class="center"><div class="fused">
+        <span class="m hov" data-set-mode="build"><i class="ph ph-sparkle" style="font-size: 12px;"></i>Build</span>
+        <span class="m hov" data-set-mode="admin"><i class="ph ph-gear-six" style="font-size: 12px;"></i>Admin</span>
+        <span class="fsep"></span>
+        <span class="bld" style="display: inline-flex;">
+          <span class="t hov on" data-tab>Chat</span><span class="t hov" data-tab>Plan</span><span class="t hov" data-tab>Canvas</span><span class="t hov" data-tab>Test run</span>
+        </span>
+        <span class="adm" style="display: inline-flex;">
+          <span class="t hov on" data-tab>Config</span><span class="t hov" data-tab>Runtime</span>
+        </span>
+      </div></div>
+      <span class="btn quiet hov bld"><i class="ph ph-chat-teardrop-text" style="font-size: 13px;"></i>Comment</span>
+      <span class="btn quiet hov"><i class="ph ph-share-network" style="font-size: 13px;"></i>Share</span>
+    </div>
+    <div class="ghost"><div class="a"></div><div class="b"></div></div>
+  </div>
+</section>
+
+<!-- ═══ M2 · the world changes color ═══ -->
+<section class="v" id="m2">
+  <div class="cap"><b>M2 · The world changes colour</b><span>toggle stays far right, but Admin repaints everything amber — bar, edge, badge, ghost. You can't miss where you are, even if you missed the click; project context dims because it no longer applies.</span></div>
+  <div class="frame" data-mode="build">
+    <div class="edge"></div>
+    <div class="bar" style="height: 46px; gap: 12px;">
+      <img class="logo" src="assets/flowx-mark-white.svg" alt="FlowX">
+      <span class="admtag">PLATFORM ADMIN</span>
+      <span class="env">SANDBOX</span>
+      <span class="place hov"><span class="pj">Triglav</span><span class="slash">/</span><span class="nm">Investment Assistant</span><span class="bchip"><i class="ph ph-git-branch" style="font-size: 10px;"></i>main</span><i class="ph ph-caret-down caret"></i></span>
+      <div class="grow"></div>
+      <div class="center bld"><div class="utabs" style="height: 46px;">
+        <span class="t hov on" data-tab>Chat</span>
+        <span class="t hov" data-tab>Plan</span>
+        <span class="t hov" data-tab>Canvas</span>
+        <span class="t hov" data-tab>Test run</span>
+      </div></div>
+      <div class="center adm"><div class="seg views">
+        <span class="s hov on" data-tab>Config</span>
+        <span class="s hov" data-tab>Runtime</span>
+      </div></div>
+      <span class="btn quiet hov bld"><i class="ph ph-chat-teardrop-text" style="font-size: 13px;"></i>Comment</span>
+      <span class="btn quiet hov"><i class="ph ph-share-network" style="font-size: 13px;"></i>Share</span>
+      <div class="vsep"></div>
+      <div class="seg mseg">
+        <span class="s hov" data-set-mode="build">Build</span>
+        <span class="s hov" data-set-mode="admin">Admin</span>
+      </div>
+    </div>
+    <div class="ghost"><div class="a"></div><div class="b"></div></div>
+  </div>
+</section>
+
+<!-- ═══ M3 · admin is a sheet, not a mode ═══ -->
+<section class="v" id="m3">
+  <div class="cap"><b>M3 · Admin is a sheet</b><span>no toggle — a gear opens Admin as a layer with its own header and its own Done. The builder header never restructures because you never re-enter it changed; you come back to it exactly as left.</span></div>
+  <div class="frame" data-mode="build">
+    <div class="bar h48">
+      <img class="logo" src="assets/flowx-mark-white.svg" alt="FlowX">
+      <span class="env">SANDBOX</span>
+      <span class="place hov"><span class="pj">Triglav</span><span class="slash">/</span><span class="nm">Investment Assistant</span><span class="bchip"><i class="ph ph-git-branch" style="font-size: 10px;"></i>main</span><i class="ph ph-caret-down caret"></i></span>
+      <div class="grow"></div>
+      <div class="center"><div class="utabs" style="height: 48px;">
+        <span class="t hov on" data-tab>Chat</span>
+        <span class="t hov" data-tab>Plan</span>
+        <span class="t hov" data-tab>Canvas</span>
+        <span class="t hov" data-tab>Test run</span>
+      </div></div>
+      <span class="btn quiet hov"><i class="ph ph-chat-teardrop-text" style="font-size: 13px;"></i>Comment</span>
+      <span class="btn quiet hov"><i class="ph ph-share-network" style="font-size: 13px;"></i>Share</span>
+      <div class="vsep"></div>
+      <span class="iconbtn hov" data-set-mode="admin" title="Platform admin"><i class="ph ph-gear-six" style="font-size: 15px;"></i></span>
+    </div>
+    <div class="ghost" style="height: 200px;"><div class="a"></div><div class="b"></div></div>
+    <div class="sheet adm">
+      <div class="shbar">
+        <i class="ph-fill ph-gear-six" style="font-size: 16px; color: #8b98a5;"></i>
+        <span style="font: 700 13px/18px 'Open Sans', sans-serif;">Platform admin</span>
+        <span class="env">SANDBOX</span>
+        <div class="seg views" style="margin-left: 10px;">
+          <span class="s hov on" data-tab>Config</span>
+          <span class="s hov" data-tab>Runtime</span>
+        </div>
+        <div class="grow"></div>
+        <span class="btn quiet hov" data-set-mode="build">Done</span>
+      </div>
+      <div class="rows"><div></div><div></div><div style="width: 70%;"></div></div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ M4 · rail owns the modes ═══ -->
+<section class="v" id="m4">
+  <div class="cap"><b>M4 · The rail owns the modes</b><span>Build and Admin leave the header for a 46px rail — app-level places, like Slack workspaces. The bar belongs wholly to the current mode, so it's allowed to be completely different per mode without lying.</span></div>
+  <div class="frame railwrap" data-mode="build">
+    <div class="rail">
+      <img src="assets/flowx-mark-white.svg" alt="FlowX" style="height: 18px; width: auto; margin-bottom: 8px;">
+      <span class="ric hov" data-set-mode="build" title="Build"><i class="ph ph-sparkle"></i></span>
+      <span class="ric hov" data-set-mode="admin" title="Admin"><i class="ph ph-gear-six"></i></span>
+    </div>
+    <div class="railmain">
+      <div class="bar" style="height: 48px; gap: 12px;">
+        <span class="bld env">SANDBOX</span>
+        <span class="bld place hov" style="display: inline-flex;"><span class="pj">Triglav</span><span class="slash">/</span><span class="nm">Investment Assistant</span><span class="bchip"><i class="ph ph-git-branch" style="font-size: 10px;"></i>main</span><i class="ph ph-caret-down caret"></i></span>
+        <span class="adm" style="display: inline-flex; align-items: center; gap: 8px;"><span style="font: 700 13px/18px 'Open Sans', sans-serif;">Platform admin</span><span class="env">SANDBOX</span></span>
+        <div class="grow"></div>
+        <div class="center bld"><div class="utabs" style="height: 48px;">
+          <span class="t hov on" data-tab>Chat</span>
+          <span class="t hov" data-tab>Plan</span>
+          <span class="t hov" data-tab>Canvas</span>
+          <span class="t hov" data-tab>Test run</span>
+        </div></div>
+        <div class="center adm"><div class="seg views">
+          <span class="s hov on" data-tab>Config</span>
+          <span class="s hov" data-tab>Runtime</span>
+        </div></div>
+        <span class="btn quiet hov bld"><i class="ph ph-chat-teardrop-text" style="font-size: 13px;"></i>Comment</span>
+        <span class="btn quiet hov bld"><i class="ph ph-share-network" style="font-size: 13px;"></i>Share</span>
+      </div>
+      <div class="ghost"><div class="a"></div><div class="b"></div></div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ M5 · there are no modes ═══ -->
+<section class="v" id="m5">
+  <div class="cap"><b>M5 · There are no modes</b><span>flattened: Config and Runtime are just two more tabs past a seam. One row, one grammar, zero morphing — the header is identical in every state, and Admin is one click, not a world.</span></div>
+  <div class="frame" data-mode="build">
+    <div class="bar h48">
+      <img class="logo" src="assets/flowx-mark-white.svg" alt="FlowX">
+      <span class="env">SANDBOX</span>
+      <span class="place hov"><span class="pj">Triglav</span><span class="slash">/</span><span class="nm">Investment Assistant</span><span class="bchip"><i class="ph ph-git-branch" style="font-size: 10px;"></i>main</span><i class="ph ph-caret-down caret"></i></span>
+      <div class="grow"></div>
+      <div class="center"><div class="utabs" style="height: 48px;">
+        <span class="t hov on" data-tab>Chat</span>
+        <span class="t hov" data-tab>Plan</span>
+        <span class="t hov" data-tab>Canvas</span>
+        <span class="t hov" data-tab>Test run</span>
+        <span style="align-self: center; width: 1px; height: 18px; background: #1c2632; margin: 0 6px;"></span>
+        <span class="t hov faint" data-tab><i class="ph ph-gear-six" style="font-size: 12px;"></i>Config</span>
+        <span class="t hov faint" data-tab><i class="ph ph-pulse" style="font-size: 12px;"></i>Runtime</span>
+      </div></div>
+      <span class="btn quiet hov"><i class="ph ph-chat-teardrop-text" style="font-size: 13px;"></i>Comment</span>
+      <span class="btn quiet hov"><i class="ph ph-share-network" style="font-size: 13px;"></i>Share</span>
+    </div>
+    <div class="ghost"><div class="a"></div><div class="b"></div></div>
+  </div>
+</section>
+
+<!-- ═══ M6 · inverse world ═══ -->
+<section class="v" id="m6">
+  <div class="cap"><b>M6 · Inverse world</b><span>M2 pushed to the limit: Admin is a light theme. Builders live in the dark studio, admins in the bright office — nobody ever asks which mode they're in. Costly, but it makes "mode" honest.</span></div>
+  <div class="frame" data-mode="build">
+    <div class="bar h48">
+      <img class="logo bld" src="assets/flowx-mark-white.svg" alt="FlowX">
+      <img class="logo adm" src="assets/flowx-mark.svg" alt="FlowX" onerror="this.onerror=null;this.src='assets/flowx-mark-white.svg';this.style.filter='invert(.85)'">
+      <span class="env">SANDBOX</span>
+      <span class="place hov"><span class="pj">Triglav</span><span class="slash">/</span><span class="nm">Investment Assistant</span><span class="bchip bld"><i class="ph ph-git-branch" style="font-size: 10px;"></i>main</span><i class="ph ph-caret-down caret"></i></span>
+      <div class="grow"></div>
+      <div class="center bld"><div class="utabs" style="height: 48px;">
+        <span class="t hov on" data-tab>Chat</span>
+        <span class="t hov" data-tab>Plan</span>
+        <span class="t hov" data-tab>Canvas</span>
+        <span class="t hov" data-tab>Test run</span>
+      </div></div>
+      <div class="center adm"><div class="seg views">
+        <span class="s hov on" data-tab>Config</span>
+        <span class="s hov" data-tab>Runtime</span>
+      </div></div>
+      <span class="btn quiet hov bld"><i class="ph ph-chat-teardrop-text" style="font-size: 13px;"></i>Comment</span>
+      <span class="btn quiet hov"><i class="ph ph-share-network" style="font-size: 13px;"></i>Share</span>
+      <div class="vsep"></div>
+      <div class="seg mseg">
+        <span class="s hov" data-set-mode="build">Build</span>
+        <span class="s hov" data-set-mode="admin">Admin</span>
+      </div>
+    </div>
+    <div class="ghost"><div class="a"></div><div class="b"></div></div>
+  </div>
+</section>
+
+<!-- ═══ M7 · admin is a ribbon over a locked builder ═══ -->
+<section class="v" id="m7">
+  <div class="cap"><b>M7 · Ribbon over a locked builder</b><span>entering Admin drops a ribbon above the bar and freezes the builder beneath, still visible. Like an impersonation banner: the state is loud, the exit is on the state itself, and nothing gets rearranged.</span></div>
+  <div class="frame" data-mode="build">
+    <div class="ribbon adm">
+      <i class="ph-fill ph-gear-six" style="font-size: 14px; color: #e6934a;"></i>
+      <span style="font: 700 11.5px/15px 'Open Sans', sans-serif; color: #f0c896;">Platform administration</span>
+      <div class="rseg">
+        <span class="s hov on" data-tab>Config</span>
+        <span class="s hov" data-tab>Runtime</span>
+      </div>
+      <span style="font: 400 11px/15px 'Open Sans', sans-serif; color: #8a6a3a;">changes apply to every project on Sandbox</span>
+      <div class="grow"></div>
+      <span class="hov" data-set-mode="build" style="display: inline-flex; align-items: center; gap: 5px; height: 24px; padding: 0 10px; border-radius: 6px; border: 1px solid #4a3015; color: #f0c896; font: 600 11.5px/15px 'Open Sans', sans-serif;">Exit admin<i class="ph ph-x" style="font-size: 11px;"></i></span>
+    </div>
+    <div class="bar h48">
+      <img class="logo" src="assets/flowx-mark-white.svg" alt="FlowX">
+      <span class="env">SANDBOX</span>
+      <span class="place hov"><span class="pj">Triglav</span><span class="slash">/</span><span class="nm">Investment Assistant</span><span class="bchip"><i class="ph ph-git-branch" style="font-size: 10px;"></i>main</span><i class="ph ph-caret-down caret"></i></span>
+      <div class="grow"></div>
+      <div class="center"><div class="utabs" style="height: 48px;">
+        <span class="t hov on" data-tab>Chat</span>
+        <span class="t hov" data-tab>Plan</span>
+        <span class="t hov" data-tab>Canvas</span>
+        <span class="t hov" data-tab>Test run</span>
+      </div></div>
+      <span class="btn quiet hov"><i class="ph ph-chat-teardrop-text" style="font-size: 13px;"></i>Comment</span>
+      <span class="btn quiet hov"><i class="ph ph-share-network" style="font-size: 13px;"></i>Share</span>
+      <div class="vsep"></div>
+      <span class="iconbtn hov" data-set-mode="admin" title="Platform admin"><i class="ph ph-gear-six" style="font-size: 15px;"></i></span>
+    </div>
+    <div class="ghost"><div class="a"></div><div class="b"></div></div>
+  </div>
+</section>
+
+<script>
+  if (new URLSearchParams(location.search).get('mode') === 'admin')
+    document.querySelectorAll('.frame').forEach(function (f) { f.dataset.mode = 'admin'; });
+  document.addEventListener('click', function (e) {
+    var m = e.target.closest('[data-set-mode]');
+    if (m) { m.closest('.frame').dataset.mode = m.dataset.setMode; return; }
+    var t = e.target.closest('[data-tab]');
+    if (t) {
+      var group = t.parentElement.querySelectorAll('[data-tab]');
+      group.forEach(function (x) { x.classList.toggle('on', x === t); });
+      if (t.dataset.view) t.closest('.frame').dataset.view = t.dataset.view;
+    }
+  });
+</script>
+
+</body>
+</html>
