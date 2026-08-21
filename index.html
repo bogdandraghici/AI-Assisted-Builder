@@ -2299,6 +2299,48 @@
             </div>
 </sc-if>
 
+<!-- The change, being built: the last answer fires this, one row per step. A turning ring and a bar
+     on the step's own clock while it is on, the note under it saying what it is doing, a check when
+     it lands — and the last row landing is the change applied. -->
+<sc-if value="{{ bpBdShow }}" hint-placeholder-val="{{ false }}">
+            <div style="display: flex; gap: 12px; align-items: flex-start;">
+              <div style="flex: none; width: 28px; height: 28px; border-radius: 99px; border: 1px solid #26313d; background: #101820; display: grid; place-items: center;"><img src="assets/flowx-mark-white.svg" alt="" style="height: 13px; width: auto;" /></div>
+              <div style="min-width: 0; flex: 1;">
+                <div style="font: 400 12px/16px 'Open Sans', sans-serif; color: #8b98a5;"><b style="color: #c3cdd7; font-weight: 600;">Agent</b> · 09:44</div>
+                <div style="margin-top: 6px; font: 400 14px/23px 'Open Sans', sans-serif; color: #e7edf2; text-wrap: pretty;">{{ bpBdLead }}</div>
+                <div style="margin-top: 12px; display: flex; flex-direction: column; gap: 6px;">
+                  <sc-for list="{{ bpBdRows }}" as="cb" hint-placeholder-count="3">
+                  <div style="display: flex; flex-direction: column;">
+                  <div style="display: flex; align-items: center; gap: 8px;">
+                    <sc-if value="{{ cb.busy }}" hint-placeholder-val="{{ true }}">
+                    <i class="ph ph-circle-dashed" style="font-size: 15px; color: #4d97ea; flex: none; animation: run-spin 2400ms linear infinite;"></i>
+                    </sc-if>
+                    <sc-if value="{{ cb.done }}" hint-placeholder-val="{{ false }}">
+                    <i class="ph ph-check-circle" style="font-size: 15px; color: #8ad3ab; flex: none; animation: check-pop 360ms cubic-bezier(0.2, 0, 0.2, 1) both;"></i>
+                    </sc-if>
+                    <div style="min-width: 0; font: 400 13px/20px 'Open Sans', sans-serif; color: {{ cb.color }}; transition: color 340ms cubic-bezier(0.2, 0, 0.2, 1);">{{ cb.title }}</div>
+                  </div>
+                  <div style="display: grid; grid-template-rows: {{ cb.sub }}; transition: grid-template-rows 340ms cubic-bezier(0.2, 0, 0.2, 1);">
+                  <div style="overflow: hidden; min-height: 0; margin-left: 23px; opacity: {{ cb.subOp }}; transition: opacity 200ms cubic-bezier(0.2, 0, 0.2, 1);">
+                    <div style="height: 2px; margin: 7px 0 6px; max-width: 220px; border-radius: 99px; background: rgba(139, 152, 165, 0.16); overflow: hidden;">
+                      <div style="height: 100%; border-radius: 99px; background: #4d97ea; animation: build-fill {{ cb.ms }} linear both;"></div>
+                    </div>
+                    <div style="min-width: 0; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; font: 400 12px/17px 'Open Sans', sans-serif; color: #6b7783; animation: {{ cb.noteAnim }} 340ms cubic-bezier(0.2, 0, 0.2, 1) both;">{{ cb.note }}</div>
+                  </div>
+                  </div>
+                  </div>
+                  </sc-for>
+                </div>
+<sc-if value="{{ bpBdDoneShow }}" hint-placeholder-val="{{ false }}">
+                <div style="margin-top: 12px; font: 400 14px/23px 'Open Sans', sans-serif; color: #e7edf2; text-wrap: pretty;">{{ bpBdDone }}</div>
+                <div style="margin-top: 12px;">
+                  <div onClick="{{ bpTabRun }}" tabindex="0" style="display: inline-flex; align-items: center; gap: 6px; height: 30px; padding: 0 14px; border-radius: 8px; border: 1px solid transparent; background: #1d9a5c; color: #ffffff; font: 600 12px/16px 'Open Sans', sans-serif; cursor: pointer; outline: none; transition: filter 160ms cubic-bezier(0.2, 0, 0.2, 1);" style-hover="filter: brightness(1.12);" style-focus="box-shadow: 0 0 0 3px rgba(46, 168, 106, 0.32);"><i class="ph ph-play" style="font-size: 13px;"></i>Test run</div>
+                </div>
+</sc-if>
+              </div>
+            </div>
+</sc-if>
+
 <!-- The comments, fired: the agent works through the list, a spinner then a check, one per note. -->
 <sc-if value="{{ bpCnShow }}" hint-placeholder-val="{{ false }}">
             <div style="display: flex; gap: 12px; align-items: flex-start;">
@@ -2444,6 +2486,48 @@
               </div>
             </div>
 </sc-if>
+<!-- The change, being built: the last answer fires this, one row per step. A turning ring and a bar
+     on the step's own clock while it is on, the note under it saying what it is doing, a check when
+     it lands — and the last row landing is the change applied. -->
+<sc-if value="{{ bpBdShow }}" hint-placeholder-val="{{ false }}">
+            <div style="display: flex; gap: 10px; align-items: flex-start;">
+              <div style="flex: none; width: 24px; height: 24px; border-radius: 99px; border: 1px solid #26313d; background: #101820; display: grid; place-items: center;"><img src="assets/flowx-mark-white.svg" alt="" style="height: 11px; width: auto;" /></div>
+              <div style="min-width: 0; flex: 1;">
+                <div style="font: 400 11px/15px 'Open Sans', sans-serif; color: #8b98a5;"><b style="color: #c3cdd7; font-weight: 600;">Agent</b> · 09:44</div>
+                <div style="margin-top: 5px; font: 400 13px/21px 'Open Sans', sans-serif; color: #e7edf2; text-wrap: pretty;">{{ bpBdLead }}</div>
+                <div style="margin-top: 10px; display: flex; flex-direction: column; gap: 6px;">
+                  <sc-for list="{{ bpBdRows }}" as="cb" hint-placeholder-count="3">
+                  <div style="display: flex; flex-direction: column;">
+                  <div style="display: flex; align-items: flex-start; gap: 8px;">
+                    <sc-if value="{{ cb.busy }}" hint-placeholder-val="{{ true }}">
+                    <i class="ph ph-circle-dashed" style="font-size: 14px; color: #4d97ea; flex: none; margin-top: 2px; animation: run-spin 2400ms linear infinite;"></i>
+                    </sc-if>
+                    <sc-if value="{{ cb.done }}" hint-placeholder-val="{{ false }}">
+                    <i class="ph ph-check-circle" style="font-size: 14px; color: #8ad3ab; flex: none; margin-top: 2px; animation: check-pop 360ms cubic-bezier(0.2, 0, 0.2, 1) both;"></i>
+                    </sc-if>
+                    <div style="min-width: 0; font: 400 12px/18px 'Open Sans', sans-serif; color: {{ cb.color }}; transition: color 340ms cubic-bezier(0.2, 0, 0.2, 1); text-wrap: pretty;">{{ cb.title }}</div>
+                  </div>
+                  <div style="display: grid; grid-template-rows: {{ cb.sub }}; transition: grid-template-rows 340ms cubic-bezier(0.2, 0, 0.2, 1);">
+                  <div style="overflow: hidden; min-height: 0; margin-left: 22px; opacity: {{ cb.subOp }}; transition: opacity 200ms cubic-bezier(0.2, 0, 0.2, 1);">
+                    <div style="height: 2px; margin: 6px 0 5px; max-width: 180px; border-radius: 99px; background: rgba(139, 152, 165, 0.16); overflow: hidden;">
+                      <div style="height: 100%; border-radius: 99px; background: #4d97ea; animation: build-fill {{ cb.ms }} linear both;"></div>
+                    </div>
+                    <div style="min-width: 0; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; font: 400 11px/16px 'Open Sans', sans-serif; color: #6b7783; animation: {{ cb.noteAnim }} 340ms cubic-bezier(0.2, 0, 0.2, 1) both;">{{ cb.note }}</div>
+                  </div>
+                  </div>
+                  </div>
+                  </sc-for>
+                </div>
+<sc-if value="{{ bpBdDoneShow }}" hint-placeholder-val="{{ false }}">
+                <div style="margin-top: 10px; font: 400 13px/21px 'Open Sans', sans-serif; color: #e7edf2; text-wrap: pretty;">{{ bpBdDone }}</div>
+                <div style="margin-top: 10px;">
+                  <div onClick="{{ bpTabRun }}" tabindex="0" style="display: inline-flex; align-items: center; gap: 6px; height: 28px; padding: 0 12px; border-radius: 8px; border: 1px solid transparent; background: #1d9a5c; color: #ffffff; font: 600 11px/16px 'Open Sans', sans-serif; cursor: pointer; outline: none; transition: filter 160ms cubic-bezier(0.2, 0, 0.2, 1);" style-hover="filter: brightness(1.12);" style-focus="box-shadow: 0 0 0 3px rgba(46, 168, 106, 0.32);"><i class="ph ph-play" style="font-size: 12px;"></i>Test run</div>
+                </div>
+</sc-if>
+              </div>
+            </div>
+</sc-if>
+
 <!-- The comments, fired: the agent works through the list, a spinner then a check, one per note. -->
 <sc-if value="{{ bpCnShow }}" hint-placeholder-val="{{ false }}">
             <div style="display: flex; gap: 10px; align-items: flex-start;">
@@ -2902,6 +2986,48 @@
               </div>
             </div>
 </sc-if>
+<!-- The change, being built: the last answer fires this, one row per step. A turning ring and a bar
+     on the step's own clock while it is on, the note under it saying what it is doing, a check when
+     it lands — and the last row landing is the change applied. -->
+<sc-if value="{{ bpBdShow }}" hint-placeholder-val="{{ false }}">
+            <div style="display: flex; gap: 10px; align-items: flex-start;">
+              <div style="flex: none; width: 24px; height: 24px; border-radius: 99px; border: 1px solid #26313d; background: #101820; display: grid; place-items: center;"><img src="assets/flowx-mark-white.svg" alt="" style="height: 11px; width: auto;" /></div>
+              <div style="min-width: 0; flex: 1;">
+                <div style="font: 400 11px/15px 'Open Sans', sans-serif; color: #8b98a5;"><b style="color: #c3cdd7; font-weight: 600;">Agent</b> · 09:44</div>
+                <div style="margin-top: 5px; font: 400 13px/21px 'Open Sans', sans-serif; color: #e7edf2; text-wrap: pretty;">{{ bpBdLead }}</div>
+                <div style="margin-top: 10px; display: flex; flex-direction: column; gap: 6px;">
+                  <sc-for list="{{ bpBdRows }}" as="cb" hint-placeholder-count="3">
+                  <div style="display: flex; flex-direction: column;">
+                  <div style="display: flex; align-items: flex-start; gap: 8px;">
+                    <sc-if value="{{ cb.busy }}" hint-placeholder-val="{{ true }}">
+                    <i class="ph ph-circle-dashed" style="font-size: 14px; color: #4d97ea; flex: none; margin-top: 2px; animation: run-spin 2400ms linear infinite;"></i>
+                    </sc-if>
+                    <sc-if value="{{ cb.done }}" hint-placeholder-val="{{ false }}">
+                    <i class="ph ph-check-circle" style="font-size: 14px; color: #8ad3ab; flex: none; margin-top: 2px; animation: check-pop 360ms cubic-bezier(0.2, 0, 0.2, 1) both;"></i>
+                    </sc-if>
+                    <div style="min-width: 0; font: 400 12px/18px 'Open Sans', sans-serif; color: {{ cb.color }}; transition: color 340ms cubic-bezier(0.2, 0, 0.2, 1); text-wrap: pretty;">{{ cb.title }}</div>
+                  </div>
+                  <div style="display: grid; grid-template-rows: {{ cb.sub }}; transition: grid-template-rows 340ms cubic-bezier(0.2, 0, 0.2, 1);">
+                  <div style="overflow: hidden; min-height: 0; margin-left: 22px; opacity: {{ cb.subOp }}; transition: opacity 200ms cubic-bezier(0.2, 0, 0.2, 1);">
+                    <div style="height: 2px; margin: 6px 0 5px; max-width: 180px; border-radius: 99px; background: rgba(139, 152, 165, 0.16); overflow: hidden;">
+                      <div style="height: 100%; border-radius: 99px; background: #4d97ea; animation: build-fill {{ cb.ms }} linear both;"></div>
+                    </div>
+                    <div style="min-width: 0; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; font: 400 11px/16px 'Open Sans', sans-serif; color: #6b7783; animation: {{ cb.noteAnim }} 340ms cubic-bezier(0.2, 0, 0.2, 1) both;">{{ cb.note }}</div>
+                  </div>
+                  </div>
+                  </div>
+                  </sc-for>
+                </div>
+<sc-if value="{{ bpBdDoneShow }}" hint-placeholder-val="{{ false }}">
+                <div style="margin-top: 10px; font: 400 13px/21px 'Open Sans', sans-serif; color: #e7edf2; text-wrap: pretty;">{{ bpBdDone }}</div>
+                <div style="margin-top: 10px;">
+                  <div onClick="{{ bpTabRun }}" tabindex="0" style="display: inline-flex; align-items: center; gap: 6px; height: 28px; padding: 0 12px; border-radius: 8px; border: 1px solid transparent; background: #1d9a5c; color: #ffffff; font: 600 11px/16px 'Open Sans', sans-serif; cursor: pointer; outline: none; transition: filter 160ms cubic-bezier(0.2, 0, 0.2, 1);" style-hover="filter: brightness(1.12);" style-focus="box-shadow: 0 0 0 3px rgba(46, 168, 106, 0.32);"><i class="ph ph-play" style="font-size: 12px;"></i>Test run</div>
+                </div>
+</sc-if>
+              </div>
+            </div>
+</sc-if>
+
 <!-- The comments, fired: the agent works through the list, a spinner then a check, one per note. -->
 <sc-if value="{{ bpCnShow }}" hint-placeholder-val="{{ false }}">
             <div style="display: flex; gap: 10px; align-items: flex-start;">
@@ -3100,6 +3226,48 @@
               </div>
             </div>
 </sc-if>
+<!-- The change, being built: the last answer fires this, one row per step. A turning ring and a bar
+     on the step's own clock while it is on, the note under it saying what it is doing, a check when
+     it lands — and the last row landing is the change applied. -->
+<sc-if value="{{ bpBdShow }}" hint-placeholder-val="{{ false }}">
+            <div style="display: flex; gap: 10px; align-items: flex-start;">
+              <div style="flex: none; width: 24px; height: 24px; border-radius: 99px; border: 1px solid #26313d; background: #101820; display: grid; place-items: center;"><img src="assets/flowx-mark-white.svg" alt="" style="height: 11px; width: auto;" /></div>
+              <div style="min-width: 0; flex: 1;">
+                <div style="font: 400 11px/15px 'Open Sans', sans-serif; color: #8b98a5;"><b style="color: #c3cdd7; font-weight: 600;">Agent</b> · 09:44</div>
+                <div style="margin-top: 5px; font: 400 13px/21px 'Open Sans', sans-serif; color: #e7edf2; text-wrap: pretty;">{{ bpBdLead }}</div>
+                <div style="margin-top: 10px; display: flex; flex-direction: column; gap: 6px;">
+                  <sc-for list="{{ bpBdRows }}" as="cb" hint-placeholder-count="3">
+                  <div style="display: flex; flex-direction: column;">
+                  <div style="display: flex; align-items: flex-start; gap: 8px;">
+                    <sc-if value="{{ cb.busy }}" hint-placeholder-val="{{ true }}">
+                    <i class="ph ph-circle-dashed" style="font-size: 14px; color: #4d97ea; flex: none; margin-top: 2px; animation: run-spin 2400ms linear infinite;"></i>
+                    </sc-if>
+                    <sc-if value="{{ cb.done }}" hint-placeholder-val="{{ false }}">
+                    <i class="ph ph-check-circle" style="font-size: 14px; color: #8ad3ab; flex: none; margin-top: 2px; animation: check-pop 360ms cubic-bezier(0.2, 0, 0.2, 1) both;"></i>
+                    </sc-if>
+                    <div style="min-width: 0; font: 400 12px/18px 'Open Sans', sans-serif; color: {{ cb.color }}; transition: color 340ms cubic-bezier(0.2, 0, 0.2, 1); text-wrap: pretty;">{{ cb.title }}</div>
+                  </div>
+                  <div style="display: grid; grid-template-rows: {{ cb.sub }}; transition: grid-template-rows 340ms cubic-bezier(0.2, 0, 0.2, 1);">
+                  <div style="overflow: hidden; min-height: 0; margin-left: 22px; opacity: {{ cb.subOp }}; transition: opacity 200ms cubic-bezier(0.2, 0, 0.2, 1);">
+                    <div style="height: 2px; margin: 6px 0 5px; max-width: 180px; border-radius: 99px; background: rgba(139, 152, 165, 0.16); overflow: hidden;">
+                      <div style="height: 100%; border-radius: 99px; background: #4d97ea; animation: build-fill {{ cb.ms }} linear both;"></div>
+                    </div>
+                    <div style="min-width: 0; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; font: 400 11px/16px 'Open Sans', sans-serif; color: #6b7783; animation: {{ cb.noteAnim }} 340ms cubic-bezier(0.2, 0, 0.2, 1) both;">{{ cb.note }}</div>
+                  </div>
+                  </div>
+                  </div>
+                  </sc-for>
+                </div>
+<sc-if value="{{ bpBdDoneShow }}" hint-placeholder-val="{{ false }}">
+                <div style="margin-top: 10px; font: 400 13px/21px 'Open Sans', sans-serif; color: #e7edf2; text-wrap: pretty;">{{ bpBdDone }}</div>
+                <div style="margin-top: 10px;">
+                  <div onClick="{{ bpTabRun }}" tabindex="0" style="display: inline-flex; align-items: center; gap: 6px; height: 28px; padding: 0 12px; border-radius: 8px; border: 1px solid transparent; background: #1d9a5c; color: #ffffff; font: 600 11px/16px 'Open Sans', sans-serif; cursor: pointer; outline: none; transition: filter 160ms cubic-bezier(0.2, 0, 0.2, 1);" style-hover="filter: brightness(1.12);" style-focus="box-shadow: 0 0 0 3px rgba(46, 168, 106, 0.32);"><i class="ph ph-play" style="font-size: 12px;"></i>Test run</div>
+                </div>
+</sc-if>
+              </div>
+            </div>
+</sc-if>
+
 <!-- The comments, fired: the agent works through the list, a spinner then a check, one per note. -->
 <sc-if value="{{ bpCnShow }}" hint-placeholder-val="{{ false }}">
             <div style="display: flex; gap: 10px; align-items: flex-start;">
@@ -3526,6 +3694,10 @@ class Component extends DCLogic {
       // plan (only the affected steps + what they owe). bpChangeSent flips on Send; Build applies it.
       bpChangeSent: false,
       bpChangeApplied: false,
+      // The change build, fired by the last answer: step n → 'busy' | 'done', and which of that
+      // step's `doing` notes its row is on. The last row landing IS the change applied.
+      bpBuild: {},
+      bpBuildAt: {},
       // The staged request is typed by selecting the composer, never sitting there pre-filled.
       bpComposeArmed: false,
       // Canvas tab: the poster (map) or the solution model list (source of truth), + the model filter.
@@ -5193,6 +5365,8 @@ class Component extends DCLogic {
     // and what each owes. Build (plan level) applies it. Swaps in for Component.PLAN below.
     const CHANGE_PLAN = [
       { n: 1, tag: 'AI', title: 'Add Risk profiling agent',
+        build: { ms: 7200, deep: 'The agent is a new chain, so step 1 takes a while — its row says what it is on.',
+          doing: ['creating the risk profiling agent', 'giving it the portfolio and the KYC to read', 'building the advisor confirm gate', 'wiring the short-form fallback'] },
         test: 'From the portfolio, advancing runs the risk profiling agent: it reads the client’s portfolio + KYC, proposes a risk band with a short rationale, and the advisor confirms or overrides it before it feeds the allocation.',
         create: [
           ['ai', 'riskProfilingAgent', 'estimates the risk band from portfolio + KYC'],
@@ -5201,6 +5375,7 @@ class Component extends DCLogic {
         edit: [['Main', 'The RiskProfiling USER_TASK replaced by the agent chain + an advisor-confirm gate']],
         depends: '' },
       { n: 2, tag: 'AI', title: 'Modify AI allocation — new risk source',
+        build: { ms: 3600, doing: ['repointing the allocation input', 'teaching findWeightsNew the confirmed band', 'showing the band above the allocation'] },
         test: 'The AI allocation now reads the agent’s confirmed risk band instead of the questionnaire result — same allocation output, new input source. The confirmed band shows above the allocation.',
         create: [],
         edit: [
@@ -5209,6 +5384,7 @@ class Component extends DCLogic {
           ['Funds selection', 'The confirmed band + rationale shown above the allocation'] ],
         depends: 'Step 1.' },
       { n: 3, tag: 'RULE', title: 'Remove Risk profiling screen',
+        build: { ms: 2400, doing: ['taking the questionnaire out of Main', 'dropping riskProfiling and its four scales'] },
         test: 'The old 4-part questionnaire screen no longer appears in the wizard; the flow goes portfolio → agent → allocation.',
         create: [], edit: [],
         del: [
@@ -5270,18 +5446,40 @@ class Component extends DCLogic {
     }));
     const bpEchoFold = bpEchoes.length > 3;
     const bpEchoOpen = !bpEchoFold || S.bpEchoOpen;
+    // Every step of the change goes to build at once, each landing on its own clock — the slow one
+    // is named up front, so its ring still turning after the others land reads as depth, not a hang.
+    const bpFire = () => {
+      this.setState({ bpBuild: Object.fromEntries(CHANGE_PLAN.map(s => [s.n, 'busy'])), bpBuildAt: {} });
+      CHANGE_PLAN.forEach(s => {
+        s.build.doing.forEach((_, j) => j && this.timers.push(setTimeout(() =>
+          this.setState(p => p.bpBuild[s.n] === 'busy' ? { bpBuildAt: { ...p.bpBuildAt, [s.n]: j } } : null),
+          Math.round(s.build.ms * j / s.build.doing.length))));
+        this.timers.push(setTimeout(() => this.setState(p => {
+          const b = { ...p.bpBuild, [s.n]: 'done' };
+          return { bpBuild: b, bpChangeApplied: p.bpChangeApplied || CHANGE_PLAN.every(x => b[x.n] === 'done') };
+        }), s.build.ms));
+      });
+    };
+    // Settling an answer, from the walk or from the plan. On the change plan the last one owed does
+    // not wait for a Build press — it fires the build, the way the last card does on the first plan.
+    const bpSettle = (id, idx, extra) => e => {
+      const el = e && e.currentTarget; if (el && el.blur) el.blur();
+      const next = { ...S.bpAns, [id]: idx };
+      this.setState({ bpAns: next, ...extra });
+      const all = bpWalk.every(w => next[w.id] !== undefined && next[w.id] !== null);
+      if (bpChangeMode && all && !(extra && extra.bpCredAsk)
+        && !S.bpChangeApplied && !Object.keys(S.bpBuild).length) bpFire();
+    };
     // Choosing the real connection (option 1) on an Integration question opens the credentials
     // follow-up in the Chat walk; any other choice clears a follow-up left on that same question.
     const bpChoose = (id, idx) => {
       const w = bpById[id];
       const real = w && w.tag === 'Integration' && idx === 1 && w.creds.length > 0;
-      return leave({ bpAns: { ...S.bpAns, [id]: idx },
-        bpCredAsk: real ? id : (S.bpCredAsk === id ? null : S.bpCredAsk) });
+      return bpSettle(id, idx, { bpCredAsk: real ? id : (S.bpCredAsk === id ? null : S.bpCredAsk) });
     };
     // The Plan detail pane answers in place: the credentials show inline under the option, so it
     // never opens the walk's blocking follow-up (and clears one if it was left on this question).
-    const bpChoosePlan = (id, idx) => leave({ bpAns: { ...S.bpAns, [id]: idx },
-      bpCredAsk: S.bpCredAsk === id ? null : S.bpCredAsk });
+    const bpChoosePlan = (id, idx) => bpSettle(id, idx, { bpCredAsk: S.bpCredAsk === id ? null : S.bpCredAsk });
     // The Plan has no iframe to read into — the element is in this document. The overlay is what
     // the pointer actually hits, so it steps aside for the one hit test and goes straight back.
     // Coordinates are the plan's own content box, which is what scrolls: the pins ride with it.
@@ -5340,19 +5538,23 @@ class Component extends DCLogic {
     // Green + a tick means BUILT, never merely settled — a decided step that nothing has been made
     // from yet reads slate, or the plan looks implemented before Build is pressed.
     const bpBuilt = bpNoConvo || (bpChangeMode && S.bpChangeApplied);
+    // Mid-build a step is its own: green the moment ITS row lands, blue while it is still on.
+    const bpBdAny = bpChangeMode && Object.keys(S.bpBuild).length > 0;
+    const bpBusyN = n => bpChangeMode && S.bpBuild[n] === 'busy';
+    const bpDoneN = n => bpBuilt || (bpChangeMode && S.bpBuild[n] === 'done');
     // A step's dot fills once it owes nothing; the "current" step is the one the walk is on.
     const bpCardSteps = P_PLAN.map((s, i) => {
       const owed = bpStepOwed(s.n);
       const settled = owed === 0 && ((P_Q[s.n] || []).length > 0 || bpChangeMode);
-      const done = settled && bpBuilt;
-      const current = bpCur && bpCur.step === s.n;
+      const done = settled && bpDoneN(s.n);
+      const current = (bpCur && bpCur.step === s.n) || bpBusyN(s.n);
       return {
         title: P_SHORT[i],
-        tickBg: done ? '#2ea86a' : (settled ? '#5c6975' : (current ? '#4d97ea' : '#33404d')),
+        tickBg: done ? '#2ea86a' : (current ? '#4d97ea' : (settled ? '#5c6975' : '#33404d')),
         dotBg: done ? '#2ea86a' : (settled ? '#33404d' : 'transparent'),
-        dotBorder: done ? '#2ea86a' : (settled ? '#4a5764' : (current ? '#4d97ea' : '#3a4650')),
+        dotBorder: done ? '#2ea86a' : (current ? '#4d97ea' : (settled ? '#4a5764' : '#3a4650')),
         dotGlyphShow: done ? 'inline-flex' : 'none',
-        titleColor: settled ? '#c3cdd7' : (current ? '#f5f9fc' : '#8b98a5')
+        titleColor: current ? '#f5f9fc' : (settled ? '#c3cdd7' : '#8b98a5')
       };
     });
 
@@ -5362,8 +5564,9 @@ class Component extends DCLogic {
       const pal = Component.TAGS[s.tag] || Component.TAGS.HUMAN;
       const owed = bpStepOwed(s.n);
       const settled = owed === 0 && ((P_Q[s.n] || []).length > 0 || bpChangeMode);
-      const done = settled && bpBuilt;
-      const current = bpCur && bpCur.step === s.n;
+      const done = settled && bpDoneN(s.n);
+      const busy = bpBusyN(s.n);
+      const current = (bpCur && bpCur.step === s.n) || busy;
       return {
         n: s.n, title: P_SHORT[i], desc: P_DESC[i], barColor: pal[0],
         open: bpOpenN === s.n,
@@ -5371,7 +5574,7 @@ class Component extends DCLogic {
         // The connector dot: green + tick only once built, slate when merely settled, a person
         // glyph on the last step like the dispute.
         dotBg: done ? '#2ea86a' : (settled ? '#33404d' : 'transparent'),
-        dotBorder: done ? '#2ea86a' : (settled ? '#4a5764' : (current ? '#4d97ea' : '#3a4650')),
+        dotBorder: done ? '#2ea86a' : (current ? '#4d97ea' : (settled ? '#4a5764' : '#3a4650')),
         dotGlyph: done ? 'ph-check' : (s.n === 11 ? 'ph-user' : ''),
         dotGlyphColor: done ? '#ffffff' : '#6b7783',
         dotGlyphShow: (done || s.n === 11) ? 'inline-flex' : 'none',
@@ -5383,15 +5586,15 @@ class Component extends DCLogic {
         // under the title as a plain line there.
         owedShow: owed > 0 && !bpOpenN ? 'inline-flex' : 'none',
         settledShow: (settled && !bpOpenN ? 'inline-flex' : 'none'),
-        settledLabel: done ? 'built' : 'settled',
-        settledColor: done ? '#2ea86a' : '#8b98a5',
-        settledBg: done ? 'rgba(46, 168, 106, 0.10)' : 'rgba(139, 152, 165, 0.08)',
-        settledBorder: done ? 'rgba(46, 168, 106, 0.30)' : 'rgba(139, 152, 165, 0.26)',
+        settledLabel: done ? 'built' : (busy ? 'building' : 'settled'),
+        settledColor: done ? '#2ea86a' : (busy ? '#4d97ea' : '#8b98a5'),
+        settledBg: done ? 'rgba(46, 168, 106, 0.10)' : (busy ? 'rgba(43, 127, 228, 0.10)' : 'rgba(139, 152, 165, 0.08)'),
+        settledBorder: done ? 'rgba(46, 168, 106, 0.30)' : (busy ? 'rgba(43, 127, 228, 0.32)' : 'rgba(139, 152, 165, 0.26)'),
         settledGlyphShow: done ? 'inline-flex' : 'none',
         subShow: bpOpenN && (owed > 0 || settled) ? 'flex' : 'none',
-        subText: owed > 0 ? (owed === 1 ? '1 to settle' : owed + ' to settle') : (done ? 'built' : 'settled'),
+        subText: owed > 0 ? (owed === 1 ? '1 to settle' : owed + ' to settle') : (done ? 'built' : (busy ? 'building' : 'settled')),
         subGlyph: owed > 0 ? 'ph-question-mark' : 'ph-check',
-        subColor: owed > 0 ? '#e6a34a' : (done ? '#2ea86a' : '#8b98a5'),
+        subColor: owed > 0 ? '#e6a34a' : (done ? '#2ea86a' : (busy ? '#4d97ea' : '#8b98a5')),
         rowBg: bpOpenN === s.n ? '#131d26' : 'transparent'
       };
     });
@@ -5968,7 +6171,8 @@ class Component extends DCLogic {
         // agentic-funds is the already-built solution — land on the Canvas, every original answer
         // settled, no conversation open. Both branches reset the change scenario so the two never bleed.
         act: leave(Object.assign({ bpBranch: b[0], bpNav: null, bpStep: 0,
-          bpChangeSent: false, bpChangeApplied: false, bpComposeArmed: false },
+          bpChangeSent: false, bpChangeApplied: false, bpComposeArmed: false,
+          bpBuild: {}, bpBuildAt: {} },
           b[0] === 'agentic-funds' ? { bpTab: 'canvas', bpAns: bpBuiltAns } : { bpAns: {} })),
       })),
       // The Test run tab is the attached happy-path prototype, served beside this file; the Canvas
@@ -5984,7 +6188,10 @@ class Component extends DCLogic {
       bpBrief: bpChangeMode
         ? 'Replace the risk profiling questionnaire with a risk profiling agent that estimates the client’s risk appetite from portfolio + KYC, and let the advisor confirm it.'
         : 'Build the AI Investment Assistant for Triglav — portfolio, risk, an AI fund allocation, KYC, documents, a BetrSign signature, a summary.',
-      bpCardLedger: bpRemain === 0 ? 'Nothing built yet · all settled' : ('Nothing built yet · ' + bpRemain + ' to settle'),
+      bpCardLedger: (bpChangeMode
+        ? (S.bpChangeApplied ? 'Change applied · ' : (bpBdAny ? 'Building · ' : 'Change not applied · '))
+        : 'Nothing built yet · ')
+        + (bpRemain === 0 ? 'all settled' : bpRemain + ' to settle'),
       bpCardSteps: bpCardSteps,
       // Answered questions, folded to echo lines, in walk order — see bpEchoRows for what shows.
       bpEchoes: bpEchoes,
@@ -5999,8 +6206,29 @@ class Component extends DCLogic {
       bpEchoCaret: S.bpEchoOpen ? 'ph-caret-up' : 'ph-caret-down',
       bpEchoToggle: leave({ bpEchoOpen: !S.bpEchoOpen }),
       bpCurShow: !!bpCur && !S.bpCredAsk && !bpNoConvo,
-      bpWalkDone: !bpCur && !S.bpCredAsk && !bpNoConvo,
+      // On the change plan the last answer starts the build, so the build turn IS the closing turn.
+      bpWalkDone: !bpCur && !S.bpCredAsk && !bpNoConvo && !bpChangeMode,
       bpCurN: Math.min(bpAnsList.length + 1, bpTotal) + ' of ' + bpTotal,
+      // ── The change build, in the conversation ───────────────────────────
+      // One live row per step: a turning ring and a bar over the step's real clock while it builds,
+      // a note saying what it is on right now, a check when it lands.
+      bpBdShow: bpBdAny,
+      bpBdLead: 'That was the last one — building all three steps now.'
+        + (CHANGE_PLAN[0].build.deep ? ' ' + CHANGE_PLAN[0].build.deep : ''),
+      bpBdRows: CHANGE_PLAN.map((s, i) => ({
+        title: 'Step ' + s.n + ' · ' + CHANGE_SHORT[i],
+        busy: S.bpBuild[s.n] === 'busy',
+        done: S.bpBuild[s.n] === 'done',
+        note: S.bpBuild[s.n] === 'busy' ? s.build.doing[S.bpBuildAt[s.n] || 0] : '',
+        // The twin fades alternate by note index so every swap restarts one of them.
+        noteAnim: (S.bpBuildAt[s.n] || 0) % 2 ? 'note-in-b' : 'note-in-a',
+        ms: s.build.ms + 'ms',
+        sub: S.bpBuild[s.n] === 'busy' ? '1fr' : '0fr',
+        subOp: S.bpBuild[s.n] === 'busy' ? '1' : '0',
+        color: S.bpBuild[s.n] === 'done' ? '#c3cdd7' : '#8b98a5'
+      })),
+      bpBdDoneShow: bpBdAny && S.bpChangeApplied,
+      bpBdDone: 'All three are in — the model is at v2. The risk profiling agent is live and the questionnaire is gone; the one thing left is to see it run.',
       // The credentials follow-up, shown in the Chat walk after picking a real connection.
       bpCredShow: !!bpCredW,
       bpCredSystem: bpCredW ? bpCredW.system : '',
@@ -6020,7 +6248,7 @@ class Component extends DCLogic {
       // ── The Plan tab: spine + open-step detail pane ──────────────────────
       bpPlanLedger: bpOpenN >= 1
         ? (bpRemain === 0 ? 'all settled' : '? ' + bpRemain + ' to settle')
-        : ((bpNoConvo ? 'Built and live · ' : (bpChangeMode ? (S.bpChangeApplied ? 'Change applied · ' : 'Change not applied · ') : 'Nothing built yet · '))
+        : ((bpNoConvo ? 'Built and live · ' : (bpChangeMode ? (S.bpChangeApplied ? 'Change applied · ' : (bpBdAny ? 'Building · ' : 'Change not applied · ')) : 'Nothing built yet · '))
           + (bpRemain === 0 ? 'all settled' : '? ' + bpRemain + ' to settle')),
       bpSpine: bpSpine,
       // The roll-up: everything the plan creates / edits / deletes, folded away until asked for.
@@ -6050,13 +6278,17 @@ class Component extends DCLogic {
       bpChangeMode: bpChangeMode,
       bpPlanTitle: bpChangeMode ? 'Change plan' : 'The plan',
       bpChangeApplied: bpChangeMode && S.bpChangeApplied,
-      bpChangeBuildShow: bpChangeMode && !S.bpChangeApplied ? 'flex' : 'none',
-      bpChangeBuildAct: bpRemain === 0 ? leave({ bpChangeApplied: true, bpStep: 0 }) : (() => {}),
+      // The button is the standing offer while questions are owed; the last answer takes it up
+      // itself, so once the build is running there is nothing left for it to do.
+      bpChangeBuildShow: bpChangeMode && !S.bpChangeApplied && !bpBdAny ? 'flex' : 'none',
+      bpChangeBuildAct: bpRemain === 0
+        ? (e => { const el = e && e.currentTarget; if (el && el.blur) el.blur(); bpFire(); })
+        : (() => {}),
       bpChangeBuildBg: bpRemain === 0 ? '#2b7fe4' : '#131c24',
       bpChangeBuildColor: bpRemain === 0 ? '#ffffff' : '#6b7783',
       bpChangeBuildBorder: bpRemain === 0 ? 'transparent' : '#26313d',
       bpChangeBuildCursor: bpRemain === 0 ? 'pointer' : 'default',
-      bpChangeBuildFact: bpRemain === 0 ? 'All settled — Build applies the change to the model.' : (bpRemain === 1 ? '1 still to settle before I can build it.' : bpRemain + ' still to settle before I can build it.'),
+      bpChangeBuildFact: bpRemain === 0 ? 'All settled — Build implements the three steps.' : (bpRemain === 1 ? '1 still to settle before I can build it.' : bpRemain + ' still to settle before I can build it.'),
       bpChangeAppliedShow: bpChangeMode && S.bpChangeApplied ? 'flex' : 'none',
       // On agentic-funds the composer holds the staged change request — but only once it is
       // selected: unclicked it is an empty prompt, clicking it types the request in.
@@ -6070,7 +6302,8 @@ class Component extends DCLogic {
       bpComposeCursor: bpArmed ? 'pointer' : 'default',
       bpComposeBoxCursor: bpNoConvo && !bpArmed ? 'text' : 'default',
       bpComposeSend: bpArmed
-        ? leave({ bpChangeSent: true, bpComposeArmed: false, bpTab: 'plan', bpStep: 0, bpAns: {}, bpChangeApplied: false })
+        ? leave({ bpChangeSent: true, bpComposeArmed: false, bpTab: 'plan', bpStep: 0, bpAns: {},
+          bpChangeApplied: false, bpBuild: {}, bpBuildAt: {} })
         : (() => {}),
 
       // ── Canvas: the poster, + the systems list Share ▸ review opens over it ──
