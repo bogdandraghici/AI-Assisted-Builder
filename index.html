@@ -2615,7 +2615,7 @@
                       <div style="display: {{ sp.subShow }}; align-items: center; gap: 4px; margin-top: 3px; font: 400 10px/14px ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; color: {{ sp.subColor }};"><i class="ph {{ sp.subGlyph }}" style="font-size: 10px;"></i>{{ sp.subText }}</div>
                     </div>
                     <div style="display: {{ sp.owedShow }}; align-items: center; font: 600 10px/16px ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; color: #e6a34a; background: rgba(230, 163, 74, 0.10); border: 1px solid rgba(230, 163, 74, 0.30); border-radius: 99px; padding: 2px 9px; flex: none; white-space: nowrap;">{{ sp.owedText }}</div>
-                    <div style="display: {{ sp.settledShow }}; align-items: center; gap: 4px; font: 600 10px/16px ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; color: #2ea86a; background: rgba(46, 168, 106, 0.10); border: 1px solid rgba(46, 168, 106, 0.30); border-radius: 99px; padding: 2px 9px; flex: none; white-space: nowrap;"><i class="ph ph-check" style="font-size: 11px;"></i>settled</div>
+                    <div style="display: {{ sp.settledShow }}; align-items: center; gap: 4px; font: 600 10px/16px ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; color: {{ sp.settledColor }}; background: {{ sp.settledBg }}; border: 1px solid {{ sp.settledBorder }}; border-radius: 99px; padding: 2px 9px; flex: none; white-space: nowrap;"><i class="ph ph-check" style="font-size: 11px; display: {{ sp.settledGlyphShow }};"></i>{{ sp.settledLabel }}</div>
                   </div>
                 </div>
                 </sc-for>
@@ -5337,17 +5337,21 @@ class Component extends DCLogic {
     // The Chat asks the first still-owed question; null once every one is settled.
     const bpCur = bpWalk.find(w => !bpIsAns(w.id)) || null;
     const bpCurTag = bpCur ? (BPQTAG[bpCur.tag] || Component.TAGS.HUMAN) : ['', ''];
+    // Green + a tick means BUILT, never merely settled — a decided step that nothing has been made
+    // from yet reads slate, or the plan looks implemented before Build is pressed.
+    const bpBuilt = bpNoConvo || (bpChangeMode && S.bpChangeApplied);
     // A step's dot fills once it owes nothing; the "current" step is the one the walk is on.
     const bpCardSteps = P_PLAN.map((s, i) => {
       const owed = bpStepOwed(s.n);
       const settled = owed === 0 && ((P_Q[s.n] || []).length > 0 || bpChangeMode);
+      const done = settled && bpBuilt;
       const current = bpCur && bpCur.step === s.n;
       return {
         title: P_SHORT[i],
-        tickBg: settled ? '#2ea86a' : (current ? '#4d97ea' : '#33404d'),
-        dotBg: settled ? '#2ea86a' : 'transparent',
-        dotBorder: settled ? '#2ea86a' : (current ? '#4d97ea' : '#3a4650'),
-        dotGlyphShow: settled ? 'inline-flex' : 'none',
+        tickBg: done ? '#2ea86a' : (settled ? '#5c6975' : (current ? '#4d97ea' : '#33404d')),
+        dotBg: done ? '#2ea86a' : (settled ? '#33404d' : 'transparent'),
+        dotBorder: done ? '#2ea86a' : (settled ? '#4a5764' : (current ? '#4d97ea' : '#3a4650')),
+        dotGlyphShow: done ? 'inline-flex' : 'none',
         titleColor: settled ? '#c3cdd7' : (current ? '#f5f9fc' : '#8b98a5')
       };
     });
@@ -5358,17 +5362,19 @@ class Component extends DCLogic {
       const pal = Component.TAGS[s.tag] || Component.TAGS.HUMAN;
       const owed = bpStepOwed(s.n);
       const settled = owed === 0 && ((P_Q[s.n] || []).length > 0 || bpChangeMode);
+      const done = settled && bpBuilt;
       const current = bpCur && bpCur.step === s.n;
       return {
         n: s.n, title: P_SHORT[i], desc: P_DESC[i], barColor: pal[0],
         open: bpOpenN === s.n,
         toggle: leave({ bpStep: bpOpenN === s.n ? 0 : s.n }),
-        // The connector dot: filled green when settled, a person glyph on the last step like the dispute.
-        dotBg: settled ? '#2ea86a' : 'transparent',
-        dotBorder: settled ? '#2ea86a' : (current ? '#4d97ea' : '#3a4650'),
-        dotGlyph: settled ? 'ph-check' : (s.n === 11 ? 'ph-user' : ''),
-        dotGlyphColor: settled ? '#ffffff' : '#6b7783',
-        dotGlyphShow: (settled || s.n === 11) ? 'inline-flex' : 'none',
+        // The connector dot: green + tick only once built, slate when merely settled, a person
+        // glyph on the last step like the dispute.
+        dotBg: done ? '#2ea86a' : (settled ? '#33404d' : 'transparent'),
+        dotBorder: done ? '#2ea86a' : (settled ? '#4a5764' : (current ? '#4d97ea' : '#3a4650')),
+        dotGlyph: done ? 'ph-check' : (s.n === 11 ? 'ph-user' : ''),
+        dotGlyphColor: done ? '#ffffff' : '#6b7783',
+        dotGlyphShow: (done || s.n === 11) ? 'inline-flex' : 'none',
         titleColor: current ? '#f5f9fc' : '#e7edf2',
         owed: owed,
         owedText: owed === 1 ? '? 1 to settle' : '? ' + owed + ' to settle',
@@ -5377,10 +5383,15 @@ class Component extends DCLogic {
         // under the title as a plain line there.
         owedShow: owed > 0 && !bpOpenN ? 'inline-flex' : 'none',
         settledShow: (settled && !bpOpenN ? 'inline-flex' : 'none'),
+        settledLabel: done ? 'built' : 'settled',
+        settledColor: done ? '#2ea86a' : '#8b98a5',
+        settledBg: done ? 'rgba(46, 168, 106, 0.10)' : 'rgba(139, 152, 165, 0.08)',
+        settledBorder: done ? 'rgba(46, 168, 106, 0.30)' : 'rgba(139, 152, 165, 0.26)',
+        settledGlyphShow: done ? 'inline-flex' : 'none',
         subShow: bpOpenN && (owed > 0 || settled) ? 'flex' : 'none',
-        subText: owed > 0 ? (owed === 1 ? '1 to settle' : owed + ' to settle') : 'settled',
+        subText: owed > 0 ? (owed === 1 ? '1 to settle' : owed + ' to settle') : (done ? 'built' : 'settled'),
         subGlyph: owed > 0 ? 'ph-question-mark' : 'ph-check',
-        subColor: owed > 0 ? '#e6a34a' : '#2ea86a',
+        subColor: owed > 0 ? '#e6a34a' : (done ? '#2ea86a' : '#8b98a5'),
         rowBg: bpOpenN === s.n ? '#131d26' : 'transparent'
       };
     });
