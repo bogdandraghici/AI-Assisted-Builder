@@ -2203,7 +2203,10 @@
               </div>
             </div>
 
-<!-- Agent · the lead -->
+</sc-if>
+<!-- Agent · the lead. Its own gate: on a change request it arrives a beat after the send, so the
+     dots below stand alone while the agent is reading. -->
+<sc-if value="{{ bpLeadShow }}" hint-placeholder-val="{{ true }}">
             <div style="display: flex; gap: 12px; align-items: flex-start;">
               <div style="flex: none; width: 28px; height: 28px; border-radius: 99px; border: 1px solid #26313d; background: #101820; display: grid; place-items: center;"><img src="assets/flowx-mark-white.svg" alt="" style="height: 13px; width: auto;" /></div>
               <div style="min-width: 0; flex: 1;">
@@ -2236,6 +2239,18 @@
             </div>
 </sc-if>
 
+<!-- The beat before the agent's next turn: the dots ARE the turn while it is thinking, so nothing
+     below them may be up at the same time. -->
+<sc-if value="{{ bpThinkShow }}" hint-placeholder-val="{{ false }}">
+            <div style="display: flex; gap: 12px; align-items: flex-start;">
+              <div style="flex: none; width: 28px; height: 28px; border-radius: 99px; border: 1px solid #26313d; background: #101820; display: grid; place-items: center;"><img src="assets/flowx-mark-white.svg" alt="" style="height: 13px; width: auto;" /></div>
+              <div style="display: flex; align-items: center; gap: 5px; height: 28px;">
+                <div style="width: 6px; height: 6px; border-radius: 99px; background: #8b98a5; animation: ask-think 1200ms ease-in-out infinite;"></div>
+                <div style="width: 6px; height: 6px; border-radius: 99px; background: #8b98a5; animation: ask-think 1200ms ease-in-out 150ms infinite;"></div>
+                <div style="width: 6px; height: 6px; border-radius: 99px; background: #8b98a5; animation: ask-think 1200ms ease-in-out 300ms infinite;"></div>
+              </div>
+            </div>
+</sc-if>
 <!-- The current question. -->
 <sc-if value="{{ bpCurShow }}" hint-placeholder-val="{{ true }}">
             <div style="display: flex; gap: 12px; align-items: flex-start;">
@@ -2399,7 +2414,10 @@
                 <div style="margin-top: 5px; font: 400 13px/21px 'Open Sans', sans-serif; color: #e7edf2; text-wrap: pretty;">{{ bpBrief }}</div>
               </div>
             </div>
-<!-- Agent · the lead -->
+</sc-if>
+<!-- Agent · the lead. Its own gate: on a change request it arrives a beat after the send, so the
+     dots below stand alone while the agent is reading. -->
+<sc-if value="{{ bpLeadShow }}" hint-placeholder-val="{{ true }}">
             <div style="display: flex; gap: 10px; align-items: flex-start;">
               <div style="flex: none; width: 24px; height: 24px; border-radius: 99px; border: 1px solid #26313d; background: #101820; display: grid; place-items: center;"><img src="assets/flowx-mark-white.svg" alt="" style="height: 11px; width: auto;" /></div>
               <div style="min-width: 0; flex: 1;">
@@ -2423,6 +2441,18 @@
                 <div style="min-width: 0; font: 400 11px/16px 'Open Sans', sans-serif; color: #c3cdd7; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;">— {{ e.answer }}</div>
               </div>
               </sc-for>
+            </div>
+</sc-if>
+<!-- The beat before the agent's next turn: the dots ARE the turn while it is thinking, so nothing
+     below them may be up at the same time. -->
+<sc-if value="{{ bpThinkShow }}" hint-placeholder-val="{{ false }}">
+            <div style="display: flex; gap: 10px; align-items: flex-start;">
+              <div style="flex: none; width: 24px; height: 24px; border-radius: 99px; border: 1px solid #26313d; background: #101820; display: grid; place-items: center;"><img src="assets/flowx-mark-white.svg" alt="" style="height: 11px; width: auto;" /></div>
+              <div style="display: flex; align-items: center; gap: 4px; height: 24px;">
+                <div style="width: 5px; height: 5px; border-radius: 99px; background: #8b98a5; animation: ask-think 1200ms ease-in-out infinite;"></div>
+                <div style="width: 5px; height: 5px; border-radius: 99px; background: #8b98a5; animation: ask-think 1200ms ease-in-out 150ms infinite;"></div>
+                <div style="width: 5px; height: 5px; border-radius: 99px; background: #8b98a5; animation: ask-think 1200ms ease-in-out 300ms infinite;"></div>
+              </div>
             </div>
 </sc-if>
 <!-- The current question. -->
@@ -2900,7 +2930,10 @@
                 <div style="margin-top: 5px; font: 400 13px/21px 'Open Sans', sans-serif; color: #e7edf2; text-wrap: pretty;">{{ bpBrief }}</div>
               </div>
             </div>
-<!-- Agent · the lead -->
+</sc-if>
+<!-- Agent · the lead. Its own gate: on a change request it arrives a beat after the send, so the
+     dots below stand alone while the agent is reading. -->
+<sc-if value="{{ bpLeadShow }}" hint-placeholder-val="{{ true }}">
             <div style="display: flex; gap: 10px; align-items: flex-start;">
               <div style="flex: none; width: 24px; height: 24px; border-radius: 99px; border: 1px solid #26313d; background: #101820; display: grid; place-items: center;"><img src="assets/flowx-mark-white.svg" alt="" style="height: 11px; width: auto;" /></div>
               <div style="min-width: 0; flex: 1;">
@@ -2924,6 +2957,18 @@
                 <div style="min-width: 0; font: 400 11px/16px 'Open Sans', sans-serif; color: #c3cdd7; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;">— {{ e.answer }}</div>
               </div>
               </sc-for>
+            </div>
+</sc-if>
+<!-- The beat before the agent's next turn: the dots ARE the turn while it is thinking, so nothing
+     below them may be up at the same time. -->
+<sc-if value="{{ bpThinkShow }}" hint-placeholder-val="{{ false }}">
+            <div style="display: flex; gap: 10px; align-items: flex-start;">
+              <div style="flex: none; width: 24px; height: 24px; border-radius: 99px; border: 1px solid #26313d; background: #101820; display: grid; place-items: center;"><img src="assets/flowx-mark-white.svg" alt="" style="height: 11px; width: auto;" /></div>
+              <div style="display: flex; align-items: center; gap: 4px; height: 24px;">
+                <div style="width: 5px; height: 5px; border-radius: 99px; background: #8b98a5; animation: ask-think 1200ms ease-in-out infinite;"></div>
+                <div style="width: 5px; height: 5px; border-radius: 99px; background: #8b98a5; animation: ask-think 1200ms ease-in-out 150ms infinite;"></div>
+                <div style="width: 5px; height: 5px; border-radius: 99px; background: #8b98a5; animation: ask-think 1200ms ease-in-out 300ms infinite;"></div>
+              </div>
             </div>
 </sc-if>
 <!-- The walk, verbatim from the other rails — a tab is a view, never a different conversation. -->
@@ -3140,7 +3185,10 @@
                 <div style="margin-top: 5px; font: 400 13px/21px 'Open Sans', sans-serif; color: #e7edf2; text-wrap: pretty;">{{ bpBrief }}</div>
               </div>
             </div>
-<!-- Agent · the lead -->
+</sc-if>
+<!-- Agent · the lead. Its own gate: on a change request it arrives a beat after the send, so the
+     dots below stand alone while the agent is reading. -->
+<sc-if value="{{ bpLeadShow }}" hint-placeholder-val="{{ true }}">
             <div style="display: flex; gap: 10px; align-items: flex-start;">
               <div style="flex: none; width: 24px; height: 24px; border-radius: 99px; border: 1px solid #26313d; background: #101820; display: grid; place-items: center;"><img src="assets/flowx-mark-white.svg" alt="" style="height: 11px; width: auto;" /></div>
               <div style="min-width: 0; flex: 1;">
@@ -3164,6 +3212,18 @@
                 <div style="min-width: 0; font: 400 11px/16px 'Open Sans', sans-serif; color: #c3cdd7; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;">— {{ e.answer }}</div>
               </div>
               </sc-for>
+            </div>
+</sc-if>
+<!-- The beat before the agent's next turn: the dots ARE the turn while it is thinking, so nothing
+     below them may be up at the same time. -->
+<sc-if value="{{ bpThinkShow }}" hint-placeholder-val="{{ false }}">
+            <div style="display: flex; gap: 10px; align-items: flex-start;">
+              <div style="flex: none; width: 24px; height: 24px; border-radius: 99px; border: 1px solid #26313d; background: #101820; display: grid; place-items: center;"><img src="assets/flowx-mark-white.svg" alt="" style="height: 11px; width: auto;" /></div>
+              <div style="display: flex; align-items: center; gap: 4px; height: 24px;">
+                <div style="width: 5px; height: 5px; border-radius: 99px; background: #8b98a5; animation: ask-think 1200ms ease-in-out infinite;"></div>
+                <div style="width: 5px; height: 5px; border-radius: 99px; background: #8b98a5; animation: ask-think 1200ms ease-in-out 150ms infinite;"></div>
+                <div style="width: 5px; height: 5px; border-radius: 99px; background: #8b98a5; animation: ask-think 1200ms ease-in-out 300ms infinite;"></div>
+              </div>
             </div>
 </sc-if>
 <!-- The walk, verbatim from the other rails — a tab is a view, never a different conversation. -->
@@ -3698,6 +3758,10 @@ class Component extends DCLogic {
       // step's `doing` notes its row is on. The last row landing IS the change applied.
       bpBuild: {},
       bpBuildAt: {},
+      // The beats the agent takes: reading the sent request (the plan arrives at the end of it),
+      // and the pause before each next turn. Dots stand in for the turn that is coming.
+      bpSending: false,
+      bpThink: false,
       // The staged request is typed by selecting the composer, never sitting there pre-filled.
       bpComposeArmed: false,
       // Canvas tab: the poster (map) or the solution model list (source of truth), + the model filter.
@@ -5408,12 +5472,18 @@ class Component extends DCLogic {
       ],
       3: []
     };
+    // Counted here, not off bpWalk: the lead is written during the beat where the plan is still the
+    // old one, so bpTotal is the wrong number to quote.
+    const CHANGE_TOTAL = Object.keys(CHANGE_Q).reduce((a, k) => a + CHANGE_Q[k].length, 0);
     const CHANGE_SHORT = ['Add Risk profiling agent', 'Modify AI allocation — new risk source', 'Remove Risk profiling screen'];
     const CHANGE_DESC = [
       'Estimates the client’s risk appetite from portfolio + KYC; the advisor confirms.',
       'Reads the agent’s confirmed band instead of the questionnaire result.',
       'The 4-part questionnaire screen is dropped from the wizard.'];
-    const bpChangeMode = S.buildplan && S.bpBranch === 'agentic-funds' && S.bpChangeSent;
+    // The conversation carries the change from the moment Send lands; the PLAN only swaps once the
+    // agent has read it — for the beat in between, what is on screen is still the built solution.
+    const bpChangeConvo = S.buildplan && S.bpBranch === 'agentic-funds' && S.bpChangeSent;
+    const bpChangeMode = bpChangeConvo && !S.bpSending;
     // agentic-funds before Send: the solution exists, no conversation does — the chat is empty
     // everywhere and the original plan reads as built (bpAns pre-filled on branch switch).
     const bpNoConvo = S.buildplan && S.bpBranch === 'agentic-funds' && !S.bpChangeSent;
@@ -5462,13 +5532,21 @@ class Component extends DCLogic {
     };
     // Settling an answer, from the walk or from the plan. On the change plan the last one owed does
     // not wait for a Build press — it fires the build, the way the last card does on the first plan.
+    // Either way the next turn takes a beat: the answer lands as an echo, then the agent thinks.
     const bpSettle = (id, idx, extra) => e => {
       const el = e && e.currentTarget; if (el && el.blur) el.blur();
       const next = { ...S.bpAns, [id]: idx };
-      this.setState({ bpAns: next, ...extra });
+      // Only the change plan takes the beat: the 22-question walk on main is a long sit-down and
+      // pausing it four hundred times over is a different feeling entirely.
+      const beat = bpChangeMode && !(extra && extra.bpCredAsk);
+      this.setState({ bpAns: next, bpThink: beat, ...extra });
+      if (!beat) return;
       const all = bpWalk.every(w => next[w.id] !== undefined && next[w.id] !== null);
-      if (bpChangeMode && all && !(extra && extra.bpCredAsk)
-        && !S.bpChangeApplied && !Object.keys(S.bpBuild).length) bpFire();
+      const fire = all && !S.bpChangeApplied && !Object.keys(S.bpBuild).length;
+      this.timers.push(setTimeout(() => {
+        this.setState({ bpThink: false });
+        if (fire) bpFire();
+      }, 1400));
     };
     // Choosing the real connection (option 1) on an Integration question opens the credentials
     // follow-up in the Chat walk; any other choice clears a follow-up left on that same question.
@@ -5537,7 +5615,7 @@ class Component extends DCLogic {
     const bpCurTag = bpCur ? (BPQTAG[bpCur.tag] || Component.TAGS.HUMAN) : ['', ''];
     // Green + a tick means BUILT, never merely settled — a decided step that nothing has been made
     // from yet reads slate, or the plan looks implemented before Build is pressed.
-    const bpBuilt = bpNoConvo || (bpChangeMode && S.bpChangeApplied);
+    const bpBuilt = bpNoConvo || S.bpSending || (bpChangeMode && S.bpChangeApplied);
     // Mid-build a step is its own: green the moment ITS row lands, blue while it is still on.
     const bpBdAny = bpChangeMode && Object.keys(S.bpBuild).length > 0;
     const bpBusyN = n => bpChangeMode && S.bpBuild[n] === 'busy';
@@ -6172,7 +6250,7 @@ class Component extends DCLogic {
         // settled, no conversation open. Both branches reset the change scenario so the two never bleed.
         act: leave(Object.assign({ bpBranch: b[0], bpNav: null, bpStep: 0,
           bpChangeSent: false, bpChangeApplied: false, bpComposeArmed: false,
-          bpBuild: {}, bpBuildAt: {} },
+          bpBuild: {}, bpBuildAt: {}, bpSending: false, bpThink: false },
           b[0] === 'agentic-funds' ? { bpTab: 'canvas', bpAns: bpBuiltAns } : { bpAns: {} })),
       })),
       // The Test run tab is the attached happy-path prototype, served beside this file; the Canvas
@@ -6182,15 +6260,15 @@ class Component extends DCLogic {
 
       // ── The Chat tab's conversation + guided walk (bpAns-driven) ─────────
       bpTotal: bpTotal,
-      bpLead: bpChangeMode
-        ? ('A change to the live solution — remove the risk questionnaire, add a risk profiling agent, and point the AI allocation at it. ' + bpTotal + ' things to settle, then Build applies it.')
+      bpLead: bpChangeConvo
+        ? ('A change to the live solution — remove the risk questionnaire, add a risk profiling agent, and point the AI allocation at it. ' + CHANGE_TOTAL + ' things to settle — the moment the last one settles, I build all three steps.')
         : (bpTotal + ' questions to settle, across eleven steps. I will ask them here, one at a time — the moment the last one settles, I build the rest.'),
-      bpBrief: bpChangeMode
+      bpBrief: bpChangeConvo
         ? 'Replace the risk profiling questionnaire with a risk profiling agent that estimates the client’s risk appetite from portfolio + KYC, and let the advisor confirm it.'
         : 'Build the AI Investment Assistant for Triglav — portfolio, risk, an AI fund allocation, KYC, documents, a BetrSign signature, a summary.',
       bpCardLedger: (bpChangeMode
         ? (S.bpChangeApplied ? 'Change applied · ' : (bpBdAny ? 'Building · ' : 'Change not applied · '))
-        : 'Nothing built yet · ')
+        : (S.bpSending ? 'Built and live · ' : 'Nothing built yet · '))
         + (bpRemain === 0 ? 'all settled' : bpRemain + ' to settle'),
       bpCardSteps: bpCardSteps,
       // Answered questions, folded to echo lines, in walk order — see bpEchoRows for what shows.
@@ -6205,7 +6283,11 @@ class Component extends DCLogic {
       bpEchoFoldLabel: S.bpEchoOpen ? 'Fold the earlier answers' : (bpEchoes.length - 2) + ' earlier answers',
       bpEchoCaret: S.bpEchoOpen ? 'ph-caret-up' : 'ph-caret-down',
       bpEchoToggle: leave({ bpEchoOpen: !S.bpEchoOpen }),
-      bpCurShow: !!bpCur && !S.bpCredAsk && !bpNoConvo,
+      // The lead waits out the read; the dots stand where the turn is about to be, and the question
+      // may not be up behind them.
+      bpLeadShow: !bpNoConvo && !S.bpSending,
+      bpThinkShow: bpChangeConvo && (S.bpSending || S.bpThink),
+      bpCurShow: !!bpCur && !S.bpCredAsk && !bpNoConvo && !S.bpSending && !S.bpThink,
       // On the change plan the last answer starts the build, so the build turn IS the closing turn.
       bpWalkDone: !bpCur && !S.bpCredAsk && !bpNoConvo && !bpChangeMode,
       bpCurN: Math.min(bpAnsList.length + 1, bpTotal) + ' of ' + bpTotal,
@@ -6248,7 +6330,7 @@ class Component extends DCLogic {
       // ── The Plan tab: spine + open-step detail pane ──────────────────────
       bpPlanLedger: bpOpenN >= 1
         ? (bpRemain === 0 ? 'all settled' : '? ' + bpRemain + ' to settle')
-        : ((bpNoConvo ? 'Built and live · ' : (bpChangeMode ? (S.bpChangeApplied ? 'Change applied · ' : (bpBdAny ? 'Building · ' : 'Change not applied · ')) : 'Nothing built yet · '))
+        : (((bpNoConvo || S.bpSending) ? 'Built and live · ' : (bpChangeMode ? (S.bpChangeApplied ? 'Change applied · ' : (bpBdAny ? 'Building · ' : 'Change not applied · ')) : 'Nothing built yet · '))
           + (bpRemain === 0 ? 'all settled' : '? ' + bpRemain + ' to settle')),
       bpSpine: bpSpine,
       // The roll-up: everything the plan creates / edits / deletes, folded away until asked for.
@@ -6301,9 +6383,18 @@ class Component extends DCLogic {
       bpComposeSendColor: bpArmed ? '#4d97ea' : '#5c6975',
       bpComposeCursor: bpArmed ? 'pointer' : 'default',
       bpComposeBoxCursor: bpNoConvo && !bpArmed ? 'text' : 'default',
+      // Send is three beats, borrowed from the first builder's opener: the request lands as a turn
+      // and the agent reads it (2200), the plan arrives with the lead and it starts on the first
+      // question (1100 more), then the question is there. The tab only swaps when the plan exists.
       bpComposeSend: bpArmed
-        ? leave({ bpChangeSent: true, bpComposeArmed: false, bpTab: 'plan', bpStep: 0, bpAns: {},
-          bpChangeApplied: false, bpBuild: {}, bpBuildAt: {} })
+        ? (e => {
+          const el = e && e.currentTarget; if (el && el.blur) el.blur();
+          this.setState({ bpChangeSent: true, bpComposeArmed: false, bpStep: 0, bpAns: {},
+            bpChangeApplied: false, bpBuild: {}, bpBuildAt: {}, bpSending: true, bpThink: false });
+          this.timers.push(setTimeout(() =>
+            this.setState({ bpSending: false, bpThink: true, bpTab: 'plan' }), 2200));
+          this.timers.push(setTimeout(() => this.setState({ bpThink: false }), 3300));
+        })
         : (() => {}),
 
       // ── Canvas: the poster, + the systems list Share ▸ review opens over it ──
